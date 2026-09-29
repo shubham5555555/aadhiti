@@ -23,7 +23,7 @@ import {
   UtensilsCrossed,
   type LucideIcon,
 } from "lucide-react";
-import { WarliMarket } from "@/components/WarliArt";
+import { BigFigure } from "@/components/PageArt";
 import { useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
 
@@ -221,6 +221,11 @@ function scoreIdeas(answers: Record<string, Answer>) {
 }
 
 const copy = {
+  figureCaption: {
+    mr: "दरमहा, थेट बँक खात्यात. माझी लाडकी बहीण योजना, पात्रतेनुसार.",
+    en: "A month, straight into her bank account. Majhi Ladki Bahin, if eligible.",
+    hi: "हर महीने, सीधे बैंक खाते में। माझी लाडकी बहीण योजना, पात्रता के अनुसार।",
+  },
   eyebrow: { mr: "सरकारी योजना आणि महिलांसाठी सेवा", en: "Government schemes & women's services", hi: "सरकारी योजनाएँ और महिलाओं के लिए सेवाएँ" },
   title: { mr: "तुमच्या हक्काच्या योजना", en: "Schemes that are yours by right", hi: "आपके हक़ की योजनाएँ" },
   body: {
@@ -277,8 +282,8 @@ export default function SchemesPage() {
             ))}
           </ul>
         </div>
-        <figure className="mx-auto w-full max-w-[16rem] md:max-w-[20rem]">
-          <WarliMarket className="w-full text-leaf-600" />
+        <figure className="w-full">
+          <BigFigure value="₹1,500" caption={t(copy.figureCaption)} className="text-leaf-600" />
         </figure>
       </section>
 

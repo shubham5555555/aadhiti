@@ -5,8 +5,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowRight, Mic, PhoneCall } from "lucide-react";
 import SOSButton from "@/components/SOSButton";
-import { WarliScene } from "@/components/Warli";
-import { WarliAges, WarliCoast, WarliMotherDaughter, WarliPath, WarliTalk } from "@/components/WarliArt";
+import ScrollPan from "@/components/ScrollPan";
+import DangerBand from "@/components/home/DangerBand";
+import SafetySituations from "@/components/home/SafetySituations";
+import SafetyPlan from "@/components/home/SafetyPlan";
+import { WarliWalkHome, WarliWayHome } from "@/components/WarliArt";
 import { useLang } from "@/lib/i18n";
 import { chat, nav } from "@/lib/ui";
 import { helplines } from "@/lib/data";
@@ -68,14 +71,14 @@ const copy = {
   womenLink: { mr: "आरोग्य विभाग उघडा", en: "Open health", hi: "सेहत सेक्शन खोलें" },
   alsoTitle: { mr: "आणखी", en: "Also here", hi: "और भी" },
   coast: {
-    mr: "श्रीवर्धनच्या किनाऱ्यापासून, प्रत्येक घरापर्यंत.",
-    en: "From Shrivardhan's shore to every home.",
-    hi: "श्रीवर्धन के किनारे से, हर घर तक।",
+    mr: "प्रत्येक जणी सुरक्षित घरी पोहोचावी.",
+    en: "Every woman should reach home safely.",
+    hi: "हर महिला सुरक्षित घर पहुँचे।",
   },
   coastNote: {
-    mr: "कोळीवाडा, बागायत, बाजार, शाळा. जिथे ती आहे, तिथे AADHI TI.",
-    en: "The fishing wadi, the orchards, the market, the school. Wherever she is.",
-    hi: "कोळीवाड़ा, बाग़, बाज़ार, स्कूल। जहाँ वह है, वहाँ AADHI TI।",
+    mr: "ST मधून उतरल्यापासून घराच्या दारापर्यंत, AADHI TI सोबत.",
+    en: "From the bus stop to her own front door, AADHI TI walks with her.",
+    hi: "बस से उतरने से लेकर घर के दरवाज़े तक, AADHI TI साथ।",
   },
   numbersTitle: { mr: "महत्त्वाचे नंबर", en: "Numbers to keep", hi: "ज़रूरी नंबर" },
   numbersNote: { mr: "सगळे मोफत. आत्ताच फोनमध्ये save करून ठेवा.", en: "All free. Save them in your phone now.", hi: "सभी मुफ़्त। अभी फ़ोन में save कर लें।" },
@@ -89,9 +92,9 @@ const copy = {
 
 const also: { href: string; title: L; body: L }[] = [
   {
-    href: "/call?mode=fake",
-    title: { mr: "Fake call", en: "Fake call", hi: "Fake call" },
-    body: { mr: "अवघड जागेतून निघण्यासाठी 'आईचा' फोन.", en: "A call from 'Maa' to get you out of an awkward spot.", hi: "मुश्किल जगह से निकलने के लिए 'माँ' का फ़ोन।" },
+    href: "/call",
+    title: { mr: "सोबत कॉल", en: "Stay-on-call", hi: "साथ वाली कॉल" },
+    body: { mr: "रात्री घरी जाताना AADHI TI फोनवर सोबत राहते.", en: "AADHI TI stays on the line while you walk home at night.", hi: "रात में घर जाते समय AADHI TI फ़ोन पर साथ रहती है।" },
   },
   {
     href: "/everyday",
@@ -169,10 +172,13 @@ export default function Home() {
           </form>
         </div>
 
-        <figure className="mx-auto w-full max-w-[16rem] md:max-w-[22rem]">
-          <WarliScene className="w-full text-kokum-500" />
+        {/* Painted like a Warli wall: white on kokum, with a triangle border. */}
+        <figure className="warli-panel -mx-4 px-5 py-7 sm:mx-0">
+          <WarliWalkHome className="w-full" />
         </figure>
       </section>
+
+      <DangerBand />
 
       {/* The eight subjects, as the spec's numbered list */}
       <section className="border-b border-ink/10 py-12 md:py-16">
@@ -196,6 +202,9 @@ export default function Home() {
         </ol>
       </section>
 
+      <SafetySituations />
+      <SafetyPlan />
+
       {/* What others asked */}
       <section className="grid gap-8 border-b border-ink/10 py-12 md:grid-cols-[1fr_2fr] md:gap-10 md:py-16">
         <div>
@@ -215,7 +224,7 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <WarliTalk className="mt-10 hidden w-full max-w-[15rem] text-sea-600 md:block" />
+          <span aria-hidden className="mt-10 hidden font-serif text-[10rem] leading-[0.7] text-kokum-200 select-none md:block">“</span>
         </div>
         <ul key={tab} className="animate-fade-up border-t border-ink/15">
           {questions.map((tp) => (
@@ -237,7 +246,7 @@ export default function Home() {
         <div>
           <h2 className="font-serif text-3xl font-normal sm:text-[2.6rem] sm:leading-tight">{t(copy.howTitle)}</h2>
           <p className="mt-4 leading-relaxed text-ink-soft">{t(copy.howBody)}</p>
-          <WarliPath className="mt-8 w-full max-w-[17rem] text-kokum-500" />
+          <StepsDiagram labels={[t(chat.understand), t(chat.answer), t(chat.next)]} />
         </div>
         <div>
           <p className="font-serif text-2xl leading-snug text-ink italic sm:text-3xl">{t(copy.example)}</p>
@@ -261,7 +270,7 @@ export default function Home() {
       {/* Girls / women by age */}
       <section className="grid border-b border-ink/10 md:grid-cols-2">
         <div className="border-b border-ink/10 py-12 md:border-r md:border-b-0 md:pr-10">
-          <WarliMotherDaughter className="mb-6 w-full max-w-[13rem] text-turmeric-500" />
+          <p aria-hidden className="mb-4 font-serif text-[4.5rem] leading-none text-turmeric-500 tabular-nums">10–18</p>
           <h2 className="font-serif text-3xl font-normal">{t(copy.girlsTitle)}</h2>
           <p className="mt-3 max-w-md leading-relaxed text-ink-soft">{t(copy.girlsBody)}</p>
           <Link href="/chat?cat=g_growing" className={`mt-5 ${linkCls}`}>
@@ -269,7 +278,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="py-12 md:pl-10">
-          <WarliAges className="mb-6 w-full max-w-[13rem] text-leaf-600" />
+          <AgeRuler />
           <h2 className="font-serif text-3xl font-normal">{t(copy.womenTitle)}</h2>
           <p className="mt-3 max-w-md leading-relaxed text-ink-soft">{t(copy.womenBody)}</p>
           <Link href="/chat?cat=health" className={`mt-5 ${linkCls}`}>
@@ -278,9 +287,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Konkan coast mural: white paint on a geru (red earth) wall, as Warli is traditionally painted */}
-      <figure className="-mx-4 mt-12 bg-kokum-800 text-sand-50 sm:mx-0">
-        <WarliCoast className="h-44 w-full sm:h-60" />
+      {/* "The way home" mural: white Warli paint on kokum */}
+      <figure className="-mx-4 mt-12 bg-kokum-700 text-sand-50 sm:mx-0">
+        {/* On phones the journey pans with the page scroll, from the bus stop to the front door. */}
+        <ScrollPan>
+          <WarliWayHome className="h-44 w-[52rem] max-w-none sm:h-auto sm:w-full" />
+        </ScrollPan>
         <figcaption className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-white/10 px-5 py-4 sm:px-8">
           <span className="font-serif text-2xl sm:text-3xl">{t(copy.coast)}</span>
           <span className="text-sm text-kokum-100">{t(copy.coastNote)}</span>
@@ -352,6 +364,43 @@ export default function Home() {
           {t(nav.knowledge)}
         </Link>
       </p>
+    </div>
+  );
+}
+
+// Three linked points: understand → answer → next step.
+function StepsDiagram({ labels }: { labels: string[] }) {
+  const colors = ["bg-sea-600", "bg-leaf-600", "bg-kokum-600"];
+  return (
+    <ol aria-hidden className="relative mt-10 max-w-[16rem] space-y-6">
+      <span className="absolute top-3 bottom-3 left-[0.9rem] w-px bg-ink/20" />
+      {labels.map((l, i) => (
+        <li key={i} className="relative flex items-center gap-4">
+          <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full font-serif text-sm text-white ${colors[i]}`}>{i + 1}</span>
+          <span className="text-sm font-bold text-ink">{l}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+// A ruler marking the four adult life stages the health journeys cover.
+function AgeRuler() {
+  const marks = [18, 30, 40, 50];
+  return (
+    <div aria-hidden className="mb-6 max-w-[18rem]">
+      <div className="relative h-10 border-b-2 border-leaf-600">
+        {Array.from({ length: 13 }, (_, i) => (
+          <span key={i} className={`absolute bottom-0 w-px bg-leaf-600 ${i % 4 === 0 ? "h-4" : "h-2"}`} style={{ left: `${(i / 12) * 100}%` }} />
+        ))}
+      </div>
+      <div className="relative mt-1.5 h-10">
+        {marks.map((m, i) => (
+          <span key={m} className="absolute -translate-x-1/2 font-serif text-3xl text-leaf-600 first:translate-x-0 last:-translate-x-full" style={{ left: `${(i / 3) * 100}%` }}>
+            {m}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

@@ -32,10 +32,8 @@ import {
 import { LANGS, useLang } from "@/lib/i18n";
 import { ageLabels, chat, intentLabels, limits } from "@/lib/ui";
 import { helplines } from "@/lib/data";
-import Logo from "@/components/Logo";
 import CategoryIcon from "@/components/CategoryIcon";
 import SOSButton from "@/components/SOSButton";
-import { WarliWelcome } from "@/components/WarliArt";
 
 type Msg =
   | { id: number; from: "user"; text: L | string }
@@ -144,18 +142,13 @@ function Chat() {
 
   return (
     <div className="grid gap-8 sm:py-6 lg:grid-cols-[1fr_280px]">
-      <section className="-mx-4 flex h-[calc(100dvh-10.5rem)] min-h-[520px] flex-col bg-sand-100 sm:mx-0 sm:h-[calc(100dvh-12rem)] sm:border sm:border-ink/15 lg:h-[calc(100dvh-9.5rem)]">
-        <header className="flex items-center justify-between border-b border-ink/15 bg-sand-50 px-4 py-2.5 sm:px-5">
-          <div className="flex items-center gap-3">
-            <Logo size={34} />
-            <div>
-              <p className="font-display text-[17px] leading-tight font-extrabold tracking-wide">AADHI TI</p>
-              <p className="flex items-center gap-1.5 text-xs text-ink-soft">
-                <span className={`h-1.5 w-1.5 rounded-full ${typing ? "bg-turmeric-500" : "bg-leaf-500"}`} />
-                {typing ? t(chat.typing) : t(chat.online)}
-              </p>
-            </div>
-          </div>
+      <section className="-mx-4 flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col bg-sand-100 sm:mx-0 sm:h-[calc(100dvh-12rem)] sm:border sm:border-ink/15 lg:h-[calc(100dvh-9.5rem)]">
+        {/* Slim toolbar — the site header above already carries the logo and name. */}
+        <div className="flex items-center justify-between border-b border-ink/15 bg-sand-50 px-4 py-1.5 sm:px-5">
+          <p className="flex items-center gap-2 text-sm text-ink-soft">
+            <span className={`h-2 w-2 rounded-full ${typing ? "bg-turmeric-500" : "bg-leaf-500"}`} />
+            {typing ? t(chat.typing) : t(chat.online)}
+          </p>
           <div className="flex items-center gap-0.5">
             <IconBtn title={t(chat.menu)} onClick={showMenu}>
               <LayoutGrid size={18} />
@@ -170,7 +163,7 @@ function Chat() {
               <SOSButton compact />
             </div>
           </div>
-        </header>
+        </div>
 
         <div ref={listRef} className="scrollbar-thin relative flex-1 space-y-6 overflow-y-auto px-4 py-6 sm:px-6">
           {messages.map((m) =>
@@ -213,7 +206,6 @@ function Chat() {
       </section>
 
       <aside className="hidden space-y-8 lg:block">
-        <WarliWelcome className="w-full max-w-[15rem] text-kokum-500" />
 
         <div className="border-2 border-red-600 bg-white p-5">
           <p className="flex items-center gap-2 font-display text-lg font-bold text-red-700">

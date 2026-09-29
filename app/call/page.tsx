@@ -15,7 +15,7 @@ import {
   VolumeX,
 } from "lucide-react";
 import Logo from "@/components/Logo";
-import { WarliCall } from "@/components/WarliArt";
+import { CallRings } from "@/components/PageArt";
 import { callReplies, fakeCallScript, safetyCallScript } from "@/lib/callScripts";
 import { LANGS, useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
@@ -277,8 +277,8 @@ function CallBot() {
           <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
         </div>
-        <figure className="mx-auto hidden w-full max-w-[16rem] min-[400px]:block md:max-w-[20rem]">
-          <WarliCall className="w-full text-sea-700" />
+        <figure className="hidden w-full md:block">
+          <CallRings />
         </figure>
       </section>
 

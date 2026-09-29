@@ -20,7 +20,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { WarliCoast, WarliKitchen } from "@/components/WarliArt";
+import { WeekGrid } from "@/components/PageArt";
 import { useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
 import { ingredients, kids, outingTips, outings, recipes, selfCare, type Meal, type Recipe, type Tip } from "@/lib/everyday";
@@ -115,8 +115,8 @@ export default function EverydayPage() {
           <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
         </div>
-        <figure className="mx-auto w-full max-w-[15rem] md:max-w-[20rem]">
-          <WarliKitchen className="w-full text-turmeric-600" />
+        <figure className="w-full">
+          <WeekGrid t={t} />
         </figure>
       </section>
 
@@ -519,9 +519,6 @@ function Outings() {
           ))}
         </ul>
       </section>
-      <figure className="-mx-4 bg-sea-800 text-sand-50 sm:mx-0">
-        <WarliCoast className="h-36 w-full sm:h-48" />
-      </figure>
       <TipGrid
         tips={outingTips}
         footer={

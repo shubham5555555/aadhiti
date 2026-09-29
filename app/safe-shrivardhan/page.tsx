@@ -16,7 +16,7 @@ import {
   Waves,
   type LucideIcon,
 } from "lucide-react";
-import { WarliStreet } from "@/components/WarliArt";
+import { ShoreMap } from "@/components/PageArt";
 import { useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
 
@@ -115,7 +115,7 @@ export default function SafeShrivardhan() {
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
         </div>
         <figure className="mx-auto w-full max-w-[16rem] md:max-w-[20rem]">
-          <WarliStreet className="w-full text-sea-700" />
+          <ShoreMap />
         </figure>
       </section>
 

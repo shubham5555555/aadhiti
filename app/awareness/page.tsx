@@ -5,11 +5,16 @@ import { useMemo, useState } from "react";
 import { AlertTriangle, ArrowRight, Search, X } from "lucide-react";
 import CategoryIcon from "@/components/CategoryIcon";
 import Quiz from "@/components/Quiz";
-import { WarliLearn } from "@/components/WarliArt";
+import { BigFigure } from "@/components/PageArt";
 import { useLang } from "@/lib/i18n";
 import { adultCategories, allTopics, categoryGroups, girlCategories, type Category, type Topic } from "@/lib/kb";
 
 const copy = {
+  figureCaption: {
+    mr: "विषय, मराठी, हिंदी आणि English मध्ये. प्रत्येकाचं उत्तर तीन भागांत.",
+    en: "topics, in Marathi, Hindi and English. Every one answered in three parts.",
+    hi: "विषय, मराठी, हिंदी और English में। हर एक का जवाब तीन हिस्सों में।",
+  },
   eyebrow: { mr: "AADHI TI माहिती", en: "AADHI TI Knowledge", hi: "AADHI TI जानकारी" },
   title: { mr: "जास्त जाणून घ्या. कमी घाबरा.", en: "Know more. Fear less.", hi: "ज़्यादा जानें। कम डरें।" },
   body: {
@@ -70,8 +75,8 @@ export default function KnowledgePage() {
           </div>
         </div>
 
-        <figure className="mx-auto w-full max-w-[14rem] md:max-w-[20rem]">
-          <WarliLearn className="w-full text-sea-700" />
+        <figure className="w-full">
+          <BigFigure value={String(allTopics.filter((tp) => tp.id !== "everyday").length)} caption={t(copy.figureCaption)} className="text-sea-700" />
         </figure>
       </section>
 
