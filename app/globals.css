@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/*
+ * AADHI TI — "Konkan" design tokens.
+ * kokum (berry red) · sea (teal) · leaf (green) · turmeric (gold) · sand (background) · ink (text)
+ * The stock rose/pink/purple/fuchsia/violet/indigo scales are remapped onto kokum and sea so
+ * every screen shares one palette.
+ */
+@theme {
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), var(--font-body), ui-sans-serif, sans-serif;
+  --font-serif: var(--font-tiro), Georgia, serif;
+
+  --color-kokum-50: #fcf1f4;
+  --color-kokum-100: #f8dde5;
+  --color-kokum-200: #f0b9ca;
+  --color-kokum-300: #e38aa6;
+  --color-kokum-400: #d05a80;
+  --color-kokum-500: #b3264f;
+  --color-kokum-600: #9a1d44;
+  --color-kokum-700: #7e1738;
+  --color-kokum-800: #63122c;
+  --color-kokum-900: #4a0e21;
+
+  --color-sea-50: #eef7f8;
+  --color-sea-100: #d3ecef;
+  --color-sea-200: #a7d8df;
+  --color-sea-300: #6fbcc7;
+  --color-sea-400: #3a9baa;
+  --color-sea-500: #167e8f;
+  --color-sea-600: #0e6676;
+  --color-sea-700: #0c5260;
+  --color-sea-800: #0b414c;
+  --color-sea-900: #09323b;
+
+  --color-leaf-50: #eff7f1;
+  --color-leaf-100: #d7ecdd;
+  --color-leaf-500: #2f7d4f;
+  --color-leaf-600: #256641;
+  --color-leaf-700: #1d5034;
+
+  --color-turmeric-50: #fdf6e8;
+  --color-turmeric-100: #faeac6;
+  --color-turmeric-300: #f0c46f;
+  --color-turmeric-400: #e8a33d;
+  --color-turmeric-500: #d48a1f;
+  --color-turmeric-600: #b06f14;
+
+  --color-sand-50: #fdfaf5;
+  --color-sand-100: #fbf6ee;
+  --color-sand-200: #f3e9d8;
+  --color-sand-300: #e8d8bd;
+
+  --color-ink: #2b1b24;
+  --color-ink-soft: #6b5a63;
+
+  /* Remap stock scales onto the Konkan palette */
+  --color-rose-50: var(--color-kokum-50);
+  --color-rose-100: var(--color-kokum-100);
+  --color-rose-200: var(--color-kokum-200);
+  --color-rose-300: var(--color-kokum-300);
+  --color-rose-400: var(--color-kokum-400);
+  --color-rose-500: var(--color-kokum-500);
+  --color-rose-600: var(--color-kokum-600);
+  --color-rose-700: var(--color-kokum-700);
+  --color-rose-900: var(--color-kokum-900);
+  --color-pink-400: var(--color-kokum-400);
+  --color-pink-500: var(--color-kokum-500);
+  --color-pink-600: var(--color-kokum-600);
+  --color-fuchsia-500: var(--color-kokum-600);
+  --color-purple-50: var(--color-sea-50);
+  --color-purple-100: var(--color-sea-100);
+  --color-purple-200: var(--color-sea-200);
+  --color-purple-300: var(--color-sea-300);
+  --color-purple-400: var(--color-sea-400);
+  --color-purple-500: var(--color-sea-500);
+  --color-purple-600: var(--color-sea-600);
+  --color-purple-700: var(--color-sea-700);
+  --color-purple-900: var(--color-sea-900);
+  --color-violet-500: var(--color-sea-500);
+  --color-indigo-500: var(--color-sea-600);
+  --color-emerald-50: var(--color-leaf-50);
+  --color-emerald-500: var(--color-leaf-500);
+  --color-emerald-600: var(--color-leaf-600);
+  --color-emerald-700: var(--color-leaf-700);
+  --color-slate-800: var(--color-ink);
+  --color-slate-50: var(--color-sand-100);
+  --color-slate-100: var(--color-sand-200);
+  --color-slate-200: var(--color-sand-300);
+  --color-slate-300: #cdb9a0;
+  --color-slate-400: #9c8a92;
+  --color-slate-500: var(--color-ink-soft);
+  --color-slate-600: var(--color-ink-soft);
+  --color-slate-700: #4a3841;
+  --color-amber-50: var(--color-turmeric-50);
+  --color-amber-100: var(--color-turmeric-100);
+  --color-amber-200: var(--color-turmeric-300);
+  --color-amber-300: var(--color-turmeric-300);
+  --color-amber-400: var(--color-turmeric-400);
+  --color-amber-500: var(--color-turmeric-500);
+  --color-amber-600: var(--color-turmeric-600);
+  --color-amber-700: var(--color-turmeric-600);
+  --color-amber-800: #8a5610;
+  --color-amber-900: #6b420c;
+  --color-sky-50: var(--color-sea-50);
+  --color-sky-500: var(--color-sea-500);
+  --color-sky-700: var(--color-sea-700);
+  --color-teal-500: var(--color-sea-500);
+  --color-orange-500: var(--color-turmeric-500);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-ring: ring 2s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-wave: wave 1s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.4s ease-out both;
+  --animate-shake: shake 0.6s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes ring {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(-12deg); }
+    40% { transform: rotate(12deg); }
+    60% { transform: rotate(-8deg); }
+    80% { transform: rotate(8deg); }
+  }
+}
+
+@layer base {
+  body {
+    background: var(--color-sand-100);
+    color: var(--color-ink);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Page background: plain warm paper. */
+.bg-mesh {
+  background-color: var(--color-sand-100);
+}
+
+/* Flat card surface (replaces the old glassmorphism). */
+.glass {
+  background: #fff;
+  border: 1px solid var(--color-sand-200);
+}
+
+.text-gradient {
+  color: var(--color-kokum-500);
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-sand-300); border-radius: 999px; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

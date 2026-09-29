@@ -1,0 +1,108 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { LogOut } from "lucide-react";
+import SOSButton from "./SOSButton";
+import Logo from "./Logo";
+import { LANGS, useLang } from "@/lib/i18n";
+import { nav } from "@/lib/ui";
+
+const links = [
+  { href: "/", label: nav.home },
+  { href: "/chat", label: nav.ask },
+  { href: "/call", label: nav.call },
+  { href: "/everyday", label: nav.everyday },
+  { href: "/schemes", label: nav.schemes },
+  { href: "/awareness", label: nav.knowledge },
+];
+
+// Replaces the current history entry so "back" doesn't return to this site.
+export function quickExit() {
+  window.location.replace("https://www.google.com");
+}
+
+export function LangSwitch({ className = "" }: { className?: string; tone?: "light" | "dark" }) {
+  const { lang, setLang } = useLang();
+  return (
+    <div className={`flex items-center divide-x divide-ink/15 text-sm ${className}`} role="group" aria-label="Language">
+      {LANGS.map((l) => (
+        <button
+          key={l.id}
+          onClick={() => setLang(l.id)}
+          aria-pressed={lang === l.id}
+          className={`px-2 font-semibold transition first:pl-0 last:pr-0 ${lang === l.id ? "text-kokum-600 underline underline-offset-4" : "text-ink-soft hover:text-ink"}`}
+          title={l.label}
+        >
+          {l.short}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+const utility = {
+  emergency: { mr: "आणीबाणी", en: "Emergency", hi: "आपातकाल" },
+  women: { mr: "महिला हेल्पलाइन", en: "Women helpline", hi: "महिला हेल्पलाइन" },
+};
+
+export default function Navbar() {
+  const pathname = usePathname();
+  const { t } = useLang();
+
+  return (
+    <header className="sticky top-0 z-40 bg-sand-100">
+      {/* Utility bar: emergency numbers and a quick way out, always one tap away. */}
+      <div className="bg-kokum-700 text-[13px] text-kokum-50">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5">
+          <p className="flex min-w-0 items-center gap-3 truncate">
+            <a href="tel:112" className="font-bold text-white underline-offset-2 hover:underline">
+              {t(utility.emergency)} 112
+            </a>
+            <span className="text-kokum-300">|</span>
+            <a href="tel:1091" className="hover:underline">
+              {t(utility.women)} 1091
+            </a>
+          </p>
+          <button onClick={quickExit} className="flex shrink-0 items-center gap-1.5 font-semibold text-white hover:underline">
+            <LogOut size={13} /> {t(nav.quickExit)}
+          </button>
+        </div>
+      </div>
+
+      <nav className="border-b border-ink/10">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5">
+            <Logo size={36} />
+            <span className="font-display text-[19px] leading-none font-extrabold tracking-wide text-ink">AADHI TI</span>
+          </Link>
+
+          <div className="hidden items-center gap-6 lg:flex">
+            {links.map((l) => {
+              const active = pathname === l.href;
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`border-b-2 py-1 text-[15px] font-semibold whitespace-nowrap transition ${
+                    active ? "border-kokum-500 text-ink" : "border-transparent text-ink-soft hover:text-ink"
+                  }`}
+                >
+                  {t(l.label)}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <LangSwitch />
+            <div className="hidden sm:block">
+              <SOSButton compact />
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  );
+}
