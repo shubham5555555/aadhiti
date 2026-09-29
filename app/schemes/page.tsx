@@ -282,7 +282,7 @@ export default function SchemesPage() {
             ))}
           </ul>
         </div>
-        <figure className="w-full">
+<figure className="w-full md:max-w-[20rem] md:justify-self-end">
           <BigFigure value="₹1,500" caption={t(copy.figureCaption)} className="text-leaf-600" />
         </figure>
       </section>

@@ -700,9 +700,9 @@ export function WarliWayHome({ className = "" }: ArtProps) {
 // ---------- Hero options (painted style: white on geru) ----------
 
 /** A: the group walks home together; a mother waits at the lit door. */
-export function WarliWalkHome({ className = "" }: ArtProps) {
+export function WarliWalkHome({ className = "", preserveAspectRatio }: ArtProps & { preserveAspectRatio?: string }) {
   return (
-    <svg viewBox="0 100 420 222" className={className} fill="currentColor" aria-hidden>
+    <svg viewBox="0 100 420 222" preserveAspectRatio={preserveAspectRatio} className={className} fill="currentColor" aria-hidden>
       <Moon x={378} y={136} r={18} />
       <Stars pts={[[24, 128], [70, 150], [118, 120], [168, 144], [250, 122], [300, 150], [206, 160], [330, 116]]} twinkle />
       <LampPost x={26} y={296} />

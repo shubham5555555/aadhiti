@@ -115,7 +115,7 @@ export default function EverydayPage() {
           <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
         </div>
-        <figure className="w-full">
+<figure className="w-full md:max-w-[18rem] md:justify-self-end">
           <WeekGrid t={t} />
         </figure>
       </section>

@@ -75,7 +75,7 @@ export default function KnowledgePage() {
           </div>
         </div>
 
-        <figure className="w-full">
+<figure className="w-full md:max-w-[18rem] md:justify-self-end">
           <BigFigure value={String(allTopics.filter((tp) => tp.id !== "everyday").length)} caption={t(copy.figureCaption)} className="text-sea-700" />
         </figure>
       </section>

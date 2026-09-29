@@ -91,7 +91,7 @@ export default function SafetyPlan() {
       </div>
 
       <div>
-        <ul className="border-t border-ink/15">
+        <ul className="border-t border-ink/15 lg:grid lg:grid-cols-2 lg:gap-x-8">
           {items.map((item) => {
             const on = done.includes(item.id);
             return (

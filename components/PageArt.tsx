@@ -86,7 +86,7 @@ export function ShoreMap({ className = "" }: { className?: string }) {
 /** One oversized figure with a caption, set like a magazine stat. */
 export function BigFigure({ value, caption, className = "" }: { value: string; caption: string; className?: string }) {
   return (
-    <div className={`mx-auto w-full max-w-[18rem] border-t-2 border-ink pt-3 ${className}`}>
+    <div className={`mx-auto w-full border-t-2 border-ink pt-3 ${className}`}>
       <p className="font-serif text-[5.5rem] leading-none tabular-nums sm:text-[6.5rem]">{value}</p>
       <p className="mt-3 text-[15px] leading-snug text-ink-soft">{caption}</p>
     </div>

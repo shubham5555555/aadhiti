@@ -142,18 +142,18 @@ export default function Home() {
 
   return (
     <div className="pb-6">
-      {/* Opening */}
-      <section className="grid gap-10 border-b border-ink/10 pt-10 pb-14 md:grid-cols-[1.25fr_1fr] md:items-center md:pt-16 md:pb-20">
-        <div>
-          <p className="text-sm font-semibold tracking-wide text-sea-700">{t(copy.place)}</p>
-          <h1 className="mt-3 font-serif text-[4.5rem] leading-[0.95] font-normal text-kokum-600 sm:text-[7rem]">{t(copy.headline)}</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink sm:text-xl">{t(copy.lede)}</p>
+      {/* Opening. On desktop the whole hero is one painted Warli wall (white on kokum); on phones the text sits on paper above a painted panel. */}
+      <section className="hero-wall grid gap-10 border-b border-ink/10 pt-10 pb-14 md:mt-6 md:mb-12 md:grid-cols-[1fr_1.2fr] md:items-end md:gap-8 md:border-b-0 md:px-12 md:pt-16 md:pb-14 lg:px-14">
+        <div className="md:pb-2">
+          <p className="text-sm font-semibold tracking-wide text-sea-700 md:text-kokum-200">{t(copy.place)}</p>
+          <h1 className="mt-3 font-serif text-[4.5rem] leading-[0.95] font-normal text-kokum-600 sm:text-[7rem] md:text-sand-50">{t(copy.headline)}</h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink sm:text-xl md:text-kokum-50">{t(copy.lede)}</p>
 
           <form onSubmit={ask} className="mt-9 max-w-xl">
-            <label htmlFor="home-ask" className="text-sm font-bold text-ink">
+            <label htmlFor="home-ask" className="text-sm font-bold text-ink md:text-sand-50">
               {t(copy.askLabel)}
             </label>
-            <div className="mt-2 flex items-stretch border-2 border-ink bg-white">
+            <div className="mt-2 flex items-stretch border-2 border-ink bg-white md:border-sand-50">
               <input
                 id="home-ask"
                 value={q}
@@ -161,19 +161,24 @@ export default function Home() {
                 placeholder={t(copy.askPlaceholder)}
                 className="min-w-0 flex-1 bg-transparent px-4 py-3.5 text-[16px] outline-none placeholder:text-ink-soft/60"
               />
-              <Link href="/chat" title={t(copy.voice)} aria-label={t(copy.voice)} className="grid w-12 shrink-0 place-items-center border-l-2 border-ink text-ink hover:bg-sand-100">
+              <Link
+                href="/chat"
+                title={t(copy.voice)}
+                aria-label={t(copy.voice)}
+                className="grid w-12 shrink-0 place-items-center border-l-2 border-ink text-ink hover:bg-sand-100 md:border-sand-200"
+              >
                 <Mic size={19} />
               </Link>
-              <button type="submit" className="shrink-0 bg-ink px-5 font-bold text-white hover:bg-kokum-600">
+              <button type="submit" className="shrink-0 bg-ink px-5 font-bold text-white hover:bg-kokum-600 md:hover:bg-kokum-900">
                 {t(copy.askButton)}
               </button>
             </div>
-            <p className="mt-2.5 text-sm text-ink-soft">{t(copy.askNote)}</p>
+            <p className="mt-2.5 text-sm text-ink-soft md:text-kokum-100">{t(copy.askNote)}</p>
           </form>
         </div>
 
-        {/* Painted like a Warli wall: white on kokum, with a triangle border. */}
-        <figure className="warli-panel -mx-4 px-5 py-7 sm:mx-0">
+        {/* Phones: its own painted panel. Desktop: part of the wall, standing on the ground line. */}
+        <figure className="warli-panel -mx-4 px-5 py-7 sm:mx-0 md:mx-0 md:bg-transparent md:bg-none md:p-0">
           <WarliWalkHome className="w-full" />
         </figure>
       </section>
@@ -226,7 +231,7 @@ export default function Home() {
           </div>
           <span aria-hidden className="mt-10 hidden font-serif text-[10rem] leading-[0.7] text-kokum-200 select-none md:block">“</span>
         </div>
-        <ul key={tab} className="animate-fade-up border-t border-ink/15">
+        <ul key={tab} className="animate-fade-up border-t border-ink/15 lg:grid lg:grid-cols-2 lg:gap-x-8">
           {questions.map((tp) => (
             <li key={tp.id} className="border-b border-ink/15">
               <Link href={`/chat?topic=${tp.id}`} className="group block py-5">

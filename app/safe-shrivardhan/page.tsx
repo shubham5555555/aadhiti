@@ -40,6 +40,12 @@ const times: { id: string; label: L }[] = [
 ];
 
 const copy = {
+  whatHappens: { mr: "तुमच्या माहितीचं काय होतं", en: "What happens to your report", hi: "आपकी जानकारी का क्या होता है" },
+  steps: [
+    { mr: "तुमच्या नावाशिवाय नोंद होते.", en: "It's recorded without your name.", hi: "बिना आपके नाम के दर्ज होती है।" },
+    { mr: "एकाच जागेच्या तक्रारी एकत्र केल्या जातात, म्हणजे कुठे जास्त त्रास आहे ते दिसतं.", en: "Reports about the same place are grouped, so the worst spots stand out.", hi: "एक ही जगह की शिकायतें एक साथ रखी जाती हैं, ताकि सबसे ज़्यादा परेशानी वाली जगहें दिखें।" },
+    { mr: "प्रत्यक्ष सुरुवातीनंतर त्या नगर परिषद आणि पोलिसांकडे पाठवल्या जातील.", en: "After launch, they'll go to the municipal council and the police.", hi: "शुरू होने के बाद ये नगर परिषद और पुलिस को भेजी जाएँगी।" },
+  ] as L[],
   title: { mr: "AADHI TI — सुरक्षित श्रीवर्धन", en: "AADHI TI — Safe Shrivardhan", hi: "AADHI TI — सुरक्षित श्रीवर्धन" },
   body: {
     mr: "अंधार, निर्जन किंवा असुरक्षित वाटणाऱ्या जागांची (आणीबाणी नसलेली) माहिती द्या — म्हणजे स्थानिक प्रशासन त्या सुधारू शकेल.",
@@ -114,17 +120,32 @@ export default function SafeShrivardhan() {
           <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
         </div>
-        <figure className="mx-auto w-full max-w-[16rem] md:max-w-[20rem]">
+        <figure className="w-full max-w-[16rem] justify-self-center md:max-w-[18rem] md:justify-self-end">
           <ShoreMap />
         </figure>
       </section>
 
-      <div className="mx-auto max-w-3xl">
-        <a href="tel:112" className="mt-10 flex items-center gap-3 border-2 border-red-600 bg-white px-4 py-3 font-bold text-red-700 hover:bg-red-50">
-          <AlertTriangle size={18} className="shrink-0" /> {t(copy.emergency)}
-        </a>
+      <div className="grid gap-10 pt-10 lg:grid-cols-[1.7fr_1fr] lg:gap-16">
+        {/* On phones the emergency note comes first; on desktop it sits beside the form. */}
+        <aside className="space-y-8 lg:order-2">
+          <a href="tel:112" className="flex items-start gap-3 border-2 border-red-600 bg-white px-4 py-3 font-bold text-red-700 hover:bg-red-50">
+            <AlertTriangle size={18} className="mt-0.5 shrink-0" /> {t(copy.emergency)}
+          </a>
+          <div className="hidden lg:block">
+            <h2 className="font-serif text-2xl font-normal">{t(copy.whatHappens)}</h2>
+            <ol className="mt-4 space-y-4">
+              {copy.steps.map((step, i) => (
+                <li key={i} className="grid grid-cols-[1.75rem_1fr] gap-2">
+                  <span className="font-serif text-xl text-kokum-500">{i + 1}</span>
+                  <span className="text-[15px] leading-relaxed text-ink">{t(step)}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </aside>
 
-        <form onSubmit={submit} className="mt-8 space-y-7">
+        <div className="lg:order-1">
+        <form onSubmit={submit} className="space-y-7">
           <div>
             <label className="font-bold text-ink" htmlFor="place">
               {t(copy.place)}
@@ -223,6 +244,7 @@ export default function SafeShrivardhan() {
             </ul>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
