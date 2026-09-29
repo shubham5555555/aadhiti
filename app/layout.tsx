@@ -28,7 +28,7 @@ const heading = Baloo_2({
 });
 
 export const metadata: Metadata = {
-  title: "AADHI TI AI — तिच्या प्रत्येक प्रश्नासाठी",
+  title: "आधी ती · AADHI TI — तिच्या प्रत्येक प्रश्नासाठी",
   description: "A Women's Information & Support Assistant in Marathi, English and Hindi — safety, health, rights, education, income and family.",
 };
 

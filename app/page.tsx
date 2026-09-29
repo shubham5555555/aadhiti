@@ -9,19 +9,27 @@ import ScrollPan from "@/components/ScrollPan";
 import DangerBand from "@/components/home/DangerBand";
 import SafetySituations from "@/components/home/SafetySituations";
 import SafetyPlan from "@/components/home/SafetyPlan";
-import { WarliWalkHome, WarliWayHome } from "@/components/WarliArt";
+import ThreePillars from "@/components/home/ThreePillars";
+import LeaderSection from "@/components/home/LeaderSection";
+import { leader } from "@/lib/leader";
+import Image from "next/image";
+import { WarliWayHome } from "@/components/WarliArt";
 import { useLang } from "@/lib/i18n";
-import { chat, nav } from "@/lib/ui";
+import { brand, chat, nav } from "@/lib/ui";
 import { helplines } from "@/lib/data";
 import { adultCategories, getTopic, type L, type Topic } from "@/lib/kb";
 
 const copy = {
-  place: { mr: "श्रीवर्धन, रायगड", en: "Shrivardhan, Raigad", hi: "श्रीवर्धन, रायगढ़" },
-  headline: { mr: "आधी ती.", en: "Her, first.", hi: "पहले वह।" },
+  pilot: { mr: "रायगड जिल्ह्यासाठी पायलट संकल्पना", en: "A pilot concept for Raigad district", hi: "रायगड ज़िले के लिए पायलट अवधारणा" },
+  heroAlt: {
+    mr: "सूर्योदयाच्या आकाशात लाल पदराबरोबर उंच झेपावणाऱ्या सर्व वयांच्या स्त्रिया — शाळकरी मुलगी, पोलीस अधिकारी, नोकरी करणारी, शेतकरी, आई आणि आजी.",
+    en: "Women of every age — a schoolgirl, a police officer, a professional, a farmer, a mother and a grandmother — rising together on a red saree against a sunrise sky.",
+    hi: "सूर्योदय के आसमान में लाल पल्लू के साथ ऊँची उड़ान भरती हर उम्र की महिलाएँ — स्कूली छात्रा, पुलिस अधिकारी, नौकरीपेशा, किसान, माँ और दादी।",
+  },
   lede: {
-    mr: "तिच्या प्रत्येक प्रश्नासाठी. सुरक्षितता, आरोग्य, हक्क, शिक्षण, कमाई किंवा घरातली एखादी अडचण. मराठी, हिंदी किंवा English मध्ये विचारा.",
-    en: "For every question she has. Safety, health, rights, school, earning, or trouble at home. Ask in Marathi, Hindi or English.",
-    hi: "उसके हर सवाल के लिए। सुरक्षा, सेहत, अधिकार, पढ़ाई, कमाई या घर की कोई परेशानी। मराठी, हिंदी या English में पूछिए।",
+    mr: "सुरक्षा, आर्थिक सुरक्षा आणि कौशल्य. आणि त्याबरोबर आरोग्य, हक्क, घरातली एखादी अडचण. मराठी, हिंदी किंवा English मध्ये विचारा.",
+    en: "Safety, security and skill. And with them, health, rights or trouble at home. Ask in Marathi, Hindi or English.",
+    hi: "सुरक्षा, आर्थिक सुरक्षा और कौशल। और साथ में सेहत, अधिकार या घर की कोई परेशानी। मराठी, हिंदी या English में पूछिए।",
   },
   askLabel: { mr: "तुमचा प्रश्न", en: "Your question", hi: "आपका सवाल" },
   askPlaceholder: {
@@ -31,9 +39,9 @@ const copy = {
   },
   askButton: { mr: "विचारा", en: "Ask", hi: "पूछें" },
   askNote: {
-    mr: "नाव, नंबर काहीही लागत नाही. तुमचं संभाषण कुठेही साठवलं जात नाही.",
-    en: "No name or number needed. Your conversation isn't stored anywhere.",
-    hi: "नाम या नंबर की ज़रूरत नहीं। आपकी बातचीत कहीं सेव नहीं होती।",
+    mr: "नाव किंवा नंबर लागत नाही. उत्तरासाठी प्रश्न AI कडे पाठवला जातो — त्यात नाव, फोन नंबर लिहू नका.",
+    en: "No name or number needed. Your question is sent to an AI to write the answer — don't include your name or phone number.",
+    hi: "नाम या नंबर की ज़रूरत नहीं। जवाब के लिए सवाल AI को भेजा जाता है — उसमें नाम या फ़ोन नंबर न लिखें।",
   },
   voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
   menuNote: {
@@ -102,6 +110,11 @@ const also: { href: string; title: L; body: L }[] = [
     body: { mr: "घरात असलेल्या साहित्यावरून पदार्थ आणि आठवड्याचा मेनू.", en: "Dishes from what's in your kitchen, and a week's menu.", hi: "घर में रखी सामग्री से पकवान और हफ़्ते का मेनू।" },
   },
   {
+    href: "/poshan",
+    title: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
+    body: { mr: "मुली, गरोदर आई, बाळ आणि आजीसाठी स्थानिक, परवडणारं पौष्टिक जेवण.", en: "Local, affordable good food for girls, mothers-to-be, babies and grandmothers.", hi: "लड़कियों, गर्भवती माँ, बच्चे और दादी के लिए स्थानीय, सस्ता पौष्टिक खाना।" },
+  },
+  {
     href: "/schemes",
     title: { mr: "योजना आणि कमाई", en: "Schemes and earning", hi: "योजनाएँ और कमाई" },
     body: { mr: "लाडकी बहीण, बचत गट, homestay. कोणता मार्ग तुमच्यासाठी?", en: "Ladki Bahin, SHGs, homestays. Which fits you?", hi: "लाडकी बहीण, स्वयं सहायता समूह, होमस्टे। आपके लिए कौन-सा?" },
@@ -114,10 +127,10 @@ const also: { href: string; title: L; body: L }[] = [
 ];
 
 const commonTabs: { id: string; label: L; topics: string[] }[] = [
-  { id: "safety", label: { mr: "सुरक्षितता", en: "Safety", hi: "सुरक्षा" }, topics: ["following_me", "photo_threat", "otp_scam", "unsafe_transport"] },
+  { id: "safety", label: { mr: "सुरक्षा", en: "Safety", hi: "सुरक्षा" }, topics: ["following_me", "photo_threat", "otp_scam", "unsafe_transport"] },
+  { id: "security", label: { mr: "आर्थिक सुरक्षा", en: "Security", hi: "आर्थिक सुरक्षा" }, topics: ["ladki_bahin", "financial_control", "property_rights", "maintenance"] },
+  { id: "skill", label: { mr: "कौशल्य", en: "Skill", hi: "कौशल" }, topics: ["training_access", "job_skills", "start_business", "sell_online"] },
   { id: "health", label: { mr: "आरोग्य", en: "Health", hi: "सेहत" }, topics: ["irregular_periods", "pcos", "pregnancy_warning", "anaemia"] },
-  { id: "rights", label: { mr: "हक्क", en: "Rights", hi: "अधिकार" }, topics: ["husband_hits", "workplace_posh", "zero_fir", "property_rights"] },
-  { id: "income", label: { mr: "कमाई", en: "Earning", hi: "कमाई" }, topics: ["ladki_bahin", "join_shg", "homestay", "start_business"] },
 ];
 
 // First sentence of a topic's explanation, for the question list.
@@ -142,18 +155,35 @@ export default function Home() {
 
   return (
     <div className="pb-6">
-      {/* Opening. On desktop the whole hero is one painted Warli wall (white on kokum); on phones the text sits on paper above a painted panel. */}
-      <section className="hero-wall grid gap-10 border-b border-ink/10 pt-10 pb-14 md:mt-6 md:mb-12 md:grid-cols-[1fr_1.2fr] md:items-end md:gap-8 md:border-b-0 md:px-12 md:pt-16 md:pb-14 lg:px-14">
-        <div className="md:pb-2">
-          <p className="text-sm font-semibold tracking-wide text-sea-700 md:text-kokum-200">{t(copy.place)}</p>
-          <h1 className="mt-3 font-serif text-[4.5rem] leading-[0.95] font-normal text-kokum-600 sm:text-[7rem] md:text-sand-50">{t(copy.headline)}</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink sm:text-xl md:text-kokum-50">{t(copy.lede)}</p>
+      {/* Opening: the brand banner. Phones show a portrait crop of the women (the header carries the logo);
+          wider screens show the full banner with its own logo, so the header logo waits until it scrolls away. */}
+      <section className="border-b border-ink/10 pb-12 sm:pt-6 md:pt-8 md:pb-14">
+        <figure id="home-banner" className="relative -mx-4 overflow-hidden sm:mx-0">
+          <Image
+            src="/brand/hero.webp"
+            alt={t(copy.heroAlt)}
+            width={2000}
+            height={1125}
+            priority
+            sizes="(min-width: 1152px) 1152px, 100vw"
+            className="aspect-[3/4] w-full object-cover object-left sm:aspect-[16/10] md:aspect-[2000/1125] md:object-center"
+          />
+          <figcaption className="absolute bottom-4 left-4 bg-sand-50/95 px-3 py-1.5 text-sm font-bold text-kokum-700 md:bottom-6 md:left-6">
+            {t(leader.credit)}
+          </figcaption>
+        </figure>
 
-          <form onSubmit={ask} className="mt-9 max-w-xl">
-            <label htmlFor="home-ask" className="text-sm font-bold text-ink md:text-sand-50">
+        <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-[1.05fr_1fr] md:items-end md:gap-12">
+          <div>
+            <h1 className="font-serif text-[2.6rem] leading-[1.05] font-normal text-kokum-600 sm:text-6xl">{t(brand.tagline)}</h1>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink sm:text-xl">{t(copy.lede)}</p>
+          </div>
+
+          <form onSubmit={ask}>
+            <label htmlFor="home-ask" className="text-sm font-bold text-ink">
               {t(copy.askLabel)}
             </label>
-            <div className="mt-2 flex items-stretch border-2 border-ink bg-white md:border-sand-50">
+            <div className="mt-2 flex items-stretch border-2 border-ink bg-white">
               <input
                 id="home-ask"
                 value={q}
@@ -161,27 +191,21 @@ export default function Home() {
                 placeholder={t(copy.askPlaceholder)}
                 className="min-w-0 flex-1 bg-transparent px-4 py-3.5 text-[16px] outline-none placeholder:text-ink-soft/60"
               />
-              <Link
-                href="/chat"
-                title={t(copy.voice)}
-                aria-label={t(copy.voice)}
-                className="grid w-12 shrink-0 place-items-center border-l-2 border-ink text-ink hover:bg-sand-100 md:border-sand-200"
-              >
+              <Link href="/chat" title={t(copy.voice)} aria-label={t(copy.voice)} className="grid w-12 shrink-0 place-items-center border-l-2 border-ink text-ink hover:bg-sand-100">
                 <Mic size={19} />
               </Link>
-              <button type="submit" className="shrink-0 bg-ink px-5 font-bold text-white hover:bg-kokum-600 md:hover:bg-kokum-900">
+              <button type="submit" className="shrink-0 bg-ink px-5 font-bold text-white hover:bg-kokum-600">
                 {t(copy.askButton)}
               </button>
             </div>
-            <p className="mt-2.5 text-sm text-ink-soft md:text-kokum-100">{t(copy.askNote)}</p>
+            <p className="mt-2.5 text-sm text-ink-soft">{t(copy.askNote)}</p>
           </form>
         </div>
-
-        {/* Phones: its own painted panel. Desktop: part of the wall, standing on the ground line. */}
-        <figure className="warli-panel -mx-4 px-5 py-7 sm:mx-0 md:mx-0 md:bg-transparent md:bg-none md:p-0">
-          <WarliWalkHome className="w-full" />
-        </figure>
       </section>
+
+      <ThreePillars />
+
+      <LeaderSection />
 
       <DangerBand />
 
@@ -307,12 +331,12 @@ export default function Home() {
       {/* Also here */}
       <section className="border-b border-ink/10 py-12 md:py-16">
         <h2 className="font-serif text-3xl font-normal">{t(copy.alsoTitle)}</h2>
-        <div className="mt-6 grid border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-5">
           {also.map((a, i) => (
             <Link
               key={a.href}
               href={a.href}
-              className={`group border-b border-ink/15 py-6 sm:pr-6 lg:border-b-0 ${i % 2 === 1 ? "sm:border-l sm:pl-6" : ""} ${i === 2 ? "lg:border-l lg:pl-6" : ""}`}
+              className={`group border-b border-ink/15 py-6 sm:pr-6 lg:border-b-0 lg:pr-5 ${i % 2 === 1 ? "sm:border-l sm:pl-6" : ""} ${i > 0 ? "lg:border-l lg:pl-5" : "lg:pl-0"}`}
             >
               <span className="flex items-center justify-between gap-2 font-display text-lg font-bold text-ink group-hover:text-kokum-600">
                 {t(a.title)}

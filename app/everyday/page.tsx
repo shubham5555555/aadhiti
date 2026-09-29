@@ -23,7 +23,8 @@ import {
 import { WeekGrid } from "@/components/PageArt";
 import { useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
-import { ingredients, kids, outingTips, outings, recipes, selfCare, type Meal, type Recipe, type Tip } from "@/lib/everyday";
+import { ingredients, kids, outingTips, outings, recipes, selfCare, type Meal, type Recipe, type Stage, type Tip } from "@/lib/everyday";
+import { cautionsFor, hasIngredient, parseKitchen } from "@/lib/kitchen";
 
 type Tab = "cook" | "care" | "kids" | "outings";
 type Filter = "quick" | "lowOil" | "kids" | "leftover" | "guests";
@@ -44,6 +45,26 @@ const copy = {
   } satisfies Record<Tab, L>,
   kitchen: { mr: "माझ्या स्वयंपाकघरात काय आहे?", en: "What's in my kitchen?", hi: "मेरी रसोई में क्या है?" },
   kitchenHint: { mr: "तुमच्याकडे असलेलं साहित्य निवडा", en: "Pick what you have", hi: "जो सामग्री है, चुनें" },
+  typeLabel: { mr: "स्वयंपाकघरात काय आहे? जसं बोलता तसं लिहा", en: "What's in your kitchen? Type it like you'd say it", hi: "रसोई में क्या है? जैसे बोलती हैं वैसे लिखें" },
+  typePlaceholder: { mr: "पोहे, कांदा, शेंगदाणे आहेत", en: "rice, dal, onion and eggs", hi: "चावल, मूंग दाल और प्याज़ है" },
+  orPick: { mr: "किंवा खालून निवडा", en: "or pick below", hi: "या नीचे से चुनें" },
+  unknown: { mr: "हे ओळखता आलं नाही", en: "Didn't recognise", hi: "यह पहचान नहीं पाए" },
+  showAll: { mr: "सगळं साहित्य दाखवा", en: "Show all ingredients", hi: "सारी सामग्री दिखाएँ" },
+  showLess: { mr: "कमी दाखवा", en: "Show fewer", hi: "कम दिखाएँ" },
+  approx: { mr: "अंदाजे", en: "approx.", hi: "अनुमानित" },
+  perServing: { mr: "एका वाढपाला", en: "per serving", hi: "एक परोसे में" },
+  protein: { mr: "ग्रॅ. प्रथिनं", en: "g protein", hi: "ग्रा. प्रोटीन" },
+  serves: { mr: "जणांसाठी", en: "serves", hi: "लोगों के लिए" },
+  goodFor: { mr: "कोणासाठी चांगलं", en: "Good for", hi: "किसके लिए अच्छा" },
+  forChild: { mr: "मुलांसाठी", en: "For children", hi: "बच्चों के लिए" },
+  forPregnancy: { mr: "गरोदरपणात", en: "In pregnancy", hi: "गर्भावस्था में" },
+  swaps: { mr: "नसेल तर", en: "If you don't have it", hi: "न हो तो" },
+  careful: { mr: "लक्षात ठेवा", en: "Take care", hi: "ध्यान रखें" },
+  estimateNote: {
+    mr: "प्रथिनं, कॅलरी आणि खर्चाचे आकडे अंदाजे आहेत — मार्गदर्शनासाठी, वैद्यकीय सल्ला नाही.",
+    en: "Nutrition numbers are estimates for guidance, not medical advice.",
+    hi: "प्रोटीन, कैलोरी और ख़र्च के आँकड़े अनुमानित हैं — मार्गदर्शन के लिए, चिकित्सा सलाह नहीं।",
+  },
   clear: { mr: "सगळं काढा", en: "Clear", hi: "सब हटाएँ" },
   filters: {
     quick: { mr: "20 मिनिटांत", en: "Under 20 min", hi: "20 मिनट में" },
@@ -86,6 +107,25 @@ const days: L[] = [
   { mr: "शनि", en: "Sat", hi: "शनि" },
   { mr: "रवि", en: "Sun", hi: "रवि" },
 ];
+
+const stageLabels: Record<Stage, L> = {
+  family: { mr: "सगळं कुटुंब", en: "Whole family", hi: "पूरा परिवार" },
+  woman: { mr: "महिला", en: "Woman", hi: "महिला" },
+  pregnant_t1: { mr: "गरोदर, पहिले 3 महिने", en: "Pregnant, months 1-3", hi: "गर्भवती, पहले 3 महीने" },
+  pregnant_t2: { mr: "गरोदर, 4 ते 6 महिने", en: "Pregnant, months 4-6", hi: "गर्भवती, 4 से 6 महीने" },
+  pregnant_t3: { mr: "गरोदर, 7 ते 9 महिने", en: "Pregnant, months 7-9", hi: "गर्भवती, 7 से 9 महीने" },
+  lactating: { mr: "बाळाला दूध पाजणारी आई", en: "Breastfeeding mother", hi: "स्तनपान कराने वाली माँ" },
+  child_6_12m: { mr: "बाळ, 6 ते 12 महिने", en: "Baby, 6 to 12 months", hi: "शिशु, 6 से 12 महीने" },
+  child_1_3y: { mr: "मूल, 1 ते 3 वर्षं", en: "Child, 1 to 3 years", hi: "बच्चा, 1 से 3 साल" },
+  child_3_6y: { mr: "मूल, 3 ते 6 वर्षं", en: "Child, 3 to 6 years", hi: "बच्चा, 3 से 6 साल" },
+  child_6_10y: { mr: "मूल, 6 ते 10 वर्षं", en: "Child, 6 to 10 years", hi: "बच्चा, 6 से 10 साल" },
+  girl_10_18: { mr: "किशोरवयीन मुलगी", en: "Teenage girl", hi: "किशोरी" },
+  elder: { mr: "ज्येष्ठ व्यक्ती", en: "Elder", hi: "बुज़ुर्ग" },
+};
+
+// Chips shown by default: everything a recipe actually needs. The rest (pantry, fruit, sweets…)
+// is still recognised in the typed box and reachable via "show all".
+const commonIds = new Set(recipes.flatMap((r) => r.needs));
 
 const tabIcons: Record<Tab, LucideIcon> = { cook: ChefHat, care: Sparkles, kids: Baby, outings: Luggage };
 const outingIcons = { beach: Waves, temple: Landmark, fort: Castle, nature: Trees, food: Soup } satisfies Record<string, LucideIcon>;
@@ -172,6 +212,10 @@ export default function EverydayPage() {
 function Cooking() {
   const { t } = useLang();
   const [have, setHave] = useState<Set<string>>(new Set());
+  const [typed, setTyped] = useState("");
+  const [parsed, setParsed] = useState<string[]>([]);
+  const [unknown, setUnknown] = useState<string[]>([]);
+  const [allChips, setAllChips] = useState(false);
   const [filters, setFilters] = useState<Set<Filter>>(new Set());
   const [list, setList] = useState<string[]>([]);
   const [open, setOpen] = useState<string | null>(null);
@@ -190,11 +234,12 @@ function Cooking() {
   const ranked = useMemo(() => {
     return recipes
       .filter((r) => [...filters].every((f) => (f === "quick" ? r.minutes <= 20 || r.tags.includes("quick") : r.tags.includes(f))))
-      .map((r) => ({ r, got: r.needs.filter((n) => have.has(n)).length }))
+      .map((r) => ({ r, got: r.needs.filter((n) => hasIngredient(have, n)).length }))
       .sort((a, b) => (have.size ? b.got / b.r.needs.length - a.got / a.r.needs.length : 0) || a.r.minutes - b.r.minutes);
   }, [have, filters]);
 
-  const forMeal = (m: Meal) => recipes.filter((r) => r.meals.includes(m));
+  // Baby-only dishes (mashed dal rice, ragi porridge) stay in the list but not in the family planner.
+  const forMeal = (m: Meal) => recipes.filter((r) => r.meals.includes(m) && !r.goodFor?.every((s) => s.startsWith("child_")));
 
   // One recipe per meal for a day, never repeating a dish within that day.
   const dayMenu = (daySeed: number) => {
@@ -211,11 +256,32 @@ function Cooking() {
     const need = new Map<string, number>();
     for (const id of list) {
       const r = recipes.find((x) => x.id === id);
-      r?.needs.filter((n) => !have.has(n)).forEach((n) => need.set(n, (need.get(n) ?? 0) + 1));
+      r?.needs.filter((n) => !hasIngredient(have, n)).forEach((n) => need.set(n, (need.get(n) ?? 0) + 1));
     }
     return [...need.keys()];
   }, [list, have]);
   const [bought, setBought] = useState<Set<string>>(new Set());
+
+  // Typed text selects chips; chips it selected earlier are released when the words are deleted.
+  const onType = (text: string) => {
+    const res = parseKitchen(text);
+    setHave((h) => {
+      const next = new Set(h);
+      parsed.filter((id) => !res.ids.includes(id)).forEach((id) => next.delete(id));
+      res.ids.forEach((id) => next.add(id));
+      return next;
+    });
+    setTyped(text);
+    setParsed(res.ids);
+    setUnknown(res.unknown);
+  };
+  const clearKitchen = () => {
+    setHave(new Set());
+    setTyped("");
+    setParsed([]);
+    setUnknown([]);
+  };
+  const chips = ingredients.filter((i) => allChips || commonIds.has(i.id) || have.has(i.id));
 
   const shareText = shopping.map((id) => `• ${t(ingredientById.get(id)!.name)}`).join("\n");
 
@@ -227,15 +293,34 @@ function Cooking() {
         <section>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h2 className={h2Cls}>{t(copy.kitchen)}</h2>
-            {have.size > 0 && (
-              <button onClick={() => setHave(new Set())} className="text-sm font-bold text-ink-soft underline underline-offset-4 hover:text-kokum-600">
+            {(have.size > 0 || typed) && (
+              <button onClick={clearKitchen} className="text-sm font-bold text-ink-soft underline underline-offset-4 hover:text-kokum-600">
                 {t(copy.clear)}
               </button>
             )}
           </div>
-          <p className="mt-1 text-ink-soft">{t(copy.kitchenHint)}</p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {ingredients.map((i) => (
+          <label htmlFor="kitchen-text" className="mt-4 block text-[15px] font-semibold text-ink">
+            {t(copy.typeLabel)}
+          </label>
+          <input
+            id="kitchen-text"
+            type="text"
+            value={typed}
+            onChange={(e) => onType(e.target.value)}
+            placeholder={t(copy.typePlaceholder)}
+            autoComplete="off"
+            className="mt-2 w-full min-w-0 border-2 border-ink bg-white px-3 py-2.5 text-base text-ink placeholder:text-ink-soft/70 focus:outline-none focus-visible:border-kokum-600"
+          />
+          {unknown.length > 0 && (
+            <p className="mt-1.5 text-sm break-words text-ink-soft" aria-live="polite">
+              {t(copy.unknown)}: {unknown.join(", ")}
+            </p>
+          )}
+          <p className="mt-4 text-ink-soft">
+            {t(copy.kitchenHint)} <span className="text-ink-soft/80">— {t(copy.orPick)}</span>
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {chips.map((i) => (
               <button
                 key={i.id}
                 aria-pressed={have.has(i.id)}
@@ -248,6 +333,9 @@ function Cooking() {
               </button>
             ))}
           </div>
+          <button onClick={() => setAllChips((v) => !v)} className="mt-3 text-sm font-bold text-ink-soft underline underline-offset-4 hover:text-kokum-600">
+            {allChips ? t(copy.showLess) : `${t(copy.showAll)} (${ingredients.length})`}
+          </button>
           <div className="mt-5 flex flex-wrap gap-2 border-t border-ink/10 pt-5">
             {(Object.keys(copy.filters) as Filter[]).map((f) => (
               <button
@@ -284,6 +372,7 @@ function Cooking() {
             ))}
           </ul>
         )}
+        <p className="-mt-8 text-sm leading-relaxed text-ink-soft">{t(copy.estimateNote)}</p>
 
         {/* Weekly planner */}
         <section>
@@ -424,7 +513,9 @@ function RecipeItem({
   onAdd: () => void;
 }) {
   const { t } = useLang();
-  const missing = r.needs.filter((n) => !have.has(n));
+  const missing = r.needs.filter((n) => !hasIngredient(have, n));
+  const cautions = open ? cautionsFor(r) : [];
+  const name = (id: string) => t(ingredientById.get(id)!.name);
   return (
     <li className="border-b border-ink/15 py-4">
       <button onClick={onToggle} aria-expanded={open} className="group flex w-full items-baseline justify-between gap-3 text-left">
@@ -447,7 +538,7 @@ function RecipeItem({
             {missing.length > 0 && (
               <>
                 {" · "}
-                {t(copy.missing)}: {missing.map((m) => t(ingredientById.get(m)!.name)).join(", ")}
+                {t(copy.missing)}: {missing.map(name).join(", ")}
               </>
             )}
           </p>
@@ -456,7 +547,23 @@ function RecipeItem({
 
       {open && (
         <div className="mt-3 animate-fade-up">
-          <p className="text-sm font-semibold text-sea-700">{t(copy.steps)}</p>
+          {r.estimate && (
+            <p className="text-sm text-ink-soft">
+              <span className="font-semibold text-ink">{t(copy.approx)}</span> {t(copy.perServing)}: {r.estimate.proteinG} {t(copy.protein)} · {r.estimate.kcal} kcal · ₹
+              {r.estimate.costRs}
+              <span className="whitespace-nowrap">
+                {" "}
+                ({r.estimate.serves} {t(copy.serves)})
+              </span>
+            </p>
+          )}
+          {r.why && <p className="mt-2 text-[15px] leading-relaxed text-ink">{t(r.why)}</p>}
+          {r.goodFor && r.goodFor.length > 0 && (
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+              <span className="font-semibold text-ink">{t(copy.goodFor)}:</span> {r.goodFor.map((s) => t(stageLabels[s])).join(" · ")}
+            </p>
+          )}
+          <p className="mt-4 text-sm font-semibold text-sea-700">{t(copy.steps)}</p>
           <ol className="mt-2 space-y-2">
             {r.steps.map((s, i) => (
               <li key={i} className="grid grid-cols-[1.5rem_1fr] gap-2 text-[15px] leading-relaxed text-ink">
@@ -465,6 +572,52 @@ function RecipeItem({
               </li>
             ))}
           </ol>
+          {(r.childNote || r.pregnancyNote) && (
+            <dl className="mt-4 space-y-3 border-t border-ink/10 pt-3 text-[15px] leading-relaxed">
+              {r.childNote && (
+                <div>
+                  <dt className="text-sm font-semibold text-sea-700">{t(copy.forChild)}</dt>
+                  <dd className="text-ink">{t(r.childNote)}</dd>
+                </div>
+              )}
+              {r.pregnancyNote && (
+                <div>
+                  <dt className="text-sm font-semibold text-sea-700">{t(copy.forPregnancy)}</dt>
+                  <dd className="text-ink">{t(r.pregnancyNote)}</dd>
+                </div>
+              )}
+            </dl>
+          )}
+          {r.swaps && r.swaps.length > 0 && (
+            <div className="mt-4 border-t border-ink/10 pt-3">
+              <p className="text-sm font-semibold text-sea-700">{t(copy.swaps)}</p>
+              <ul className="mt-1.5 space-y-1.5">
+                {r.swaps.map((w, i) => (
+                  <li key={i} className="grid grid-cols-[1rem_1fr] gap-2 text-[15px] leading-relaxed text-ink">
+                    <span className="text-kokum-500">–</span>
+                    <span>
+                      <span className="font-semibold">
+                        {name(w.from)} → {name(w.to)}
+                      </span>
+                      : {t(w.note)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {cautions.length > 0 && (
+            <div className="mt-4 border-l-2 border-kokum-500 pl-3">
+              <p className="text-sm font-semibold text-kokum-600">{t(copy.careful)}</p>
+              <ul className="mt-1 space-y-1.5">
+                {cautions.map((c) => (
+                  <li key={c.id} className="text-[15px] leading-relaxed text-ink">
+                    {t(c.text)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

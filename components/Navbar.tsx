@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import SOSButton from "./SOSButton";
-import Logo from "./Logo";
+import BrandLogo from "./BrandLogo";
 import { LANGS, useLang } from "@/lib/i18n";
 import { nav } from "@/lib/ui";
 
@@ -13,6 +14,7 @@ const links = [
   { href: "/chat", label: nav.ask },
   { href: "/call", label: nav.call },
   { href: "/everyday", label: nav.everyday },
+  { href: "/poshan", label: nav.poshan },
   { href: "/schemes", label: nav.schemes },
   { href: "/awareness", label: nav.knowledge },
 ];
@@ -46,9 +48,35 @@ const utility = {
   women: { mr: "महिला हेल्पलाइन", en: "Women helpline", hi: "महिला हेल्पलाइन" },
 };
 
+function useHomeBannerInView(active: boolean) {
+  const [inView, setInView] = useState(active);
+  useEffect(() => {
+    if (!active) {
+      setInView(false);
+      return;
+    }
+    // The banner counts as "in view" until its bottom edge passes under the sticky header.
+    const check = () => {
+      const el = document.getElementById("home-banner");
+      setInView(!!el && el.getBoundingClientRect().bottom > 100);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, [active]);
+  return inView;
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const { t } = useLang();
+  const bannerInView = useHomeBannerInView(pathname === "/");
+  // On the home page (tablet and up) the banner already shows the logo, so don't repeat it until it scrolls away.
+  const hideLogo = pathname === "/" && bannerInView;
 
   return (
     <header className="sticky top-0 z-40 bg-sand-100">
@@ -72,9 +100,12 @@ export default function Navbar() {
 
       <nav className="border-b border-ink/10">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-          <Link href="/" className="flex shrink-0 items-center gap-2.5">
-            <Logo size={36} />
-            <span className="font-display text-[19px] leading-none font-extrabold tracking-wide text-ink">AADHI TI</span>
+          <Link
+            href="/"
+            aria-label="आधी ती — AADHI TI"
+            className={`flex shrink-0 items-center transition-opacity duration-300 ${hideLogo ? "md:pointer-events-none md:opacity-0" : "opacity-100"}`}
+          >
+            <BrandLogo height={46} priority />
           </Link>
 
           <div className="hidden items-center gap-6 lg:flex">

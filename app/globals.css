@@ -212,17 +212,4 @@
     background-repeat: repeat-x, repeat-x;
     background-position: top left, bottom left;
   }
-
-  /* The home hero becomes one painted wall from tablet width up. */
-  @media (min-width: 768px) {
-    .hero-wall {
-      background-color: var(--color-kokum-700);
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M0 10 L8 2 L16 10 Z' fill='%23fbf6ee' fill-opacity='0.85'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M0 0 L8 8 L16 0 Z' fill='%23fbf6ee' fill-opacity='0.85'/%3E%3C/svg%3E");
-      background-repeat: repeat-x, repeat-x;
-      background-position: top left, bottom left;
-      color: #fbf6ee;
-    }
-  }
 }

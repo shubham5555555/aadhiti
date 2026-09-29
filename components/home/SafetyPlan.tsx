@@ -83,7 +83,7 @@ export default function SafetyPlan() {
   const count = items.filter((i) => done.includes(i.id)).length;
 
   return (
-    <section className="grid gap-8 border-b border-ink/10 py-12 md:grid-cols-[1fr_2fr] md:gap-10 md:py-16">
+    <section id="safety-plan" className="scroll-mt-28 grid gap-8 border-b border-ink/10 py-12 md:grid-cols-[1fr_2fr] md:gap-10 md:py-16">
       <div>
         <h2 className="font-serif text-3xl font-normal sm:text-[2.6rem] sm:leading-tight">{t(copy.title)}</h2>
         <p className="mt-3 leading-relaxed text-ink-soft">{t(copy.body)}</p>

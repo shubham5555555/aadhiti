@@ -21,6 +21,7 @@ export const nav = {
   ask: { mr: "AADHI TI ला विचारा", en: "Ask AADHI TI", hi: "AADHI TI से पूछें" },
   call: { mr: "कॉल", en: "Call", hi: "कॉल" },
   everyday: { mr: "रोजचं", en: "Everyday", hi: "रोज़मर्रा" },
+  poshan: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   schemes: { mr: "योजना", en: "Schemes", hi: "योजनाएँ" },
   knowledge: { mr: "माहिती", en: "Knowledge", hi: "जानकारी" },
   quickExit: { mr: "लगेच बाहेर", en: "Quick Exit", hi: "तुरंत बाहर" },
@@ -81,9 +82,14 @@ export const chat = {
   },
   voiceSoon: { mr: "आवाजात विचारा (लवकरच)", en: "Ask by voice (coming soon)", hi: "आवाज़ में पूछें (जल्द)" },
   privacy: {
-    mr: "हे demo आहे — संभाषण फक्त तुमच्या browser मध्ये राहतं. कोणी पाहत असेल तर वर 'लगेच बाहेर' दाबा.",
-    en: "This is a demo — conversations stay in your browser only. If someone is watching, tap 'Quick Exit' at the top.",
-    hi: "यह डेमो है — बातचीत सिर्फ़ आपके browser में रहती है। कोई देख रहा हो तो ऊपर 'तुरंत बाहर' दबाएँ।",
+    mr: "तुम्ही स्वतः लिहिलेले प्रश्न उत्तरासाठी AI सेवेकडे (Google Gemini) पाठवले जातात. त्यात नाव, फोन नंबर किंवा पत्ता लिहू नका. कोणी पाहत असेल तर वर 'लगेच बाहेर' दाबा.",
+    en: "Questions you type are sent to an AI service (Google Gemini) to write the answer. Don't include your name, phone number or address. If someone is watching, tap 'Quick Exit' at the top.",
+    hi: "आपके लिखे सवाल जवाब के लिए AI सेवा (Google Gemini) को भेजे जाते हैं। उसमें नाम, फ़ोन नंबर या पता न लिखें। कोई देख रहा हो तो ऊपर 'तुरंत बाहर' दबाएँ।",
+  },
+  aiNote: {
+    mr: "हे उत्तर AI ने लिहिलं आहे. महत्त्वाच्या गोष्टी अधिकृत ठिकाणी किंवा हेल्पलाइनवर खात्री करून घ्या.",
+    en: "This answer was written by AI. Check anything important with an official office or helpline.",
+    hi: "यह जवाब AI ने लिखा है। ज़रूरी बातें आधिकारिक दफ़्तर या हेल्पलाइन पर पक्की कर लें।",
   },
   everydayStrip: { mr: "AADHI TI — रोजचं", en: "AADHI TI — Everyday", hi: "AADHI TI — रोज़मर्रा" },
 } satisfies Record<string, L>;
