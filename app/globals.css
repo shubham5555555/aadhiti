@@ -46,10 +46,12 @@
   --color-turmeric-500: #d48a1f;
   --color-turmeric-600: #b06f14;
 
-  --color-sand-50: #fdfaf5;
-  --color-sand-100: #fbf6ee;
-  --color-sand-200: #f3e9d8;
-  --color-sand-300: #e8d8bd;
+  /* Warm neutrals with a light pink blush */
+  --color-sand-50: #fff9fa;
+  --color-sand-100: #fdf2f4;
+  --color-sand-200: #f8e3e8;
+  --color-sand-300: #efd0d8;
+  --color-blush: #fae4ea;
 
   --color-ink: #2b1b24;
   --color-ink-soft: #6b5a63;

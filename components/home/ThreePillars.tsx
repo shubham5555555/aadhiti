@@ -82,7 +82,7 @@ const copy = {
 export default function ThreePillars() {
   const { t } = useLang();
   return (
-    <section aria-labelledby="pillars-title" className="border-b border-ink/10 py-12 md:py-16">
+    <section aria-labelledby="pillars-title" className="-mx-4 my-10 bg-blush px-4 py-12 sm:mx-0 sm:px-8 md:py-14 lg:px-12">
       <p className="text-sm font-semibold tracking-wide text-sea-700">{t(copy.eyebrow)}</p>
       <h2 id="pillars-title" className="mt-2 font-serif text-[2.4rem] leading-[1.05] font-normal text-kokum-600 sm:text-6xl">
         {t(copy.title)}
