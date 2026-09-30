@@ -174,14 +174,24 @@ export type AnswerInput = {
 export function cleanHistory(raw: unknown): ChatTurn[] {
   return Array.isArray(raw)
     ? (raw as ChatTurn[])
-        .filter((t) => (t?.role === "user" || t?.role === "assistant") && typeof t.text === "string")
+        .filter(
+          (t) =>
+            (t?.role === "user" || t?.role === "assistant") &&
+            typeof t.text === "string",
+        )
         .slice(-6)
         .map((t) => ({ role: t.role, text: t.text.slice(0, 600) }))
     : [];
 }
 
 /** Asks Gemini for a structured answer. Returns null if AI isn't configured or fails. */
-export async function answerQuestion({ message, uiLang, age, history, profile }: AnswerInput): Promise<AiAnswer | null> {
+export async function answerQuestion({
+  message,
+  uiLang,
+  age,
+  history,
+  profile,
+}: AnswerInput): Promise<AiAnswer | null> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
 
@@ -191,10 +201,22 @@ export async function answerQuestion({ message, uiLang, age, history, profile }:
 
   const body = {
     systemInstruction: {
-      parts: [{ text: rulesPrompt(al, age, base ? grounding(base, al) : "", profileLine(profile)) }],
+      parts: [
+        {
+          text: rulesPrompt(
+            al,
+            age,
+            base ? grounding(base, al) : "",
+            profileLine(profile),
+          ),
+        },
+      ],
     },
     contents: [
-      ...history.map((t) => ({ role: t.role === "user" ? "user" : "model", parts: [{ text: t.text }] })),
+      ...history.map((t) => ({
+        role: t.role === "user" ? "user" : "model",
+        parts: [{ text: t.text }],
+      })),
       { role: "user", parts: [{ text: message }] },
     ],
     generationConfig: {
@@ -217,29 +239,49 @@ export async function answerQuestion({ message, uiLang, age, history, profile }:
   let res = await callGemini(body, key, model);
   if (!res.ok && res.status !== 400) res = await callGemini(body, key, model); // one retry for flaky errors
   if (!res.ok) {
-    console.error("Gemini failed", res.status, (await res.text()).slice(0, 300));
+    console.error(
+      "Gemini failed",
+      res.status,
+      (await res.text()).slice(0, 300),
+    );
     return null;
   }
 
   try {
     const data = await res.json();
-    const d = JSON.parse(data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "");
+    const d = JSON.parse(
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "",
+    );
     const answer = (Array.isArray(d.answer) ? d.answer : [])
       .map((a: unknown) => clip(a, 300))
       .filter(Boolean)
       .slice(0, 5);
     if (!d.understand || answer.length === 0) throw new Error("incomplete");
     // Never send anything with abusive words; the caller falls back to reviewed content.
-    const all = [d.understand, ...answer, d.safety_check, d.next_step, ...(Array.isArray(d.options) ? d.options : [])].join(" ");
+    const all = [
+      d.understand,
+      ...answer,
+      d.safety_check,
+      d.next_step,
+      ...(Array.isArray(d.options) ? d.options : []),
+    ].join(" ");
     if (hasAbuse(all)) throw new Error("blocked language");
 
     // Only numbers from our own helpline list; minors always get 1098.
-    let hl = (Array.isArray(d.helplines) ? d.helplines : []).map(Number).filter((n: number) => HELPLINE_NUMBERS.includes(n));
+    let hl = (Array.isArray(d.helplines) ? d.helplines : [])
+      .map(Number)
+      .filter((n: number) => HELPLINE_NUMBERS.includes(n));
     if (age === "girl" && !hl.includes(1098)) hl = [...hl, 1098];
-    const risk = ["P0", "P1", "P2", "P3"].includes(d.risk) ? d.risk : base?.emergency ? "P1" : "P3";
+    const risk = ["P0", "P1", "P2", "P3"].includes(d.risk)
+      ? d.risk
+      : base?.emergency
+        ? "P1"
+        : "P3";
 
     return {
-      intent: ["LEARN", "CHECK", "FIND", "ACT", "CONNECT"].includes(d.intent) ? d.intent : "LEARN",
+      intent: ["LEARN", "CHECK", "FIND", "ACT", "CONNECT"].includes(d.intent)
+        ? d.intent
+        : "LEARN",
       risk,
       understand: clip(d.understand, 300),
       answer,
@@ -257,7 +299,10 @@ export async function answerQuestion({ message, uiLang, age, history, profile }:
       topicId: base?.id ?? null,
     };
   } catch (e) {
-    console.error("Gemini response unusable", e instanceof Error ? e.message : "parse error");
+    console.error(
+      "Gemini response unusable",
+      e instanceof Error ? e.message : "parse error",
+    );
     return null;
   }
 }

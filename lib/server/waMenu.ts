@@ -171,6 +171,15 @@ const MAIN: {
     ],
   },
   {
+    id: "person",
+    title: ["व्यक्तीशी बोला", "किसी व्यक्ति से बात", "Talk to a person"],
+    desc: [
+      "प्रशिक्षित व्यक्तीशी जोडणी, तुमच्या परवानगीने",
+      "प्रशिक्षित व्यक्ति से जुड़ें, आपकी मर्ज़ी से",
+      "Connect with a trained person, with your consent",
+    ],
+  },
+  {
     id: "helplines",
     title: ["मदत क्रमांक", "हेल्पलाइन नंबर", "Helpline numbers"],
     desc: [
@@ -244,15 +253,21 @@ const CATEGORY_TOPICS: Record<string, () => string[]> = {
 };
 
 function topicsOf(catIds: string[]) {
-  const cats = [...adultCategories, ...girlCategories].filter((c) => catIds.includes(c.id));
+  const cats = [...adultCategories, ...girlCategories].filter((c) =>
+    catIds.includes(c.id),
+  );
   // Age "journey" overviews are long reads; the website covers them better than a WhatsApp list.
   const perGroup = cats
     .flatMap((c) => c.groups)
-    .map((g) => g.topics.filter((id) => getTopic(id) && !id.startsWith("journey_")));
+    .map((g) =>
+      g.topics.filter((id) => getTopic(id) && !id.startsWith("journey_")),
+    );
   // Take a few from each group in turn so the list covers the whole subject.
   const out: string[] = [];
   const longest = Math.max(0, ...perGroup.map((g) => g.length));
-  for (let round = 0; round < longest; round++) for (const g of perGroup) if (g[round] && !out.includes(g[round])) out.push(g[round]);
+  for (let round = 0; round < longest; round++)
+    for (const g of perGroup)
+      if (g[round] && !out.includes(g[round])) out.push(g[round]);
   return out;
 }
 
@@ -316,14 +331,24 @@ const SCHEME_SHORT: Record<string, [string, string, string]> = {
     "कौशल प्रशिक्षण (PMKVY)",
     "Skill training (PMKVY)",
   ],
-  jssk: [
-    "मोफत प्रसूती (JSSK)",
-    "मुफ़्त प्रसव (JSSK)",
-    "Free delivery care (JSSK)",
-  ],
 };
 
 export function schemesMenu(lang: Lang): ListMenu {
+  const finder = {
+    id: "finder",
+    title: t3(
+      lang,
+      "माझ्यासाठी योजना तपासा",
+      "मेरे लिए योजना जाँचें",
+      "Check schemes for me",
+    ),
+    description: t3(
+      lang,
+      "6 सोपे प्रश्न, तुम्हाला लागू योजना",
+      "6 आसान सवाल, आप पर लागू योजनाएँ",
+      "6 quick questions, schemes that fit you",
+    ),
+  };
   const rows = Object.keys(SCHEME_SHORT)
     .map((id) => SCHEMES.find((s) => s.id === id))
     .filter((s): s is (typeof SCHEMES)[number] => !!s)
@@ -348,7 +373,12 @@ export function schemesMenu(lang: Lang): ListMenu {
       "Never pay an agent",
     ),
     button: t3(lang, "योजना पाहा", "योजनाएँ देखें", "See schemes"),
-    sections: [{ title: t3(lang, "योजना", "योजनाएँ", "Schemes"), rows }],
+    sections: [
+      {
+        title: t3(lang, "योजना", "योजनाएँ", "Schemes"),
+        rows: [finder, ...rows],
+      },
+    ],
   };
 }
 
@@ -413,3 +443,25 @@ export const menuHint = (lang: Lang) =>
     "_मेनू के लिए *menu* लिखें · भाषा बदलने के लिए *language*_",
     "_Type *menu* for topics · *language* to change language_",
   );
+
+// ---------- talk to a person ----------
+
+/** Asks for consent before a person can read her chat. */
+export function handoffConsentMenu(lang: Lang): ButtonsMenu {
+  return {
+    kind: "buttons",
+    body: t3(
+      lang,
+      "आधी ती च्या प्रशिक्षित टीममधली एक व्यक्ती तुमचे संदेश वाचून इथेच WhatsApp वर उत्तर देईल. त्यांना तुमचा नंबर आणि हे संभाषण दिसेल.\n\nउत्तर यायला थोडा वेळ लागू शकतो. लगेच बोलायचं असेल तर *181* (महिला हेल्पलाइन, 24 तास, मोफत) वर कॉल करा. धोका असेल तर *112*.\n\nजोडून देऊ का?",
+      "आधी ती की प्रशिक्षित टीम का एक व्यक्ति आपके संदेश पढ़कर यहीं WhatsApp पर जवाब देगा। उन्हें आपका नंबर और यह बातचीत दिखेगी।\n\nजवाब आने में थोड़ा समय लग सकता है। अभी बात करनी हो तो *181* (महिला हेल्पलाइन, 24 घंटे, मुफ़्त) पर कॉल करें। खतरा हो तो *112*।\n\nक्या जोड़ दें?",
+      "A person from AADHI TI's trained team will read your messages and reply here on WhatsApp. They will see your number and this chat.\n\nA reply may take a little time. To talk right now, call *181* (women's helpline, 24 hours, free). In danger? Call *112*.\n\nShall I connect you?",
+    ),
+    buttons: [
+      {
+        id: "handoff:yes",
+        title: t3(lang, "हो, जोडून द्या", "हाँ, जोड़ दें", "Yes, connect me"),
+      },
+      { id: "handoff:no", title: t3(lang, "नाही, नको", "नहीं", "No, thanks") },
+    ],
+  };
+}

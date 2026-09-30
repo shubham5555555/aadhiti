@@ -147,3 +147,76 @@ export function slowDownMessage(lang: Lang): string {
     "That's a lot of messages. Please write again in a little while. If you are in danger, call *112* now.",
   );
 }
+
+// ---------- talk to a person ----------
+
+export function handoffDoneMessage(lang: Lang): string {
+  return t3(
+    lang,
+    "जोडलं आहे. आमच्या टीममधली व्यक्ती लवकरच इथे उत्तर देईल. तोपर्यंत तुम्ही काय झालं ते लिहून ठेवू शकता.\n\nपरत आधी ती शी बोलायचं असेल तर *menu* लिहा. धोका असेल तर आत्ता *112*.",
+    "जोड़ दिया है। हमारी टीम का व्यक्ति जल्द ही यहाँ जवाब देगा। तब तक आप क्या हुआ, लिखकर रख सकती हैं।\n\nफिर से आधी ती से बात करनी हो तो *menu* लिखें। खतरा हो तो अभी *112*।",
+    "Done. A person from our team will reply here soon. Meanwhile, you can write down what happened.\n\nTo talk to AADHI TI again, type *menu*. In danger? Call *112* now.",
+  );
+}
+
+export function handoffUnavailableMessage(lang: Lang): string {
+  return t3(
+    lang,
+    "सध्या WhatsApp वर व्यक्तीशी जोडणी सुरू नाही. प्रशिक्षित महिला समुपदेशकांशी आत्ता बोलण्यासाठी *181* वर कॉल करा (24 तास, मोफत). कायदेशीर मदतीसाठी *15100*. धोका असेल तर *112*.",
+    "अभी WhatsApp पर व्यक्ति से जुड़ने की सुविधा शुरू नहीं है। प्रशिक्षित महिला काउंसलर से अभी बात करने के लिए *181* पर कॉल करें (24 घंटे, मुफ़्त)। कानूनी मदद के लिए *15100*। खतरा हो तो *112*।",
+    "Connecting to a person on WhatsApp isn't available yet. To talk to a trained women's counsellor now, call *181* (24 hours, free). For legal help, *15100*. In danger? Call *112*.",
+  );
+}
+
+export function handoffDeclinedMessage(lang: Lang): string {
+  return t3(
+    lang,
+    "ठीक आहे. मी इथेच आहे — तुमचा प्रश्न लिहा किंवा *menu* लिहा.",
+    "ठीक है। मैं यहीं हूँ — अपना सवाल लिखें या *menu* लिखें।",
+    "Okay. I'm right here — type your question or *menu*.",
+  );
+}
+
+export function handoffResumedMessage(lang: Lang): string {
+  return t3(
+    lang,
+    "आधी ती परत तुमच्यासोबत आहे.",
+    "आधी ती फिर से आपके साथ है।",
+    "AADHI TI is back with you.",
+  );
+}
+
+// ---------- voice ----------
+
+/** Shows what we understood from her voice note, so she can correct us. */
+export const heardLine = (lang: Lang, text: string) =>
+  `_${t3(lang, "तुम्ही म्हणालात", "आपने कहा", "You said")}: "${text.length > 200 ? text.slice(0, 199) + "…" : text}"_`;
+
+export function voiceUnclearMessage(lang: Lang): string {
+  return t3(
+    lang,
+    "माफ करा, आवाज नीट ऐकू आला नाही. कृपया पुन्हा बोला किंवा लिहून पाठवा. धोका असेल तर आत्ता *112*.",
+    "माफ़ कीजिए, आवाज़ ठीक से सुनाई नहीं दी। कृपया फिर से बोलें या लिखकर भेजें। खतरा हो तो अभी *112*।",
+    "Sorry, I couldn't hear that clearly. Please speak again or type your message. In danger? Call *112* now.",
+  );
+}
+
+/** Plain text for a voice reply: no WhatsApp formatting, short enough to listen to (≤ 480 chars). */
+export function spokenText(parts: string[]): string {
+  const clean = parts
+    .filter(Boolean)
+    .join(". ")
+    .replace(/[*_~]/g, "")
+    .replace(/https?:\/\/\S+/g, "")
+    .replace(/\s*•\s*/g, ". ")
+    .replace(/\.\s*\./g, ".")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (clean.length <= 480) return clean;
+  const cutAt = Math.max(
+    clean.lastIndexOf(".", 480),
+    clean.lastIndexOf("।", 480),
+    clean.lastIndexOf("?", 480),
+  );
+  return clean.slice(0, cutAt > 200 ? cutAt + 1 : 480);
+}

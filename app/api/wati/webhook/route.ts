@@ -10,11 +10,28 @@ import { detectLang } from "@/lib/detectLang";
 import { understand, type Lang } from "@/lib/kb";
 import { safetyRule } from "@/lib/safetyScripts";
 import { answerQuestion } from "@/lib/server/answer";
-import { bump, getJSON, setJSON, setOnce } from "@/lib/server/store";
-import { sendInteractive, sendText, watiConfigured } from "@/lib/server/wati";
+import { bump, getJSON, setJSON, setOnce, withLock } from "@/lib/server/store";
+import {
+  getMedia,
+  handToHuman,
+  handoffConfigured,
+  sendFile,
+  sendInteractive,
+  sendText,
+  watiConfigured,
+} from "@/lib/server/wati";
+import { transcribe } from "@/lib/server/transcribe";
+import { synthesize } from "@/lib/server/tts";
+import {
+  applyAnswer,
+  finderResult,
+  nextQuestion,
+  type FinderState,
+} from "@/lib/server/waFinder";
 import { hasAbuse } from "@/lib/server/langGuard";
 import {
   categoryMenu,
+  handoffConsentMenu,
   helplinesMessage,
   languageMenu,
   mainMenu,
@@ -30,6 +47,13 @@ import {
 import {
   aiMessage,
   calmMessage,
+  handoffDeclinedMessage,
+  handoffDoneMessage,
+  handoffResumedMessage,
+  handoffUnavailableMessage,
+  heardLine,
+  spokenText,
+  voiceUnclearMessage,
   scriptMessage,
   slowDownMessage,
   textOnlyMessage,
@@ -58,6 +82,10 @@ type UserState = {
   lang: Lang | null;
   history: ChatTurn[];
   offered?: Offered | null;
+  /** Scheme check answers in progress. */
+  finder?: FinderState | null;
+  /** While a person from the team is handling the chat (ms timestamp), the bot stays quiet. */
+  humanUntil?: number;
 };
 
 const DAY = 24 * 60 * 60;
@@ -133,7 +161,7 @@ export async function POST(req: Request) {
   }
 
   after(() =>
-    handle(msg).catch((e) =>
+    withLock(`wati:user:${userKey(msg.waId!)}`, () => handle(msg)).catch((e) =>
       console.error("WATI handler failed", e instanceof Error ? e.message : ""),
     ),
   );
@@ -141,11 +169,17 @@ export async function POST(req: Request) {
 }
 
 const MENU_WORDS =
-  /^(menu|main menu|मेनू|मेन्यू|मुख्य मेनू|0|options?|topics?|विषय)[\s!.,।]*$/i;
+  /^(menu|main menu|मेनू|मेन्यू|मुख्य मेनू|0|options?|topics?|विषय|bot)[\s!.,।]*$/i;
 const LANGUAGE_WORDS =
   /^(language|lang|bhasha|भाषा|change language|भाषा बदला|भाषा बदलें)[\s!.,।]*$/i;
 const HELPLINE_WORDS =
   /^(helplines?|helpline numbers?|numbers?|हेल्पलाइन|हेल्पलाईन|नंबर|मदत क्रमांक|क्रमांक)[\s!.,।]*$/i;
+const FINDER_WORDS =
+  /^(scheme check|check schemes?|schemes? for me|eligibility|पात्रता|योजना तपासा|माझ्यासाठी योजना|योजना जाँचें|मेरे लिए योजना)[\s!.,।?]*$/i;
+const PERSON_WORDS =
+  /(talk to (a )?(person|human|someone|counsell?or)|real person|counsell?or|व्यक्तीशी बोल|माणसाशी बोल|कोणाशी तरी बोल|समुपदेशक|किसी (व्यक्ति|इंसान|से) (से )?बात|इंसान से बात|काउंसलर)/i;
+
+const HANDOFF_HOURS = 24;
 
 const norm = (s: string) =>
   s.trim().toLowerCase().replace(/…$/, "").replace(/\s+/g, " ");
@@ -172,10 +206,14 @@ async function handle(msg: WatiMessage) {
     lang: saved?.lang ?? null,
     history: saved?.history ?? [],
     offered: saved?.offered ?? null,
+    finder: saved?.finder ?? null,
+    humanUntil: saved?.humanUntil ?? 0,
   };
   const uiLang: Lang = state.lang ?? "mr";
-  const save = (patch: Partial<UserState>) =>
-    setJSON(`wati:user:${key}`, { ...state, ...patch }, DAY).catch(() => {});
+  const save = (patch: Partial<UserState>) => {
+    Object.assign(state, patch);
+    return setJSON(`wati:user:${key}`, state, DAY).catch(() => {});
+  };
 
   // Sends a menu as WhatsApp buttons/list, or numbered text if interactive messages fail; remembers what was offered.
   const offer = async (
@@ -196,51 +234,86 @@ async function handle(msg: WatiMessage) {
     return;
   }
 
-  const raw =
-    msg.type === "text"
-      ? msg.text
-      : msg.listReply?.title ||
-        msg.buttonReply?.text ||
-        msg.interactiveButtonReply?.title ||
-        (msg.type === "interactive" || msg.type === "button" ? msg.text : null);
-  const text = (raw ?? "").trim().slice(0, 800);
+  // ---- what did she say? (typed, tapped, or a voice note) ----
+  const isVoice = msg.type === "voice" || msg.type === "audio";
+  let text: string;
+  if (isVoice) {
+    const media = await getMedia([msg.id, msg.whatsappMessageId]);
+    const heard = media ? await transcribe(media.data, media.type) : null;
+    if (!heard) {
+      await sendText(target, voiceUnclearMessage(uiLang));
+      return;
+    }
+    text = heard;
+  } else {
+    const raw =
+      msg.type === "text"
+        ? msg.text
+        : msg.listReply?.title ||
+          msg.buttonReply?.text ||
+          msg.interactiveButtonReply?.title ||
+          (msg.type === "interactive" || msg.type === "button"
+            ? msg.text
+            : null);
+    text = (raw ?? "").trim().slice(0, 800);
+  }
   if (!text) {
     await sendText(target, textOnlyMessage(uiLang));
     return;
   }
 
-  // 1. Danger first, always: approved scripts, never AI, before any menu logic.
+  // Replies to a voice note start with what we heard, and are also sent back as a voice note.
+  const reply = async (body: string, speak: string[], lang: Lang) => {
+    await sendText(
+      target,
+      isVoice ? `${heardLine(lang, text)}\n\n${body}` : body,
+    );
+    if (isVoice) {
+      const audio = await synthesize(spokenText(speak), lang, "female");
+      if (audio) await sendFile(target, audio, "aadhi-ti.mp3", "audio/mpeg");
+    }
+  };
+
+  // 1. Danger first, always (even while a person is handling the chat): approved scripts, never AI.
   const rule = safetyRule(text);
   if (rule) {
     const lang = state.lang ?? detectLang(text, uiLang);
-    const reply = scriptMessage(rule, lang);
-    await sendText(target, reply);
+    const script = scriptMessage(rule, lang);
+    await reply(script, [script.split("\n\n").slice(0, 3).join(" ")], lang);
     await save({
       lang,
       offered: null,
-      history: remember(state.history, text, reply),
+      finder: null,
+      history: remember(state.history, text, script),
     });
     return;
   }
 
-  // 2. A tap or number from the menu we just sent.
-  const pickId = chosen(text, state.offered);
-  if (pickId) {
-    await handleChoice(pickId);
+  // 2. A person from the team is handling this chat: stay quiet unless she asks for the bot again.
+  if (state.humanUntil && state.humanUntil > Date.now()) {
+    if (MENU_WORDS.test(text)) {
+      await sendText(target, handoffResumedMessage(uiLang));
+      await save({ humanUntil: 0 });
+      return offer(mainMenu(uiLang), uiLang);
+    }
     return;
   }
 
-  // 3. Commands, in any of the three languages.
+  // 3. A tap or number from the menu we just sent.
+  const pickId = chosen(text, state.offered);
+  if (pickId) return handleChoice(pickId);
+
+  // 4. Commands, in any of the three languages.
   const switchTo = LANG_WORDS[norm(text)];
   if (switchTo) return handleChoice(`lang:${switchTo}`);
   if (LANGUAGE_WORDS.test(text)) return offer(languageMenu(), uiLang);
-  if (MENU_WORDS.test(text)) return offer(mainMenu(uiLang), uiLang);
-  if (HELPLINE_WORDS.test(text)) {
-    await sendText(target, helplinesMessage(uiLang));
-    return;
-  }
+  if (MENU_WORDS.test(text))
+    return offer(mainMenu(uiLang), uiLang, { finder: null });
+  if (HELPLINE_WORDS.test(text)) return handleChoice("helplines");
+  if (FINDER_WORDS.test(text)) return handleChoice("finder");
+  if (PERSON_WORDS.test(text)) return handleChoice("person");
 
-  // 4. Greetings: new women choose a language first; others get the welcome and the menu.
+  // 5. Greetings: new women choose a language first; others get the welcome and the menu.
   const local = understand(text, null);
   if (local.kind === "greeting" || GREETING.test(text)) {
     if (!state.lang) return offer(languageMenu(), uiLang);
@@ -248,9 +321,10 @@ async function handle(msg: WatiMessage) {
     return offer(mainMenu(state.lang), state.lang);
   }
 
-  // 5. Her own question: AI grounded in reviewed content, with memory; reviewed answer if AI fails.
+  // 6. Her own question: AI grounded in reviewed content, with memory; reviewed answer if AI fails.
   const lang = detectLang(text, uiLang);
-  let reply: string;
+  let body: string;
+  let speak: string[];
   let summary: string;
   const ai = await answerQuestion({
     message: text,
@@ -259,29 +333,29 @@ async function handle(msg: WatiMessage) {
     history: state.history,
   });
   if (ai) {
-    reply = aiMessage(ai);
-    summary = [ai.understand, ...ai.answer, ai.nextStep].join(" ");
+    body = aiMessage(ai);
+    speak = [ai.understand, ...ai.answer, ai.nextStep];
+    summary = speak.join(" ");
   } else if (local.kind === "topic") {
-    reply = topicMessage(local.topic, lang);
+    body = topicMessage(local.topic, lang);
+    speak = [local.topic.understand[lang], local.topic.next[lang]];
     summary = local.topic.understand[lang];
   } else {
-    reply = hasAbuse(text) ? calmMessage(lang) : unknownMessage(lang);
+    body = hasAbuse(text) ? calmMessage(lang) : unknownMessage(lang);
+    speak = [body];
     summary = "Asked her to say more";
   }
-  await sendText(target, `${reply}\n\n${menuHint(lang)}`);
+  await reply(`${body}\n\n${menuHint(lang)}`, speak, lang);
 
   const firstTime = !state.lang;
   await save({
     lang,
     offered: null,
+    finder: null,
     history: remember(state.history, text, summary),
   });
   // First message was a real question: answer it, then offer the language choice once.
-  if (firstTime)
-    await offer(languageMenu(), lang, {
-      lang,
-      history: remember(state.history, text, summary),
-    });
+  if (firstTime) await offer(languageMenu(), lang);
 
   async function handleChoice(id: string) {
     const lang = id.startsWith("lang:") ? (id.slice(5) as Lang) : uiLang;
@@ -295,6 +369,47 @@ async function handle(msg: WatiMessage) {
       return save({ offered: null });
     }
     if (id === "schemes") return offer(schemesMenu(lang), lang);
+
+    // Talk to a person: consent first.
+    if (id === "person") {
+      if (!handoffConfigured()) {
+        await sendText(
+          target,
+          `${handoffUnavailableMessage(lang)}\n\n${menuHint(lang)}`,
+        );
+        return save({ offered: null });
+      }
+      return offer(handoffConsentMenu(lang), lang);
+    }
+    if (id === "handoff:yes") {
+      const done = await handToHuman(target, waId);
+      await sendText(
+        target,
+        done ? handoffDoneMessage(lang) : handoffUnavailableMessage(lang),
+      );
+      return save({
+        offered: null,
+        humanUntil: done ? Date.now() + HANDOFF_HOURS * 3600 * 1000 : 0,
+      });
+    }
+    if (id === "handoff:no") {
+      await sendText(target, handoffDeclinedMessage(lang));
+      return save({ offered: null });
+    }
+
+    // Scheme check: six tap questions, then the website's eligibility rules.
+    if (id === "finder" || id.startsWith("f:")) {
+      const answers =
+        id === "finder" ? {} : applyAnswer(state.finder ?? {}, id);
+      const q = nextQuestion(answers, lang);
+      if (q) return offer(q, lang, { finder: answers });
+      const result = finderResult(answers, lang);
+      await sendText(target, result.text);
+      if (result.menu) return offer(result.menu, lang, { finder: null });
+      await sendText(target, menuHint(lang));
+      return save({ finder: null, offered: null });
+    }
+
     if (id.startsWith("cat:")) {
       const menu = categoryMenu(id.slice(4), lang);
       return menu ? offer(menu, lang) : offer(mainMenu(lang), lang);
@@ -302,9 +417,14 @@ async function handle(msg: WatiMessage) {
     if (id.startsWith("topic:")) {
       const topic = topicById(id.slice(6));
       if (topic) {
-        await sendText(
-          target,
+        await reply(
           `${topicMessage(topic, lang)}\n\n${menuHint(lang)}`,
+          [
+            topic.understand[lang],
+            ...topic.answer.map((x) => x[lang]),
+            topic.next[lang],
+          ],
+          lang,
         );
         return save({
           offered: null,
