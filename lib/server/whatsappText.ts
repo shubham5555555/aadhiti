@@ -102,18 +102,22 @@ export function emergencyMessage(lang: Lang): string {
   );
 }
 
-/** How to switch language, shown under the welcome. */
-const LANG_HINT =
-  "\n\n_English: type *English* · हिंदी: *Hindi* लिखें · मराठी: *मराठी* लिहा_";
-
 export function welcomeMessage(lang: Lang): string {
-  return (
-    t3(
-      lang,
-      "नमस्कार! मी *आधी ती (AADHI TI)*. सुरक्षा, आरोग्य, हक्क, योजना, कमाई, शिक्षण, कुटुंब — काहीही तुमच्या शब्दांत विचारा. सगळं गोपनीय आहे.\n\nउदा.\n• माझ्या मागे कोणीतरी येतंय\n• लाडकी बहीण योजनेसाठी मी पात्र आहे का?\n• PCOS म्हणजे काय?\n\nहिंदी किंवा English मध्येही लिहू शकता. धोका असेल तर आत्ता *112*.",
-      "नमस्ते! मैं *आधी ती (AADHI TI)* हूँ। सुरक्षा, सेहत, अधिकार, योजनाएँ, कमाई, पढ़ाई, परिवार — कुछ भी अपने शब्दों में पूछिए। सब गोपनीय है।\n\nजैसे\n• कोई मेरा पीछा कर रहा है\n• क्या मैं लाडकी बहीण योजना के लिए पात्र हूँ?\n• PCOS क्या है?\n\nमराठी या English में भी लिख सकती हैं। खतरा हो तो अभी *112*।",
-      "Hello! I'm *AADHI TI*. Ask anything in your own words — safety, health, rights, schemes, earning, education, family. Everything is private.\n\nFor example\n• Someone is following me\n• Am I eligible for Ladki Bahin?\n• What is PCOS?\n\nYou can also write in Marathi or Hindi. If you are in danger, call *112* now.",
-    ) + LANG_HINT
+  return t3(
+    lang,
+    "नमस्कार! मी *आधी ती (AADHI TI)*. सुरक्षा, आरोग्य, हक्क, योजना, कमाई, शिक्षण, कुटुंब — काहीही तुमच्या शब्दांत विचारा. सगळं गोपनीय आहे.\n\nउदा.\n• माझ्या मागे कोणीतरी येतंय\n• लाडकी बहीण योजनेसाठी मी पात्र आहे का?\n• PCOS म्हणजे काय?\n\nहिंदी किंवा English मध्येही लिहू शकता. धोका असेल तर आत्ता *112*.",
+    "नमस्ते! मैं *आधी ती (AADHI TI)* हूँ। सुरक्षा, सेहत, अधिकार, योजनाएँ, कमाई, पढ़ाई, परिवार — कुछ भी अपने शब्दों में पूछिए। सब गोपनीय है।\n\nजैसे\n• कोई मेरा पीछा कर रहा है\n• क्या मैं लाडकी बहीण योजना के लिए पात्र हूँ?\n• PCOS क्या है?\n\nमराठी या English में भी लिख सकती हैं। खतरा हो तो अभी *112*।",
+    "Hello! I'm *AADHI TI*. Ask anything in your own words — safety, health, rights, schemes, earning, education, family. Everything is private.\n\nFor example\n• Someone is following me\n• Am I eligible for Ladki Bahin?\n• What is PCOS?\n\nYou can also write in Marathi or Hindi. If you are in danger, call *112* now.",
+  );
+}
+
+/** When she is upset or uses harsh words: stay kind, never mirror them. */
+export function calmMessage(lang: Lang): string {
+  return t3(
+    lang,
+    "मी तुमच्यासोबत आहे. राग येणं, त्रास होणं साहजिक आहे. काय झालं ते थोडक्यात सांगाल का? मी मदत करायचा प्रयत्न करते. धोका असेल तर आत्ता *112*, महिला हेल्पलाइन *181*.",
+    "मैं आपके साथ हूँ। गुस्सा या परेशानी होना स्वाभाविक है। क्या हुआ, थोड़ा बताएँगी? मैं मदद की कोशिश करूँगी। खतरा हो तो अभी *112*, महिला हेल्पलाइन *181*।",
+    "I'm here with you. It's natural to feel angry or upset. Could you tell me a little about what happened? I'll try to help. If you are in danger, call *112*; women's helpline *181*.",
   );
 }
 

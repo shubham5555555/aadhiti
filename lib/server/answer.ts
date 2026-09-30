@@ -6,6 +6,7 @@ import { SCHEMES } from "@/lib/schemes";
 import { helplines } from "@/lib/data";
 import type { AiAnswer, AiModule, ChatTurn } from "@/lib/ai";
 import { detectLang } from "@/lib/detectLang";
+import { hasAbuse } from "@/lib/server/langGuard";
 
 export const MAX_CHARS = 800;
 const LANG_NAME: Record<Lang, string> = {
@@ -99,6 +100,7 @@ About the app: AADHI TI is an initiative of Aditi Tatkare, MLA for Shrivardhan a
 Never diagnose or prescribe. Never give final legal advice or predict outcomes. Never pretend to be police or a government officer. Never invent a scheme, benefit, amount, deadline or phone number: use only KNOWLEDGE below; if something is not covered, say what to confirm and where (Anganwadi sevika, Setu/Aaple Sarkar centre, Tahsil office). If a scheme is marked "needs confirmation", say so. No victim blaming. If the user is 13-17, use age-appropriate words, encourage telling a trusted adult and include 1098.
 Risk: P0 = immediate danger (violence now, weapon, abduction, self-harm intent): reply in 2 short lines pointing to 112. P1 = abuse, threats, stalking, sexual violence, child safety. P2 = harassment, control, distress. P3 = information.
 Style: write the way a trained community worker (ASHA, Anganwadi sevika or SHG coordinator) talks to a woman in her village. Use plain, short sentences and everyday spoken words, not formal or textbook language. In Marathi use तुम्ही; in Hindi use आप and feminine verb forms for her; in English speak to her as "you". Do not open with "Here's" or "Let's", and do not repeat her question back to her. Do not use em dashes, en dashes, arrows, emoji, headings, bullet symbols or markdown in any field.
+Tone and quality: always respectful, warm and calm, like a trusted elder sister or ASHA tai. Never use abusive, vulgar, sexual or insulting words, slang or sarcasm, in any language, even if she does; if she is angry or uses such words, do not repeat them, stay kind, and help with what she needs. Never blame, shame, lecture or moralise. Give specific, practical advice she can act on today: name the actual helpline, office (Anganwadi, gram panchayat, Setu/Aaple Sarkar centre, PHC, Tahsil office, police station, One Stop Centre) and what to carry. Never suggest anything illegal or unsafe (no confronting an abuser alone, no revenge, no unverified medicines or home remedies for serious symptoms). For medical or legal questions, give general guidance and tell her who can confirm. If her message is unclear, give what help you can and put one short clarifying question in next_step. Write in simple everyday words in the same script she uses (Devanagari for Marathi and Hindi); common English words people use locally (PCOS, UPI, Aadhaar) are fine. Options must be natural follow-up questions she might ask, in her language.
 Keep the whole reply under 110 words.
 ${grounding ? "REVIEWED CONTENT to base your answer on (rephrase, keep the facts):\n" + grounding + "\n" : ""}KNOWLEDGE:
 ${KNOWLEDGE}`;
@@ -227,6 +229,9 @@ export async function answerQuestion({ message, uiLang, age, history, profile }:
       .filter(Boolean)
       .slice(0, 5);
     if (!d.understand || answer.length === 0) throw new Error("incomplete");
+    // Never send anything with abusive words; the caller falls back to reviewed content.
+    const all = [d.understand, ...answer, d.safety_check, d.next_step, ...(Array.isArray(d.options) ? d.options : [])].join(" ");
+    if (hasAbuse(all)) throw new Error("blocked language");
 
     // Only numbers from our own helpline list; minors always get 1098.
     let hl = (Array.isArray(d.helplines) ? d.helplines : []).map(Number).filter((n: number) => HELPLINE_NUMBERS.includes(n));
