@@ -90,7 +90,10 @@ export async function bump(key: string, windowSec: number): Promise<number> {
 const memLocks = new Map<string, Promise<unknown>>();
 
 /** Runs fn while holding a lock for key (waits up to ~50s for an earlier message to finish). */
-export async function withLock<T>(key: string, fn: () => Promise<T>): Promise<T> {
+export async function withLock<T>(
+  key: string,
+  fn: () => Promise<T>,
+): Promise<T> {
   if (!hasRedis) {
     const prev = memLocks.get(key) ?? Promise.resolve();
     const run = prev.catch(() => {}).then(fn);
@@ -107,7 +110,11 @@ export async function withLock<T>(key: string, fn: () => Promise<T>): Promise<T>
   // If Redis is unreachable, carry on without the lock rather than drop her message.
   let locked = false;
   try {
-    while (!(locked = (await redis(["SET", lockKey, me, "PX", 60_000, "NX"])) === "OK") && Date.now() < deadline) {
+    while (
+      !(locked =
+        (await redis(["SET", lockKey, me, "PX", 60_000, "NX"])) === "OK") &&
+      Date.now() < deadline
+    ) {
       await new Promise((r) => setTimeout(r, 400));
     }
   } catch {
@@ -118,7 +125,8 @@ export async function withLock<T>(key: string, fn: () => Promise<T>): Promise<T>
   } finally {
     if (locked) {
       try {
-        if ((await redis<string>(["GET", lockKey])) === me) await redis(["DEL", lockKey]);
+        if ((await redis<string>(["GET", lockKey])) === me)
+          await redis(["DEL", lockKey]);
       } catch {}
     }
   }

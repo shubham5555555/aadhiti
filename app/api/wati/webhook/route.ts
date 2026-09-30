@@ -16,6 +16,7 @@ import {
   handToHuman,
   handoffConfigured,
   sendFile,
+  sendFileUrl,
   sendInteractive,
   sendText,
   watiConfigured,
@@ -40,11 +41,14 @@ import {
   offeredOf,
   schemeMessage,
   schemesMenu,
+  SITE_URL,
   topicById,
   type Menu,
   type Offered,
 } from "@/lib/server/waMenu";
 import {
+  aboutCaption,
+  aboutMessage,
   aiMessage,
   calmMessage,
   handoffDeclinedMessage,
@@ -179,6 +183,10 @@ const FINDER_WORDS =
 const PERSON_WORDS =
   /(talk to (a )?(person|human|someone|counsell?or)|real person|counsell?or|व्यक्तीशी बोल|माणसाशी बोल|कोणाशी तरी बोल|समुपदेशक|किसी (व्यक्ति|इंसान|से) (से )?बात|इंसान से बात|काउंसलर)/i;
 
+// "about", her name, or "who made this app" → her photo, credit and initiatives.
+const ABOUT_WORDS =
+  /^(about|about (aadhi|aadhi ti|this app|the app|app))[\s!.?]*$|aditi|आदिती|अदिति|अदिती|तटकरे|tatkare|who (made|started|built|runs) (this|the|aadhi)|(कोणी|कोणाचा|कुणी) (बनवलं|सुरू केलं|उपक्रम)|किसने (बनाया|शुरू किया)|किसकी पहल/i;
+
 const HANDOFF_HOURS = 24;
 
 const norm = (s: string) =>
@@ -312,6 +320,7 @@ async function handle(msg: WatiMessage) {
   if (HELPLINE_WORDS.test(text)) return handleChoice("helplines");
   if (FINDER_WORDS.test(text)) return handleChoice("finder");
   if (PERSON_WORDS.test(text)) return handleChoice("person");
+  if (ABOUT_WORDS.test(text)) return handleChoice("about");
 
   // 5. Greetings: new women choose a language first; others get the welcome and the menu.
   const local = understand(text, null);
@@ -369,6 +378,20 @@ async function handle(msg: WatiMessage) {
       return save({ offered: null });
     }
     if (id === "schemes") return offer(schemesMenu(lang), lang);
+
+    // About the initiative: her photo with the "An initiative by" caption, then her profile.
+    if (id === "about") {
+      await sendFileUrl(
+        target,
+        `${SITE_URL}/brand/aditi-tatkare.jpg`,
+        aboutCaption(lang),
+      );
+      await sendText(
+        target,
+        `${aboutMessage(lang, SITE_URL)}\n\n${menuHint(lang)}`,
+      );
+      return save({ offered: null });
+    }
 
     // Talk to a person: consent first.
     if (id === "person") {

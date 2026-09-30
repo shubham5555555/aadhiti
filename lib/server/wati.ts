@@ -175,3 +175,16 @@ export async function handToHuman(
 
 export const handoffConfigured = () =>
   Boolean(process.env.WATI_HANDOFF_EMAIL || process.env.WATI_HANDOFF_TEAM);
+
+/** Sends a file (e.g. a photo) from a public URL, with an optional caption. */
+export async function sendFileUrl(
+  target: string,
+  fileUrl: string,
+  caption?: string,
+): Promise<boolean> {
+  return post("/api/ext/v3/conversations/messages/fileViaUrl", {
+    target,
+    file_url: fileUrl,
+    caption: caption?.slice(0, 1000) || null,
+  });
+}

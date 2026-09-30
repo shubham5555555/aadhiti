@@ -87,6 +87,7 @@ export function languageMenu(): ButtonsMenu {
       "नमस्कार! *आधी ती (AADHI TI)* मध्ये स्वागत. तुमची भाषा निवडा.\n" +
       "नमस्ते! आपकी भाषा चुनें।\n" +
       "Hello! Please choose your language.\n\n" +
+      "_मा. मंत्री आदिती ताई तटकरे यांचा उपक्रम · An initiative of Hon'ble Minister Aditi Tai Tatkare_\n\n" +
       "_धोका असेल तर आत्ता 112 · Emergency: 112_",
     buttons: [
       { id: "lang:mr", title: "मराठी" },

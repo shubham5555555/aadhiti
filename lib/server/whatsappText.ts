@@ -3,6 +3,7 @@ import type { AiAnswer } from "@/lib/ai";
 import { helplines } from "@/lib/data";
 import type { Lang, Topic } from "@/lib/kb";
 import { SAFETY_SCRIPTS } from "@/lib/safetyScripts";
+import { initiativeBanner, initiatives, leader } from "@/lib/leader";
 
 const t3 = (lang: Lang, mr: string, hi: string, en: string) =>
   lang === "en" ? en : lang === "hi" ? hi : mr;
@@ -103,12 +104,7 @@ export function emergencyMessage(lang: Lang): string {
 }
 
 export function welcomeMessage(lang: Lang): string {
-  return t3(
-    lang,
-    "नमस्कार! मी *आधी ती (AADHI TI)*. सुरक्षा, आरोग्य, हक्क, योजना, कमाई, शिक्षण, कुटुंब — काहीही तुमच्या शब्दांत विचारा. सगळं गोपनीय आहे.\n\nउदा.\n• माझ्या मागे कोणीतरी येतंय\n• लाडकी बहीण योजनेसाठी मी पात्र आहे का?\n• PCOS म्हणजे काय?\n\nहिंदी किंवा English मध्येही लिहू शकता. धोका असेल तर आत्ता *112*.",
-    "नमस्ते! मैं *आधी ती (AADHI TI)* हूँ। सुरक्षा, सेहत, अधिकार, योजनाएँ, कमाई, पढ़ाई, परिवार — कुछ भी अपने शब्दों में पूछिए। सब गोपनीय है।\n\nजैसे\n• कोई मेरा पीछा कर रहा है\n• क्या मैं लाडकी बहीण योजना के लिए पात्र हूँ?\n• PCOS क्या है?\n\nमराठी या English में भी लिख सकती हैं। खतरा हो तो अभी *112*।",
-    "Hello! I'm *AADHI TI*. Ask anything in your own words — safety, health, rights, schemes, earning, education, family. Everything is private.\n\nFor example\n• Someone is following me\n• Am I eligible for Ladki Bahin?\n• What is PCOS?\n\nYou can also write in Marathi or Hindi. If you are in danger, call *112* now.",
-  );
+  return `${welcomeText(lang)}\n\n${creditLine(lang)}`;
 }
 
 /** When she is upset or uses harsh words: stay kind, never mirror them. */
@@ -219,4 +215,47 @@ export function spokenText(parts: string[]): string {
     clean.lastIndexOf("?", 480),
   );
   return clean.slice(0, cutAt > 200 ? cutAt + 1 : 480);
+}
+
+// ---------- about the initiative ----------
+
+/** One line crediting the initiative, with how to learn more. */
+export const creditLine = (lang: Lang) =>
+  t3(
+    lang,
+    `_${initiativeBanner.name.mr} यांचा उपक्रम · अधिक माहितीसाठी *about* लिहा_`,
+    `_${initiativeBanner.name.hi} की पहल · ज़्यादा जानकारी के लिए *about* लिखें_`,
+    `_An initiative of ${initiativeBanner.name.en} · type *about* to know more_`,
+  );
+
+/** Caption for her photo, as on the "An Initiative by" banner. */
+export function aboutCaption(lang: Lang): string {
+  return [
+    `*${initiativeBanner.by[lang]}:*`,
+    `*${initiativeBanner.name[lang]}*`,
+    ...initiativeBanner.lines.map((l) => l[lang]),
+  ].join("\n");
+}
+
+/** Short profile and her initiatives (public, factual information only). */
+export function aboutMessage(lang: Lang, siteUrl: string): string {
+  const items = initiatives.filter((i) => i.id !== "aadhi-ti");
+  return [
+    `*${t3(lang, "आधी ती बद्दल", "आधी ती के बारे में", "About AADHI TI")}*`,
+    leader.whyApp[lang],
+    `*${leader.name[lang]}*\n${leader.roles.map((r) => r[lang]).join("\n")}`,
+    leader.bio[lang],
+    `*${t3(lang, "महिला आणि मुलांसाठी त्यांचे पुढाकार", "महिलाओं और बच्चों के लिए उनकी पहल", "Her initiatives for women and children")}:*\n${items.map((i) => `• *${i.title[lang]}*`).join("\n")}`,
+    `${t3(lang, "अधिक माहिती", "ज़्यादा जानकारी", "More")}: ${siteUrl}/aditi-tatkare`,
+    `_${t3(lang, "Brahmaastra.ai ने तयार केलेला प्रोटोटाइप. हे महाराष्ट्र शासनाचं अधिकृत ॲप नाही.", "Brahmaastra.ai द्वारा बनाया गया प्रोटोटाइप। यह महाराष्ट्र सरकार का आधिकारिक ऐप नहीं है।", "Prototype built by Brahmaastra.ai. Not an official Government of Maharashtra app.")}_`,
+  ].join("\n\n");
+}
+
+function welcomeText(lang: Lang): string {
+  return t3(
+    lang,
+    "नमस्कार! मी *आधी ती (AADHI TI)*. सुरक्षा, आरोग्य, हक्क, योजना, कमाई, शिक्षण, कुटुंब — काहीही तुमच्या शब्दांत विचारा. सगळं गोपनीय आहे.\n\nउदा.\n• माझ्या मागे कोणीतरी येतंय\n• लाडकी बहीण योजनेसाठी मी पात्र आहे का?\n• PCOS म्हणजे काय?\n\nहिंदी किंवा English मध्येही लिहू शकता. धोका असेल तर आत्ता *112*.",
+    "नमस्ते! मैं *आधी ती (AADHI TI)* हूँ। सुरक्षा, सेहत, अधिकार, योजनाएँ, कमाई, पढ़ाई, परिवार — कुछ भी अपने शब्दों में पूछिए। सब गोपनीय है।\n\nजैसे\n• कोई मेरा पीछा कर रहा है\n• क्या मैं लाडकी बहीण योजना के लिए पात्र हूँ?\n• PCOS क्या है?\n\nमराठी या English में भी लिख सकती हैं। खतरा हो तो अभी *112*।",
+    "Hello! I'm *AADHI TI*. Ask anything in your own words — safety, health, rights, schemes, earning, education, family. Everything is private.\n\nFor example\n• Someone is following me\n• Am I eligible for Ladki Bahin?\n• What is PCOS?\n\nYou can also write in Marathi or Hindi. If you are in danger, call *112* now.",
+  );
 }
