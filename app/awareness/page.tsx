@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { AlertTriangle, ArrowRight, Search, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, BookOpen, ChevronRight, Search, X } from "lucide-react";
 import CategoryIcon from "@/components/CategoryIcon";
 import Quiz from "@/components/Quiz";
 import { BigFigure } from "@/components/PageArt";
+import Leaf from "@/components/Leaf";
 import { useLang } from "@/lib/i18n";
 import { adultCategories, allTopics, categoryGroups, girlCategories, type Category, type Topic } from "@/lib/kb";
 
@@ -50,39 +51,42 @@ export default function KnowledgePage() {
   return (
     <div className="pb-6">
       {/* Opening */}
-      <section className="grid gap-10 border-b border-ink/10 pt-10 pb-12 md:grid-cols-[1.25fr_1fr] md:items-center">
-        <div>
-          <p className="text-sm font-semibold tracking-wide text-sea-700">{t(copy.eyebrow)}</p>
-          <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
+      <section className="relative mt-6 grid gap-8 overflow-hidden rounded-3xl border border-kokum-100 bg-gradient-to-br from-kokum-50 via-sand-50 to-white p-6 shadow-[0_10px_30px_-18px_rgba(126,23,56,0.35)] sm:p-10 md:grid-cols-[1.25fr_1fr] md:items-center">
+        <Leaf className="absolute -top-4 -right-6 h-44 w-auto text-kokum-200" />
+        <div className="relative">
+          <p className="text-sm font-semibold tracking-wide text-kokum-500">{t(copy.eyebrow)}</p>
+          <h1 className="mt-3 font-serif text-[2.6rem] leading-[1.05] font-normal text-kokum-700 sm:text-[4rem]">{t(copy.title)}</h1>
+          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">{t(copy.body)}</p>
 
-          <div className="mt-8 flex max-w-xl items-stretch border-2 border-ink bg-white">
-            <span className="grid w-11 shrink-0 place-items-center text-ink-soft">
-              <Search size={18} />
-            </span>
+          <div className="relative mt-7 max-w-xl">
+            <Search size={18} className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-kokum-400" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={t(copy.search)}
               aria-label={t(copy.search)}
-              className="min-w-0 flex-1 bg-transparent py-3.5 pr-2 text-[16px] outline-none placeholder:text-ink-soft/60"
+              className="soft-input w-full pr-12 pl-11"
             />
             {q && (
-              <button onClick={() => setQ("")} className="grid w-11 shrink-0 place-items-center border-l-2 border-ink text-ink hover:bg-sand-100" aria-label="Clear">
-                <X size={17} />
+              <button
+                onClick={() => setQ("")}
+                className="absolute top-1/2 right-2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full bg-kokum-50 text-kokum-700 hover:bg-kokum-100"
+                aria-label="Clear"
+              >
+                <X size={16} />
               </button>
             )}
           </div>
         </div>
 
-<figure className="w-full md:max-w-[18rem] md:justify-self-end">
-          <BigFigure value={String(allTopics.filter((tp) => tp.id !== "everyday").length)} caption={t(copy.figureCaption)} className="text-sea-700" />
+        <figure className="relative w-full rounded-3xl border border-kokum-100 bg-white/80 p-5 md:max-w-[18rem] md:justify-self-end">
+          <BigFigure value={String(allTopics.filter((tp) => tp.id !== "everyday").length)} caption={t(copy.figureCaption)} className="!border-0 !pt-0 text-kokum-600" />
         </figure>
       </section>
 
       {matches ? (
-        <section className="border-b border-ink/10 py-10">
-          <p className="text-sm font-bold text-ink-soft">
+        <section className="py-10">
+          <p className="text-sm font-bold text-kokum-600">
             {t(copy.results)} · {matches.length}
           </p>
           {matches.length === 0 ? (
@@ -97,21 +101,21 @@ export default function KnowledgePage() {
         </section>
       ) : (
         <>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 pt-8" role="tablist">
+          <div className="flex flex-wrap gap-2 pt-8" role="tablist">
             {(["women", "girls"] as const).map((k) => (
               <button
                 key={k}
                 role="tab"
                 aria-selected={tab === k}
                 onClick={() => setTab(k)}
-                className={`border-b-2 pb-1 text-[15px] font-bold transition ${tab === k ? "border-kokum-500 text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+                className={tab === k ? "soft-chip-on" : "soft-chip"}
               >
                 {t(copy[k])}
               </button>
             ))}
           </div>
 
-          <div key={tab} className="mt-6 grid animate-fade-up border-t border-ink/15 md:grid-cols-2">
+          <div key={tab} className="mt-6 grid animate-fade-up gap-5 md:grid-cols-2">
             {cats.map((c, i) => (
               <CategoryBlock key={c.id} cat={c} girls={tab === "girls"} index={i} />
             ))}
@@ -129,28 +133,26 @@ function CategoryBlock({ cat, girls, index }: { cat: Category; girls: boolean; i
   // Show every topic in the category regardless of the viewer's own age setting.
   const groups = categoryGroups(cat, girls ? "girl" : null);
   const count = groups.reduce((n, g) => n + g.topics.length, 0);
-  const right = index % 2 === 1;
   return (
-    <section
-      id={cat.id}
-      className={`scroll-mt-28 border-b border-ink/15 py-9 ${right ? "md:border-l md:pl-8" : "md:pr-8"}`}
-    >
-      <div className="flex items-start gap-4">
-        <span className="w-8 shrink-0 pt-1 font-serif text-2xl font-normal text-kokum-500 tabular-nums">{index + 1}</span>
+    <section id={cat.id} className="soft-card scroll-mt-28 p-5 sm:p-6">
+      <div className="flex items-start gap-3.5">
+        <span className="icon-circle">
+          <CategoryIcon icon={cat.icon} size={20} className="shrink-0" />
+        </span>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2.5">
-            <CategoryIcon icon={cat.icon} size={20} className="shrink-0 text-sea-600" />
-            <h2 className="font-serif text-2xl font-normal text-ink">{t(cat.title)}</h2>
+          <div className="flex items-baseline gap-2">
+            <span className="font-serif text-lg font-normal text-kokum-300 tabular-nums">{index + 1}</span>
+            <h2 className="font-serif text-2xl font-normal text-kokum-700">{t(cat.title)}</h2>
           </div>
           <p className="mt-1 text-[15px] text-ink-soft">
             {t(cat.subtitle)} · {count} {t(copy.topics)}
           </p>
         </div>
       </div>
-      <div className="mt-5 space-y-6 sm:pl-12">
+      <div className="mt-5 space-y-5">
         {groups.map((g) => (
           <div key={g.title.en}>
-            <p className="text-sm font-bold text-ink-soft">{t(g.title)}</p>
+            <p className="text-xs font-bold tracking-wide text-kokum-500 uppercase">{t(g.title)}</p>
             <div className="mt-1.5">
               <TopicList topics={g.topics} />
             </div>
@@ -164,13 +166,15 @@ function CategoryBlock({ cat, girls, index }: { cat: Category; girls: boolean; i
 function TopicList({ topics }: { topics: Topic[] }) {
   const { t } = useLang();
   return (
-    <ul className="border-t border-ink/15">
+    <ul className="space-y-2">
       {topics.map((tp) => (
-        <li key={tp.id} className="border-b border-ink/15">
-          <Link href={`/chat?topic=${tp.id}`} className="group flex items-center gap-3 py-2.5">
-            {tp.emergency && <AlertTriangle size={14} className="shrink-0 text-red-600" />}
-            <span className={`min-w-0 flex-1 font-semibold ${tp.emergency ? "text-red-700" : "text-ink group-hover:text-kokum-600"}`}>{t(tp.title)}</span>
-            <ArrowRight size={16} className="shrink-0 text-ink/25 transition group-hover:translate-x-1 group-hover:text-kokum-600" />
+        <li key={tp.id}>
+          <Link href={`/chat?topic=${tp.id}`} className={`soft-list-item group !p-2.5 ${tp.emergency ? "!border-red-200 !bg-red-50/60" : ""}`}>
+            <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${tp.emergency ? "bg-red-100 text-red-600" : "bg-kokum-50 text-kokum-600"}`}>
+              {tp.emergency ? <AlertTriangle size={15} /> : <BookOpen size={15} />}
+            </span>
+            <span className={`min-w-0 flex-1 text-[15px] font-semibold ${tp.emergency ? "text-red-700" : "text-ink group-hover:text-kokum-700"}`}>{t(tp.title)}</span>
+            <ChevronRight size={18} className="shrink-0 text-kokum-300 transition group-hover:translate-x-0.5 group-hover:text-kokum-600" />
           </Link>
         </li>
       ))}

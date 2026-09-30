@@ -150,7 +150,7 @@ const modes: { id: AnswerMode; label: L; note: L }[] = [
 ];
 
 const chip = (on: boolean) =>
-  `border px-3 py-2 text-sm font-bold transition ${on ? "border-ink bg-ink text-white" : "border-ink/20 bg-white text-ink hover:border-ink"}`;
+  `${on ? "soft-chip-on" : "soft-chip"} py-2 font-bold`;
 
 export default function Onboarding({
   initial,
@@ -200,14 +200,14 @@ export default function Onboarding({
   return (
     <div className="mx-auto max-w-xl animate-fade-up">
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm font-bold text-sea-700">
+        <p className="text-sm font-bold text-kokum-600">
           {t(copy.step)} {step + 1} {t(copy.of)} 3
         </p>
         <div className="flex gap-1.5" aria-hidden>
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className={`h-1.5 w-8 ${i <= step ? "bg-kokum-600" : "bg-ink/15"}`}
+              className={`h-2 w-8 rounded-full transition ${i <= step ? "bg-kokum-600" : "bg-kokum-100"}`}
             />
           ))}
         </div>
@@ -218,7 +218,7 @@ export default function Onboarding({
         </p>
       )}
 
-      <div className="mt-5 border border-ink/15 bg-white p-5 sm:p-6">
+      <div className="soft-card mt-5 p-5 sm:p-7">
         {step === 0 && (
           <div className="space-y-6">
             <h2 className="font-serif text-[1.9rem] leading-tight text-kokum-600">
@@ -273,7 +273,7 @@ export default function Onboarding({
                 placeholder={t(copy.namePh)}
                 autoComplete="off"
                 maxLength={40}
-                className="mt-2 w-full border-2 border-ink bg-white px-3 py-2.5 text-[16px] font-medium outline-none placeholder:text-ink-soft/50 focus:border-kokum-600"
+                className="soft-input mt-2 w-full font-medium"
               />
               <span className="mt-1.5 block text-[13px] font-normal text-ink-soft">
                 {t(copy.nameNote)}
@@ -325,7 +325,7 @@ export default function Onboarding({
                           type="button"
                           onClick={() => set({ month: m })}
                           aria-pressed={p.month === m}
-                          className={`w-10 ${chip(p.month === m)}`}
+                          className={`${chip(p.month === m)} w-10 justify-center px-0`}
                         >
                           {m}
                         </button>
@@ -356,7 +356,7 @@ export default function Onboarding({
               </fieldset>
             )}
             {girl && (
-              <p className="border-l-4 border-kokum-500 bg-kokum-50 px-4 py-3 text-[15px] text-ink">
+              <p className="rounded-2xl border border-kokum-100 bg-kokum-50 px-4 py-3 text-[15px] text-ink">
                 {t({
                   mr: "तुमच्यासाठी मुलींचा विभाग उघडेल: शाळा, शरीरातले बदल, ऑनलाइन सुरक्षा. काही चुकीचं घडत असेल तर 1098 मोफत आहे.",
                   en: "You'll get the girls' section: school, body changes, staying safe online. If something is wrong, 1098 is free.",
@@ -372,18 +372,15 @@ export default function Onboarding({
             <h2 className="font-serif text-[1.9rem] leading-tight text-kokum-600">
               {t(copy.s3)}
             </h2>
-            <div
-              className="grid grid-cols-3 border-2 border-ink"
-              role="radiogroup"
-            >
-              {modes.map((m, i) => (
+            <div className="grid grid-cols-3 gap-2" role="radiogroup">
+              {modes.map((m) => (
                 <button
                   key={m.id}
                   type="button"
                   role="radio"
                   aria-checked={p.answerMode === m.id}
                   onClick={() => set({ answerMode: m.id })}
-                  className={`px-2 py-3 text-center transition ${i > 0 ? "border-l-2 border-ink" : ""} ${p.answerMode === m.id ? "bg-ink text-white" : "bg-white text-ink hover:bg-sand-100"}`}
+                  className={`min-w-0 rounded-2xl border px-2 py-3 text-center transition ${p.answerMode === m.id ? "border-kokum-700 bg-kokum-700 text-white shadow-[0_10px_22px_-12px_rgba(126,23,56,0.8)]" : "border-kokum-100 bg-white text-ink hover:border-kokum-300 hover:bg-kokum-50"}`}
                 >
                   <span className="block font-bold">{t(m.label)}</span>
                   <span
@@ -408,7 +405,7 @@ export default function Onboarding({
                 </span>
               </span>
             </label>
-            <p className="flex gap-2 border-t border-ink/10 pt-4 text-[13px] leading-relaxed text-ink-soft">
+            <p className="flex gap-2 border-t border-kokum-100 pt-4 text-[13px] leading-relaxed text-ink-soft">
               <Lock size={14} className="mt-0.5 shrink-0 text-sea-600" />{" "}
               {t(copy.guest)}
             </p>
@@ -420,16 +417,12 @@ export default function Onboarding({
             <button
               type="button"
               onClick={() => setStep(step - 1)}
-              className="inline-flex items-center gap-1.5 border-2 border-ink px-4 py-3 font-bold text-ink hover:bg-sand-100"
+              className="soft-btn-outline px-5 py-2.5"
             >
               <ArrowLeft size={17} /> {t(copy.back)}
             </button>
           )}
-          <button
-            type="button"
-            onClick={next}
-            className="inline-flex flex-1 items-center justify-center gap-2 bg-kokum-600 px-5 py-3 font-bold text-white hover:bg-kokum-700"
-          >
+          <button type="button" onClick={next} className="soft-btn flex-1 px-5">
             {step < 2 ? t(copy.next) : editing ? t(copy.save) : t(copy.start)}{" "}
             <ArrowRight size={17} />
           </button>
@@ -441,7 +434,7 @@ export default function Onboarding({
           <button
             type="button"
             onClick={() => finish(true)}
-            className="text-sm font-semibold text-ink-soft underline decoration-ink/20 underline-offset-4 hover:text-ink"
+            className="text-sm font-semibold text-ink-soft underline decoration-kokum-200 underline-offset-4 hover:text-kokum-700"
           >
             {t(copy.skip)}
           </button>
@@ -453,7 +446,9 @@ export default function Onboarding({
           className="inline-flex items-center gap-2 text-sm font-bold text-red-700"
         >
           {t(copy.urgent)}{" "}
-          <span className="bg-red-600 px-2 py-0.5 text-white">112</span>
+          <span className="rounded-full bg-red-600 px-3 py-0.5 text-white">
+            112
+          </span>
         </a>
       </div>
     </div>

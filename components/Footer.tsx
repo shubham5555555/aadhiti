@@ -26,20 +26,20 @@ const prototype = {
 export default function Footer() {
   const { t } = useLang();
   return (
-    <footer className="relative mt-20 overflow-hidden bg-sea-900 text-sea-100">
-      <WarliRow count={40} className="pointer-events-none absolute top-6 left-0 h-8 w-auto max-w-none text-sea-700" />
+    <footer className="relative mt-16 overflow-hidden rounded-t-[2rem] bg-kokum-900 text-kokum-100">
+      <WarliRow count={40} className="pointer-events-none absolute top-6 left-0 h-8 w-auto max-w-none text-kokum-700" />
       <div className="relative mx-auto grid max-w-6xl gap-8 px-4 pt-20 pb-10 md:grid-cols-[1fr_auto]">
         <div className="max-w-xl">
-          <div className="inline-block bg-sand-50 px-4 py-2">
+          <div className="inline-block rounded-2xl bg-sand-50 px-4 py-2">
             <BrandLogo height={64} />
           </div>
           <p className="mt-3 font-display text-lg font-bold text-turmeric-300">{t(pillarsLine)}</p>
-          <p className="mt-1 text-sm text-sea-200">{t(brand.promise)}</p>
-          <p className="mt-3 text-sm leading-relaxed text-sea-200">{t(disclaimer)}</p>
+          <p className="mt-1 text-sm text-kokum-200">{t(brand.promise)}</p>
+          <p className="mt-3 text-sm leading-relaxed text-kokum-200">{t(disclaimer)}</p>
           <Link href="/aditi-tatkare" className="mt-4 block text-sm font-bold text-sand-50 underline decoration-white/30 underline-offset-4 hover:decoration-white">
             {t(leader.credit)}
           </Link>
-          <p className="mt-2 text-sm text-sea-200">{t(prototype)}</p>
+          <p className="mt-2 text-sm text-kokum-200">{t(prototype)}</p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold md:flex-col md:items-end">
           <Link href="/chat" className="hover:text-white">{t(nav.ask)}</Link>

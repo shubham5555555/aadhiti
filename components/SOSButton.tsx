@@ -48,7 +48,7 @@ export default function SOSButton({ compact = false }: { compact?: boolean }) {
       {compact ? (
         <button
           onClick={start}
-          className="relative flex items-center gap-1.5 bg-red-600 px-3 py-2 text-xs font-extrabold tracking-wide text-white hover:bg-red-700"
+          className="relative flex items-center gap-1.5 rounded-full bg-red-600 px-4 py-2 text-xs font-extrabold tracking-wide text-white shadow-[0_8px_18px_-8px_rgba(220,38,38,0.9)] hover:bg-red-700"
         >
           <AlertTriangle size={14} /> SOS
         </button>
@@ -65,8 +65,8 @@ export default function SOSButton({ compact = false }: { compact?: boolean }) {
       )}
 
       {stage !== "closed" && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/60 p-4" role="dialog" aria-modal="true">
-          <div className="w-full max-w-sm animate-fade-up border-2 border-ink bg-white p-6 text-ink">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-kokum-900/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="w-full max-w-sm animate-fade-up rounded-3xl bg-white p-6 text-ink shadow-2xl">
             <div className="flex items-start justify-between gap-4">
               <p className="text-sm font-bold tracking-wide text-red-700">SOS</p>
               <button onClick={() => setStage("closed")} className="-m-1 p-1 text-ink-soft hover:text-ink" aria-label="Close">
@@ -81,7 +81,7 @@ export default function SOSButton({ compact = false }: { compact?: boolean }) {
                 </p>
                 <h3 className="mt-4 font-serif text-2xl font-normal">{t(copy.sending)}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">{t(copy.sendingBody)}</p>
-                <button onClick={() => setStage("closed")} className="mt-6 w-full border-2 border-ink py-3 font-bold text-ink hover:bg-sand-100">
+                <button onClick={() => setStage("closed")} className="soft-btn-outline mt-6 w-full">
                   {t(copy.cancel)}
                 </button>
               </>

@@ -348,12 +348,12 @@ function Chat() {
 
   return (
     <div className="grid gap-8 sm:py-6 lg:grid-cols-[1fr_280px]">
-      <section className="-mx-4 flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col bg-sand-100 sm:mx-0 sm:h-[calc(100dvh-12rem)] sm:border sm:border-ink/15 lg:h-[calc(100dvh-9.5rem)]">
+      <section className="-mx-4 flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col overflow-hidden bg-sand-100 sm:mx-0 sm:h-[calc(100dvh-12rem)] sm:rounded-3xl sm:border sm:border-kokum-100 sm:shadow-[0_18px_40px_-28px_rgba(126,23,56,0.45)] lg:h-[calc(100dvh-9.5rem)]">
         {/* Slim toolbar — the site header above already carries the logo and name. */}
-        <div className="flex items-center justify-between border-b border-ink/15 bg-sand-50 px-4 py-1.5 sm:px-5">
-          <p className="flex items-center gap-2 text-sm text-ink-soft">
+        <div className="m-2 flex items-center justify-between gap-2 rounded-full border border-kokum-100 bg-white py-1 pr-1.5 pl-3.5 shadow-[0_8px_20px_-16px_rgba(126,23,56,0.45)] sm:m-3 sm:pr-2 sm:pl-5">
+          <p className="flex min-w-0 items-center gap-2 overflow-hidden text-[13px] whitespace-nowrap text-ink-soft sm:text-sm">
             <span
-              className={`h-2 w-2 rounded-full ${typing ? "bg-turmeric-500" : "bg-leaf-500"}`}
+              className={`h-2 w-2 shrink-0 rounded-full ${typing ? "bg-turmeric-500" : "bg-leaf-500"}`}
             />
             {typing ? t(chat.typing) : t(chat.online)}
           </p>
@@ -366,7 +366,7 @@ function Chat() {
                   en: "Edit my details",
                   hi: "मेरी जानकारी बदलें",
                 })}
-                className="mr-1 hidden max-w-[16rem] items-center gap-1.5 truncate border border-ink/15 px-2.5 py-1 text-[13px] font-semibold text-ink hover:border-ink sm:inline-flex"
+                className="mr-1 hidden max-w-[16rem] items-center gap-1.5 truncate rounded-full border border-kokum-100 bg-kokum-50 px-3 py-1 text-[13px] font-semibold text-ink hover:border-kokum-300 sm:inline-flex"
               >
                 <UserRound size={14} className="shrink-0 text-kokum-600" />
                 <span className="truncate">
@@ -415,7 +415,7 @@ function Chat() {
         {!ready ? (
           <div className="flex-1" />
         ) : gated ? (
-          <div className="scrollbar-thin flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+          <div className="scrollbar-thin flex-1 overflow-y-auto px-4 py-4 sm:px-6">
             <Onboarding
               initial={{ ...profile, age: profile.age ?? age }}
               editing={profile.onboarded}
@@ -428,7 +428,7 @@ function Chat() {
         ) : (
           <div
             ref={listRef}
-            className="scrollbar-thin relative flex-1 space-y-6 overflow-y-auto px-4 py-6 sm:px-6"
+            className="scrollbar-thin relative flex-1 space-y-6 overflow-y-auto px-4 py-4 sm:px-6"
           >
             {messages.map((m) =>
               m.from === "user" ? (
@@ -437,7 +437,7 @@ function Chat() {
                   data-user-msg
                   className="flex animate-fade-up justify-end"
                 >
-                  <p className="max-w-[85%] rounded-md bg-ink px-4 py-2.5 text-[15.5px] leading-relaxed text-white">
+                  <p className="max-w-[85%] rounded-2xl rounded-br-md bg-kokum-700 px-4 py-2.5 text-[15.5px] leading-relaxed text-white shadow-[0_10px_22px_-14px_rgba(126,23,56,0.8)]">
                     {typeof m.text === "string" ? m.text : t(m.text)}
                   </p>
                 </div>
@@ -500,11 +500,11 @@ function Chat() {
 
             {typing && (
               <BotRow>
-                <div className="flex w-fit gap-1.5 rounded-md border border-ink/10 bg-white px-4 py-3.5">
+                <div className="flex w-fit gap-1.5 rounded-2xl rounded-bl-md border border-kokum-100 bg-white px-4 py-3.5">
                   {[0, 150, 300].map((d) => (
                     <span
                       key={d}
-                      className="h-1.5 w-1.5 animate-bounce rounded-full bg-ink-soft"
+                      className="h-1.5 w-1.5 animate-bounce rounded-full bg-kokum-300"
                       style={{ animationDelay: `${d}ms` }}
                     />
                   ))}
@@ -525,24 +525,24 @@ function Chat() {
         )}
       </section>
 
-      <aside className="hidden space-y-8 lg:block">
-        <div className="border-2 border-red-600 bg-white p-5">
+      <aside className="hidden space-y-6 lg:block">
+        <div className="rounded-3xl border border-red-200 bg-white p-5 shadow-[0_12px_30px_-20px_rgba(220,38,38,0.5)]">
           <p className="flex items-center gap-2 font-display text-lg font-bold text-red-700">
             <AlertTriangle size={18} /> {t(chat.emergencyTitle)}
           </p>
           <p className="mt-1 text-sm text-ink-soft">{t(chat.emergencyBody)}</p>
           <a
             href="tel:112"
-            className="mt-4 flex items-center justify-between bg-red-600 px-4 py-2.5 font-bold text-white hover:bg-red-700"
+            className="mt-4 flex items-center justify-between rounded-full bg-red-600 px-5 py-2 font-bold text-white shadow-[0_10px_22px_-12px_rgba(220,38,38,0.8)] hover:bg-red-700"
           >
             {t(chat.call112)}{" "}
             <span className="font-serif text-2xl font-normal">112</span>
           </a>
         </div>
 
-        <ul className="border-t border-ink/15">
+        <ul className="soft-card divide-y divide-kokum-100 overflow-hidden px-5 py-1">
           {helplines.slice(1).map((h) => (
-            <li key={h.number} className="border-b border-ink/15">
+            <li key={h.number}>
               <a
                 href={`tel:${h.number}`}
                 className="flex items-baseline justify-between gap-2 py-2.5 text-sm hover:text-kokum-600"
@@ -570,7 +570,7 @@ function Chat() {
 function BotRow({ children }: { children: React.ReactNode }) {
   return (
     <div className="animate-fade-up">
-      <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-sea-700">
+      <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-kokum-600">
         AADHI TI
       </p>
       <div className="max-w-full sm:max-w-[88%]">{children}</div>
@@ -578,7 +578,7 @@ function BotRow({ children }: { children: React.ReactNode }) {
   );
 }
 
-const panel = "border border-ink/15 bg-white";
+const panel = "soft-card";
 const textLink =
   "inline-flex items-center gap-1.5 font-bold text-kokum-600 underline decoration-kokum-200 underline-offset-4 hover:decoration-kokum-500";
 
@@ -609,11 +609,7 @@ function MenuMessage({
               key={a}
               onClick={() => setAge(a)}
               aria-pressed={age === a}
-              className={`border px-3 py-1.5 text-sm font-bold transition ${
-                age === a
-                  ? "border-ink bg-ink text-white"
-                  : "border-ink/20 text-ink hover:border-ink"
-              }`}
+              className={age === a ? "soft-chip-on" : "soft-chip"}
             >
               {t(ageLabels[a])}
             </button>
@@ -622,15 +618,17 @@ function MenuMessage({
       </div>
 
       <div className={panel}>
-        <p className="px-4 pt-4 font-serif text-xl">{t(chat.menuQuestion)}</p>
-        <ol className="mt-2 grid sm:grid-cols-2">
+        <p className="px-4 pt-4 font-serif text-xl text-kokum-700">
+          {t(chat.menuQuestion)}
+        </p>
+        <ol className="mt-3 grid gap-2 px-3 sm:grid-cols-2">
           {cats.map((c, i) => (
-            <li key={c.id} className="border-t border-ink/10 sm:odd:border-r">
+            <li key={c.id} className="min-w-0">
               <button
                 onClick={() => onCategory(c)}
-                className="group flex w-full items-baseline gap-3 px-4 py-3 text-left hover:bg-sand-50"
+                className="group soft-list-item w-full p-2.5 text-left"
               >
-                <span className="w-5 shrink-0 font-serif text-lg text-kokum-500">
+                <span className="icon-circle h-10 w-10 font-serif text-lg">
                   {i + 1}
                 </span>
                 <span className="min-w-0 flex-1">
@@ -647,7 +645,7 @@ function MenuMessage({
         </ol>
         <Link
           href="/everyday"
-          className="flex items-center justify-between border-t border-ink/10 px-4 py-3 text-sm font-bold text-turmeric-600 hover:bg-turmeric-50"
+          className="m-3 flex items-center justify-between rounded-full bg-turmeric-50 px-4 py-2.5 text-sm font-bold text-turmeric-600 hover:bg-turmeric-100"
         >
           <span className="flex items-center gap-2">
             <UtensilsCrossed size={15} /> {t(chat.everydayStrip)}
@@ -682,23 +680,27 @@ function CategoryMessage({
   return (
     <div>
       <div className={panel}>
-        <p className="flex items-center gap-2.5 px-4 pt-4 font-serif text-xl">
-          <CategoryIcon icon={cat.icon} size={19} className="text-sea-600" />
+        <p className="flex items-center gap-3 px-4 pt-4 font-serif text-xl text-kokum-700">
+          <span className="icon-circle">
+            <CategoryIcon icon={cat.icon} size={19} />
+          </span>
           {t(cat.title)}
         </p>
-        <div className="mt-3 space-y-4 pb-2">
+        <div className="mt-3 space-y-4 px-3 pb-3">
           {groups.map((g) => (
             <div key={g.title.en}>
-              <p className="px-4 pb-1 text-xs font-bold text-ink-soft">
+              <p className="px-1 pb-1.5 text-xs font-bold text-ink-soft">
                 {t(g.title)}
               </p>
-              <ul>
+              <ul className="space-y-1.5">
                 {g.topics.map((tp) => (
-                  <li key={tp.id} className="border-t border-ink/10">
+                  <li key={tp.id}>
                     <button
                       onClick={() => onTopic(tp)}
-                      className={`group flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-[15px] font-semibold hover:bg-sand-50 ${
-                        tp.emergency ? "text-red-700" : "text-ink"
+                      className={`group flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-2.5 text-left text-[15px] font-semibold transition ${
+                        tp.emergency
+                          ? "border-red-200 bg-red-50 text-red-700 hover:border-red-400"
+                          : "border-kokum-100 bg-white text-ink hover:border-kokum-300 hover:bg-kokum-50/50"
                       }`}
                     >
                       <span className="flex items-center gap-2">
@@ -709,7 +711,7 @@ function CategoryMessage({
                       </span>
                       <ArrowRight
                         size={15}
-                        className="shrink-0 text-ink/25 group-hover:text-kokum-600"
+                        className="shrink-0 text-kokum-300 group-hover:text-kokum-600"
                       />
                     </button>
                   </li>
@@ -757,14 +759,14 @@ function TopicCard({
   return (
     <div className="space-y-3">
       {topic.emergency && (
-        <div className="flex items-center justify-between gap-3 border-2 border-red-600 bg-red-50 px-4 py-3">
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3">
           <p className="flex items-center gap-2 text-[15px] font-bold text-red-700">
             <AlertTriangle size={18} className="shrink-0" />{" "}
             {t(chat.emergencyBody)}
           </p>
           <a
             href="tel:112"
-            className="shrink-0 bg-red-600 px-4 py-2 font-serif text-xl text-white hover:bg-red-700"
+            className="shrink-0 rounded-full bg-red-600 px-5 py-1.5 font-serif text-xl text-white shadow-[0_10px_22px_-12px_rgba(220,38,38,0.8)] hover:bg-red-700"
           >
             112
           </a>
@@ -772,12 +774,12 @@ function TopicCard({
       )}
 
       <article className={panel}>
-        <header className="flex items-start justify-between gap-3 border-b border-ink/10 px-4 py-3.5 sm:px-5">
+        <header className="flex items-start justify-between gap-3 border-b border-kokum-100 px-4 py-3.5 sm:px-5">
           <div>
-            <p className="text-xs font-bold text-sea-700">
+            <p className="inline-flex rounded-full bg-kokum-50 px-2.5 py-0.5 text-xs font-bold text-kokum-600">
               {t(intentLabels[topic.intent])}
             </p>
-            <h3 className="mt-0.5 font-serif text-[1.35rem] leading-snug font-normal">
+            <h3 className="mt-1.5 font-serif text-[1.35rem] leading-snug font-normal text-kokum-700">
               {t(topic.title)}
             </h3>
           </div>
@@ -785,7 +787,7 @@ function TopicCard({
             onClick={readAloud}
             title="Read aloud"
             aria-label="Read aloud"
-            className="mt-1 shrink-0 p-1.5 text-ink-soft hover:text-kokum-600"
+            className="icon-circle mt-0.5 h-10 w-10 transition hover:bg-kokum-100"
           >
             <Volume2 size={18} />
           </button>
@@ -799,13 +801,13 @@ function TopicCard({
             <ul className="space-y-2">
               {topic.answer.map((a, i) => (
                 <li key={i} className="flex gap-2.5">
-                  <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 bg-kokum-500" />
+                  <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-kokum-500" />
                   <span>{t(a)}</span>
                 </li>
               ))}
             </ul>
             {age === "girl" && topic.girlNote && (
-              <p className="mt-3 border-l-4 border-turmeric-400 bg-turmeric-50 px-3 py-2 text-[15px]">
+              <p className="mt-3 rounded-2xl border border-turmeric-200 bg-turmeric-50 px-3.5 py-2.5 text-[15px]">
                 <b>{t(chat.forGirls)}:</b> {t(topic.girlNote)}
               </p>
             )}
@@ -827,7 +829,7 @@ function TopicCard({
         </ol>
 
         {topic.sensitive && (
-          <p className="flex gap-2 border-t border-ink/10 px-4 py-3 text-[13px] leading-relaxed text-ink-soft sm:px-5">
+          <p className="flex gap-2 border-t border-kokum-100 px-4 py-3 text-[13px] leading-relaxed text-ink-soft sm:px-5">
             <Info size={14} className="mt-0.5 shrink-0" />{" "}
             {t(limits[topic.sensitive])}
           </p>
@@ -835,12 +837,12 @@ function TopicCard({
       </article>
 
       {relatedTopics.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
+        <div className="flex flex-wrap gap-2">
           {relatedTopics.map((r) => (
             <button
               key={r.id}
               onClick={() => onTopic(r)}
-              className="font-semibold text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-kokum-500"
+              className="soft-chip text-left"
             >
               {t(r.title)}
             </button>
@@ -874,10 +876,10 @@ function RiskRow({
 }) {
   const tone =
     risk === "P0" || risk === "P1"
-      ? "border-red-600 text-red-700"
+      ? "border-red-200 bg-red-50 text-red-700"
       : risk === "P2"
-        ? "border-turmeric-500 text-turmeric-600"
-        : "border-leaf-600 text-leaf-700";
+        ? "border-turmeric-200 bg-turmeric-50 text-turmeric-600"
+        : "border-leaf-200 bg-leaf-50 text-leaf-700";
   const engineLabel =
     engine === "script"
       ? t3(
@@ -896,11 +898,11 @@ function RiskRow({
         : "AI";
   return (
     <p className="flex flex-wrap items-center gap-1.5 text-[11px] font-bold tracking-wide">
-      <span className={`border px-1.5 py-0.5 ${tone}`}>{risk}</span>
-      <span className="border border-ink/20 px-1.5 py-0.5 text-ink-soft">
+      <span className={`rounded-full border px-2 py-0.5 ${tone}`}>{risk}</span>
+      <span className="rounded-full border border-kokum-100 bg-white px-2 py-0.5 text-ink-soft">
         {intent}
       </span>
-      <span className="border border-ink/20 px-1.5 py-0.5 text-sea-700">
+      <span className="rounded-full border border-kokum-100 bg-kokum-50 px-2 py-0.5 text-kokum-600">
         {engineLabel}
       </span>
     </p>
@@ -910,7 +912,7 @@ function RiskRow({
 function SafetyCheck({ question, lang }: { question: string; lang: Lang }) {
   const [answer, setAnswer] = useState<"safe" | null>(null);
   return (
-    <div className="border-l-4 border-kokum-500 bg-kokum-50 px-4 py-3">
+    <div className="rounded-2xl border border-kokum-100 bg-kokum-50 px-4 py-3">
       <p className="text-xs font-bold text-kokum-700">
         {t3(lang, "सुरक्षा प्रश्न", "सुरक्षा सवाल", "Safety check")}
       </p>
@@ -928,7 +930,7 @@ function SafetyCheck({ question, lang }: { question: string; lang: Lang }) {
         <div className="mt-2.5 flex flex-wrap gap-2">
           <button
             onClick={() => setAnswer("safe")}
-            className="border-2 border-leaf-600 bg-white px-3 py-1.5 text-sm font-bold text-leaf-700 hover:bg-leaf-50"
+            className="rounded-full border border-leaf-600 bg-white px-3.5 py-1.5 text-sm font-bold text-leaf-700 hover:bg-leaf-50"
           >
             {t3(
               lang,
@@ -939,7 +941,7 @@ function SafetyCheck({ question, lang }: { question: string; lang: Lang }) {
           </button>
           <a
             href="tel:112"
-            className="bg-red-600 px-3 py-1.5 text-sm font-bold text-white hover:bg-red-700"
+            className="rounded-full bg-red-600 px-3.5 py-1.5 text-sm font-bold text-white shadow-[0_10px_22px_-12px_rgba(220,38,38,0.8)] hover:bg-red-700"
           >
             {t3(
               lang,
@@ -967,7 +969,7 @@ function Contacts({
   if (numbers.length === 0 && links.length === 0) return null;
   return (
     <div>
-      <p className="text-xs font-bold text-sea-700">
+      <p className="text-xs font-bold text-kokum-600">
         {t3(lang, "संपर्क", "संपर्क", "Contact")}
       </p>
       <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -975,7 +977,7 @@ function Contacts({
           <a
             key={n}
             href={`tel:${n}`}
-            className={`inline-flex items-center gap-2 px-3 py-1.5 text-sm font-bold text-white ${n === 112 || n === 108 ? "bg-red-600 hover:bg-red-700" : "bg-ink hover:bg-kokum-600"}`}
+            className={`inline-flex max-w-full items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-bold text-white ${n === 112 || n === 108 ? "bg-red-600 hover:bg-red-700" : "bg-kokum-700 hover:bg-kokum-800"}`}
           >
             <PhoneCall size={13} />{" "}
             <span className="font-serif text-base font-normal">{n}</span>
@@ -1020,7 +1022,7 @@ function FollowUps({
         <button
           key={o}
           onClick={() => onAsk(o)}
-          className="border border-ink/25 bg-white px-3 py-1.5 text-left text-sm font-semibold text-ink hover:border-ink"
+          className="soft-chip text-left"
         >
           {o}
         </button>
@@ -1083,7 +1085,7 @@ function ListenButton({
   return (
     <button
       onClick={play}
-      className="inline-flex items-center gap-1 font-semibold text-ink-soft hover:text-kokum-600"
+      className="inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 font-semibold text-kokum-600 ring-1 ring-kokum-100 hover:bg-kokum-50"
     >
       <Volume2 size={14} />{" "}
       {state === "playing"
@@ -1163,19 +1165,19 @@ function AiCard({
       {data.risk === "P0" && (
         <a
           href="tel:112"
-          className="flex items-center justify-between gap-3 border-2 border-red-600 bg-red-50 px-4 py-3 font-bold text-red-700"
+          className="flex items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 font-bold text-red-700"
         >
           <span className="flex items-center gap-2">
             <AlertTriangle size={18} className="shrink-0" />{" "}
             {t(chat.emergencyBody)}
           </span>
-          <span className="bg-red-600 px-4 py-2 font-serif text-xl font-normal text-white">
+          <span className="shrink-0 rounded-full bg-red-600 px-5 py-1.5 font-serif text-xl font-normal text-white shadow-[0_10px_22px_-12px_rgba(220,38,38,0.8)]">
             112
           </span>
         </a>
       )}
 
-      <article className={`${panel} ${urgent ? "border-red-300" : ""}`}>
+      <article className={`${panel} ${urgent ? "border-red-200" : ""}`}>
         <div className="space-y-4 px-4 py-4 sm:px-5">
           <RiskRow
             risk={data.risk}
@@ -1192,14 +1194,14 @@ function AiCard({
           <ul className="space-y-2 text-[15.5px] leading-relaxed text-ink">
             {data.answer.map((a, i) => (
               <li key={i} className="flex gap-2.5">
-                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 bg-kokum-500" />
+                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-kokum-500" />
                 <span>{a}</span>
               </li>
             ))}
           </ul>
           {data.nextStep && (
             <div>
-              <p className="text-xs font-bold text-kokum-700">{t(chat.next)}</p>
+              <p className="text-xs font-bold text-kokum-600">{t(chat.next)}</p>
               <p className="mt-0.5 font-semibold text-ink">{data.nextStep}</p>
             </div>
           )}
@@ -1207,12 +1209,12 @@ function AiCard({
           <FollowUps options={data.options} onAsk={onAsk} />
         </div>
         {topic?.sensitive && (
-          <p className="flex gap-2 border-t border-ink/10 px-4 py-3 text-[13px] leading-relaxed text-ink-soft sm:px-5">
+          <p className="flex gap-2 border-t border-kokum-100 px-4 py-3 text-[13px] leading-relaxed text-ink-soft sm:px-5">
             <Info size={14} className="mt-0.5 shrink-0" />{" "}
             {t(limits[topic.sensitive])}
           </p>
         )}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-ink/10 px-4 py-2.5 text-[12.5px] text-ink-soft sm:px-5">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-b-3xl border-t border-kokum-100 bg-kokum-50/40 px-4 py-2.5 text-[12.5px] text-ink-soft sm:px-5">
           <span>
             {t3(lang, "स्रोत", "स्रोत", "Source")}: {data.source} ·{" "}
             {data.topicId
@@ -1236,12 +1238,12 @@ function AiCard({
       </article>
 
       {relatedTopics.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
+        <div className="flex flex-wrap gap-2">
           {relatedTopics.map((r) => (
             <button
               key={r.id}
               onClick={() => onTopic(r)}
-              className="font-semibold text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-kokum-500"
+              className="soft-chip text-left"
             >
               {t(r.title)}
             </button>
@@ -1328,7 +1330,7 @@ function ScriptCard({
   return (
     <div className="space-y-3">
       <article
-        className={`border-2 bg-white ${p0 ? "border-red-600" : "border-red-300"}`}
+        className={`rounded-3xl border bg-white shadow-[0_12px_30px_-20px_rgba(220,38,38,0.5)] ${p0 ? "border-red-300" : "border-red-200"}`}
       >
         <div className="space-y-4 px-4 py-4 sm:px-5">
           <RiskRow
@@ -1346,7 +1348,7 @@ function ScriptCard({
           <ul className="space-y-2 text-[15.5px] leading-relaxed text-ink">
             {points.map((a, i) => (
               <li key={i} className="flex gap-2.5">
-                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 bg-red-600" />
+                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-red-600" />
                 <span>{a}</span>
               </li>
             ))}
@@ -1360,7 +1362,7 @@ function ScriptCard({
           <Contacts numbers={numbers} links={links} lang={al} />
           <FollowUps options={text.o} onAsk={onAsk} />
         </div>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-ink/10 px-4 py-2.5 text-[12.5px] text-ink-soft sm:px-5">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-b-3xl border-t border-kokum-100 bg-kokum-50/40 px-4 py-2.5 text-[12.5px] text-ink-soft sm:px-5">
           <span>
             {t3(
               al,
@@ -1386,16 +1388,18 @@ function DescribeMessage({
   const { t } = useLang();
   return (
     <div className={`${panel} p-4 sm:p-5`}>
-      <p className="font-serif text-xl">{t(chat.describeTitle)}</p>
+      <p className="font-serif text-xl text-kokum-700">
+        {t(chat.describeTitle)}
+      </p>
       <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
         {t(chat.describeBody)}
       </p>
-      <ul className="mt-4 border-t border-ink/10">
+      <ul className="mt-4 space-y-2">
         {describeExamples.map((ex) => (
-          <li key={ex.topic} className="border-b border-ink/10">
+          <li key={ex.topic}>
             <button
               onClick={() => onExample(ex)}
-              className="block w-full py-2.5 text-left font-serif text-[16px] text-ink italic hover:text-kokum-600"
+              className="block w-full rounded-2xl border border-kokum-100 bg-kokum-50/50 px-4 py-2.5 text-left font-serif text-[16px] text-ink italic transition hover:border-kokum-300 hover:text-kokum-600"
             >
               “{t(ex.text)}”
             </button>
@@ -1411,12 +1415,12 @@ function UnknownMessage({ onCategory }: { onCategory: (c: Category) => void }) {
   return (
     <div className="space-y-3">
       <Bubble>{t(chat.notSure)}</Bubble>
-      <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
+      <div className="flex flex-wrap gap-2">
         {categoriesFor(age).map((c) => (
           <button
             key={c.id}
             onClick={() => onCategory(c)}
-            className="font-semibold text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-kokum-500"
+            className="soft-chip text-left"
           >
             {t(c.title)}
           </button>
@@ -1430,7 +1434,7 @@ function UnknownMessage({ onCategory }: { onCategory: (c: Category) => void }) {
 
 function Bubble({ children }: { children: React.ReactNode }) {
   return (
-    <p className="w-fit rounded-md border border-ink/10 bg-white px-4 py-3 text-[15.5px] leading-relaxed text-ink">
+    <p className="w-fit rounded-2xl rounded-bl-md border border-kokum-100 bg-white px-4 py-3 text-[15.5px] leading-relaxed text-ink shadow-[0_8px_20px_-16px_rgba(126,23,56,0.45)]">
       {children}
     </p>
   );
@@ -1446,10 +1450,12 @@ function Step({
   children: React.ReactNode;
 }) {
   return (
-    <li className="grid grid-cols-[1.75rem_1fr] gap-2">
-      <span className="font-serif text-xl leading-6 text-sea-600">{n}.</span>
-      <div>
-        <p className="text-xs font-bold text-sea-700">{label}</p>
+    <li className="grid grid-cols-[2rem_1fr] gap-3">
+      <span className="grid h-8 w-8 place-items-center rounded-full bg-kokum-50 font-serif text-base text-kokum-600">
+        {n}
+      </span>
+      <div className="min-w-0">
+        <p className="pt-1.5 text-xs font-bold text-kokum-600">{label}</p>
         <div className="mt-1 text-[15.5px] leading-relaxed text-ink">
           {children}
         </div>
@@ -1464,7 +1470,7 @@ function ActionButton({ href, label }: { href: string; label: string }) {
     return (
       <a
         href={href}
-        className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-white ${emergency ? "bg-red-600 hover:bg-red-700" : "bg-ink hover:bg-kokum-600"}`}
+        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold text-white ${emergency ? "bg-red-600 shadow-[0_10px_22px_-12px_rgba(220,38,38,0.8)] hover:bg-red-700" : "bg-kokum-700 hover:bg-kokum-800"}`}
       >
         <PhoneCall size={14} /> {label}
       </a>
@@ -1494,7 +1500,7 @@ function BackToMenu({ onMenu }: { onMenu: () => void }) {
   return (
     <button
       onClick={onMenu}
-      className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-ink-soft hover:text-kokum-600"
+      className="mt-2.5 inline-flex items-center gap-1 rounded-full border border-kokum-100 bg-white px-3 py-1 text-sm font-semibold text-ink-soft transition hover:border-kokum-300 hover:text-kokum-600"
     >
       <ChevronLeft size={15} /> {t(chat.menu)}
     </button>
@@ -1515,7 +1521,7 @@ function IconBtn({
       onClick={onClick}
       title={title}
       aria-label={title}
-      className="p-2.5 text-ink-soft hover:text-kokum-600"
+      className="grid h-9 w-9 place-items-center rounded-full text-ink-soft transition hover:bg-kokum-50 hover:text-kokum-600"
     >
       {children}
     </button>
@@ -1590,14 +1596,14 @@ function Composer({
         e.preventDefault();
         onSend(input);
       }}
-      className="flex items-stretch gap-2 border-t border-ink/15 bg-sand-50 p-2.5 sm:p-3"
+      className="flex items-center gap-2 border-t border-kokum-100 bg-sand-50 px-3 py-2.5 sm:px-4 sm:py-3"
     >
       <button
         type="button"
         onClick={toggleVoice}
         disabled={!supported}
         title={supported ? t(chat.askHint) : t(chat.voiceSoon)}
-        className={`grid w-12 shrink-0 place-items-center border-2 transition disabled:opacity-40 ${listening ? "animate-pulse border-red-600 bg-red-600 text-white" : "border-ink bg-white text-ink hover:bg-sand-100"}`}
+        className={`grid h-11 w-11 shrink-0 place-items-center rounded-full transition disabled:opacity-40 ${listening ? "animate-pulse bg-red-600 text-white" : "bg-kokum-50 text-kokum-600 hover:bg-kokum-100"}`}
       >
         {listening ? <MicOff size={20} /> : <Mic size={20} />}
       </button>
@@ -1605,12 +1611,12 @@ function Composer({
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder={t(chat.placeholder)}
-        className="min-w-0 flex-1 border-2 border-ink bg-white px-3.5 py-3 text-[16px] outline-none placeholder:text-ink-soft/60 focus:border-kokum-600"
+        className="soft-input min-w-0 flex-1 px-4 py-2.5 shadow-[0_8px_20px_-16px_rgba(126,23,56,0.45)]"
       />
       <button
         type="submit"
         disabled={!input.trim() || disabled}
-        className="grid w-12 shrink-0 place-items-center bg-ink text-white transition hover:bg-kokum-600 disabled:opacity-40"
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-kokum-700 text-white shadow-[0_10px_22px_-12px_rgba(126,23,56,0.8)] transition hover:bg-kokum-800 disabled:opacity-40"
       >
         <Send size={20} />
       </button>

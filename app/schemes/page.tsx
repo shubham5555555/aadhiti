@@ -10,6 +10,7 @@ import {
   BedDouble,
   BookOpen,
   Briefcase,
+  Check,
   CookingPot,
   ExternalLink,
   Factory,
@@ -34,6 +35,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { BigFigure } from "@/components/PageArt";
+import Leaf from "@/components/Leaf";
 import { useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
 import {
@@ -268,10 +270,13 @@ const copy = {
 
 const linkCls = "inline-flex items-center gap-2 font-bold text-kokum-600 underline decoration-kokum-200 underline-offset-4 hover:decoration-kokum-500";
 const toggleCls = (on: boolean) =>
-  `border-2 border-ink px-3.5 py-2 text-left font-bold transition-colors ${on ? "bg-ink text-white" : "bg-white text-ink hover:bg-sand-200"}`;
+  `rounded-full border px-4 py-2 text-left text-[15px] font-semibold transition ${
+    on ? "border-kokum-700 bg-kokum-700 text-white shadow-[0_8px_18px_-12px_rgba(126,23,56,0.8)]" : "border-kokum-200 bg-white text-ink hover:border-kokum-500 hover:text-kokum-700"
+  }`;
+const sectionTitle = "font-serif text-3xl font-normal text-kokum-700 sm:text-[2.4rem]";
 
 function Dot({ className }: { className: string }) {
-  return <span aria-hidden className={`h-2.5 w-2.5 shrink-0 ${className}`} />;
+  return <span aria-hidden className={`h-2.5 w-2.5 shrink-0 rounded-full ${className}`} />;
 }
 
 function StatusMark({ status }: { status: Status }) {
@@ -318,11 +323,12 @@ export default function SchemesPage() {
   return (
     <div className="pb-6">
       {/* Opening */}
-      <section className="grid gap-10 border-b border-ink/10 pt-10 pb-12 md:grid-cols-[1.25fr_1fr] md:items-center">
-        <div>
-          <p className="text-sm font-semibold tracking-wide text-sea-700">{t(copy.eyebrow)}</p>
-          <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
+      <section className="relative mt-6 grid gap-8 overflow-hidden rounded-3xl border border-kokum-100 bg-gradient-to-br from-kokum-50 via-sand-50 to-white p-6 shadow-[0_10px_30px_-18px_rgba(126,23,56,0.35)] sm:p-10 md:grid-cols-[1.25fr_1fr] md:items-center">
+        <Leaf className="absolute -top-4 -right-6 h-44 w-auto text-kokum-200" />
+        <div className="relative">
+          <p className="text-sm font-semibold tracking-wide text-kokum-500">{t(copy.eyebrow)}</p>
+          <h1 className="mt-3 font-serif text-[2.6rem] leading-[1.05] font-normal text-kokum-700 sm:text-[4rem]">{t(copy.title)}</h1>
+          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">{t(copy.body)}</p>
           <ul className="mt-6 flex flex-col gap-1.5">
             {legendStatuses.map((s) => (
               <li key={s}>
@@ -331,12 +337,12 @@ export default function SchemesPage() {
             ))}
           </ul>
         </div>
-        <figure className="w-full md:max-w-[20rem] md:justify-self-end">
-          <BigFigure value="₹1,500" caption={t(copy.figureCaption)} className="text-leaf-600" />
+        <figure className="relative w-full rounded-3xl border border-kokum-100 bg-white/80 p-5 md:max-w-[20rem] md:justify-self-end">
+          <BigFigure value="₹1,500" caption={t(copy.figureCaption)} className="!border-0 !pt-0 text-leaf-600" />
         </figure>
       </section>
 
-      <p className="mt-10 max-w-3xl border-l-4 border-turmeric-500 bg-white px-4 py-3 text-[15px] font-semibold leading-relaxed text-ink">{t(copy.warn)}</p>
+      <p className="mt-8 max-w-3xl rounded-2xl border border-turmeric-300 bg-turmeric-50 px-5 py-3.5 text-[15px] font-semibold leading-relaxed text-ink">{t(copy.warn)}</p>
 
       <NeedsPicker needs={needs} setNeeds={setNeeds} count={shown.length} />
 
@@ -344,7 +350,7 @@ export default function SchemesPage() {
 
       {/* Schemes, as ruled entries */}
       <section className="mt-14" aria-labelledby="all-schemes">
-        <h2 id="all-schemes" className="font-serif text-3xl font-normal sm:text-[2.4rem]">
+        <h2 id="all-schemes" className={sectionTitle}>
           {t(copy.allSchemes)}
         </h2>
         {needs.length > 0 && (
@@ -355,7 +361,7 @@ export default function SchemesPage() {
             </button>
           </p>
         )}
-        <div className="mt-4 border-t border-ink/15">
+        <div className="mt-5 space-y-5">
           {shown.map((s) => (
             <SchemeEntry key={s.id} s={s} />
           ))}
@@ -372,7 +378,7 @@ function NeedsPicker({ needs, setNeeds, count }: { needs: NeedId[]; setNeeds: (n
   const toggle = (id: NeedId) => setNeeds(needs.includes(id) ? needs.filter((x) => x !== id) : [...needs, id]);
   return (
     <section className="mt-14" aria-labelledby="needs-title">
-      <h2 id="needs-title" className="font-serif text-3xl font-normal sm:text-[2.4rem]">
+      <h2 id="needs-title" className={sectionTitle}>
         {t(copy.needsTitle)}
       </h2>
       <p className="mt-2 max-w-2xl leading-relaxed text-ink-soft">{t(copy.needsBody)}</p>
@@ -380,8 +386,21 @@ function NeedsPicker({ needs, setNeeds, count }: { needs: NeedId[]; setNeeds: (n
         {NEEDS.map((n) => {
           const on = needs.includes(n.id);
           return (
-            <button key={n.id} type="button" aria-pressed={on} onClick={() => toggle(n.id)} className={`min-h-12 ${toggleCls(on)}`}>
-              {t(n.label)}
+            <button
+              key={n.id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => toggle(n.id)}
+              className={`flex min-h-12 items-center gap-2.5 rounded-2xl border px-4 py-2.5 text-left text-[15px] font-semibold transition ${
+                on
+                  ? "border-kokum-700 bg-kokum-700 text-white shadow-[0_10px_22px_-14px_rgba(126,23,56,0.8)]"
+                  : "border-kokum-100 bg-white text-ink shadow-[0_8px_20px_-16px_rgba(126,23,56,0.45)] hover:border-kokum-300 hover:text-kokum-700"
+              }`}
+            >
+              <span aria-hidden className={`grid h-6 w-6 shrink-0 place-items-center rounded-full ${on ? "bg-white/20 text-white" : "bg-kokum-50 text-kokum-300"}`}>
+                <Check size={14} strokeWidth={3} />
+              </span>
+              <span className="min-w-0">{t(n.label)}</span>
             </button>
           );
         })}
@@ -411,8 +430,8 @@ function OptionRow<T extends string>({
 }) {
   const { t } = useLang();
   return (
-    <fieldset className="border-b border-ink/15 py-5">
-      <legend className="float-left mb-3 w-full text-sm font-bold text-ink-soft">{t(legend)}</legend>
+    <fieldset className="border-b border-kokum-100 py-5">
+      <legend className="float-left mb-3 w-full text-sm font-bold text-kokum-600">{t(legend)}</legend>
       <div className="clear-left flex flex-wrap gap-2">
         {options.map((o) => {
           const on = value === o.id;
@@ -463,19 +482,19 @@ function SchemeFinder({ onOpen }: { onOpen: (id: string) => void }) {
 
   return (
     <section id="scheme-finder" className="mt-14 scroll-mt-28" aria-labelledby="scheme-finder-title">
-      <h2 id="scheme-finder-title" className="font-serif text-3xl font-normal sm:text-[2.4rem]">
+      <h2 id="scheme-finder-title" className={sectionTitle}>
         {t(copy.schemeFinderTitle)}
       </h2>
       <p className="mt-2 max-w-2xl leading-relaxed text-ink-soft">{t(copy.schemeFinderBody)}</p>
 
-      <div className="mt-6 border-2 border-ink bg-white px-5 pb-6 sm:px-8">
+      <div className="soft-card mt-6 px-5 pb-6 sm:px-8">
         <OptionRow legend={copy.fAge} options={AGE_BANDS} value={age} onChange={(v) => (setAge(v), v && setNeedAge(false))} />
         <OptionRow legend={copy.fIncome} options={INCOME_BANDS} value={income} onChange={setIncome} />
         <OptionRow legend={copy.fRation} options={RATION_CARDS} value={ration} onChange={setRation} />
         <OptionRow legend={copy.fMarital} options={MARITAL} value={marital} onChange={setMarital} />
         <OptionRow legend={copy.fWork} options={WORK} value={work} onChange={setWork} />
-        <fieldset className="border-b border-ink/15 py-5">
-          <legend className="float-left mb-3 w-full text-sm font-bold text-ink-soft">{t(copy.fFlags)}</legend>
+        <fieldset className="border-b border-kokum-100 py-5">
+          <legend className="float-left mb-3 w-full text-sm font-bold text-kokum-600">{t(copy.fFlags)}</legend>
           <div className="clear-left grid gap-x-6 gap-y-3 sm:grid-cols-2">
             {FINDER_FLAGS.map((f) => (
               <label key={f.id} className="flex cursor-pointer items-start gap-3 leading-snug text-ink">
@@ -483,7 +502,7 @@ function SchemeFinder({ onOpen }: { onOpen: (id: string) => void }) {
                   type="checkbox"
                   checked={!!flags[f.id]}
                   onChange={(e) => setFlags((x) => ({ ...x, [f.id]: e.target.checked }))}
-                  className="mt-0.5 h-5 w-5 shrink-0 appearance-none border-2 border-ink bg-white bg-clip-content p-[3px] checked:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kokum-500"
+                  className="mt-0.5 h-5 w-5 shrink-0 appearance-none rounded-md border-2 border-kokum-300 bg-white bg-clip-content p-[3px] checked:border-kokum-700 checked:bg-kokum-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kokum-500"
                 />
                 <span>{t(f.label)}</span>
               </label>
@@ -491,11 +510,11 @@ function SchemeFinder({ onOpen }: { onOpen: (id: string) => void }) {
           </div>
         </fieldset>
         <div className="mt-6 flex flex-wrap items-center gap-4">
-          <button type="button" onClick={run} className="border-2 border-ink bg-ink px-5 py-3 font-bold text-white hover:bg-kokum-600 hover:border-kokum-600">
+          <button type="button" onClick={run} className="soft-btn">
             {t(copy.fRun)}
           </button>
           {(results || age || income || ration || marital || work || Object.values(flags).some(Boolean)) && (
-            <button type="button" onClick={reset} className="flex items-center gap-1.5 text-sm font-bold text-ink-soft underline underline-offset-4 hover:text-ink">
+            <button type="button" onClick={reset} className="soft-chip">
               <RotateCcw size={14} /> {t(copy.again)}
             </button>
           )}
@@ -517,12 +536,12 @@ function SchemeFinder({ onOpen }: { onOpen: (id: string) => void }) {
                 return (
                   <div key={g} className="mt-6 first:mt-0">
                     <VerdictMark verdict={g} />
-                    <ul className="mt-2 border-t border-ink/15">
+                    <ul className="mt-3 space-y-2.5">
                       {xs.map((r) => {
                         const s = schemeById(r.id);
                         if (!s) return null;
                         return (
-                          <li key={r.id} className="border-b border-ink/15 py-4">
+                          <li key={r.id} className="rounded-2xl border border-kokum-100 bg-sand-50 px-4 py-3.5">
                             <a
                               href={`#${s.id}`}
                               onClick={(e) => {
@@ -546,7 +565,7 @@ function SchemeFinder({ onOpen }: { onOpen: (id: string) => void }) {
           </div>
         )}
 
-        <p className="mt-6 border-l-4 border-sea-600 bg-sea-50 px-4 py-3 text-[15px] font-semibold leading-relaxed text-ink">{t(copy.fNote)}</p>
+        <p className="mt-6 rounded-2xl bg-sea-50 px-4 py-3 text-[15px] font-semibold leading-relaxed text-ink">{t(copy.fNote)}</p>
       </div>
     </section>
   );
@@ -555,11 +574,17 @@ function SchemeFinder({ onOpen }: { onOpen: (id: string) => void }) {
 function SchemeEntry({ s }: { s: Scheme }) {
   const { t, lang } = useLang();
   const Icon = schemeIcon[s.sourceId] ?? Landmark;
-  const list = (items: string[]) => (
-    <ul className="mt-1 flex flex-col gap-1.5">
+  const list = (items: string[], checks = false) => (
+    <ul className="mt-1.5 flex flex-col gap-2">
       {items.map((x, i) => (
-        <li key={i} className="grid grid-cols-[0.75rem_1fr] gap-2 leading-relaxed text-ink">
-          <span aria-hidden className="mt-[0.7em] h-1 w-1 bg-ink-soft" />
+        <li key={i} className={`grid gap-2.5 leading-relaxed text-ink ${checks ? "grid-cols-[1.25rem_1fr]" : "grid-cols-[0.75rem_1fr]"}`}>
+          {checks ? (
+            <span aria-hidden className="mt-[0.2em] grid h-5 w-5 place-items-center rounded-full bg-leaf-500 text-white">
+              <Check size={12} strokeWidth={3} />
+            </span>
+          ) : (
+            <span aria-hidden className="mt-[0.65em] h-1.5 w-1.5 rounded-full bg-kokum-300" />
+          )}
           <span className="min-w-0 break-words">{x}</span>
         </li>
       ))}
@@ -567,11 +592,13 @@ function SchemeEntry({ s }: { s: Scheme }) {
   );
 
   return (
-    <article id={s.id} className="scroll-mt-28 border-b border-ink/15 py-8">
-      <div className="flex items-start gap-3">
-        <Icon size={22} strokeWidth={1.5} className="mt-1.5 shrink-0 text-sea-600" aria-hidden />
+    <article id={s.id} className="soft-card scroll-mt-28 p-5 sm:p-7">
+      <div className="flex items-start gap-3.5">
+        <span className="icon-circle mt-0.5">
+          <Icon size={21} strokeWidth={1.75} aria-hidden />
+        </span>
         <div className="min-w-0">
-          <h3 className="font-serif text-2xl leading-snug font-normal text-ink sm:text-[1.9rem]">{t(s.name)}</h3>
+          <h3 className="font-serif text-2xl leading-snug font-normal text-kokum-700 sm:text-[1.9rem]">{t(s.name)}</h3>
           <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1">
             <StatusMark status={s.status} />
             <span className="text-sm text-ink-soft">
@@ -582,7 +609,7 @@ function SchemeEntry({ s }: { s: Scheme }) {
         </div>
       </div>
 
-      <dl className="mt-5 grid gap-x-10 gap-y-5 md:grid-cols-2">
+      <dl className="mt-5 grid gap-x-10 gap-y-5 border-t border-kokum-100 pt-5 md:grid-cols-2">
         <div>
           <dt className="text-sm font-bold text-ink-soft">{t(copy.what)}</dt>
           <dd className="mt-1 leading-relaxed text-ink">{t(s.what)}</dd>
@@ -593,7 +620,7 @@ function SchemeEntry({ s }: { s: Scheme }) {
         </div>
         <div>
           <dt className="text-sm font-bold text-ink-soft">{t(copy.who)}</dt>
-          <dd>{list(s.who[lang])}</dd>
+          <dd>{list(s.who[lang], true)}</dd>
         </div>
         <div>
           <dt className="text-sm font-bold text-ink-soft">{t(copy.how)}</dt>
@@ -617,7 +644,7 @@ function SchemeEntry({ s }: { s: Scheme }) {
       </dl>
 
       {s.caution && (
-        <p className="mt-5 max-w-3xl border-l-4 border-turmeric-500 bg-turmeric-50 px-4 py-3 text-[15px] leading-relaxed text-ink">
+        <p className="mt-5 max-w-3xl rounded-2xl border border-turmeric-300 bg-turmeric-50 px-4 py-3 text-[15px] leading-relaxed text-ink">
           <span className="font-bold">{t(copy.caution)}: </span>
           {t(s.caution)}
         </p>
@@ -633,7 +660,7 @@ function SchemeEntry({ s }: { s: Scheme }) {
           </a>
         )}
         {s.topic && (
-          <Link href={`/chat?topic=${s.topic}`} className={linkCls}>
+          <Link href={`/chat?topic=${s.topic}`} className="soft-btn mt-2 self-start py-2.5 text-[15px]">
             {t(copy.ask)} <ArrowRight size={16} />
           </Link>
         )}
@@ -654,18 +681,18 @@ function IncomeFinder() {
 
   return (
     <section id="income-finder" className="mt-14 scroll-mt-28">
-      <h2 className="font-serif text-3xl font-normal sm:text-[2.4rem]">{t(copy.finderTitle)}</h2>
+      <h2 className={sectionTitle}>{t(copy.finderTitle)}</h2>
       <p className="mt-2 max-w-2xl leading-relaxed text-ink-soft">{t(copy.finderBody)}</p>
 
-      <div className="mt-6 border-2 border-ink bg-white p-5 sm:p-8">
+      <div className="soft-card mt-6 p-5 sm:p-8">
         <div className="flex items-center gap-4">
           <div className="flex flex-1 gap-1.5" aria-hidden>
             {questions.map((q, i) => (
-              <span key={q.id} className={`h-1 flex-1 ${done || i < step ? "bg-ink" : i === step ? "bg-kokum-500" : "bg-ink/15"}`} />
+              <span key={q.id} className={`h-1.5 flex-1 rounded-full ${done || i < step ? "bg-kokum-700" : i === step ? "bg-kokum-400" : "bg-kokum-100"}`} />
             ))}
           </div>
           {Object.keys(answers).length > 0 && (
-            <button onClick={() => setAnswers({})} className="flex shrink-0 items-center gap-1.5 text-sm font-bold text-ink-soft underline underline-offset-4 hover:text-ink">
+            <button onClick={() => setAnswers({})} className="soft-chip shrink-0">
               <RotateCcw size={14} /> {t(copy.again)}
             </button>
           )}
@@ -673,16 +700,16 @@ function IncomeFinder() {
 
         {!done ? (
           <div key={step} className="mt-6 animate-fade-up">
-            <p className="text-sm font-semibold text-sea-700 tabular-nums">
+            <p className="inline-block rounded-full bg-kokum-50 px-3 py-1 text-sm font-bold text-kokum-700 tabular-nums">
               {step + 1} / {questions.length}
             </p>
-            <p className="mt-1 font-serif text-2xl leading-snug font-normal text-ink sm:text-[1.9rem]">{t(questions[step].q)}</p>
+            <p className="mt-3 font-serif text-2xl leading-snug font-normal text-kokum-700 sm:text-[1.9rem]">{t(questions[step].q)}</p>
             <div className="mt-5 flex flex-wrap gap-2.5">
               {questions[step].options.map((o) => (
                 <button
                   key={o.id}
                   onClick={() => setAnswers((a) => ({ ...a, [questions[step].id]: o.id }))}
-                  className="border-2 border-ink px-4 py-2.5 font-bold text-ink transition-colors hover:bg-ink hover:text-white"
+                  className="rounded-full border border-kokum-200 bg-white px-4 py-2.5 font-semibold text-ink transition hover:border-kokum-700 hover:bg-kokum-700 hover:text-white"
                 >
                   {t(o.label)}
                 </button>
@@ -691,14 +718,16 @@ function IncomeFinder() {
           </div>
         ) : (
           <div className="mt-6 animate-fade-up">
-            <p className="font-serif text-2xl font-normal text-ink sm:text-[1.9rem]">{t(copy.results)}</p>
-            <ol className="mt-4 border-t border-ink/15">
+            <p className="font-serif text-2xl font-normal text-kokum-700 sm:text-[1.9rem]">{t(copy.results)}</p>
+            <ol className="mt-4 space-y-3">
               {results.map(({ idea }, i) => (
-                <li key={idea.id} className="grid grid-cols-[2rem_1fr] gap-3 border-b border-ink/15 py-5">
-                  <span className="font-serif text-2xl text-kokum-500 tabular-nums">{i + 1}</span>
+                <li key={idea.id} className="flex items-start gap-3.5 rounded-2xl border border-kokum-100 bg-sand-50 p-4">
+                  <span className="icon-circle relative">
+                    <idea.icon size={19} strokeWidth={1.75} aria-hidden />
+                    <span className="absolute -top-1 -right-1 grid h-5 w-5 place-items-center rounded-full bg-kokum-700 text-[11px] font-bold text-white tabular-nums">{i + 1}</span>
+                  </span>
                   <div className="min-w-0">
-                    <p className="flex items-start gap-2 font-display text-lg leading-snug font-bold text-ink">
-                      <idea.icon size={18} strokeWidth={1.75} className="mt-1 shrink-0 text-sea-600" aria-hidden />
+                    <p className="font-display text-lg leading-snug font-bold text-ink">
                       {t(idea.name)}
                     </p>
                     <p className="mt-1 leading-relaxed text-ink-soft">{t(idea.why)}</p>
@@ -709,7 +738,7 @@ function IncomeFinder() {
                 </li>
               ))}
             </ol>
-            <p className="mt-6 border-l-4 border-leaf-600 bg-leaf-50 px-4 py-3 text-[15px] leading-relaxed text-ink">
+            <p className="mt-6 rounded-2xl bg-leaf-50 px-4 py-3 text-[15px] leading-relaxed text-ink">
               {t(copy.shg)}{" "}
               <Link href="/chat?topic=join_shg" className={linkCls}>
                 {t(copy.ask)}

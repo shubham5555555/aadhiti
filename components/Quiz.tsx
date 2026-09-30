@@ -122,11 +122,11 @@ export default function Quiz() {
   };
 
   return (
-    <section className="mt-14 border-2 border-ink bg-white p-5 sm:p-8">
+    <section className="soft-card mt-12 p-5 sm:p-8">
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="font-serif text-2xl font-normal text-ink sm:text-3xl">{t(copy.title)}</h2>
+        <h2 className="font-serif text-2xl font-normal text-kokum-700 sm:text-3xl">{t(copy.title)}</h2>
         {!done && (
-          <span className="shrink-0 font-serif text-xl font-normal text-kokum-600 tabular-nums">
+          <span className="shrink-0 rounded-full bg-kokum-50 px-3 py-1 text-sm font-bold text-kokum-700 tabular-nums">
             {index + 1} / {questions.length}
           </span>
         )}
@@ -134,7 +134,7 @@ export default function Quiz() {
 
       <div className="mt-4 grid gap-1" style={{ gridTemplateColumns: `repeat(${questions.length}, minmax(0, 1fr))` }} aria-hidden>
         {questions.map((_, i) => (
-          <span key={i} className={`h-[3px] transition-colors ${i < index ? "bg-ink" : "bg-ink/15"}`} />
+          <span key={i} className={`h-1.5 rounded-full transition-colors ${i < index ? "bg-kokum-600" : "bg-kokum-100"}`} />
         ))}
       </div>
 
@@ -146,7 +146,7 @@ export default function Quiz() {
             <span className="text-ink/30"> / {questions.length}</span>
           </p>
           <p className="mt-4 max-w-md text-[17px] leading-relaxed text-ink">{score === questions.length ? t(copy.perfect) : t(copy.good)}</p>
-          <button onClick={reset} className="mt-6 inline-flex items-center gap-2 bg-ink px-6 py-3 font-bold text-white hover:bg-kokum-600">
+          <button onClick={reset} className="soft-btn mt-6">
             <RotateCcw size={17} /> {t(copy.again)}
           </button>
         </div>
@@ -160,17 +160,17 @@ export default function Quiz() {
                 <button
                   key={opt.en}
                   onClick={() => choose(i)}
-                  className={`flex w-full items-center gap-3 border-2 px-4 py-3 text-left font-medium transition ${
+                  className={`flex w-full items-center gap-3 rounded-3xl border px-4 py-3 text-left font-medium transition ${
                     state === "idle"
-                      ? "border-ink/15 bg-white text-ink hover:border-ink"
+                      ? "border-kokum-100 bg-white text-ink hover:border-kokum-400 hover:bg-kokum-50"
                       : state === "correct"
                         ? "border-leaf-600 bg-leaf-50 text-leaf-700"
                         : state === "wrong"
                           ? "border-red-600 bg-red-50 text-red-700"
-                          : "border-ink/10 bg-white text-ink opacity-50"
+                          : "border-kokum-100 bg-white text-ink opacity-50"
                   }`}
                 >
-                  <span className="w-5 shrink-0 font-serif text-lg font-normal text-ink/40">{String.fromCharCode(65 + i)}</span>
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-kokum-50 text-sm font-bold text-kokum-600">{String.fromCharCode(65 + i)}</span>
                   <span className="min-w-0 flex-1">{t(opt)}</span>
                   {state === "correct" && <Check size={18} className="shrink-0" />}
                   {state === "wrong" && <X size={18} className="shrink-0" />}
@@ -180,13 +180,13 @@ export default function Quiz() {
           </div>
           {picked !== null && (
             <div className="mt-5 animate-fade-up">
-              <p className="border-l-4 border-sea-600 pl-4 text-[15px] leading-relaxed text-ink">{t(current.explain)}</p>
+              <p className="rounded-2xl bg-sea-50 px-4 py-3 text-[15px] leading-relaxed text-ink">{t(current.explain)}</p>
               <button
                 onClick={() => {
                   setPicked(null);
                   setIndex((i) => i + 1);
                 }}
-                className="mt-5 bg-ink px-5 py-3 font-bold text-white hover:bg-kokum-600"
+                className="soft-btn mt-5"
               >
                 {index === questions.length - 1 ? t(copy.results) : t(copy.next)}
               </button>

@@ -102,3 +102,14 @@ export const journey: { year: string; text: L }[] = [
   { year: "2023", text: { mr: "महिला व बालविकास मंत्री; शिंदे-फडणवीस सरकारमधल्या पहिल्या महिला मंत्री", en: "Minister for Women & Child Development; the first woman minister in the Shinde–Fadnavis government", hi: "महिला एवं बाल विकास मंत्री; शिंदे-फडणवीस सरकार की पहली महिला मंत्री" } },
   { year: "2024", text: { mr: "72% मतांनी श्रीवर्धनमधून पुन्हा विजयी; महिला व बालविकास मंत्रिपद कायम", en: "Re-elected from Shrivardhan with 72% of the vote; continues as Women & Child Development Minister", hi: "72% वोटों से श्रीवर्धन से फिर विजयी; महिला एवं बाल विकास मंत्री बनी रहीं" } },
 ];
+
+// The "An initiative by" banner at the top of the home page.
+export const initiativeBanner = {
+  by: { mr: "एक उपक्रम", en: "An Initiative by", hi: "एक पहल" } as L,
+  name: { mr: "मा. मंत्री आदिती ताई तटकरे", en: "Hon'ble Minister Ms. Aditi Tai Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई तटकरे" } as L,
+  lines: [
+    { mr: "कॅबिनेट मंत्री, महाराष्ट्र शासन", en: "Cabinet Minister, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
+    { mr: "महिला व बालविकास मंत्री", en: "Minister of Women & Child Development", hi: "महिला एवं बाल विकास मंत्री" },
+    { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
+  ] as L[],
+};

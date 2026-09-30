@@ -79,7 +79,7 @@ export default function Navbar() {
   const hideLogo = pathname === "/" && bannerInView;
 
   return (
-    <header className="sticky top-0 z-40 bg-sand-100">
+    <header className="sticky top-0 z-40 bg-white/85 shadow-[0_6px_20px_-16px_rgba(126,23,56,0.5)] backdrop-blur-md">
       {/* Utility bar: emergency numbers and a quick way out, always one tap away. */}
       <div className="bg-kokum-700 text-[13px] text-kokum-50">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5">
@@ -98,7 +98,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <nav className="border-b border-ink/10">
+      <nav>
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <Link
             href="/"
@@ -108,7 +108,7 @@ export default function Navbar() {
             <BrandLogo height={46} priority />
           </Link>
 
-          <div className="hidden items-center gap-6 lg:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {links.map((l) => {
               const active = pathname === l.href;
               return (
@@ -116,8 +116,8 @@ export default function Navbar() {
                   key={l.href}
                   href={l.href}
                   aria-current={active ? "page" : undefined}
-                  className={`border-b-2 py-1 text-[15px] font-semibold whitespace-nowrap transition ${
-                    active ? "border-kokum-500 text-ink" : "border-transparent text-ink-soft hover:text-ink"
+                  className={`rounded-full px-3.5 py-1.5 text-[15px] font-semibold whitespace-nowrap transition ${
+                    active ? "bg-kokum-700 text-white" : "text-ink-soft hover:bg-kokum-50 hover:text-kokum-700"
                   }`}
                 >
                   {t(l.label)}

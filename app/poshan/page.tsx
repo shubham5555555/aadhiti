@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import Leaf from "@/components/Leaf";
 import { useLang } from "@/lib/i18n";
 import type { L } from "@/lib/kb";
 import {
@@ -20,7 +21,11 @@ import {
 } from "@/lib/poshan";
 
 const copy = {
-  eyebrow: { mr: "AADHI TI — पोषण", en: "AADHI TI — Nutrition", hi: "AADHI TI — पोषण" },
+  eyebrow: {
+    mr: "AADHI TI — पोषण",
+    en: "AADHI TI — Nutrition",
+    hi: "AADHI TI — पोषण",
+  },
   title: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   body: {
     mr: "तिच्या आयुष्याच्या प्रत्येक टप्प्यासाठी चांगलं अन्न — स्थानिक, परवडणाऱ्या पदार्थांतून.",
@@ -34,19 +39,35 @@ const copy = {
     fruit: { mr: "फळ", en: "Fruit", hi: "फल" },
     curd: { mr: "दही", en: "Curd", hi: "दही" },
   },
-  plateCaption: { mr: "रोजचं ताट: सगळ्या प्रकारचं थोडं थोडं.", en: "The everyday plate: a little of everything.", hi: "रोज़ की थाली: हर तरह का थोड़ा-थोड़ा।" },
+  plateCaption: {
+    mr: "रोजचं ताट: सगळ्या प्रकारचं थोडं थोडं.",
+    en: "The everyday plate: a little of everything.",
+    hi: "रोज़ की थाली: हर तरह का थोड़ा-थोड़ा।",
+  },
   todayTip: { mr: "आजची टीप", en: "Today's tip", hi: "आज की टिप" },
   forWhom: { mr: "कोणासाठी?", en: "For whom?", hi: "किसके लिए?" },
   tryToday: { mr: "आज करून बघा", en: "Try today", hi: "आज करके देखें" },
   source: { mr: "स्रोत", en: "Source", hi: "स्रोत" },
-  tipOf: { mr: "या टप्प्यासाठी टिपा", en: "tips for this stage", hi: "इस पड़ाव के लिए टिप्स" },
+  tipOf: {
+    mr: "या टप्प्यासाठी टिपा",
+    en: "tips for this stage",
+    hi: "इस पड़ाव के लिए टिप्स",
+  },
   next: { mr: "पुढची टीप", en: "Next tip", hi: "अगली टिप" },
-  guides: { mr: "टप्प्यानुसार मार्गदर्शन", en: "Stage guides", hi: "पड़ाव के अनुसार मार्गदर्शन" },
+  guides: {
+    mr: "टप्प्यानुसार मार्गदर्शन",
+    en: "Stage guides",
+    hi: "पड़ाव के अनुसार मार्गदर्शन",
+  },
   warning: { mr: "धोक्याची चिन्हं", en: "Warning signs", hi: "ख़तरे के संकेत" },
   mythsTitle: { mr: "गैरसमज आणि खरं", en: "Myths and facts", hi: "मिथक और सच" },
   myth: { mr: "गैरसमज", en: "Myth", hi: "मिथक" },
   fact: { mr: "खरं", en: "Fact", hi: "सच" },
-  foodsTitle: { mr: "आपल्या इथले पौष्टिक पदार्थ", en: "Local foods", hi: "स्थानीय पौष्टिक चीज़ें" },
+  foodsTitle: {
+    mr: "आपल्या इथले पौष्टिक पदार्थ",
+    en: "Local foods",
+    hi: "स्थानीय पौष्टिक चीज़ें",
+  },
   foodsLede: {
     mr: "कोकणात सहज मिळणारे, स्वस्त आणि पौष्टिक. किंमती अंदाजे आहेत.",
     en: "Easy to find in the Konkan, cheap and nourishing. Prices are approximate.",
@@ -56,18 +77,34 @@ const copy = {
   goodFor: { mr: "कशासाठी चांगलं", en: "Good for", hi: "किसके लिए अच्छा" },
   howToUse: { mr: "कसं वापरावं", en: "How to use", hi: "कैसे इस्तेमाल करें" },
   cost: { mr: "खर्च (अंदाजे)", en: "Cost (approx.)", hi: "ख़र्च (अंदाज़न)" },
-  weekTitle: { mr: "या आठवड्याचं मार्गदर्शन", en: "This week's guide", hi: "इस हफ़्ते का मार्गदर्शन" },
+  weekTitle: {
+    mr: "या आठवड्याचं मार्गदर्शन",
+    en: "This week's guide",
+    hi: "इस हफ़्ते का मार्गदर्शन",
+  },
   day: { mr: "दिवस", en: "Day", hi: "दिन" },
   today: { mr: "आज", en: "Today", hi: "आज" },
-  cautionsTitle: { mr: "अन्नाबाबत काळजी", en: "Food cautions", hi: "खाने में सावधानी" },
+  cautionsTitle: {
+    mr: "अन्नाबाबत काळजी",
+    en: "Food cautions",
+    hi: "खाने में सावधानी",
+  },
   cautionsLede: {
     mr: "लहान मुलं आणि गरोदरपणासाठी काही महत्त्वाचे नियम.",
     en: "A few important rules for young children and pregnancy.",
     hi: "छोटे बच्चों और गर्भावस्था के लिए कुछ ज़रूरी नियम।",
   },
   pregnancy: { mr: "गरोदरपणात", en: "In pregnancy", hi: "गर्भावस्था में" },
-  cook: { mr: "घरात जे आहे त्यातून स्वयंपाक करा", en: "Cook with what you have", hi: "घर में जो है उसी से खाना बनाएँ" },
-  ask: { mr: "आरोग्याबद्दल AADHI TI ला विचारा", en: "Ask AADHI TI about health", hi: "सेहत के बारे में AADHI TI से पूछें" },
+  cook: {
+    mr: "घरात जे आहे त्यातून स्वयंपाक करा",
+    en: "Cook with what you have",
+    hi: "घर में जो है उसी से खाना बनाएँ",
+  },
+  ask: {
+    mr: "आरोग्याबद्दल AADHI TI ला विचारा",
+    en: "Ask AADHI TI about health",
+    hi: "सेहत के बारे में AADHI TI से पूछें",
+  },
 };
 
 const disclaimer: L = {
@@ -76,14 +113,15 @@ const disclaimer: L = {
   hi: "यह सामान्य पोषण जानकारी है, डॉक्टरी सलाह नहीं। गर्भवती महिला, शिशु या बीमार बच्चे के लिए आशा दीदी, आंगनवाड़ी दीदी या डॉक्टर से पूछें।",
 };
 
-const linkCls = "inline-flex items-center gap-2 font-bold text-kokum-600 underline decoration-kokum-200 underline-offset-4 hover:decoration-kokum-500";
-const h2Cls = "font-serif text-2xl font-normal text-ink sm:text-3xl";
-const kickerCls = "text-sm font-semibold tracking-wide text-sea-700";
+const h2Cls = "font-serif text-2xl font-normal text-kokum-700 sm:text-3xl";
+const kickerCls = "text-sm font-semibold tracking-wide text-kokum-500";
 const srcCls = "text-xs leading-relaxed text-ink-soft";
 
 /** Days since epoch in local time — stable for the whole calendar day. */
 function localDay(d: Date) {
-  return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+  return Math.floor(
+    Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,
+  );
 }
 
 function cautionLabel(c: FoodCaution): L {
@@ -93,9 +131,17 @@ function cautionLabel(c: FoodCaution): L {
     const y = m / 12;
     return y === 1
       ? { mr: "1 वर्षाखालील बाळ", en: "Under 1 year", hi: "1 साल से छोटे" }
-      : { mr: `${y} वर्षांखालील मुलं`, en: `Under ${y} years`, hi: `${y} साल से छोटे` };
+      : {
+          mr: `${y} वर्षांखालील मुलं`,
+          en: `Under ${y} years`,
+          hi: `${y} साल से छोटे`,
+        };
   }
-  return { mr: `${m} महिन्यांखालील`, en: `Under ${m} months`, hi: `${m} महीने से छोटे` };
+  return {
+    mr: `${m} महिन्यांखालील`,
+    en: `Under ${m} months`,
+    hi: `${m} महीने से छोटे`,
+  };
 }
 
 export default function PoshanPage() {
@@ -112,36 +158,55 @@ export default function PoshanPage() {
     if (age === "girl") setStage("girl_10_18");
   }, [age]);
 
-  const stageTips = useMemo(() => poshanTips.filter((tp) => tp.stages.includes(stage)), [stage]);
-  const tipIndex = stageTips.length ? ((day ?? 0) + stageOrder.indexOf(stage) + offset) % stageTips.length : 0;
+  const stageTips = useMemo(
+    () => poshanTips.filter((tp) => tp.stages.includes(stage)),
+    [stage],
+  );
+  const tipIndex = stageTips.length
+    ? ((day ?? 0) + stageOrder.indexOf(stage) + offset) % stageTips.length
+    : 0;
   const tip = stageTips[tipIndex];
 
   // Week guide: day 1 = Monday.
   const weekToday = day === null ? null : ((new Date().getDay() + 6) % 7) + 1;
 
   const [guideId, setGuideId] = useState(nutritionGuides[0].id);
-  const guide = nutritionGuides.find((g) => g.id === guideId) ?? nutritionGuides[0];
+  const guide =
+    nutritionGuides.find((g) => g.id === guideId) ?? nutritionGuides[0];
 
   return (
     <div className="pb-6">
       {/* Opening */}
-      <section className="grid gap-10 border-b border-ink/10 pt-10 pb-12 md:grid-cols-[1.25fr_1fr] md:items-center">
-        <div className="min-w-0">
+      <section className="relative grid gap-8 overflow-hidden pt-8 pb-10 md:grid-cols-[1.25fr_1fr] md:items-center">
+        <Leaf className="absolute -top-4 right-0 h-40 w-auto text-kokum-200 opacity-60 md:hidden" />
+        <div className="relative min-w-0">
           <p className={kickerCls}>{t(copy.eyebrow)}</p>
-          <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">{t(copy.title)}</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink">{t(copy.body)}</p>
+          <h1 className="mt-3 font-serif text-[2.6rem] leading-[1.05] font-normal text-kokum-700 sm:text-[3.8rem]">
+            {t(copy.title)}
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+            {t(copy.body)}
+          </p>
         </div>
-        <figure className="w-full md:max-w-[18rem] md:justify-self-end">
+        <figure className="soft-card w-full p-5 md:max-w-[18rem] md:justify-self-end">
           <Plate t={t} />
-          <figcaption className="mt-3 text-center text-sm text-ink-soft">{t(copy.plateCaption)}</figcaption>
+          <figcaption className="mt-3 text-center text-sm text-ink-soft">
+            {t(copy.plateCaption)}
+          </figcaption>
         </figure>
       </section>
 
       {/* Today's tip */}
-      <section className="border-b border-ink/10 py-12">
+      <section className="py-8">
         <h2 className={h2Cls}>{t(copy.todayTip)}</h2>
-        <p className="mt-6 text-sm font-bold text-ink-soft">{t(copy.forWhom)}</p>
-        <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label={t(copy.forWhom)}>
+        <p className="mt-5 text-sm font-bold text-ink-soft">
+          {t(copy.forWhom)}
+        </p>
+        <div
+          className="mt-3 flex flex-wrap gap-2"
+          role="radiogroup"
+          aria-label={t(copy.forWhom)}
+        >
           {stageOrder.map((s) => (
             <button
               key={s}
@@ -151,9 +216,7 @@ export default function PoshanPage() {
                 setStage(s);
                 setOffset(0);
               }}
-              className={`border-2 border-ink px-3 py-1.5 text-sm font-semibold transition ${
-                stage === s ? "bg-ink text-white" : "bg-transparent text-ink hover:bg-sand-200"
-              }`}
+              className={stage === s ? "soft-chip-on" : "soft-chip"}
             >
               {t(stageLabels[s])}
             </button>
@@ -161,22 +224,33 @@ export default function PoshanPage() {
         </div>
 
         {tip && (
-          <article key={`${stage}-${tip.id}`} className="mt-8 max-w-3xl animate-fade-up border-t-2 border-ink pt-6">
-            <p className="text-sm font-semibold text-sea-700">
-              {t(stageLabels[stage])} · {tipIndex + 1}/{stageTips.length} {t(copy.tipOf)}
+          <article
+            key={`${stage}-${tip.id}`}
+            className="soft-card relative mt-6 max-w-3xl animate-fade-up overflow-hidden p-5 sm:p-7"
+          >
+            <p className="inline-flex rounded-full bg-kokum-50 px-3 py-1 text-xs font-bold text-kokum-700">
+              {t(stageLabels[stage])} · {tipIndex + 1}/{stageTips.length}{" "}
+              {t(copy.tipOf)}
             </p>
-            <h3 className="mt-2 font-serif text-3xl leading-tight font-normal text-kokum-600">{t(tip.title)}</h3>
-            <p className="mt-4 text-lg leading-relaxed text-ink">{t(tip.body)}</p>
-            <p className="mt-5 border-l-4 border-turmeric-400 pl-4 text-[16px] text-ink">
+            <h3 className="mt-3 font-serif text-3xl leading-tight font-normal text-kokum-700">
+              {t(tip.title)}
+            </h3>
+            <p className="mt-4 text-lg leading-relaxed text-ink">
+              {t(tip.body)}
+            </p>
+            <p className="mt-5 rounded-2xl bg-turmeric-50 px-4 py-3 text-[16px] text-ink">
               <span className="font-bold">{t(copy.tryToday)}: </span>
               {t(tip.forMe)}
             </p>
-            <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3">
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
               <p className={srcCls}>
                 {t(copy.source)}: {tip.src}
               </p>
               {stageTips.length > 1 && (
-                <button onClick={() => setOffset((o) => o + 1)} className={linkCls}>
+                <button
+                  onClick={() => setOffset((o) => o + 1)}
+                  className="soft-btn-outline px-4 py-1.5 text-sm"
+                >
                   {t(copy.next)} <ArrowRight size={16} />
                 </button>
               )}
@@ -186,19 +260,20 @@ export default function PoshanPage() {
       </section>
 
       {/* Stage guides */}
-      <section className="border-b border-ink/10 py-12">
+      <section className="py-8">
         <h2 className={h2Cls}>{t(copy.guides)}</h2>
-        <div className="no-scrollbar -mx-4 mt-6 overflow-x-auto border-b border-ink/15 px-4 sm:mx-0 sm:px-0" role="tablist">
-          <div className="flex gap-6">
+        <div
+          className="no-scrollbar -mx-4 mt-5 overflow-x-auto px-4 py-1 sm:mx-0 sm:px-0"
+          role="tablist"
+        >
+          <div className="flex gap-2">
             {nutritionGuides.map((g) => (
               <button
                 key={g.id}
                 role="tab"
                 aria-selected={guideId === g.id}
                 onClick={() => setGuideId(g.id)}
-                className={`-mb-px shrink-0 border-b-2 py-3 text-[15px] font-bold whitespace-nowrap transition ${
-                  guideId === g.id ? "border-kokum-500 text-ink" : "border-transparent text-ink-soft hover:text-ink"
-                }`}
+                className={`${guideId === g.id ? "soft-chip-on" : "soft-chip"} shrink-0 whitespace-nowrap`}
               >
                 {t(g.title)}
               </button>
@@ -206,26 +281,36 @@ export default function PoshanPage() {
           </div>
         </div>
 
-        <div key={guide.id} className="mt-8 max-w-3xl animate-fade-up">
+        <div key={guide.id} className="mt-6 max-w-3xl animate-fade-up">
           <p className="text-lg leading-relaxed text-ink">{t(guide.intro)}</p>
-          <ol className="mt-6 border-t border-ink/15">
+          <ol className="mt-5 space-y-3">
             {guide.cards.map((c, i) => (
-              <li key={c.title.en} className="flex gap-4 border-b border-ink/15 py-5">
-                <span className="w-7 shrink-0 font-serif text-2xl font-normal text-kokum-500 tabular-nums">{i + 1}</span>
+              <li key={c.title.en} className="soft-card flex gap-4 p-5">
+                <span className="icon-circle font-serif text-xl tabular-nums">
+                  {i + 1}
+                </span>
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-serif text-xl font-normal text-ink">{t(c.title)}</h3>
+                  <h3 className="font-serif text-xl font-normal text-kokum-700">
+                    {t(c.title)}
+                  </h3>
                   <p className="mt-1.5 leading-relaxed text-ink">{t(c.body)}</p>
                   <p className="mt-2 text-[15px] text-ink-soft">
-                    <span className="font-bold text-leaf-700">{t(copy.tryToday)}: </span>
+                    <span className="font-bold text-leaf-700">
+                      {t(copy.tryToday)}:{" "}
+                    </span>
                     {t(c.forMe)}
                   </p>
                 </div>
               </li>
             ))}
           </ol>
-          <div className="mt-6 border-2 border-kokum-500 p-4">
-            <p className="text-sm font-bold text-kokum-700">{t(copy.warning)}</p>
-            <p className="mt-1.5 leading-relaxed text-ink">{t(guide.warning)}</p>
+          <div className="soft-card-pink mt-5 p-5">
+            <p className="text-sm font-bold text-kokum-700">
+              {t(copy.warning)}
+            </p>
+            <p className="mt-1.5 leading-relaxed text-ink">
+              {t(guide.warning)}
+            </p>
           </div>
           <p className={`mt-4 ${srcCls}`}>
             {t(copy.source)}: {guide.src}
@@ -234,24 +319,35 @@ export default function PoshanPage() {
       </section>
 
       {/* Myths vs facts */}
-      <section className="border-b border-ink/10 py-12">
+      <section className="py-8">
         <h2 className={h2Cls}>{t(copy.mythsTitle)}</h2>
-        <div className="mt-6 hidden border-b-2 border-ink pb-2 md:grid md:grid-cols-2 md:gap-8">
+        <div className="mt-5 hidden px-5 pb-2 md:grid md:grid-cols-2 md:gap-8">
           <p className="text-sm font-bold text-kokum-600">{t(copy.myth)}</p>
           <p className="text-sm font-bold text-leaf-700">{t(copy.fact)}</p>
         </div>
-        <ul className="mt-6 border-t-2 border-ink md:mt-0 md:border-t-0">
+        <ul className="mt-5 space-y-3 md:mt-0">
           {myths.map((m) => (
-            <li key={m.id} className="grid gap-3 border-b border-ink/15 py-5 md:grid-cols-2 md:gap-8">
+            <li
+              key={m.id}
+              className="soft-card grid gap-3 p-5 md:grid-cols-2 md:gap-8"
+            >
               <div className="min-w-0">
-                <p className="text-xs font-bold tracking-wide text-kokum-600 uppercase md:hidden">{t(copy.myth)}</p>
-                <p className="font-serif text-xl leading-snug font-normal text-ink-soft line-through decoration-kokum-300 decoration-1">{t(m.myth)}</p>
+                <p className="text-xs font-bold tracking-wide text-kokum-600 uppercase md:hidden">
+                  {t(copy.myth)}
+                </p>
+                <p className="font-serif text-xl leading-snug font-normal text-ink-soft line-through decoration-kokum-300 decoration-1">
+                  {t(m.myth)}
+                </p>
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-bold tracking-wide text-leaf-700 uppercase md:hidden">{t(copy.fact)}</p>
+                <p className="text-xs font-bold tracking-wide text-leaf-700 uppercase md:hidden">
+                  {t(copy.fact)}
+                </p>
                 <p className="leading-relaxed text-ink">{t(m.fact)}</p>
                 <p className="mt-2 text-[15px] text-ink-soft">
-                  <span className="font-bold text-leaf-700">{t(copy.tryToday)}: </span>
+                  <span className="font-bold text-leaf-700">
+                    {t(copy.tryToday)}:{" "}
+                  </span>
                   {t(m.forMe)}
                 </p>
                 <p className={`mt-2 ${srcCls}`}>
@@ -264,23 +360,33 @@ export default function PoshanPage() {
       </section>
 
       {/* Local foods */}
-      <section className="border-b border-ink/10 py-12">
+      <section className="py-8">
         <h2 className={h2Cls}>{t(copy.foodsTitle)}</h2>
-        <p className="mt-3 max-w-2xl leading-relaxed text-ink-soft">{t(copy.foodsLede)}</p>
-        <div className="mt-6 hidden border-b-2 border-ink pb-2 text-sm font-bold text-ink-soft lg:grid lg:grid-cols-[11rem_1fr_1fr_12rem] lg:gap-6">
+        <p className="mt-3 max-w-2xl leading-relaxed text-ink-soft">
+          {t(copy.foodsLede)}
+        </p>
+        <div className="mt-5 hidden px-5 pb-2 text-sm font-bold text-ink-soft lg:grid lg:grid-cols-[11rem_1fr_1fr_12rem] lg:gap-6">
           <span>{t(copy.food)}</span>
           <span>{t(copy.goodFor)}</span>
           <span>{t(copy.howToUse)}</span>
           <span>{t(copy.cost)}</span>
         </div>
-        <ul className="mt-6 border-t-2 border-ink lg:mt-0 lg:border-t-0">
+        <ul className="mt-5 space-y-3 lg:mt-0">
           {localFoods.map((f) => (
-            <li key={f.id} className="grid gap-2 border-b border-ink/15 py-5 lg:grid-cols-[11rem_1fr_1fr_12rem] lg:gap-6">
+            <li
+              key={f.id}
+              className="soft-card grid gap-2 p-5 lg:grid-cols-[11rem_1fr_1fr_12rem] lg:gap-6"
+            >
               <div className="min-w-0">
-                <h3 className="font-serif text-xl font-normal text-kokum-600">{t(f.name)}</h3>
-                <p className="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-xs font-bold text-sea-700">
+                <h3 className="font-serif text-xl font-normal text-kokum-700">
+                  {t(f.name)}
+                </h3>
+                <p className="mt-2 flex flex-wrap gap-1.5 text-xs font-bold text-kokum-700">
                   {f.highlights.map((h) => (
-                    <span key={h} className="border border-sea-700/40 px-1.5 py-0.5">
+                    <span
+                      key={h}
+                      className="rounded-full bg-kokum-50 px-2.5 py-0.5"
+                    >
                       {t(nutrientLabels[h])}
                     </span>
                   ))}
@@ -291,12 +397,16 @@ export default function PoshanPage() {
                 {t(f.why)}
               </p>
               <p className="min-w-0 leading-relaxed text-ink">
-                <span className="font-bold lg:hidden">{t(copy.howToUse)}: </span>
+                <span className="font-bold lg:hidden">
+                  {t(copy.howToUse)}:{" "}
+                </span>
                 {t(f.howToUse)}
               </p>
               <div className="min-w-0 text-[15px] leading-relaxed text-ink-soft">
                 <p>{t(f.costNote)}</p>
-                {f.season && <p className="mt-1 text-leaf-700">{t(f.season)}</p>}
+                {f.season && (
+                  <p className="mt-1 text-leaf-700">{t(f.season)}</p>
+                )}
               </div>
             </li>
           ))}
@@ -304,22 +414,41 @@ export default function PoshanPage() {
       </section>
 
       {/* This week's guide */}
-      <section className="border-b border-ink/10 py-12">
+      <section className="py-8">
         <h2 className={h2Cls}>{t(copy.weekTitle)}</h2>
-        <ol className="mt-6 max-w-3xl border-t-2 border-ink">
+        <ol className="mt-5 max-w-3xl space-y-3">
           {poshanWeek.map((d) => {
             const isToday = weekToday === d.day;
             return (
-              <li key={d.day} className={`flex gap-4 border-b border-ink/15 py-5 ${isToday ? "bg-turmeric-50" : ""}`}>
+              <li
+                key={d.day}
+                className={`${isToday ? "soft-card-pink border-kokum-300" : "soft-card"} flex gap-4 p-4 sm:p-5`}
+              >
                 <div className="w-14 shrink-0 text-center">
-                  <p className="text-xs font-bold text-ink-soft">{t(copy.day)}</p>
-                  <p className={`font-serif text-3xl leading-none font-normal tabular-nums ${isToday ? "text-kokum-600" : "text-ink"}`}>{d.day}</p>
-                  {isToday && <p className="mt-1 text-xs font-bold text-kokum-600">{t(copy.today)}</p>}
+                  <p className="text-xs font-bold text-ink-soft">
+                    {t(copy.day)}
+                  </p>
+                  <p
+                    className={`font-serif text-3xl leading-none font-normal tabular-nums ${isToday ? "text-kokum-600" : "text-ink"}`}
+                  >
+                    {d.day}
+                  </p>
+                  {isToday && (
+                    <p className="mt-1.5 inline-block rounded-full bg-kokum-700 px-2 py-0.5 text-[11px] font-bold text-white">
+                      {t(copy.today)}
+                    </p>
+                  )}
                 </div>
                 <div className="min-w-0 flex-1 pr-2">
-                  <h3 className="font-serif text-xl font-normal text-ink">{t(d.theme)}</h3>
-                  <p className="mt-1.5 leading-relaxed text-ink">{t(d.action)}</p>
-                  <p className="mt-1.5 text-[15px] text-ink-soft">{t(d.food)}</p>
+                  <h3 className="font-serif text-xl font-normal text-kokum-700">
+                    {t(d.theme)}
+                  </h3>
+                  <p className="mt-1.5 leading-relaxed text-ink">
+                    {t(d.action)}
+                  </p>
+                  <p className="mt-1.5 text-[15px] text-ink-soft">
+                    {t(d.food)}
+                  </p>
                 </div>
               </li>
             );
@@ -328,13 +457,22 @@ export default function PoshanPage() {
       </section>
 
       {/* Food cautions */}
-      <section className="border-b border-ink/10 py-12">
+      <section className="py-8">
         <h2 className={h2Cls}>{t(copy.cautionsTitle)}</h2>
-        <p className="mt-3 max-w-2xl leading-relaxed text-ink-soft">{t(copy.cautionsLede)}</p>
-        <ul className="mt-6 max-w-3xl border-2 border-ink">
+        <p className="mt-3 max-w-2xl leading-relaxed text-ink-soft">
+          {t(copy.cautionsLede)}
+        </p>
+        <ul className="soft-card-pink mt-5 max-w-3xl divide-y divide-kokum-100 px-1">
           {foodCautions.map((c) => (
-            <li key={c.id} className="grid gap-1 border-b border-ink/15 px-4 py-4 last:border-b-0 sm:grid-cols-[10rem_1fr] sm:gap-4">
-              <p className="text-sm font-bold text-kokum-600">{t(cautionLabel(c))}</p>
+            <li
+              key={c.id}
+              className="grid gap-1 px-4 py-4 sm:grid-cols-[10rem_1fr] sm:gap-4"
+            >
+              <p>
+                <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-kokum-700">
+                  {t(cautionLabel(c))}
+                </span>
+              </p>
               <p className="min-w-0 leading-relaxed text-ink">{t(c.text)}</p>
             </li>
           ))}
@@ -342,17 +480,17 @@ export default function PoshanPage() {
       </section>
 
       {/* Footer note */}
-      <section className="py-12">
-        <div className="max-w-3xl space-y-2 border-l-4 border-sea-600 pl-4 text-[15px] leading-relaxed text-ink">
+      <section className="py-8">
+        <div className="soft-card max-w-3xl space-y-2 p-5 text-[15px] leading-relaxed text-ink">
           <p lang="mr">{disclaimer.mr}</p>
           <p lang="en">{disclaimer.en}</p>
           <p lang="hi">{disclaimer.hi}</p>
         </div>
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-8">
-          <Link href="/everyday" className={linkCls}>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <Link href="/everyday" className="soft-btn">
             {t(copy.cook)} <ArrowRight size={16} />
           </Link>
-          <Link href="/chat?cat=health" className={linkCls}>
+          <Link href="/chat?cat=health" className="soft-btn-outline">
             {t(copy.ask)} <ArrowRight size={16} />
           </Link>
         </div>
@@ -367,25 +505,101 @@ function Plate({ t }: { t: (l: L) => string }) {
   return (
     <div className="mx-auto w-full max-w-[14rem] sm:max-w-[17rem]">
       <svg viewBox="0 0 240 240" aria-hidden className="w-full">
-        <circle cx="120" cy="120" r="112" fill="none" className="stroke-ink" strokeWidth="2" />
-        <circle cx="120" cy="120" r="100" fill="none" className="stroke-ink/25" strokeWidth="1" />
+        <circle
+          cx="120"
+          cy="120"
+          r="112"
+          fill="none"
+          className="stroke-kokum-300"
+          strokeWidth="2"
+        />
+        <circle
+          cx="120"
+          cy="120"
+          r="100"
+          fill="none"
+          className="stroke-kokum-100"
+          strokeWidth="1"
+        />
         {/* katoris */}
-        <circle cx="78" cy="72" r="28" fill="none" className="stroke-turmeric-500" strokeWidth="2.5" />
-        <circle cx="146" cy="60" r="24" fill="none" className="stroke-leaf-600" strokeWidth="2.5" />
-        <circle cx="178" cy="112" r="22" fill="none" className="stroke-ink/40" strokeWidth="2.5" />
+        <circle
+          cx="78"
+          cy="72"
+          r="28"
+          fill="none"
+          className="stroke-turmeric-500"
+          strokeWidth="2.5"
+        />
+        <circle
+          cx="146"
+          cy="60"
+          r="24"
+          fill="none"
+          className="stroke-leaf-600"
+          strokeWidth="2.5"
+        />
+        <circle
+          cx="178"
+          cy="112"
+          r="22"
+          fill="none"
+          className="stroke-ink/40"
+          strokeWidth="2.5"
+        />
         {/* bhakri */}
-        <circle cx="96" cy="152" r="40" fill="none" className="stroke-sea-600" strokeWidth="2.5" />
-        <path d="M70 146 q26 -10 52 0 M74 162 q22 8 44 0" fill="none" className="stroke-sea-600/50" strokeWidth="1.5" strokeLinecap="round" />
+        <circle
+          cx="96"
+          cy="152"
+          r="40"
+          fill="none"
+          className="stroke-sea-600"
+          strokeWidth="2.5"
+        />
+        <path
+          d="M70 146 q26 -10 52 0 M74 162 q22 8 44 0"
+          fill="none"
+          className="stroke-sea-600/50"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
         {/* fruit */}
-        <path d="M160 168 a16 16 0 1 0 0.1 0" fill="none" className="stroke-kokum-600" strokeWidth="2.5" />
-        <path d="M160 168 l4 -10" className="stroke-leaf-600" strokeWidth="2.5" strokeLinecap="round" />
+        <path
+          d="M160 168 a16 16 0 1 0 0.1 0"
+          fill="none"
+          className="stroke-kokum-600"
+          strokeWidth="2.5"
+        />
+        <path
+          d="M160 168 l4 -10"
+          className="stroke-leaf-600"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
       </svg>
-      <ul aria-hidden className="mt-3 grid grid-cols-3 gap-x-3 gap-y-1 border-t border-ink/15 pt-3 text-sm text-ink">
-        <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 shrink-0 bg-turmeric-500" />{t(p.dal)}</li>
-        <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 shrink-0 bg-leaf-600" />{t(p.greens)}</li>
-        <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 shrink-0 bg-ink/40" />{t(p.curd)}</li>
-        <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 shrink-0 bg-sea-600" />{t(p.grains)}</li>
-        <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 shrink-0 bg-kokum-600" />{t(p.fruit)}</li>
+      <ul
+        aria-hidden
+        className="mt-3 grid grid-cols-3 gap-x-3 gap-y-1 border-t border-kokum-100 pt-3 text-sm text-ink"
+      >
+        <li className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-turmeric-500" />
+          {t(p.dal)}
+        </li>
+        <li className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-leaf-600" />
+          {t(p.greens)}
+        </li>
+        <li className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-ink/40" />
+          {t(p.curd)}
+        </li>
+        <li className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-sea-600" />
+          {t(p.grains)}
+        </li>
+        <li className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-kokum-600" />
+          {t(p.fruit)}
+        </li>
       </ul>
     </div>
   );

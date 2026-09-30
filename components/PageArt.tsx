@@ -41,7 +41,7 @@ const mealColor = ["bg-turmeric-400", "bg-kokum-500", "bg-sea-600"];
 /** A week of breakfast / lunch / dinner — the Everyday page. */
 export function WeekGrid({ t, className = "" }: { t: (l: L) => string; className?: string }) {
   return (
-    <div aria-hidden className={`mx-auto w-full max-w-[17rem] border-t-2 border-ink pt-4 ${className}`}>
+    <div aria-hidden className={`mx-auto w-full max-w-[17rem] pt-4 ${className}`}>
       <div className="grid grid-cols-7 gap-2">
         {week.map((d, i) => (
           <div key={i} className="flex flex-col items-center gap-2">
@@ -86,7 +86,7 @@ export function ShoreMap({ className = "" }: { className?: string }) {
 /** One oversized figure with a caption, set like a magazine stat. */
 export function BigFigure({ value, caption, className = "" }: { value: string; caption: string; className?: string }) {
   return (
-    <div className={`mx-auto w-full border-t-2 border-ink pt-3 ${className}`}>
+    <div className={`mx-auto w-full pt-3 ${className}`}>
       <p className="font-serif text-[5.5rem] leading-none tabular-nums sm:text-[6.5rem]">{value}</p>
       <p className="mt-3 text-[15px] leading-snug text-ink-soft">{caption}</p>
     </div>

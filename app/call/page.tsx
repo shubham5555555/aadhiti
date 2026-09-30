@@ -14,6 +14,7 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react";
+import Leaf from "@/components/Leaf";
 import Logo from "@/components/Logo";
 import { CallRings } from "@/components/PageArt";
 import {
@@ -545,27 +546,30 @@ function CallBot() {
   return (
     <div className="pb-6">
       {/* Opening */}
-      <section className="grid gap-8 border-b border-ink/10 pt-10 pb-12 md:grid-cols-[1.25fr_1fr] md:items-center">
-        <div>
-          <p className="text-sm font-semibold tracking-wide text-sea-700">
+      <section className="relative mt-6 grid gap-8 overflow-hidden rounded-3xl border border-kokum-100 bg-gradient-to-br from-kokum-50 via-sand-50 to-white p-6 text-center shadow-[0_10px_30px_-18px_rgba(126,23,56,0.35)] sm:p-10 md:grid-cols-[1.25fr_1fr] md:items-center md:text-left">
+        <Leaf className="absolute -top-4 -right-6 h-44 w-auto text-kokum-200" />
+        <Leaf className="absolute -bottom-10 -left-8 h-40 w-auto -scale-x-100 text-kokum-100 md:hidden" />
+        <div className="relative">
+          <p className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1 text-sm font-semibold tracking-wide text-kokum-600 shadow-[0_6px_16px_-12px_rgba(126,23,56,0.6)]">
+            <span className="h-2 w-2 rounded-full bg-leaf-500" />
             {t(copy.eyebrow)}
           </p>
-          <h1 className="mt-3 font-serif text-[3rem] leading-[1] font-normal text-kokum-600 sm:text-[4.25rem]">
+          <h1 className="mx-auto mt-4 max-w-md font-serif text-[2.6rem] leading-[1.05] font-normal text-kokum-700 sm:text-[4rem] md:mx-0 md:max-w-none">
             {t(copy.title)}
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink">
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft md:mx-0">
             {t(copy.body)}
           </p>
         </div>
-        <figure className="hidden w-full md:block md:max-w-[15rem] md:justify-self-end">
+        <figure className="relative hidden w-full md:block md:max-w-[15rem] md:justify-self-end">
           <CallRings />
         </figure>
       </section>
 
-      <div className="grid items-start gap-10 py-10 lg:grid-cols-[1fr_340px_1fr] lg:gap-8">
+      <div className="grid items-start gap-8 py-8 lg:grid-cols-[1fr_340px_1fr] lg:gap-6">
         {/* Mode picker */}
-        <div>
-          <ol className="border-t border-ink/15">
+        <div className="space-y-4">
+          <ol className="space-y-3">
             <ModeRow
               n={1}
               active={mode === "safety"}
@@ -583,30 +587,30 @@ function CallBot() {
           </ol>
 
           {mode === "fake" && (
-            <div className="animate-fade-up space-y-5 border-b border-ink/15 py-5">
-              <label className="block text-sm font-bold text-ink">
+            <div className="soft-card animate-fade-up space-y-5 p-5">
+              <label className="block text-sm font-bold text-kokum-700">
                 {t(copy.callerName)}
                 <input
                   value={caller}
                   onChange={(e) => setCallerName(e.target.value)}
                   disabled={inCall}
-                  className="mt-2 w-full border-2 border-ink bg-white px-3 py-2.5 text-[16px] font-medium outline-none focus:border-kokum-600 disabled:opacity-60"
+                  className="soft-input mt-2 w-full font-medium text-ink disabled:opacity-60"
                 />
               </label>
               <div>
-                <p className="text-sm font-bold text-ink">
+                <p className="text-sm font-bold text-kokum-700">
                   {t(copy.ringAfter)}
                 </p>
-                <div className="mt-2 flex gap-2">
+                <div className="mt-2 flex gap-1 rounded-full bg-kokum-50 p-1">
                   {[0, 5, 10, 30].map((d) => (
                     <button
                       key={d}
                       onClick={() => setDelay(d)}
                       disabled={inCall}
-                      className={`flex-1 border py-2 text-sm font-bold transition disabled:opacity-60 ${
+                      className={`flex-1 rounded-full py-2 text-sm font-bold transition disabled:opacity-60 ${
                         delay === d
-                          ? "border-ink bg-ink text-white"
-                          : "border-ink/20 bg-white text-ink hover:border-ink"
+                          ? "bg-kokum-700 text-white shadow-[0_6px_14px_-8px_rgba(126,23,56,0.8)]"
+                          : "text-ink hover:bg-white hover:text-kokum-700"
                       }`}
                     >
                       {d === 0 ? t(copy.now) : `${d}s`}
@@ -617,12 +621,12 @@ function CallBot() {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4 border-b border-ink/15 py-4">
+          <div className="soft-card flex items-center justify-between gap-4 px-5 py-3.5">
             <p className="text-[15px] font-bold text-ink">{t(copy.voice)}</p>
             <div
               role="radiogroup"
               aria-label={t(copy.voice)}
-              className="flex border-2 border-ink"
+              className="flex gap-1 rounded-full bg-kokum-50 p-1"
             >
               {(["female", "male"] as const).map((g) => (
                 <button
@@ -631,7 +635,7 @@ function CallBot() {
                   aria-checked={gender === g}
                   onClick={() => chooseGender(g)}
                   disabled={inCall}
-                  className={`px-4 py-1.5 text-sm font-bold transition disabled:opacity-60 ${gender === g ? "bg-ink text-white" : "bg-white text-ink hover:bg-sand-100"}`}
+                  className={`rounded-full px-4 py-1.5 text-sm font-bold transition disabled:opacity-60 ${gender === g ? "bg-kokum-700 text-white shadow-[0_6px_14px_-8px_rgba(126,23,56,0.8)]" : "text-ink hover:bg-white hover:text-kokum-700"}`}
                 >
                   {t(copy[g])}
                 </button>
@@ -643,7 +647,7 @@ function CallBot() {
             onClick={() => setVoiceOn(!voiceOn)}
             role="switch"
             aria-checked={voiceOn}
-            className="flex w-full items-center justify-between border-b border-ink/15 py-4 text-[15px] font-bold text-ink"
+            className="soft-card flex w-full items-center justify-between px-5 py-3.5 text-[15px] font-bold text-ink"
           >
             <span className="flex items-center gap-2">
               {voiceOn ? (
@@ -654,10 +658,10 @@ function CallBot() {
               {t(copy.botVoice)}
             </span>
             <span
-              className={`relative h-6 w-11 rounded-sm border-2 transition ${voiceOn ? "border-ink bg-ink" : "border-ink/30 bg-sand-200"}`}
+              className={`relative h-6 w-11 rounded-full transition ${voiceOn ? "bg-kokum-700" : "bg-kokum-100"}`}
             >
               <span
-                className={`absolute top-0.5 h-4 w-4 rounded-[2px] bg-white transition-all ${voiceOn ? "left-[20px]" : "left-0.5"}`}
+                className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-all ${voiceOn ? "left-[24px]" : "left-1"}`}
               />
             </span>
           </button>
@@ -665,8 +669,8 @@ function CallBot() {
 
         {/* Phone */}
         <div className="mx-auto w-full max-w-[340px]">
-          <div className="relative overflow-hidden rounded-[2rem] border-[8px] border-ink bg-sea-900 text-white">
-            <div className="absolute top-2 left-1/2 h-5 w-24 -translate-x-1/2 rounded-full bg-ink" />
+          <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-white bg-gradient-to-b from-kokum-600 via-kokum-700 to-kokum-900 text-white shadow-[0_24px_50px_-24px_rgba(126,23,56,0.7)] ring-1 ring-kokum-100">
+            <div className="absolute top-2 left-1/2 h-5 w-24 -translate-x-1/2 rounded-full bg-kokum-900/70" />
             <div className="flex h-[580px] flex-col items-center px-5 pt-14 pb-9">
               {stage === "select" || stage === "ended" ? (
                 <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -676,7 +680,7 @@ function CallBot() {
                       <p className="mt-6 font-display text-xl font-bold">
                         {t(copy.ended)}
                       </p>
-                      <p className="mt-1 text-sm text-sea-100">
+                      <p className="mt-1 text-sm text-kokum-100">
                         {name} · {fmt(seconds)}
                       </p>
                     </>
@@ -687,7 +691,7 @@ function CallBot() {
                           ? t(copy.safetyTitle)
                           : t(copy.fakeTitle)}
                       </p>
-                      <p className="mt-2 max-w-[15rem] text-sm text-sea-100">
+                      <p className="mt-2 max-w-[15rem] text-sm text-kokum-100">
                         {mode === "safety"
                           ? t(copy.safetyIdle)
                           : t(copy.fakeIdle)}
@@ -696,7 +700,7 @@ function CallBot() {
                   )}
                   <button
                     onClick={() => startCall(mode)}
-                    className="mt-10 flex items-center gap-2 rounded-full bg-leaf-600 px-7 py-3.5 font-bold text-white transition hover:bg-leaf-500 active:scale-95"
+                    className="mt-10 flex items-center gap-2 rounded-full bg-leaf-600 px-7 py-3.5 font-bold text-white shadow-[0_10px_22px_-10px_rgba(0,0,0,0.5)] transition hover:bg-leaf-500 active:scale-95"
                   >
                     <Phone size={20} />{" "}
                     {stage === "ended"
@@ -708,16 +712,16 @@ function CallBot() {
                 </div>
               ) : stage === "scheduled" ? (
                 <div className="flex flex-1 flex-col items-center justify-center text-center">
-                  <p className="text-sm text-sea-100">{t(copy.arriving)}</p>
+                  <p className="text-sm text-kokum-100">{t(copy.arriving)}</p>
                   <p className="mt-2 font-serif text-7xl font-normal tabular-nums">
                     {countdown}
                   </p>
-                  <p className="mt-4 max-w-[14rem] text-sm text-sea-100">
+                  <p className="mt-4 max-w-[14rem] text-sm text-kokum-100">
                     {t(copy.putAway)}
                   </p>
                   <button
                     onClick={endCall}
-                    className="mt-10 border border-white/40 px-6 py-2.5 text-sm font-bold hover:bg-white/10"
+                    className="mt-10 rounded-full border border-white/40 px-6 py-2.5 text-sm font-bold hover:bg-white/10"
                   >
                     {t(copy.cancel)}
                   </button>
@@ -729,7 +733,7 @@ function CallBot() {
                     ringing={stage === "incoming" || stage === "dialing"}
                   />
                   <p className="mt-6 font-display text-2xl font-bold">{name}</p>
-                  <p className="mt-1 text-sm text-sea-100 tabular-nums">
+                  <p className="mt-1 text-sm text-kokum-100 tabular-nums">
                     {stage === "dialing" && t(copy.connecting)}
                     {stage === "incoming" && t(copy.incoming)}
                     {stage === "connected" && fmt(seconds)}
@@ -739,7 +743,7 @@ function CallBot() {
                     {Array.from({ length: 24 }).map((_, i) => (
                       <span
                         key={i}
-                        className={`w-1 origin-center bg-turmeric-300 ${speaking ? "animate-wave" : ""}`}
+                        className={`w-1 origin-center rounded-full bg-kokum-200 ${speaking ? "animate-wave" : ""}`}
                         style={{
                           height: `${20 + ((i * 37) % 28)}px`,
                           animationDelay: `${(i % 6) * 0.1}s`,
@@ -806,9 +810,9 @@ function CallBot() {
 
         {/* Transcript + replies (safety call) or how-to (fake call, which is one-sided) */}
         {mode === "fake" ? (
-          <div className="flex flex-col border-2 border-ink bg-white lg:h-[580px]">
-            <div className="border-b border-ink/15 px-4 py-3.5">
-              <h2 className="font-serif text-2xl font-normal text-ink">
+          <div className="soft-card flex flex-col overflow-hidden lg:h-[580px]">
+            <div className="border-b border-kokum-100 px-5 py-4">
+              <h2 className="font-serif text-2xl font-normal text-kokum-700">
                 {t(copy.fakeGuideTitle)}
               </h2>
               <p className="mt-0.5 flex items-center gap-2 text-sm text-ink-soft">
@@ -818,13 +822,13 @@ function CallBot() {
                 {stage === "connected" ? t(copy.fakeLive) : t(copy.fakeIdle)}
               </p>
             </div>
-            <ol className="flex-1 space-y-4 p-4">
+            <ol className="flex-1 space-y-4 p-5">
               {copy.fakeGuide.map((step, i) => (
                 <li
                   key={i}
-                  className="flex gap-3 text-[15px] leading-relaxed text-ink"
+                  className="flex items-start gap-3 text-[15px] leading-relaxed text-ink"
                 >
-                  <span className="w-5 shrink-0 font-serif text-xl leading-6 text-kokum-500 tabular-nums">
+                  <span className="icon-circle h-8 w-8 font-serif text-lg text-kokum-600 tabular-nums">
                     {i + 1}
                   </span>
                   <span>{t(step)}</span>
@@ -833,18 +837,18 @@ function CallBot() {
             </ol>
             <a
               href="tel:112"
-              className="flex items-center justify-between gap-3 border-t-2 border-ink bg-red-50 px-4 py-3 text-sm font-bold text-red-700 hover:bg-red-100"
+              className="m-4 mt-0 flex items-center justify-between gap-3 rounded-3xl border border-red-200 bg-red-50 py-2 pr-2 pl-5 text-sm font-bold text-red-700 transition hover:bg-red-100"
             >
               {t(copy.realDanger)}
-              <span className="bg-red-600 px-3 py-1 font-serif text-lg font-normal text-white">
+              <span className="shrink-0 rounded-full bg-red-600 px-4 py-1 font-serif text-lg font-normal text-white">
                 112
               </span>
             </a>
           </div>
         ) : (
-          <div className="flex h-[580px] flex-col overflow-hidden border-2 border-ink bg-white">
-            <div className="border-b border-ink/15 px-4 py-3.5">
-              <h2 className="font-serif text-2xl font-normal text-ink">
+          <div className="soft-card flex h-[580px] flex-col overflow-hidden">
+            <div className="border-b border-kokum-100 px-5 py-4">
+              <h2 className="font-serif text-2xl font-normal text-kokum-700">
                 {t(copy.transcript)}
               </h2>
               <p className="mt-0.5 text-sm text-ink-soft">
@@ -858,12 +862,14 @@ function CallBot() {
 
             <div
               ref={transcriptRef}
-              className="scrollbar-thin flex-1 space-y-4 overflow-y-auto p-4"
+              className="scrollbar-thin flex-1 space-y-4 overflow-y-auto bg-sand-50/60 p-4"
             >
               {lines.length === 0 && (
                 <div className="grid h-full place-items-center text-center text-sm text-ink-soft">
                   <div>
-                    <PhoneCall className="mx-auto mb-2 text-ink/25" size={32} />
+                    <span className="icon-circle mx-auto mb-3 h-14 w-14">
+                      <PhoneCall size={26} />
+                    </span>
                     {t(copy.noCall)}
                   </div>
                 </div>
@@ -871,16 +877,16 @@ function CallBot() {
               {lines.map((l) =>
                 l.from === "user" ? (
                   <div key={l.id} className="flex animate-fade-up justify-end">
-                    <p className="max-w-[85%] rounded-md bg-ink px-3.5 py-2.5 text-[15px] text-white">
+                    <p className="max-w-[85%] rounded-2xl rounded-br-md bg-kokum-700 px-3.5 py-2.5 text-[15px] text-white">
                       {t(l.text)}
                     </p>
                   </div>
                 ) : (
                   <div key={l.id} className="max-w-[92%] animate-fade-up">
-                    <p className="text-xs font-bold tracking-wide text-sea-700">
+                    <p className="text-xs font-bold tracking-wide text-kokum-600">
                       {name}
                     </p>
-                    <p className="mt-0.5 text-[15px] leading-relaxed text-ink">
+                    <p className="mt-1 rounded-2xl rounded-tl-md border border-kokum-100 bg-white px-3.5 py-2.5 text-[15px] leading-relaxed text-ink">
                       {t(l.text)}
                     </p>
                   </div>
@@ -889,7 +895,7 @@ function CallBot() {
             </div>
 
             {stage === "connected" && (
-              <div className="border-t-2 border-ink p-3">
+              <div className="border-t border-kokum-100 p-4">
                 <p className="mb-2 text-xs font-semibold text-ink-soft">
                   {t(copy.tapReply)}
                 </p>
@@ -899,7 +905,7 @@ function CallBot() {
                       key={r.option.en}
                       onClick={() => respond(r)}
                       disabled={speaking}
-                      className="flex items-center gap-1 border border-ink/20 bg-white px-3 py-1.5 text-sm font-bold text-ink transition hover:border-ink hover:bg-ink hover:text-white disabled:opacity-40"
+                      className="soft-chip disabled:opacity-40"
                     >
                       {r.option.en === "Share my location" && (
                         <MapPin size={13} />
@@ -922,15 +928,15 @@ function Avatar({ mode, ringing }: { mode: Mode; ringing: boolean }) {
     <div className="relative grid h-28 w-28 place-items-center">
       {ringing && (
         <>
-          <span className="absolute inset-0 animate-ring rounded-full bg-sea-300/50" />
-          <span className="absolute inset-0 animate-ring rounded-full bg-turmeric-300/40 [animation-delay:1s]" />
+          <span className="absolute inset-0 animate-ring rounded-full bg-kokum-300/50" />
+          <span className="absolute inset-0 animate-ring rounded-full bg-kokum-100/40 [animation-delay:1s]" />
         </>
       )}
       {mode === "safety" ? (
         <Logo size={112} className="relative" />
       ) : (
         <span
-          className={`relative grid h-28 w-28 place-items-center rounded-full bg-turmeric-300 text-ink ${ringing ? "animate-shake" : ""}`}
+          className={`relative grid h-28 w-28 place-items-center rounded-full bg-kokum-50 text-kokum-700 ring-4 ring-white/30 ${ringing ? "animate-shake" : ""}`}
         >
           <UserRound size={52} />
         </span>
@@ -953,18 +959,20 @@ function ModeRow({
   desc: string;
 }) {
   return (
-    <li className="border-b border-ink/15">
+    <li>
       <button
         onClick={onClick}
         aria-pressed={active}
-        className={`group flex w-full items-baseline gap-4 py-5 text-left transition-[padding] ${active ? "border-l-4 border-kokum-500 pl-4" : "border-l-4 border-transparent pl-0"}`}
+        className={`group flex w-full items-start gap-3.5 rounded-3xl border p-4 text-left transition ${active ? "border-kokum-400 bg-kokum-50 shadow-[0_12px_28px_-18px_rgba(126,23,56,0.6)] ring-2 ring-kokum-100" : "border-kokum-100 bg-white shadow-[0_8px_20px_-16px_rgba(126,23,56,0.45)] hover:border-kokum-300"}`}
       >
-        <span className="w-6 shrink-0 font-serif text-2xl font-normal text-kokum-500 tabular-nums">
+        <span
+          className={`grid h-10 w-10 shrink-0 place-items-center rounded-full font-serif text-xl font-normal tabular-nums ${active ? "bg-kokum-700 text-white" : "bg-kokum-50 text-kokum-600"}`}
+        >
           {n}
         </span>
         <span className="min-w-0 flex-1">
           <span
-            className={`block font-display text-xl font-bold ${active ? "text-kokum-600" : "text-ink group-hover:text-kokum-600"}`}
+            className={`block font-display text-lg font-bold ${active ? "text-kokum-700" : "text-ink group-hover:text-kokum-600"}`}
           >
             {title}
           </span>
@@ -997,7 +1005,7 @@ function CallAction({
       >
         {children}
       </button>
-      <span className="text-xs text-sea-100">{label}</span>
+      <span className="text-xs text-kokum-100">{label}</span>
     </div>
   );
 }
@@ -1017,12 +1025,12 @@ function SmallAction({
     <div className="flex flex-col items-center gap-2">
       <button
         onClick={onClick}
-        className={`grid h-14 w-14 place-items-center rounded-full transition ${active ? "bg-white text-sea-900" : "bg-white/15 hover:bg-white/25"}`}
+        className={`grid h-14 w-14 place-items-center rounded-full transition ${active ? "bg-white text-kokum-800" : "bg-white/15 hover:bg-white/25"}`}
         aria-label={label}
       >
         {children}
       </button>
-      <span className="text-xs text-sea-100">{label}</span>
+      <span className="text-xs text-kokum-100">{label}</span>
     </div>
   );
 }
