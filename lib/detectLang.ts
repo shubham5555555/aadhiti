@@ -9,7 +9,10 @@ const ENGLISH = /\b(the|is|are|am|what|how|where|when|why|can|could|should|my|me
 /** Answer in the language she wrote in; romanised Marathi/Hindi follows her chosen app language. */
 export function detectLang(q: string, uiLang: Lang): Lang {
   if (/[ऀ-ॿ]/.test(q)) {
-    return /ळ|ॲ|आहे|मला|माझ|तुम्ही|तुमच|काय|नाही|करू|झालं|झाली|होतं|पाहिजे|कसं|कसा|कशी|आम्ही|आपल्या|केलं|कोणी|कुठे|मिळेल|सांगा|हवं|नको|त्यांच|आमच|करायच|कधी|येतंय|चालेल/.test(q) ? "mr" : "hi";
+    if (/ळ|ॲ|आहे|मला|माझ|तुम्ही|तुमच|काय|नाही|करू|झालं|झाली|होतं|पाहिजे|कसं|कसा|कशी|आम्ही|आपल्या|केलं|कोणी|कुठे|मिळेल|सांगा|हवं|नको|त्यांच|आमच|करायच|कधी|येतंय|चालेल/.test(q)) return "mr";
+    if (/है|हैं|हूँ|हूं|में|क्या|मुझे|मेरा|मेरी|नहीं|कैसे|कहाँ|कहां|रहा|रही|चाहिए|करें|मिलेगा|मिलेगी|यह|वह|किस|था|थी|गया|गई|बनाया|करना|होगा|सकती|सकता/.test(q)) return "hi";
+    // No clear markers (e.g. a single word like "नमस्कार"): keep her chosen language.
+    return uiLang === "en" ? "hi" : uiLang;
   }
   if (uiLang === "en") return "en";
   const indian = q.match(ROMAN_INDIAN)?.length ?? 0;

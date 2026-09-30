@@ -429,7 +429,7 @@ const RULES: { id: string; re: RegExp }[] = [
   },
   {
     "id": "p0",
-    "source": "(आत्ता|आता|सध्या|right now|अभी|abhi|atta).{0,40}(मारत|मारतोय|मारहाण|मार रहा|मार रही|hitting|beating|attack|हल्ला|maar raha|marat)|मारत आहे|मारत आहेत|मार रहा है|mala marat aahe|maar raha hai|(चाकू|सुरा|कोयता|बंदूक|knife|gun|weapon|chaku)|वाचवा|बचाओ|bachao|vachva|help me now|save me|अपहरण|kidnap|किडनॅप|रक्त येत आहे|bleeding badly",
+    "source": "(आत्ता|आता|सध्या|right now|अभी|abhi|atta).{0,40}(मारत|मारतोय|मारहाण|मार रहा|मार रही|hitting|beating|attack|हल्ला|maar raha|marat)|मारत आहे|मारत आहेत|मार रहा है|mala marat aahe|maar raha hai|(चाकू|सुरा|कोयता|बंदूक|knife|gun|weapon|chaku)|वाचवा|बचाओ|bachao|vachva|help me now|save me|अपहरण|kidnap|किडनॅप|रक्त येत आहे|bleeding badly|(is|are|he's|hes|she's|they're|keeps|keep)\\s+(beating|hitting|attacking|choking|strangling|hurting|slapping)\\s+me|(beating|hitting|attacking|choking|strangling)\\s+me(\\s+right)?\\s+now|(going|trying|wants?)\\s+to\\s+kill\\s+me|will\\s+kill\\s+me|maar\\s+rahe|mar\\s+raha",
     "flags": "i"
   },
   {
@@ -454,7 +454,7 @@ const RULES: { id: string; re: RegExp }[] = [
   },
   {
     "id": "dv",
-    "source": "(नवरा|नवऱ्या|पती|husband|सासू|सासरे|सासरचे|in-laws|partner|navra|nawra|pati).{0,40}(मारतो|मारते|मारतात|हात उचल|मारहाण|धमकी|धमकाव|threat|hits|beats|abuse|छळ|marto|maarta)|घरगुती हिंसा|domestic violence",
+    "source": "(नवरा|नवऱ्या|पती|husband|सासू|सासरे|सासरचे|in-laws|partner|navra|nawra|pati).{0,40}(मारतो|मारते|मारतात|हात उचल|मारहाण|धमकी|धमकाव|threat|hits|beats|beat me|hit me|slaps?|kicks?|abuse|छळ|marto|maarta)|घरगुती हिंसा|domestic violence",
     "flags": "i"
   },
   {
