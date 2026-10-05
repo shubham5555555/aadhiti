@@ -27,7 +27,7 @@ export const pillars: {
     title: { mr: "सुरक्षा", en: "Safety", hi: "सुरक्षा" },
     line: {
       mr: "रस्त्यावर, घरात आणि फोनवर. धोका वाटला तर काय करायचं, ते आधीच माहीत असावं.",
-      en: "On the road, at home and on her phone. Knowing what to do before she needs it.",
+      en: "On the road, at home and on your phone. Know what to do before you need it.",
       hi: "सड़क पर, घर में और फ़ोन पर। खतरा लगे तो क्या करना है, यह पहले से पता हो।",
     },
     links: [
@@ -59,7 +59,7 @@ export const pillars: {
         href: "/chat?topic=photo_threat",
         label: {
           mr: "फोटोवरून धमकी, ऑनलाइन छळ",
-          en: "Photo threats, online abuse",
+          en: "Threats over photos, online harassment",
           hi: "फ़ोटो से धमकी, ऑनलाइन उत्पीड़न",
         },
       },
@@ -84,10 +84,10 @@ export const pillars: {
   {
     id: "security",
     Icon: Landmark,
-    title: { mr: "आर्थिक सुरक्षा", en: "Security", hi: "आर्थिक सुरक्षा" },
+    title: { mr: "आर्थिक सुरक्षा", en: "Financial Security", hi: "आर्थिक सुरक्षा" },
     line: {
       mr: "स्वतःचे पैसे, स्वतःची कागदपत्रं आणि कायद्याने मिळणारे हक्क. कुणावर अवलंबून न राहता.",
-      en: "Her own money, her own papers and the rights the law gives her. Not depending on anyone.",
+      en: "Your own money, your own documents and the rights the law gives you. Without depending on anyone.",
       hi: "अपना पैसा, अपने कागज़ात और कानून से मिलने वाले अधिकार। किसी पर निर्भर हुए बिना।",
     },
     links: [
@@ -95,7 +95,7 @@ export const pillars: {
         href: "/schemes#scheme-finder",
         label: {
           mr: "मला कोणत्या योजना लागू?",
-          en: "Which schemes fit me?",
+          en: "Which schemes apply to me?",
           hi: "मुझ पर कौन-सी योजनाएँ लागू?",
         },
       },
@@ -103,7 +103,7 @@ export const pillars: {
         href: "/chat?topic=ladki_bahin",
         label: {
           mr: "लाडकी बहीण योजना",
-          en: "Ladki Bahin scheme",
+          en: "Ladki Bahin Yojana",
           hi: "लाडकी बहीण योजना",
         },
       },
@@ -111,7 +111,7 @@ export const pillars: {
         href: "/chat?topic=join_shg",
         label: {
           mr: "बचत गटात सामील व्हा",
-          en: "Join a savings group",
+          en: "Join a self-help group (Bachat Gat)",
           hi: "बचत समूह से जुड़ें",
         },
       },
@@ -119,7 +119,7 @@ export const pillars: {
         href: "/chat?topic=property_rights",
         label: {
           mr: "मालमत्तेतला हक्क",
-          en: "Her share in property",
+          en: "Your right to property",
           hi: "संपत्ति में हक़",
         },
       },
@@ -133,17 +133,17 @@ export const pillars: {
       },
     ],
     cta: {
-      href: "/schemes",
-      label: { mr: "योजना पाहा", en: "See schemes", hi: "योजनाएँ देखें" },
+      href: "/chat?cat=income",
+      label: { mr: "योजना पाहा", en: "Ask about financial security", hi: "योजनाएँ देखें" },
     },
   },
   {
     id: "skill",
     Icon: GraduationCap,
-    title: { mr: "कौशल्य", en: "Skill", hi: "कौशल" },
+    title: { mr: "कौशल्य", en: "Skills", hi: "कौशल" },
     line: {
       mr: "शिकणं कधीही थांबत नाही. प्रशिक्षण, नोकरी किंवा स्वतःचा व्यवसाय, स्वतःच्या पायावर उभं राहण्यासाठी.",
-      en: "It's never too late to learn. Training, a job or her own business, to stand on her own feet.",
+      en: "Learning never stops. Training, a job or a business of your own, to stand on your own feet.",
       hi: "सीखना कभी नहीं रुकता। ट्रेनिंग, नौकरी या अपना व्यवसाय, अपने पैरों पर खड़े होने के लिए।",
     },
     links: [
@@ -151,7 +151,7 @@ export const pillars: {
         href: "/schemes#income-finder",
         label: {
           mr: "माझ्या कौशल्यातून कमाई",
-          en: "Earn from what I know",
+          en: "Earn from my skills",
           hi: "मेरे हुनर से कमाई",
         },
       },
@@ -183,7 +183,7 @@ export const pillars: {
         href: "/chat?topic=return_to_education",
         label: {
           mr: "शिक्षण पुन्हा सुरू करा",
-          en: "Go back to studies",
+          en: "Return to education",
           hi: "पढ़ाई फिर से शुरू करें",
         },
       },
@@ -207,7 +207,7 @@ const copy = {
   },
   title: {
     mr: "सुरक्षित. स्वावलंबी. कुशल.",
-    en: "Safe. Secure. Skilled.",
+    en: "Safe. Self-reliant. Skilled.",
     hi: "सुरक्षित. आत्मनिर्भर. कुशल.",
   },
 };

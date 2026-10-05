@@ -10,12 +10,12 @@ const items: { id: string; text: L; hint: L }[] = [
     id: "numbers",
     text: {
       mr: "112 आणि 1091 फोनमध्ये save केले",
-      en: "112 and 1091 saved in my phone",
+      en: "112 and 1091 saved on my phone",
       hi: "112 और 1091 फ़ोन में save किए",
     },
     hint: {
       mr: "Contacts मध्ये 'पोलीस' आणि 'महिला हेल्पलाइन' नावाने.",
-      en: "In Contacts, as 'Police' and 'Women helpline'.",
+      en: "Save them in Contacts as \"Police\" and \"Women's Helpline\".",
       hi: "Contacts में 'पुलिस' और 'महिला हेल्पलाइन' नाम से।",
     },
   },
@@ -23,12 +23,12 @@ const items: { id: string; text: L; hint: L }[] = [
     id: "sos",
     text: {
       mr: "फोनमधलं Emergency SOS सुरू केलं",
-      en: "Emergency SOS turned on in my phone",
+      en: "Emergency SOS switched on",
       hi: "फ़ोन में Emergency SOS चालू किया",
     },
     hint: {
       mr: "बहुतेक Android फोनमध्ये power बटण 5 वेळा दाबल्यावर SOS जातो. Settings → Safety & emergency मध्ये पाहा.",
-      en: "On most Android phones, pressing power 5 times sends SOS. See Settings → Safety & emergency.",
+      en: "On many Android phones, pressing the power button 5 times sends an SOS. The steps vary by phone, so check Settings → Safety & emergency.",
       hi: "ज़्यादातर Android फ़ोन में power बटन 5 बार दबाने पर SOS जाता है। Settings → Safety & emergency देखें।",
     },
   },
@@ -41,7 +41,7 @@ const items: { id: string; text: L; hint: L }[] = [
     },
     hint: {
       mr: "ज्यांना रात्रीसुद्धा फोन करता येईल आणि ज्यांच्याशी live location शेअर करता येईल.",
-      en: "People you can call at night and share live location with.",
+      en: "People you can call at night and share your live location with.",
       hi: "जिन्हें रात में भी फ़ोन कर सकें और live location शेयर कर सकें।",
     },
   },
@@ -54,7 +54,7 @@ const items: { id: string; text: L; hint: L }[] = [
     },
     hint: {
       mr: "फोनवर हा शब्द म्हटला की समजायचं — मला लगेच मदत हवी आहे.",
-      en: "Saying it on the phone means: I need help now.",
+      en: "Saying it on a phone call means \"I need help now.\"",
       hi: "फ़ोन पर यह शब्द बोलें तो समझें — मुझे तुरंत मदद चाहिए।",
     },
   },
@@ -62,12 +62,12 @@ const items: { id: string; text: L; hint: L }[] = [
     id: "battery",
     text: {
       mr: "बाहेर जाताना फोन 30% पेक्षा जास्त चार्ज",
-      en: "Phone above 30% when I go out",
+      en: "Phone charged above 30% when I go out",
       hi: "बाहर जाते समय फ़ोन 30% से ज़्यादा चार्ज",
     },
     hint: {
       mr: "लांबच्या प्रवासाला छोटी power bank सोबत.",
-      en: "A small power bank for long journeys.",
+      en: "Carry a small power bank for long journeys.",
       hi: "लंबे सफ़र में छोटा power bank साथ।",
     },
   },
@@ -75,12 +75,12 @@ const items: { id: string; text: L; hint: L }[] = [
     id: "bag",
     text: {
       mr: "पर्समध्ये ओळखपत्र, थोडे पैसे आणि एक नंबर कागदावर",
-      en: "ID, some cash and one number on paper in my bag",
+      en: "ID, some cash and one phone number on paper in my bag",
       hi: "पर्स में पहचान पत्र, थोड़े पैसे और एक नंबर काग़ज़ पर",
     },
     hint: {
       mr: "फोन बंद पडला तरी कोणाला तरी कॉल करता यावा म्हणून.",
-      en: "So you can still call someone if your phone dies.",
+      en: "So you can still call someone from another phone if yours stops working.",
       hi: "ताकि फ़ोन बंद हो जाए तब भी किसी को कॉल कर सकें।",
     },
   },
@@ -94,10 +94,10 @@ const copy = {
   },
   body: {
     mr: "धोका येण्याआधी दहा मिनिटं. जे झालंय त्यावर खूण करा. हे फक्त तुमच्या फोनमध्ये साठवलं जातं.",
-    en: "Ten minutes, before anything happens. Tick what you've done. This is saved only on your phone.",
+    en: "Ten minutes of preparation before anything happens. Tick what you have already done. This is saved only on this device.",
     hi: "कुछ होने से पहले दस मिनट। जो हो गया उस पर निशान लगाएँ। यह सिर्फ़ आपके फ़ोन में सेव होता है।",
   },
-  ready: { mr: "तयार", en: "ready", hi: "तैयार" },
+  ready: { mr: "तयार", en: "done", hi: "तैयार" },
   done: {
     mr: "छान. तुमची योजना पूर्ण आहे. ही यादी घरच्या मुलींनाही दाखवा.",
     en: "Well done. Your plan is complete. Show this list to the girls at home too.",
@@ -149,6 +149,7 @@ export default function SafetyPlan() {
           value={count}
           total={items.length}
           label={t(copy.ready)}
+          separator={t({mr: "/", en: " of ", hi: "/"})}
         />
       </div>
 
@@ -202,10 +203,12 @@ function ProgressRing({
   value,
   total,
   label,
+  separator,
 }: {
   value: number;
   total: number;
   label: string;
+  separator: string;
 }) {
   const r = 52;
   const c = 2 * Math.PI * r;
@@ -241,7 +244,7 @@ function ProgressRing({
         <span>
           <span className="block font-serif text-4xl leading-none text-kokum-600 tabular-nums">
             {value}
-            <span className="text-xl text-ink-soft">/{total}</span>
+            <span className="text-xl text-ink-soft">{separator}{total}</span>
           </span>
           <span className="mt-1 block text-xs font-bold text-ink-soft">
             {label}

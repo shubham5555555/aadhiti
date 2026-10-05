@@ -78,9 +78,9 @@ const copy = {
     hi: "अगर फ़ोन कोई और भी इस्तेमाल करता है तो इसे बंद रखें।",
   },
   guest: {
-    mr: "फोन नंबर, OTP किंवा खातं लागत नाही. सगळी माहिती फक्त या फोनवर राहते.",
-    en: "No phone number, OTP or account. Everything stays on this phone.",
-    hi: "फ़ोन नंबर, OTP या खाता नहीं चाहिए। सारी जानकारी सिर्फ़ इस फ़ोन पर रहती है।",
+    mr: "फोन नंबर, OTP किंवा खातं लागत नाही. उत्तरासाठी प्रश्न व निवडलेली संबंधित माहिती Google Gemini कडे पाठवली जाते.",
+    en: "No phone number, OTP or account. Questions and relevant selected details are sent to Google Gemini for answers.",
+    hi: "फ़ोन नंबर, OTP या खाता नहीं चाहिए। जवाब के लिए सवाल और चुनी गई संबंधित जानकारी Google Gemini को भेजी जाती है।",
   },
   next: { mr: "पुढे", en: "Next", hi: "आगे" },
   back: { mr: "मागे", en: "Back", hi: "पीछे" },

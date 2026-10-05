@@ -1182,7 +1182,7 @@ export const SCHEMES: Scheme[] = [
     id: "child-marriage",
     sourceId: "child-marriage",
     scope: "Maharashtra",
-    name: { mr: "बालविवाहमुक्त महाराष्ट्र", en: "Child-marriage-free Maharashtra", hi: "बाल विवाह मुक्त महाराष्ट्र" },
+    name: { mr: "बालविवाहमुक्त महाराष्ट्र", en: "Child Marriage-Free Maharashtra", hi: "बाल विवाह मुक्त महाराष्ट्र" },
     dept: "महिला व बाल विकास विभाग, महाराष्ट्र",
     what: {
       mr: "18 वर्षांखालील मुलीचं लग्न गुन्हा आहे. लग्न ठरवणारे, लावणारे आणि मध्यस्थ यांच्यावरही कारवाई होते.",

@@ -373,7 +373,7 @@ export function schemesMenu(lang: Lang): ListMenu {
       "किसी को पैसे न दें",
       "Never pay an agent",
     ),
-    button: t3(lang, "योजना पाहा", "योजनाएँ देखें", "See schemes"),
+    button: t3(lang, "योजना पाहा", "योजनाएँ देखें", "Ask about financial security"),
     sections: [
       {
         title: t3(lang, "योजना", "योजनाएँ", "Schemes"),

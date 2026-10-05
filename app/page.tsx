@@ -1,619 +1,89 @@
 "use client";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { ArrowRight, ArrowUpRight, MessageCircle, Phone, Plus, Minus, BookOpen, UtensilsCrossed, PhoneCall } from 'lucide-react';
+import { useLang } from '@/lib/i18n';
+import { journeys, tr } from '@/lib/homeJourneys';
+import { leader, initiativeBanner } from '@/lib/leader';
+import { helplines } from '@/lib/data';
+import ThreePillars from '@/components/home/ThreePillars';
+import SafetyPlan from '@/components/home/SafetyPlan';
+import DangerBand from '@/components/home/DangerBand';
 
-import Link from "next/link";
-import { useState } from "react";
-import {
-  Apple,
-  ArrowRight,
-  ChevronRight,
-  Landmark,
-  MapPin,
-  PhoneCall,
-  UtensilsCrossed,
-} from "lucide-react";
-import CategoryIcon from "@/components/CategoryIcon";
-import Leaf from "@/components/Leaf";
-import Dashboard from "@/components/home/Dashboard";
-import InitiativeBanner from "@/components/home/InitiativeBanner";
-import SOSButton from "@/components/SOSButton";
-import ScrollPan from "@/components/ScrollPan";
-import DangerBand from "@/components/home/DangerBand";
-import SafetySituations from "@/components/home/SafetySituations";
-import SafetyPlan from "@/components/home/SafetyPlan";
-import ThreePillars from "@/components/home/ThreePillars";
-import LeaderSection from "@/components/home/LeaderSection";
-import { leader } from "@/lib/leader";
-import { WarliWayHome } from "@/components/WarliArt";
-import { useLang } from "@/lib/i18n";
-import { brand, chat, nav } from "@/lib/ui";
-import { helplines } from "@/lib/data";
-import { adultCategories, getTopic, type L, type Topic } from "@/lib/kb";
-
-const copy = {
-  pilot: {
-    mr: "रायगड जिल्ह्यासाठी पायलट संकल्पना",
-    en: "A pilot concept for Raigad district",
-    hi: "रायगड ज़िले के लिए पायलट अवधारणा",
-  },
-  heroAlt: {
-    mr: "सूर्योदयाच्या आकाशात लाल पदराबरोबर उंच झेपावणाऱ्या सर्व वयांच्या स्त्रिया — शाळकरी मुलगी, पोलीस अधिकारी, नोकरी करणारी, शेतकरी, आई आणि आजी.",
-    en: "Women of every age — a schoolgirl, a police officer, a professional, a farmer, a mother and a grandmother — rising together on a red saree against a sunrise sky.",
-    hi: "सूर्योदय के आसमान में लाल पल्लू के साथ ऊँची उड़ान भरती हर उम्र की महिलाएँ — स्कूली छात्रा, पुलिस अधिकारी, नौकरीपेशा, किसान, माँ और दादी।",
-  },
-  lede: {
-    mr: "सुरक्षा, आर्थिक सुरक्षा आणि कौशल्य. आणि त्याबरोबर आरोग्य, हक्क, घरातली एखादी अडचण. मराठी, हिंदी किंवा English मध्ये विचारा.",
-    en: "Safety, security and skill. And with them, health, rights or trouble at home. Ask in Marathi, Hindi or English.",
-    hi: "सुरक्षा, आर्थिक सुरक्षा और कौशल। और साथ में सेहत, अधिकार या घर की कोई परेशानी। मराठी, हिंदी या English में पूछिए।",
-  },
-  askLabel: { mr: "तुमचा प्रश्न", en: "Your question", hi: "आपका सवाल" },
-  askPlaceholder: {
-    mr: "उदा. माझ्या नवऱ्याला माझा फोन सतत तपासायचा असतो",
-    en: "e.g. My husband keeps checking my phone",
-    hi: "जैसे, मेरे पति हमेशा मेरा फ़ोन चेक करते हैं",
-  },
-  askButton: { mr: "विचारा", en: "Ask", hi: "पूछें" },
-  askNote: {
-    mr: "नाव किंवा नंबर लागत नाही. उत्तरासाठी प्रश्न AI कडे पाठवला जातो — त्यात नाव, फोन नंबर लिहू नका.",
-    en: "No name or number needed. Your question is sent to an AI to write the answer — don't include your name or phone number.",
-    hi: "नाम या नंबर की ज़रूरत नहीं। जवाब के लिए सवाल AI को भेजा जाता है — उसमें नाम या फ़ोन नंबर न लिखें।",
-  },
-  voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
-  menuNote: {
-    mr: "विषय निवडा, किंवा वर तुमच्या शब्दांत लिहा.",
-    en: "Pick a subject, or write in your own words above.",
-    hi: "विषय चुनें, या ऊपर अपने शब्दों में लिखें।",
-  },
-  othersAsk: {
-    mr: "इतर जणींनी विचारलेलं",
-    en: "What others have asked",
-    hi: "दूसरों ने क्या पूछा",
-  },
-  howTitle: {
-    mr: "उत्तर कसं मिळतं",
-    en: "How an answer works",
-    hi: "जवाब कैसे मिलता है",
-  },
-  howBody: {
-    mr: "प्रत्येक उत्तर तीन भागांत येतं. आधी काय घडतंय ते समजून घेणं, मग काय करता येईल, आणि शेवटी पुढचं एक ठोस पाऊल. धोका असेल तर मदतीचा नंबर सगळ्यात आधी.",
-    en: "Every answer comes in three parts. First, what may be happening. Then, what you can do. Last, one clear next step. If you might be in danger, the helpline comes before anything else.",
-    hi: "हर जवाब तीन हिस्सों में आता है। पहले, क्या हो रहा हो सकता है। फिर, आप क्या कर सकती हैं। आख़िर में, एक साफ़ अगला कदम। खतरा हो तो मदद का नंबर सबसे पहले।",
-  },
-  example: {
-    mr: "“माझ्या Instagram वर कुणीतरी मला धमकावत आहे.”",
-    en: "“Someone is threatening me on Instagram.”",
-    hi: "“कोई मुझे Instagram पर धमका रहा है।”",
-  },
-  exampleSteps: [
-    {
-      mr: "हा ऑनलाइन छळ आहे, आणि तो गुन्हा आहे. यात तुमची चूक नाही.",
-      en: "This is online harassment, and it is a crime. It is not your fault.",
-      hi: "यह ऑनलाइन उत्पीड़न है, और यह अपराध है। इसमें आपकी गलती नहीं।",
-    },
-    {
-      mr: "उत्तर देऊ नका. Screenshots ठेवा. Account ला Report आणि Block करा.",
-      en: "Don't reply. Keep screenshots. Report and block the account.",
-      hi: "जवाब न दें। Screenshots रखें। Account को Report और Block करें।",
-    },
-    {
-      mr: "1930 वर किंवा cybercrime.gov.in वर तक्रार करा. प्रत्यक्ष धोका वाटत असेल तर 112.",
-      en: "Report on 1930 or cybercrime.gov.in. If you feel in physical danger, 112.",
-      hi: "1930 या cybercrime.gov.in पर शिकायत करें। शारीरिक खतरा लगे तो 112।",
-    },
-  ] as L[],
-  openExample: {
-    mr: "हे पूर्ण उत्तर पाहा",
-    en: "See the full answer",
-    hi: "पूरा जवाब देखें",
-  },
-  girlsTitle: {
-    mr: "मुलींसाठी वेगळी भाषा",
-    en: "Different words for girls",
-    hi: "लड़कियों के लिए अलग भाषा",
-  },
-  girlsBody: {
-    mr: "10 ते 18 वयाच्या मुलींसाठी सोपी, घाबरवणारी नसलेली उत्तरं. काही चुकीचं घडत असेल तर विश्वासातल्या मोठ्या व्यक्तीकडे आणि 1098 कडे नेणारी.",
-    en: "Simple answers that don't frighten, for girls aged 10 to 18. If something is wrong, they lead to a trusted adult and to 1098.",
-    hi: "10 से 18 साल की लड़कियों के लिए सरल, न डराने वाले जवाब। कुछ गलत हो रहा हो तो भरोसेमंद बड़े और 1098 तक ले जाते हैं।",
-  },
-  girlsLink: {
-    mr: "मुलींचा विभाग उघडा",
-    en: "Open the girls' section",
-    hi: "लड़कियों का सेक्शन खोलें",
-  },
-  womenTitle: {
-    mr: "वयानुसार आरोग्य",
-    en: "Health that changes with age",
-    hi: "उम्र के हिसाब से सेहत",
-  },
-  womenBody: {
-    mr: "18, 30, 40 आणि 50 नंतर शरीराचे प्रश्न बदलतात. पाळी, PCOS, थायरॉईड, गर्भारपण, रजोनिवृत्ती, हाडांचं आरोग्य.",
-    en: "The body's questions change after 18, 30, 40 and 50. Periods, PCOS, thyroid, pregnancy, menopause, bone health.",
-    hi: "18, 30, 40 और 50 के बाद शरीर के सवाल बदलते हैं। पीरियड्स, PCOS, थायरॉइड, गर्भावस्था, मेनोपॉज़, हड्डियों की सेहत।",
-  },
-  womenLink: {
-    mr: "आरोग्य विभाग उघडा",
-    en: "Open health",
-    hi: "सेहत सेक्शन खोलें",
-  },
-  alsoTitle: { mr: "आणखी", en: "Also here", hi: "और भी" },
-  coast: {
-    mr: "प्रत्येक जणी सुरक्षित घरी पोहोचावी.",
-    en: "Every woman should reach home safely.",
-    hi: "हर महिला सुरक्षित घर पहुँचे।",
-  },
-  coastNote: {
-    mr: "ST मधून उतरल्यापासून घराच्या दारापर्यंत, AADHI TI सोबत.",
-    en: "From the bus stop to her own front door, AADHI TI walks with her.",
-    hi: "बस से उतरने से लेकर घर के दरवाज़े तक, AADHI TI साथ।",
-  },
-  numbersTitle: {
-    mr: "महत्त्वाचे नंबर",
-    en: "Numbers to keep",
-    hi: "ज़रूरी नंबर",
-  },
-  numbersNote: {
-    mr: "सगळे मोफत. आत्ताच फोनमध्ये save करून ठेवा.",
-    en: "All free. Save them in your phone now.",
-    hi: "सभी मुफ़्त। अभी फ़ोन में save कर लें।",
-  },
-  sosTitle: {
-    mr: "धोका वाटतोय?",
-    en: "Feeling unsafe?",
-    hi: "खतरा लग रहा है?",
-  },
-  sosBody: {
-    mr: "SOS दाबल्यावर 5 सेकंदांनी तुमच्या विश्वासातल्या माणसांना तुमचं ठिकाण कळवलं जातं. चुकून दाबलं तर रद्द करता येतं.",
-    en: "Press SOS and, after 5 seconds, your trusted people get your location. Pressed by mistake? You can cancel.",
-    hi: "SOS दबाने के 5 सेकंड बाद आपके भरोसेमंद लोगों को आपकी जगह भेजी जाती है। गलती से दबा? रद्द कर सकती हैं।",
-  },
-};
-
-const also: { href: string; title: L; body: L }[] = [
-  {
-    href: "/call",
-    title: { mr: "सोबत कॉल", en: "Stay-on-call", hi: "साथ वाली कॉल" },
-    body: {
-      mr: "रात्री घरी जाताना AADHI TI फोनवर सोबत राहते.",
-      en: "AADHI TI stays on the line while you walk home at night.",
-      hi: "रात में घर जाते समय AADHI TI फ़ोन पर साथ रहती है।",
-    },
-  },
-  {
-    href: "/everyday",
-    title: {
-      mr: "आज काय बनवू?",
-      en: "What to cook today?",
-      hi: "आज क्या बनाऊँ?",
-    },
-    body: {
-      mr: "घरात असलेल्या साहित्यावरून पदार्थ आणि आठवड्याचा मेनू.",
-      en: "Dishes from what's in your kitchen, and a week's menu.",
-      hi: "घर में रखी सामग्री से पकवान और हफ़्ते का मेनू।",
-    },
-  },
-  {
-    href: "/poshan",
-    title: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
-    body: {
-      mr: "मुली, गरोदर आई, बाळ आणि आजीसाठी स्थानिक, परवडणारं पौष्टिक जेवण.",
-      en: "Local, affordable good food for girls, mothers-to-be, babies and grandmothers.",
-      hi: "लड़कियों, गर्भवती माँ, बच्चे और दादी के लिए स्थानीय, सस्ता पौष्टिक खाना।",
-    },
-  },
-  {
-    href: "/schemes",
-    title: {
-      mr: "योजना आणि कमाई",
-      en: "Schemes and earning",
-      hi: "योजनाएँ और कमाई",
-    },
-    body: {
-      mr: "लाडकी बहीण, बचत गट, homestay. कोणता मार्ग तुमच्यासाठी?",
-      en: "Ladki Bahin, SHGs, homestays. Which fits you?",
-      hi: "लाडकी बहीण, स्वयं सहायता समूह, होमस्टे। आपके लिए कौन-सा?",
-    },
-  },
-  {
-    href: "/safe-shrivardhan",
-    title: {
-      mr: "असुरक्षित जागा कळवा",
-      en: "Report an unsafe spot",
-      hi: "असुरक्षित जगह बताएँ",
-    },
-    body: {
-      mr: "अंधारा रस्ता, बंद दिवे, निर्जन थांबा. नाव न सांगता.",
-      en: "A dark road, broken lights, a lonely stop. No name needed.",
-      hi: "अंधेरी सड़क, बंद बत्ती, सुनसान स्टॉप। नाम बताए बिना।",
-    },
-  },
-];
-
-const commonTabs: { id: string; label: L; topics: string[] }[] = [
-  {
-    id: "safety",
-    label: { mr: "सुरक्षा", en: "Safety", hi: "सुरक्षा" },
-    topics: ["following_me", "photo_threat", "otp_scam", "unsafe_transport"],
-  },
-  {
-    id: "security",
-    label: { mr: "आर्थिक सुरक्षा", en: "Security", hi: "आर्थिक सुरक्षा" },
-    topics: [
-      "ladki_bahin",
-      "financial_control",
-      "property_rights",
-      "maintenance",
-    ],
-  },
-  {
-    id: "skill",
-    label: { mr: "कौशल्य", en: "Skill", hi: "कौशल" },
-    topics: ["training_access", "job_skills", "start_business", "sell_online"],
-  },
-  {
-    id: "health",
-    label: { mr: "आरोग्य", en: "Health", hi: "सेहत" },
-    topics: ["irregular_periods", "pcos", "pregnancy_warning", "anaemia"],
-  },
-];
-
-// First sentence of a topic's explanation, for the question list.
-const firstSentence = (s: string) => s.split(/(?<=[.।?!])\s/)[0];
-
-const linkCls =
-  "inline-flex items-center gap-2 font-bold text-kokum-600 underline decoration-kokum-200 underline-offset-4 hover:decoration-kokum-500";
-
+const whatsapp = 'https://wa.me/919326416290?text=Hi';
 export default function Home() {
-  const { t } = useLang();
-  const [tab, setTab] = useState(commonTabs[0].id);
-
-  const [emergency, ...numbers] = helplines;
-  const questions = commonTabs
-    .find((c) => c.id === tab)!
-    .topics.map(getTopic)
-    .filter((x): x is Topic => !!x);
-  const h2 =
-    "font-serif text-3xl leading-tight font-normal text-kokum-700 sm:text-[2.6rem]";
-
-  return (
-    <div className="space-y-10 pb-6 md:space-y-14">
-      <InitiativeBanner />
-
-      <Dashboard />
-
-      <ThreePillars />
-
-      <LeaderSection />
-
-      <DangerBand />
-
-      {/* The eight subjects */}
-      <section>
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className={h2}>{t(chat.menuQuestion)}</h2>
-          <p className="text-ink-soft">{t(copy.menuNote)}</p>
-        </div>
-        <ol className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {adultCategories.map((c) => (
-            <li key={c.id}>
-              <Link href={`/chat?cat=${c.id}`} className="soft-list-item group">
-                <span className="icon-circle">
-                  <CategoryIcon icon={c.icon} size={20} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-display text-[17px] font-bold text-ink group-hover:text-kokum-700">
-                    {t(c.title)}
-                  </span>
-                  <span className="mt-0.5 block truncate text-[14px] text-ink-soft">
-                    {t(c.subtitle)}
-                  </span>
-                </span>
-                <ChevronRight
-                  size={18}
-                  className="shrink-0 text-kokum-300 transition group-hover:translate-x-0.5 group-hover:text-kokum-600"
-                />
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <SafetySituations />
-      <SafetyPlan />
-
-      {/* What others asked */}
-      <section className="soft-card relative overflow-hidden p-5 sm:p-8">
-        <Leaf className="absolute -right-4 -bottom-6 h-40 w-auto text-kokum-100" />
-        <h2 className={h2}>{t(copy.othersAsk)}</h2>
-        <div
-          className="no-scrollbar -mx-1 mt-5 flex gap-2 overflow-x-auto px-1 pb-1"
-          role="tablist"
-        >
-          {commonTabs.map((c) => (
-            <button
-              key={c.id}
-              role="tab"
-              aria-selected={tab === c.id}
-              onClick={() => setTab(c.id)}
-              className={`shrink-0 ${tab === c.id ? "soft-chip-on" : "soft-chip"}`}
-            >
-              {t(c.label)}
-            </button>
-          ))}
-        </div>
-        <ul
-          key={tab}
-          className="relative mt-5 grid animate-fade-up gap-3 lg:grid-cols-2"
-        >
-          {questions.map((tp) => (
-            <li key={tp.id}>
-              <Link
-                href={`/chat?topic=${tp.id}`}
-                className="group block h-full rounded-2xl bg-sand-50 p-4 transition hover:bg-kokum-50"
-              >
-                <span className="flex items-start justify-between gap-3">
-                  <span className="font-display text-[17px] font-bold text-ink group-hover:text-kokum-700">
-                    {t(tp.title)}
-                  </span>
-                  <ChevronRight
-                    size={18}
-                    className="mt-0.5 shrink-0 text-kokum-300 group-hover:text-kokum-600"
-                  />
-                </span>
-                <span className="mt-1 block text-[14.5px] leading-relaxed text-ink-soft">
-                  {firstSentence(t(tp.understand))}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* How an answer works, shown on one real example */}
-      <section className="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-8">
-        <div>
-          <h2 className={h2}>{t(copy.howTitle)}</h2>
-          <p className="mt-3 leading-relaxed text-ink-soft">
-            {t(copy.howBody)}
-          </p>
-          <StepsDiagram
-            labels={[t(chat.understand), t(chat.answer), t(chat.next)]}
-          />
-        </div>
-        <div className="soft-card p-5 sm:p-7">
-          <p className="rounded-2xl rounded-br-md bg-kokum-700 px-4 py-3 font-serif text-xl leading-snug text-white sm:ml-auto sm:max-w-[85%] sm:text-2xl">
-            {t(copy.example)}
-          </p>
-          <ol className="mt-6 space-y-4">
-            {[chat.understand, chat.answer, chat.next].map((label, i) => (
-              <li key={i} className="flex gap-3">
-                <span
-                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-serif text-white ${["bg-sea-600", "bg-leaf-600", "bg-kokum-600"][i]}`}
-                >
-                  {i + 1}
-                </span>
-                <span>
-                  <span className="block text-sm font-bold text-sea-700">
-                    {t(label)}
-                  </span>
-                  <span className="mt-0.5 block text-[16px] leading-relaxed text-ink">
-                    {t(copy.exampleSteps[i])}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ol>
-          <Link
-            href="/chat?topic=instagram_threat"
-            className="soft-btn-outline mt-6"
-          >
-            {t(copy.openExample)} <ArrowRight size={16} />
-          </Link>
-        </div>
-      </section>
-
-      {/* Girls / women by age */}
-      <section className="grid gap-4 md:grid-cols-2">
-        <div className="soft-card-pink relative overflow-hidden p-6 sm:p-8">
-          <p
-            aria-hidden
-            className="mb-3 font-serif text-[4rem] leading-none text-turmeric-500 tabular-nums"
-          >
-            10–18
-          </p>
-          <h2 className="font-serif text-3xl font-normal text-kokum-700">
-            {t(copy.girlsTitle)}
-          </h2>
-          <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
-            {t(copy.girlsBody)}
-          </p>
-          <Link href="/chat?cat=g_growing" className="soft-btn mt-5">
-            {t(copy.girlsLink)} <ArrowRight size={16} />
-          </Link>
-        </div>
-        <div className="soft-card p-6 sm:p-8">
-          <AgeRuler />
-          <h2 className="font-serif text-3xl font-normal text-kokum-700">
-            {t(copy.womenTitle)}
-          </h2>
-          <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
-            {t(copy.womenBody)}
-          </p>
-          <Link href="/chat?cat=health" className="soft-btn-outline mt-5">
-            {t(copy.womenLink)} <ArrowRight size={16} />
-          </Link>
-        </div>
-      </section>
-
-      {/* "The way home" mural: white Warli paint on kokum */}
-      <figure className="-mx-4 overflow-hidden bg-kokum-700 text-sand-50 sm:mx-0 sm:rounded-[2rem]">
-        {/* On phones the journey pans with the page scroll, from the bus stop to the front door. */}
-        <ScrollPan>
-          <WarliWayHome className="h-44 w-[52rem] max-w-none sm:h-auto sm:w-full" />
-        </ScrollPan>
-        <figcaption className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-white/10 px-5 py-4 sm:px-8">
-          <span className="font-serif text-2xl sm:text-3xl">
-            {t(copy.coast)}
-          </span>
-          <span className="text-sm text-kokum-100">{t(copy.coastNote)}</span>
-        </figcaption>
-      </figure>
-
-      {/* Also here */}
-      <section>
-        <h2 className={h2}>{t(copy.alsoTitle)}</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {also.map((a) => {
-            const Icon = alsoIcons[a.href] ?? ArrowRight;
-            return (
-              <Link
-                key={a.href}
-                href={a.href}
-                className="soft-card group flex flex-col p-5 transition hover:border-kokum-300"
-              >
-                <span className="icon-circle">
-                  <Icon size={20} />
-                </span>
-                <span className="mt-3 font-display text-[17px] font-bold text-ink group-hover:text-kokum-700">
-                  {t(a.title)}
-                </span>
-                <span className="mt-1 block text-[14.5px] leading-relaxed text-ink-soft">
-                  {t(a.body)}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Numbers */}
-      <section className="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-8">
-        <div>
-          <h2 className={h2}>{t(copy.numbersTitle)}</h2>
-          <p className="mt-3 text-ink-soft">{t(copy.numbersNote)}</p>
-
-          <div className="mt-6 rounded-3xl border border-red-200 bg-red-50 p-5">
-            <p className="font-display text-xl font-bold text-red-700">
-              {t(copy.sosTitle)}
-            </p>
-            <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-              {t(copy.sosBody)}
-            </p>
-            <div className="mt-4">
-              <SOSButton compact />
-            </div>
-          </div>
-        </div>
-
-        <div className="soft-card overflow-hidden">
-          <a
-            href={`tel:${emergency.number}`}
-            className="flex items-center gap-4 bg-red-600 px-5 py-4 text-white hover:bg-red-700"
-          >
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/15">
-              <PhoneCall size={20} />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block font-display text-xl font-bold">
-                {t(emergency.name)}
-              </span>
-              <span className="text-[14px] text-white/85">
-                {t(emergency.desc)}
-              </span>
-            </span>
-            <span className="font-serif text-4xl tabular-nums">
-              {emergency.number}
-            </span>
-          </a>
-          <ul className="divide-y divide-kokum-100">
-            {numbers.map((h) => (
-              <li key={h.number}>
-                <a
-                  href={`tel:${h.number}`}
-                  className="group flex items-center gap-3.5 px-5 py-3.5 hover:bg-kokum-50"
-                >
-                  <span className="icon-circle h-10 w-10">
-                    <PhoneCall size={16} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block font-bold text-ink">
-                      {t(h.name)}
-                    </span>
-                    <span className="block truncate text-[14px] text-ink-soft">
-                      {t(h.desc)}
-                    </span>
-                  </span>
-                  <span className="shrink-0 font-serif text-2xl text-kokum-600 tabular-nums">
-                    {h.number}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <p className="text-center text-sm">
-        <Link href="/awareness" className="soft-chip">
-          {t(nav.knowledge)} <ArrowRight size={14} />
-        </Link>
-      </p>
+ const {t} = useLang();
+ const [open,setOpen] = useState<number|null>(0);
+ const [question,setQuestion] = useState('');
+ return <div className="campaign-home pb-8">
+  <section id="home-banner" className="campaign-hero mobile-first-hero">
+   <div className="hero-layout">
+    <div className="hero-art">
+     <Image src="/illustrations/campaign-hero-v2.webp" alt={t(tr('Women across generations connected by a flowing red and gold sari','लाल आणि सोनेरी पदराने जोडलेली स्त्रीशक्तीची विविध रूपं','लाल और सुनहरे आँचल से जुड़े नारी शक्ति के विभिन्न रूप'))} fill priority sizes="(min-width:1024px) 560px, (min-width:640px) 700px, 100vw" className="hero-image"/>
+     <div className="hero-art-shade" aria-hidden="true"/>
+     <p className="hero-art-caption">{t(tr('Her strength. Her next step.','तिची शक्ती. तिचं पुढचं पाऊल.','उसकी शक्ति। उसका अगला कदम।'))}</p>
     </div>
-  );
-}
-
-const alsoIcons: Record<string, typeof ArrowRight> = {
-  "/call": PhoneCall,
-  "/everyday": UtensilsCrossed,
-  "/poshan": Apple,
-  "/schemes": Landmark,
-  "/safe-shrivardhan": MapPin,
-};
-
-// Three linked points: understand → answer → next step.
-function StepsDiagram({ labels }: { labels: string[] }) {
-  const colors = ["bg-sea-600", "bg-leaf-600", "bg-kokum-600"];
-  return (
-    <ol aria-hidden className="relative mt-10 max-w-[16rem] space-y-6">
-      <span className="absolute top-3 bottom-3 left-[0.9rem] w-px bg-ink/20" />
-      {labels.map((l, i) => (
-        <li key={i} className="relative flex items-center gap-4">
-          <span
-            className={`grid h-7 w-7 shrink-0 place-items-center rounded-full font-serif text-sm text-white ${colors[i]}`}
-          >
-            {i + 1}
-          </span>
-          <span className="text-sm font-bold text-ink">{l}</span>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-// A ruler marking the four adult life stages the health journeys cover.
-function AgeRuler() {
-  const marks = [18, 30, 40, 50];
-  return (
-    <div aria-hidden className="mb-6 max-w-[18rem]">
-      <div className="relative h-10 border-b-2 border-leaf-600">
-        {Array.from({ length: 13 }, (_, i) => (
-          <span
-            key={i}
-            className={`absolute bottom-0 w-px bg-leaf-600 ${i % 4 === 0 ? "h-4" : "h-2"}`}
-            style={{ left: `${(i / 12) * 100}%` }}
-          />
-        ))}
-      </div>
-      <div className="relative mt-1.5 h-10">
-        {marks.map((m, i) => (
-          <span
-            key={m}
-            className="absolute -translate-x-1/2 font-serif text-3xl text-leaf-600 first:translate-x-0 last:-translate-x-full"
-            style={{ left: `${(i / 3) * 100}%` }}
-          >
-            {m}
-          </span>
-        ))}
-      </div>
+    <div className="hero-copy">
+     <p className="hero-eyebrow">{t(tr('AADHI TI · FOR EVERY WOMAN','आधी ती · प्रत्येक महिलेसाठी','आधी ती · हर महिला के लिए'))}</p>
+     <h1 className="hero-title">{t(tr('Every age. Every chapter. Always her.','प्रत्येक वयात. प्रत्येक रूपात. प्रत्येक घरात.','हर उम्र में। हर रूप में। हर घर में।'))}</h1>
+     <p className="hero-description">{t(tr('Safety, financial security and skills. Find support for your next step, in your own language.','सुरक्षा, आर्थिक स्वावलंबन आणि कौशल्ये. तुमच्या पुढच्या पावलासाठी, तुमच्या भाषेत मार्गदर्शन.','सुरक्षा, आर्थिक आत्मनिर्भरता और कौशल। आपके अगले कदम के लिए, आपकी भाषा में मार्गदर्शन।'))}</p>
+     <div className="hero-actions">
+      <Link className="campaign-primary" href="/chat">{t(tr('Ask AADHI TI','AADHI TI ला विचारा','AADHI TI से पूछें'))}<ArrowUpRight size={18}/></Link>
+      <a className="campaign-secondary" href={whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle size={18}/>WhatsApp</a>
+     </div>
+     <p className="hero-languages">{t(tr('Marathi · Hindi · English','मराठी · हिंदी · इंग्रजी','मराठी · हिंदी · अंग्रेज़ी'))}</p>
     </div>
-  );
+   </div>
+   <Link href="/aditi-tatkare" className="hero-credit">
+    <Image src={leader.photo} alt={t(leader.name)} width={56} height={56} className="hero-credit-photo"/>
+    <div className="min-w-0 flex-1"><p className="text-xs text-ink-soft">{t(initiativeBanner.by)}</p><p className="hero-credit-name">{t(initiativeBanner.name)}</p><p className="hero-credit-role">{leader.roles.map(r=>t(r)).join(' · ')}</p></div><ArrowUpRight size={18} className="shrink-0 text-kokum-600"/>
+   </Link>
+  </section>
+
+  <div className="my-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-kokum-100 bg-white px-5 py-4"><p className="text-sm text-ink">{t(tr('Need help right now? You do not have to navigate this alone.','आत्ता मदत हवी आहे? तुम्ही एकट्या नाही.','अभी मदद चाहिए? आप अकेली नहीं हैं।'))}</p><a href="tel:112" className="inline-flex items-center gap-2 font-bold text-kokum-700"><Phone size={16}/>{t(tr('Emergency · 112','आपत्कालीन मदत · 112','आपातकालीन मदद · 112'))}</a></div>
+
+  <section className="campaign-section"><ThreePillars/></section>
+
+  <section id="nine-pathways" className="campaign-section scroll-mt-32">
+   <div className="mb-9 grid gap-5 md:grid-cols-[1.2fr_1fr] md:items-end">
+    <div><p className="campaign-kicker">{t(tr('NINE FORMS. ONE SHARED PURPOSE.','नऊ रूपं. एकच ध्येय.','नौ रूप। एक साझा उद्देश्य।'))}</p><h2 className="campaign-heading mt-3">{t(tr('A step for every part of her life.','तिच्या आयुष्याच्या प्रत्येक टप्प्यासाठी.','उसके जीवन के हर पड़ाव के लिए।'))}</h2></div>
+    <p className="max-w-md leading-relaxed text-ink-soft">{t(tr('Inspired by the nine forms of Shakti. Nine ways to find information, build confidence and take your next step. Choose what matters to you today.','शक्तीच्या नऊ रूपांतून प्रेरणा. माहिती, आत्मविश्वास आणि पुढचं पाऊल शोधण्याचे नऊ मार्ग. आज तुम्हाला आवश्यक असलेला विषय निवडा.','शक्ति के नौ रूपों से प्रेरित। जानकारी, आत्मविश्वास और अगला कदम खोजने के नौ रास्ते। आज आपके लिए ज़रूरी विषय चुनें।'))}</p>
+   </div>
+   <div className="grid gap-5 md:grid-cols-3">
+    {journeys.map((j,i)=><article key={j.name.en} className="journey-card overflow-hidden rounded-[1.5rem] border border-kokum-100 bg-[#fffaf6]">
+     <div role="img" aria-label={t(j.title)} className="journey-art hidden aspect-square md:block" style={{backgroundImage:'url(/illustrations/nine-journeys-v2.webp)',backgroundSize:'300% 300%',backgroundPosition:`${(i%3)*50}% ${Math.floor(i/3)*50}%`}}/>
+     <button aria-expanded={open===i} aria-controls={`journey-${i}`} onClick={()=>setOpen(open===i?null:i)} className="flex w-full items-center gap-4 p-5 text-left md:hidden">
+      <span aria-hidden className="journey-art h-24 w-24 shrink-0 rounded-xl" style={{backgroundImage:'url(/illustrations/nine-journeys-v2.webp)',backgroundSize:'300% 300%',backgroundPosition:`${(i%3)*50}% ${Math.floor(i/3)*50}%`}}/>
+      <span className="flex-1"><span className="campaign-kicker text-[10px]">0{i+1} / {t(j.name)}</span><span className="mt-1 block font-serif text-xl text-kokum-800">{t(j.title)}</span></span>{open===i?<Minus size={16}/>:<Plus size={16}/>}</button>
+     <div id={`journey-${i}`} className={`${open===i?'block':'hidden'} px-6 pb-6 md:block md:pt-5`}>
+      <p className="campaign-kicker hidden text-[10px] md:block">0{i+1} / {t(j.name)}</p><h3 className="mt-2 hidden font-serif text-[1.65rem] leading-tight text-kokum-800 md:block">{t(j.title)}</h3>
+      <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{t(j.body)}</p><Link href={`/journeys/${j.name.en.toLowerCase()}`} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-kokum-700">{t(j.link)}<ArrowRight size={16}/></Link>
+     </div>
+    </article>)}
+   </div>
+  </section>
+
+  <section className="campaign-section rounded-[2rem] bg-kokum-800 px-6 py-9 text-white sm:p-10">
+   <div className="grid gap-8 md:grid-cols-2 md:items-center"><div><p className="text-xs font-bold tracking-widest text-kokum-200">{t(tr('A QUESTION IS A BEGINNING','एका प्रश्नातून सुरुवात','एक सवाल से शुरुआत'))}</p><h2 className="mt-3 font-serif text-4xl leading-tight">{t(tr('Big questions. Everyday questions. Yours.','प्रश्न मोठा असो वा रोजचा. विचारा.','बड़ा सवाल हो या रोज़मर्रा का। पूछिए।'))}</h2><p className="mt-4 text-kokum-100">{t(tr('Tell us what is on your mind, in your own words.','तुमच्या मनातलं तुमच्या शब्दांत सांगा.','अपने मन की बात अपने शब्दों में कहें।'))}</p></div>
+   <form action="/chat" className="rounded-2xl bg-white p-5 text-ink"><label htmlFor="home-question" className="text-sm font-bold text-kokum-700">{t(tr('What would you like to know?','तुम्हाला काय जाणून घ्यायचं आहे?','आप क्या जानना चाहती हैं?'))}</label><textarea id="home-question" name="q" required maxLength={800} rows={3} value={question} onChange={e=>setQuestion(e.target.value)} placeholder={t(tr('Type your question…','तुमचा प्रश्न लिहा…','अपना सवाल लिखें…'))} className="mt-3 w-full resize-none rounded-xl border border-kokum-100 bg-sand-50 p-3 outline-kokum-600"/><div className="mt-3 flex items-center justify-between gap-3"><p className="max-w-[16rem] text-xs leading-relaxed text-ink-soft">{t(tr('Sent to AI for a reply. Please leave out names, phone numbers and addresses.','उत्तरासाठी AI कडे पाठवला जातो. नाव, फोन नंबर किंवा पत्ता लिहू नका.','जवाब के लिए AI को भेजा जाता है। नाम, फ़ोन नंबर और पता न लिखें।'))}</p><button className="campaign-primary" type="submit" aria-label={t(tr('Send question','प्रश्न पाठवा','सवाल भेजें'))}><ArrowRight size={20}/></button></div></form></div>
+  </section>
+
+  <section className="campaign-section"><div className="mb-7"><p className="campaign-kicker">{t(tr('A LITTLE HELP, EVERY DAY','रोजच्या जगण्यात थोडी सोबत','हर दिन थोड़ा साथ'))}</p><h2 className="campaign-heading mt-3">{t(tr('Useful today. Here tomorrow.','आज उपयोगी. उद्याही सोबत.','आज उपयोगी। कल भी साथ।'))}</h2></div>
+   <div className="grid gap-4 sm:grid-cols-3">{[
+    {icon:PhoneCall,href:'/call',title:tr('A voice alongside you','सोबतीचा आवाज','साथ देने वाली आवाज़'),body:tr('Talk with the AI companion, or start a one-sided fake call.','AI सोबतीशी बोला किंवा एकतर्फी फेक कॉल सुरू करा.','AI साथी से बात करें या एकतरफ़ा फ़ेक कॉल शुरू करें।')},
+    {icon:UtensilsCrossed,href:'/everyday',title:tr('What can I cook today?','आज काय बनवू?','आज क्या पकाएँ?'),body:tr('Recipe ideas from your ingredients, and a weekly menu planner.','घरातल्या साहित्यापासून पाककृती आणि आठवड्याचं नियोजन.','घर की सामग्री से व्यंजन और साप्ताहिक भोजन की योजना।')},
+    {icon:BookOpen,href:'/awareness',title:tr('Information you can use','उपयोगी माहिती','काम की जानकारी'),body:tr('Explore clear explanations about health, safety and your rights.','आरोग्य, सुरक्षितता आणि तुमच्या हक्कांबद्दल सोपी माहिती.','स्वास्थ्य, सुरक्षा और आपके अधिकारों पर सरल जानकारी।')}
+   ].map(item=><Link key={item.href} href={item.href} className="group rounded-2xl border border-kokum-100 bg-white p-6 transition hover:border-kokum-400"><item.icon size={25} strokeWidth={1.4} className="text-kokum-600"/><h3 className="mt-5 font-serif text-2xl text-kokum-800">{t(item.title)}</h3><p className="mt-3 text-sm leading-relaxed text-ink-soft">{t(item.body)}</p><ArrowUpRight className="mt-5 text-kokum-600 transition group-hover:translate-x-1" size={20}/></Link>)}</div>
+  </section>
+
+  <section className="campaign-section grid overflow-hidden rounded-[2rem] bg-[#f1e1dc] md:grid-cols-2">
+   <div className="relative min-h-[300px] bg-[#fff8ed] md:min-h-[430px]"><Image src="/illustrations/campaign-wheels-v2.webp" alt={t(tr('Concept artwork from the presentation showing AADHI TI on Wheels and community support','समुदायात एकत्र आलेल्या महिलांचं चित्र','समुदाय में एक साथ महिलाओं का चित्रण'))} fill sizes="(min-width:768px) 550px, 100vw" className="object-contain"/></div>
+   <div className="p-7 sm:p-10"><p className="campaign-kicker">{t(tr('THE COMMUNITY VISION · PLANNED','समुदायासाठी संकल्पना · नियोजित','समुदाय की परिकल्पना · प्रस्तावित'))}</p><h2 className="campaign-heading mt-4">{t(tr('From her phone to her village.','तिच्या फोनपासून तिच्या गावापर्यंत.','उसके फ़ोन से उसके गाँव तक।'))}</h2><p className="mt-5 leading-relaxed text-ink-soft">{t(tr('The nine-day initiative is envisioned as a beginning: mother–daughter circles, practical workshops and AADHI TI on Wheels, bringing information closer to communities in Shrivardhan and nearby talukas.','नऊ दिवसांचा उपक्रम ही एक सुरुवात: आई–मुलीचा संवाद, उपयुक्त कार्यशाळा आणि AADHI TI on Wheels मधून श्रीवर्धन आणि आसपासच्या तालुक्यांतील गावांपर्यंत माहिती पोहोचवण्याची संकल्पना.','नौ दिन की पहल एक शुरुआत है: माँ–बेटी संवाद, उपयोगी कार्यशालाएँ और AADHI TI on Wheels के माध्यम से श्रीवर्धन और आसपास के तालुकों तक जानकारी पहुँचाने की परिकल्पना।'))}</p><p className="mt-4 text-sm leading-relaxed text-ink-soft">{t(tr('Anganwadi and ASHA workers, teachers and self-help groups can help women listen, learn and connect with appropriate services. Event locations and dates will be shared when confirmed.','अंगणवाडी व आशा सेविका, शिक्षक आणि बचत गट महिलांना ऐकून घेण्यासाठी, शिकण्यासाठी आणि योग्य सेवांशी जोडण्यासाठी मदत करू शकतात. कार्यक्रमांची ठिकाणं व तारखा निश्चित झाल्यावर दिल्या जातील.','आंगनवाड़ी और आशा कार्यकर्ता, शिक्षक और स्वयं सहायता समूह महिलाओं को सुनने, सीखने और सही सेवाओं से जुड़ने में सहयोग कर सकते हैं। आयोजन के स्थान और तारीखें तय होने पर साझा की जाएँगी।'))}</p></div>
+  </section>
+
+  <section className="campaign-section"><DangerBand/></section>
+  <section className="campaign-section"><SafetyPlan/></section>
+  <section className="campaign-section"><h2 className="campaign-heading">{t(tr('Help, a phone call away.','मदत, एका फोनवर.','मदद, एक फ़ोन पर।'))}</h2><div className="mt-7 grid gap-x-8 sm:grid-cols-2">{helplines.map(h=><a key={h.number} href={`tel:${h.number}`} className="flex items-center justify-between gap-4 border-b border-kokum-100 py-5"><div><p className="font-bold text-kokum-800">{t(h.name)}</p><p className="mt-1 text-sm text-ink-soft">{t(h.desc)}</p></div><span className="shrink-0 font-serif text-2xl text-kokum-700">{h.number} ↗</span></a>)}</div></section>
+ </div>;
 }

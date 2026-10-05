@@ -45,7 +45,7 @@ export function LangSwitch({ className = "" }: { className?: string; tone?: "lig
 
 const utility = {
   emergency: { mr: "आणीबाणी", en: "Emergency", hi: "आपातकाल" },
-  women: { mr: "महिला हेल्पलाइन", en: "Women helpline", hi: "महिला हेल्पलाइन" },
+  women: { mr: "महिला हेल्पलाइन", en: "Women's Helpline", hi: "महिला हेल्पलाइन" },
 };
 
 function useHomeBannerInView(active: boolean) {

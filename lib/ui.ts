@@ -11,7 +11,7 @@ export const brand = {
   } as L,
   promise: {
     mr: "तिच्या प्रश्नापासून तिच्या पुढच्या पावलापर्यंत.",
-    en: "From her question to her next step.",
+    en: "From her questions to her next step.",
     hi: "उसके सवाल से उसके अगले कदम तक।",
   } as L,
 };
@@ -20,10 +20,10 @@ export const nav = {
   home: { mr: "मुख्यपृष्ठ", en: "Home", hi: "होम" },
   ask: { mr: "AADHI TI ला विचारा", en: "Ask AADHI TI", hi: "AADHI TI से पूछें" },
   call: { mr: "कॉल", en: "Call", hi: "कॉल" },
-  everyday: { mr: "रोजचं", en: "Everyday", hi: "रोज़मर्रा" },
+  everyday: { mr: "रोजचं", en: "Everyday Help", hi: "रोज़मर्रा" },
   poshan: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   schemes: { mr: "योजना", en: "Schemes", hi: "योजनाएँ" },
-  knowledge: { mr: "माहिती", en: "Knowledge", hi: "जानकारी" },
+  knowledge: { mr: "माहिती", en: "Information", hi: "जानकारी" },
   quickExit: { mr: "लगेच बाहेर", en: "Quick Exit", hi: "तुरंत बाहर" },
 } satisfies Record<string, L>;
 
@@ -53,13 +53,13 @@ export const chat = {
     hi: "अपना सवाल लिखें… जैसे 'कोई मेरा पीछा कर रहा है'",
   },
   whoAreYou: { mr: "तुमच्यासाठी योग्य उत्तरं देण्यासाठी — तुमचं वय गट निवडा", en: "So I can give answers that fit you — choose your age group", hi: "आपके लिए सही जवाब देने के लिए — अपना आयु वर्ग चुनें" },
-  understand: { mr: "हे काय असू शकतं", en: "What this may be", hi: "यह क्या हो सकता है" },
+  understand: { mr: "हे काय असू शकतं", en: "What may be happening", hi: "यह क्या हो सकता है" },
   answer: { mr: "तुम्ही काय करू शकता", en: "What you can do", hi: "आप क्या कर सकती हैं" },
   next: { mr: "पुढचं पाऊल", en: "Next step", hi: "अगला कदम" },
   forGirls: { mr: "मुलींसाठी", en: "For girls", hi: "लड़कियों के लिए" },
   menu: { mr: "मुख्य मेनू", en: "Main menu", hi: "मुख्य मेनू" },
   typing: { mr: "लिहित आहे…", en: "typing…", hi: "लिख रही है…" },
-  online: { mr: "ऑनलाइन · गोपनीय", en: "Online · private", hi: "ऑनलाइन · गोपनीय" },
+  online: { mr: "AI मार्गदर्शन", en: "AI guidance", hi: "AI मार्गदर्शन" },
   restart: { mr: "नवीन संभाषण", en: "New conversation", hi: "नई बातचीत" },
   emergencyTitle: { mr: "तुम्ही आत्ता धोक्यात आहात का?", en: "Are you in danger right now?", hi: "क्या आप अभी खतरे में हैं?" },
   emergencyBody: { mr: "थांबू नका — लगेच 112 ला कॉल करा.", en: "Don't wait — call 112 now.", hi: "रुकिए मत — अभी 112 पर कॉल करें।" },
@@ -76,14 +76,14 @@ export const chat = {
     hi: "मुझे ठीक से समझ नहीं आया, पर मैं आपके साथ हूँ। थोड़ा और बताएँगी — क्या हो रहा है, कौन है, कब से? या नीचे कोई विषय चुनें। खतरा हो तो तुरंत 112।",
   },
   greeting: {
-    mr: "नमस्कार! मी AADHI TI. सुरक्षितता, आरोग्य, हक्क, शिक्षण, उत्पन्न, कुटुंब — काहीही विचारा. सगळं गोपनीय आहे.",
-    en: "Hello! I'm AADHI TI. Ask me anything — safety, health, rights, education, income, family. Everything here is private.",
-    hi: "नमस्ते! मैं AADHI TI हूँ। सुरक्षा, स्वास्थ्य, अधिकार, पढ़ाई, कमाई, परिवार — कुछ भी पूछिए। सब गोपनीय है।",
+    mr: "नमस्कार! मी AADHI TI. सुरक्षितता, आरोग्य, हक्क, शिक्षण, उत्पन्न, कुटुंब — काहीही विचारा. नाव, फोन नंबर किंवा पत्ता लिहू नका. उत्तरासाठी प्रश्न AI सेवेकडे पाठवला जातो.",
+    en: "Hello! I'm AADHI TI. Ask me anything — safety, health, rights, education, income, family. Questions are sent to an AI service. Please leave out your name, phone number and address.",
+    hi: "नमस्ते! मैं AADHI TI हूँ। सुरक्षा, स्वास्थ्य, अधिकार, पढ़ाई, कमाई, परिवार — कुछ भी पूछिए। नाम, फोन नंबर या पता न लिखें। जवाब के लिए सवाल AI सेवा को भेजा जाता है।",
   },
   voiceSoon: { mr: "आवाजात विचारा (लवकरच)", en: "Ask by voice (coming soon)", hi: "आवाज़ में पूछें (जल्द)" },
   privacy: {
     mr: "तुम्ही स्वतः लिहिलेले प्रश्न उत्तरासाठी AI सेवेकडे (Google Gemini) पाठवले जातात. त्यात नाव, फोन नंबर किंवा पत्ता लिहू नका. कोणी पाहत असेल तर वर 'लगेच बाहेर' दाबा.",
-    en: "Questions you type are sent to an AI service (Google Gemini) to write the answer. Don't include your name, phone number or address. If someone is watching, tap 'Quick Exit' at the top.",
+    en: "No personal details needed. Questions you type are sent to an AI service (Google Gemini) to write the answer. Please don't include your name, phone number or address. If someone is watching, tap 'Quick Exit' at the top.",
     hi: "आपके लिखे सवाल जवाब के लिए AI सेवा (Google Gemini) को भेजे जाते हैं। उसमें नाम, फ़ोन नंबर या पता न लिखें। कोई देख रहा हो तो ऊपर 'तुरंत बाहर' दबाएँ।",
   },
   aiNote: {

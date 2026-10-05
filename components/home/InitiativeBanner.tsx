@@ -46,16 +46,16 @@ export default function InitiativeBanner() {
             />
           </Link>
           <div
-            className="mt-4 space-y-1 font-display font-bold text-kokum-700 sm:mt-5 sm:space-y-1.5"
+            className="mt-4 max-w-xl space-y-1 font-display font-bold text-kokum-700 sm:mt-5 sm:space-y-1.5"
             style={glow}
           >
             <p className="text-[17px] sm:text-xl lg:text-2xl">
-              {t(initiativeBanner.by)}:
+              {t(initiativeBanner.by)}
             </p>
             <p className="text-[21px] leading-tight text-kokum-800 sm:text-2xl lg:text-[1.9rem]">
               {t(initiativeBanner.name)}
             </p>
-            {initiativeBanner.lines.map((l) => (
+            {initiativeBanner.lines.filter((l) => t(l)).map((l) => (
               <p
                 key={l.en}
                 className="text-[15.5px] leading-snug sm:text-lg lg:text-[1.35rem]"

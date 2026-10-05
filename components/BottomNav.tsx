@@ -9,7 +9,7 @@ import SOSButton from "./SOSButton";
 
 const tabs = [
   { href: "/", label: nav.home, icon: Home },
-  { href: "/chat", label: { mr: "विचारा", en: "Ask", hi: "पूछें" }, icon: MessageCircleHeart },
+  { href: "/chat", label: { mr: "विचारा", en: "Ask AADHI TI", hi: "पूछें" }, icon: MessageCircleHeart },
   { href: "/call", label: nav.call, icon: PhoneCall },
   { href: "/everyday", label: nav.everyday, icon: UtensilsCrossed },
   { href: "/schemes", label: nav.schemes, icon: Landmark },

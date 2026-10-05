@@ -38,10 +38,10 @@ const copy = {
     en: "Type your question…",
     hi: "अपना सवाल लिखें…",
   },
-  ask: { mr: "विचारा", en: "Ask", hi: "पूछें" },
+  ask: { mr: "विचारा", en: "Ask AADHI TI", hi: "पूछें" },
   askNote: {
     mr: "नाव किंवा नंबर लागत नाही. प्रश्नात नाव, फोन नंबर लिहू नका.",
-    en: "No name or number needed. Don't include your name or phone number.",
+    en: "No personal details needed. Please don't include your name or phone number.",
     hi: "नाम या नंबर की ज़रूरत नहीं। सवाल में नाम या फ़ोन नंबर न लिखें।",
   },
   voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
@@ -51,7 +51,7 @@ const copy = {
     hi: "जानिए ज़्यादा.\nडर कम.",
   },
   quickHelp: { mr: "झटपट मदत", en: "Quick help", hi: "तुरंत मदद" },
-  police: { mr: "जवळचं पोलीस ठाणे", en: "Nearest police", hi: "नज़दीकी पुलिस" },
+  police: { mr: "जवळचं पोलीस ठाणे", en: "Nearest police station", hi: "नज़दीकी पुलिस" },
   share: {
     mr: "लाईव्ह लोकेशन पाठवा",
     en: "Share live location",
@@ -83,17 +83,17 @@ const shortcuts: { href: string; label: L; Icon: typeof Landmark }[] = [
   },
   {
     href: "/awareness",
-    label: { mr: "माहिती", en: "Knowledge", hi: "जानकारी" },
+    label: { mr: "माहिती", en: "Information", hi: "जानकारी" },
     Icon: BookOpen,
   },
   {
     href: "/everyday",
-    label: { mr: "रोजचं", en: "Everyday", hi: "रोज़मर्रा" },
+    label: { mr: "रोजचं", en: "Everyday Help", hi: "रोज़मर्रा" },
     Icon: UtensilsCrossed,
   },
   {
     href: "/chat",
-    label: { mr: "विचारा", en: "Ask", hi: "पूछें" },
+    label: { mr: "विचारा", en: "Ask AADHI TI", hi: "पूछें" },
     Icon: MessageCircleHeart,
   },
 ];

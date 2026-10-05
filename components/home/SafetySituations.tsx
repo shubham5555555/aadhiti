@@ -31,29 +31,29 @@ const situations: Situation[] = [
     tips: [
       {
         mr: "उजेड आणि वर्दळ असलेला रस्ता निवडा. रात्री शॉर्टकट टाळा.",
-        en: "Take the lit, busy road. Skip shortcuts at night.",
+        en: "Choose a well-lit, busy road. Avoid shortcuts at night.",
         hi: "रोशनी और भीड़ वाला रास्ता लें। रात में शॉर्टकट से बचें।",
       },
       {
         mr: "एक कान मोकळा ठेवा. फोनमध्ये मान घालून चालू नका.",
-        en: "Keep one ear free. Don't walk with your head in your phone.",
+        en: "Keep one ear free. Don't walk while looking at your phone.",
         hi: "एक कान खाली रखें। फ़ोन में सिर झुकाकर न चलें।",
       },
       {
         mr: "कोणी मागे येतंय असं वाटलं तर जवळच्या दुकानात किंवा मेडिकलमध्ये शिरा.",
-        en: "If someone seems to follow you, walk into the nearest shop or chemist.",
+        en: "If you feel someone is following you, walk into the nearest shop or chemist.",
         hi: "कोई पीछा करता लगे तो पास की दुकान या मेडिकल में चली जाएँ।",
       },
       {
         mr: "घरी पोहोचेपर्यंत कोणाशी तरी फोनवर बोलत राहा.",
-        en: "Stay on the phone with someone until you're home.",
+        en: "Stay on a phone call with someone until you get home.",
         hi: "घर पहुँचने तक किसी से फ़ोन पर बात करती रहें।",
       },
     ],
     topic: "following_me",
     more: {
       mr: "कोणी पाठलाग करत असेल तर",
-      en: "If someone is following you",
+      en: "What to do if someone is following you",
       hi: "अगर कोई पीछा कर रहा हो",
     },
   },
@@ -61,7 +61,7 @@ const situations: Situation[] = [
     id: "transport",
     label: {
       mr: "रिक्षा, कॅब, ST",
-      en: "Auto, cab, ST bus",
+      en: "Auto, cab, bus",
       hi: "ऑटो, कैब, बस",
     },
     tips: [
@@ -199,7 +199,7 @@ const copy = {
   },
   body: {
     mr: "छोट्या सवयी, ज्या मोठा फरक करतात. तुमची परिस्थिती निवडा.",
-    en: "Small habits that make a real difference. Pick where you are.",
+    en: "Small habits that make a real difference. Choose the place that matches your situation.",
     hi: "छोटी आदतें, जो बड़ा फ़र्क़ करती हैं। अपनी स्थिति चुनें।",
   },
 };

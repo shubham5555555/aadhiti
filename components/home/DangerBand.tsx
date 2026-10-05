@@ -13,13 +13,13 @@ const copy = {
   },
   sub: {
     mr: "थांबू नका. गर्दीच्या, उजेडाच्या ठिकाणी जा — दुकान, मेडिकल, ST stand. मग यापैकी एक करा.",
-    en: "Don't wait. Move to a busy, well-lit place — a shop, a chemist, the ST stand. Then do one of these.",
+    en: "Don't wait. Move to a busy, well-lit place, such as a shop, a chemist or a bus stand. Then do one of the following.",
     hi: "रुकिए मत। भीड़ वाली, रोशनी वाली जगह जाइए — दुकान, मेडिकल, बस स्टैंड। फिर इनमें से एक कीजिए।",
   },
   callTitle: { mr: "112 ला कॉल करा", en: "Call 112", hi: "112 पर कॉल करें" },
   callBody: {
     mr: "पोलीस, ॲम्ब्युलन्स, अग्निशमन. 24 तास, मोफत.",
-    en: "Police, ambulance, fire. 24 hours, free.",
+    en: "Police, ambulance and fire services. Available 24 hours, free of charge.",
     hi: "पुलिस, एम्बुलेंस, फ़ायर। 24 घंटे, मुफ़्त।",
   },
   locTitle: {
@@ -29,7 +29,7 @@ const copy = {
   },
   locBody: {
     mr: "विश्वासातल्या व्यक्तीला WhatsApp वर तुमचं अचूक ठिकाण, नकाशाच्या लिंकसह.",
-    en: "Your exact spot, as a map link, to someone you trust on WhatsApp.",
+    en: "Share your exact location as a map link with someone you trust on WhatsApp.",
     hi: "भरोसेमंद व्यक्ति को WhatsApp पर आपकी सही जगह, नक्शे के लिंक के साथ।",
   },
   locButton: { mr: "ठिकाण पाठवा", en: "Send location", hi: "जगह भेजें" },
@@ -51,7 +51,7 @@ const copy = {
   fakeTitle: { mr: "Fake call", en: "Fake call", hi: "Fake call" },
   fakeBody: {
     mr: "कोणाला टाळायचं असेल तर 'आईचा' फोन वाजवा आणि निघा.",
-    en: "Need to get away from someone? Make 'Maa' call you, and leave.",
+    en: "Need to get away from someone? Get a fake call from “Mom” and leave.",
     hi: "किसी से बचना हो तो 'माँ' का फ़ोन बजाइए और निकलिए।",
   },
   fakeButton: { mr: "आत्ता वाजवा", en: "Ring now", hi: "अभी बजाएँ" },

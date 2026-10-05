@@ -93,6 +93,9 @@ function Chat() {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const [failure, setFailure] = useState(false);
+  const activeRequest = useRef<AbortController | null>(null);
+  useEffect(() => () => activeRequest.current?.abort(), []);
   const listRef = useRef<HTMLDivElement>(null);
   const nextId = useRef(0);
   // Latest values for async callbacks.
@@ -200,16 +203,10 @@ function Chat() {
     if (typing) return;
     setMessages((m) => [...m, user(userText)]);
     setTyping(true);
-    setTimeout(
-      () => {
-        const msg = bot(reply);
-        setMessages((m) => [...m, msg]);
-        if (reply.kind === "script" && profileRef.current.answerMode !== "text")
-          setAutoSpeakId(msg.id);
-        setTyping(false);
-      },
-      650 + Math.random() * 400,
-    );
+    const msg = bot(reply);
+    setMessages((m) => [...m, msg]);
+    if (reply.kind === "script" && profileRef.current.answerMode !== "text") setAutoSpeakId(msg.id);
+    setTyping(false);
   };
 
   const openCategory = (cat: Category) =>
@@ -282,7 +279,8 @@ function Chat() {
   // 1. Fixed safety rules (approved scripts, never AI). 2. AI grounded in reviewed content. 3. Reviewed answer if AI fails.
   const ask = async (raw: string) => {
     const text = raw.trim();
-    if (!text || typingRef.current) return;
+    if (!text || text.length > 800 || typingRef.current) return;
+    setFailure(false);
     setInput("");
     const local = localReply(text);
     if (local.kind === "menu") return respond(text, local);
@@ -299,10 +297,11 @@ function Chat() {
     setMessages((m) => [...m, user(text)]);
     setTyping(true);
     typingRef.current = true;
-    let reply: BotPayload = local;
+    let reply: BotPayload | null = null;
+    const ctrl = new AbortController();
+    activeRequest.current = ctrl;
+    const timer = window.setTimeout(() => ctrl.abort(), 45_000);
     try {
-      const ctrl = new AbortController();
-      const timer = window.setTimeout(() => ctrl.abort(), 20_000);
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -327,7 +326,18 @@ function Chat() {
         reply = { kind: "ai", data, related };
       }
     } catch {
-      // Network error or timeout: keep the reviewed answer.
+      // Keep the question available for retry instead of substituting a different answer.
+    } finally {
+      window.clearTimeout(timer);
+    }
+    if (activeRequest.current !== ctrl) return;
+    activeRequest.current = null;
+    if (!reply) {
+      setFailure(true);
+      setInput(text);
+      setTyping(false);
+      typingRef.current = false;
+      return;
     }
     const msg = bot(reply);
     setMessages((m) => [...m, msg]);
@@ -342,6 +352,12 @@ function Chat() {
   const showMenu = () => respond(chat.menu, { kind: "menu" });
 
   const restart = () => {
+    activeRequest.current?.abort();
+    activeRequest.current = null;
+    typingRef.current = false;
+    setTyping(false);
+    setFailure(false);
+    setInput("");
     nextId.current = 0;
     setMessages([bot({ kind: "menu" })]);
   };
@@ -514,6 +530,7 @@ function Chat() {
           </div>
         )}
 
+        {failure && <p role="alert" className="border-t border-kokum-100 bg-white px-4 py-3 text-sm text-kokum-800">{t({en: "The AI couldn't answer just now. Your question is below—tap Send to try again, or choose a topic from the menu. For immediate danger, call 112.", mr: "आत्ता AI उत्तर देऊ शकले नाही. प्रश्न खाली आहे—पुन्हा पाठवा किंवा मेनूमधून विषय निवडा. तातडीचा धोका असल्यास 112 वर कॉल करा.", hi: "अभी AI जवाब नहीं दे सका। आपका सवाल नीचे है—फिर भेजें या मेनू से विषय चुनें। तत्काल खतरे में 112 पर कॉल करें।"})}</p>}
         {!gated && ready && (
           <Composer
             input={input}
@@ -1182,7 +1199,7 @@ function AiCard({
           <RiskRow
             risk={data.risk}
             intent={data.intent}
-            engine={data.topicId ? "reviewed" : "ai"}
+            engine="ai"
             lang={lang}
           />
           <p className="font-serif text-[1.2rem] leading-snug text-ink">
@@ -1217,19 +1234,7 @@ function AiCard({
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-b-3xl border-t border-kokum-100 bg-kokum-50/40 px-4 py-2.5 text-[12.5px] text-ink-soft sm:px-5">
           <span>
             {t3(lang, "स्रोत", "स्रोत", "Source")}: {data.source} ·{" "}
-            {data.topicId
-              ? t3(
-                  lang,
-                  "तपासलेल्या उत्तरावर आधारित",
-                  "जाँचे हुए जवाब पर आधारित",
-                  "based on a reviewed answer",
-                )
-              : t3(
-                  lang,
-                  "AI उत्तर (अजून तपासलेलं नाही)",
-                  "AI जवाब (अभी जाँचा नहीं गया)",
-                  "AI answer (not reviewed yet)",
-                )}
+            {t3(lang, "AI उत्तर · महत्त्वाची माहिती पडताळा", "AI जवाब · ज़रूरी जानकारी की पुष्टि करें", "AI answer · verify important details")}
           </span>
           {data.verify && <span>· {data.verify}</span>}
           <span className="flex-1" />
@@ -1558,6 +1563,7 @@ function Composer({
   const [listening, setListening] = useState(false);
   const [supported, setSupported] = useState(false);
   const rec = useRef<Recognition | null>(null);
+  useEffect(() => () => rec.current?.stop(), []);
 
   useEffect(() => {
     const w = window as unknown as {
@@ -1586,28 +1592,31 @@ function Composer({
     r.onend = () => setListening(false);
     r.onerror = () => setListening(false);
     rec.current = r;
-    r.start();
-    setListening(true);
+    try { r.start(); setListening(true); } catch { setListening(false); }
   };
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSend(input);
+        rec.current?.stop();
+        if (!disabled) onSend(input);
       }}
       className="flex items-center gap-2 border-t border-kokum-100 bg-sand-50 px-3 py-2.5 sm:px-4 sm:py-3"
     >
       <button
         type="button"
         onClick={toggleVoice}
-        disabled={!supported}
+        disabled={!supported || disabled}
+        aria-label={t(chat.askHint)}
         title={supported ? t(chat.askHint) : t(chat.voiceSoon)}
         className={`grid h-11 w-11 shrink-0 place-items-center rounded-full transition disabled:opacity-40 ${listening ? "animate-pulse bg-red-600 text-white" : "bg-kokum-50 text-kokum-600 hover:bg-kokum-100"}`}
       >
         {listening ? <MicOff size={20} /> : <Mic size={20} />}
       </button>
       <input
+        aria-label={t(chat.placeholder)}
+        maxLength={800}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder={t(chat.placeholder)}
@@ -1615,6 +1624,7 @@ function Composer({
       />
       <button
         type="submit"
+        aria-label={t({en:"Send question",mr:"प्रश्न पाठवा",hi:"सवाल भेजें"})}
         disabled={!input.trim() || disabled}
         className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-kokum-700 text-white shadow-[0_10px_22px_-12px_rgba(126,23,56,0.8)] transition hover:bg-kokum-800 disabled:opacity-40"
       >

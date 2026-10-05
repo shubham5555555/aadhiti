@@ -10,16 +10,16 @@ import WarliRow from "./Warli";
 
 const disclaimer = {
   mr: "AADHI TI माहिती आणि योग्य मदतीपर्यंत पोहोचवते. हे डॉक्टर, वकील, counsellor किंवा पोलिसांची जागा घेत नाही. आणीबाणीत 112 ला कॉल करा.",
-  en: "AADHI TI provides information and referral. It does not replace a doctor, lawyer, counsellor or the police. In an emergency, call 112.",
+  en: "AADHI TI provides information and referrals. It does not replace a doctor, lawyer, counsellor, or the police. In an emergency, call 112.",
   hi: "AADHI TI जानकारी देती है और सही मदद तक पहुँचाती है। यह डॉक्टर, वकील, counsellor या पुलिस की जगह नहीं लेती। आपातकाल में 112 पर कॉल करें।",
 };
 
-const pillarsLine = { mr: "सुरक्षा · आर्थिक सुरक्षा · कौशल्य", en: "Safety · Security · Skill", hi: "सुरक्षा · आर्थिक सुरक्षा · कौशल" };
+const pillarsLine = { mr: "सुरक्षा · आर्थिक सुरक्षा · कौशल्य", en: "Safety · Financial Security · Skills", hi: "सुरक्षा · आर्थिक सुरक्षा · कौशल" };
 
 // Honest framing, as on the onboarding prototype.
 const prototype = {
   mr: "Brahmaastra.ai ने तयार केलेला प्रोटोटाइप. हे महाराष्ट्र शासनाचं अधिकृत ॲप नाही.",
-  en: "Prototype built by Brahmaastra.ai. This is not an official Government of Maharashtra app.",
+  en: "Prototype built by Brahmaastra.ai. This is not an official app of the Government of Maharashtra.",
   hi: "Brahmaastra.ai द्वारा बनाया गया प्रोटोटाइप। यह महाराष्ट्र सरकार का आधिकारिक ऐप नहीं है।",
 };
 

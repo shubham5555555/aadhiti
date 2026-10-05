@@ -6,12 +6,12 @@ export const leader = {
   shortName: { mr: "आदिती तटकरे", en: "Aditi Tatkare", hi: "अदिति तटकरे" } as L,
   photo: "/brand/aditi-tatkare.webp",
   roles: [
-    { mr: "महिला व बालविकास मंत्री, महाराष्ट्र राज्य", en: "Minister for Women & Child Development, Maharashtra", hi: "महिला एवं बाल विकास मंत्री, महाराष्ट्र" },
-    { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
+    { mr: "महिला व बालविकास मंत्री, महाराष्ट्र राज्य", en: "Minister of Women and Child Development, Maharashtra", hi: "महिला एवं बाल विकास मंत्री, महाराष्ट्र" },
+    { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
   ] as L[],
   credit: {
     mr: "आमदार आदिती तटकरे यांचा पुढाकार",
-    en: "An initiative of Aditi Tatkare",
+    en: "An initiative by Aditi Tatkare",
     hi: "विधायक अदिति तटकरे की पहल",
   } as L,
   bio: {
@@ -21,7 +21,7 @@ export const leader = {
   } as L,
   whyApp: {
     mr: "AADHI TI हा श्रीवर्धनमधल्या प्रत्येक महिलेसाठी आणि मुलीसाठी त्यांचा पुढाकार आहे: सुरक्षा, आर्थिक सुरक्षा आणि कौशल्य याबद्दलचा प्रत्येक प्रश्न, तिच्या भाषेत, तिच्या फोनवर. आधी श्रीवर्धनमध्ये, मग संपूर्ण रायगडमध्ये.",
-    en: "AADHI TI is her initiative for every woman and girl in Shrivardhan: every question about safety, security and skill, answered in her own language, on her own phone. Shrivardhan first, then all of Raigad.",
+    en: "AADHI TI is her initiative for every woman and girl in Shrivardhan. It answers every question about safety, financial security and skills, in the user's own language, on her own phone. Shrivardhan first, then the whole of Raigad district.",
     hi: "AADHI TI श्रीवर्धन की हर महिला और लड़की के लिए उनकी पहल है: सुरक्षा, आर्थिक सुरक्षा और कौशल का हर सवाल, उसकी भाषा में, उसके फ़ोन पर। पहले श्रीवर्धन में, फिर पूरे रायगड में।",
   } as L,
 };
@@ -62,7 +62,7 @@ export const initiatives: { id: string; title: L; body: L; href: string; cta: L 
   },
   {
     id: "child-marriage",
-    title: { mr: "बालविवाहमुक्त महाराष्ट्र", en: "Child-marriage-free Maharashtra", hi: "बाल विवाह मुक्त महाराष्ट्र" },
+    title: { mr: "बालविवाहमुक्त महाराष्ट्र", en: "Child Marriage-Free Maharashtra", hi: "बाल विवाह मुक्त महाराष्ट्र" },
     body: {
       mr: "बालविवाहाबद्दल शून्य सहनशीलता: आई-वडिलांबरोबरच लग्न लावणारे, मध्यस्थ आणि उपस्थित पाहुणे यांच्यावरही गुन्हा. लोकांच्या मदतीने दरवर्षी 1,400 हून अधिक बालविवाह रोखले गेले.",
       en: "Zero tolerance for child marriage: cases against the priest, the middlemen and the guests, not only the parents. With people's help, more than 1,400 child marriages have been stopped each year.",
@@ -105,11 +105,11 @@ export const journey: { year: string; text: L }[] = [
 
 // The "An initiative by" banner at the top of the home page.
 export const initiativeBanner = {
-  by: { mr: "एक उपक्रम", en: "An Initiative by", hi: "एक पहल" } as L,
+  by: { mr: "एक उपक्रम", en: "An initiative by", hi: "एक पहल" } as L,
   name: { mr: "मा. मंत्री आदिती ताई तटकरे", en: "Hon'ble Minister Ms. Aditi Tai Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई तटकरे" } as L,
   lines: [
-    { mr: "कॅबिनेट मंत्री, महाराष्ट्र शासन", en: "Cabinet Minister, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
-    { mr: "महिला व बालविकास मंत्री", en: "Minister of Women & Child Development", hi: "महिला एवं बाल विकास मंत्री" },
-    { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
+    { mr: "कॅबिनेट मंत्री, महाराष्ट्र शासन", en: "Cabinet Minister, Women and Child Development, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
+    { mr: "महिला व बालविकास मंत्री", en: "", hi: "महिला एवं बाल विकास मंत्री" },
+    { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
   ] as L[],
 };

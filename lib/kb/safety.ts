@@ -34,7 +34,7 @@ export const safetyTopics: Topic[] = [
     ],
     understand: {
       mr: "कोणी तुमच्या मागे येत असेल तर भीती वाटणं साहजिक आहे. तुमची भावना बरोबर आहे — आधी सुरक्षित होऊया.",
-      en: "Feeling that someone is following you is frightening, and your instinct matters. Let's get you safe first.",
+      en: "It is natural to feel frightened if someone is following you. Trust your instincts. Let's get you safe first.",
       hi: "कोई पीछा कर रहा हो तो डर लगना स्वाभाविक है। आपकी भावना सही है — पहले सुरक्षित होते हैं।",
     },
     answer: [
@@ -149,7 +149,7 @@ export const safetyTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "112 ला फोन करा", en: "Call 112", hi: "112 पर कॉल करें" }, href: "tel:112" },
-      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
+      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women's Helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
       { label: { mr: "108 ॲम्ब्युलन्स", en: "Ambulance 108", hi: "एम्बुलेंस 108" }, href: "tel:108" },
     ],
     girlNote: {
@@ -365,7 +365,7 @@ export const safetyTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "112 ला फोन करा", en: "Call 112", hi: "112 पर कॉल करें" }, href: "tel:112" },
-      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
+      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women's Helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
     ],
     girlNote: {
       mr: "असं झालं तर आई-बाबांना किंवा शिक्षकांना सांग. तू 1098 वरही फोन करू शकतेस.",
@@ -505,7 +505,7 @@ export const safetyTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "112 ला फोन करा", en: "Call 112", hi: "112 पर कॉल करें" }, href: "tel:112" },
-      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
+      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women's Helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
       { label: { mr: "One Stop Centre 181", en: "One Stop Centre 181", hi: "वन स्टॉप सेंटर 181" }, href: "tel:181" },
     ],
     girlNote: {
@@ -520,7 +520,7 @@ export const safetyTopics: Topic[] = [
     emergency: true,
     title: {
       mr: "रिक्षा/कॅब/ST मध्ये असुरक्षित",
-      en: "Unsafe in auto, cab or bus",
+      en: "Feeling unsafe in an auto, cab or bus",
       hi: "ऑटो/कैब/बस में असुरक्षित",
     },
     keywords: [
@@ -543,7 +543,7 @@ export const safetyTopics: Topic[] = [
     ],
     understand: {
       mr: "रिक्षा, कॅब किंवा बस चुकीच्या रस्त्याने जात असेल किंवा कोणी विचित्र वागत असेल तर तुमची भीती योग्य आहे.",
-      en: "If a vehicle takes a wrong route or someone behaves oddly, your worry is valid.",
+      en: "If a vehicle takes the wrong route or someone behaves strangely, your concern is valid.",
       hi: "अगर गाड़ी गलत रास्ते जाए या कोई अजीब बर्ताव करे, तो आपकी चिंता सही है।",
     },
     answer: [
@@ -724,7 +724,7 @@ export const safetyTopics: Topic[] = [
     sensitive: "crisis",
     title: {
       mr: "खाजगी फोटोवरून धमकी",
-      en: "Threat with private photos",
+      en: "Threats over private photos",
       hi: "प्राइवेट फोटो से धमकी",
     },
     keywords: [
@@ -747,7 +747,7 @@ export const safetyTopics: Topic[] = [
     ],
     understand: {
       mr: "खाजगी फोटो/व्हिडिओवरून धमकी देणं हा गंभीर गुन्हा आहे. यात तुमची काहीही चूक नाही, आणि यातून मार्ग आहे.",
-      en: "Threatening someone with private photos or videos is a serious crime. It is not your fault, and there is a way through this.",
+      en: "Threatening to share someone's private photos or videos is a serious crime. It is not your fault, and there is a way through this.",
       hi: "प्राइवेट फोटो/वीडियो से धमकाना गंभीर अपराध है। इसमें आपकी कोई गलती नहीं, और रास्ता है।",
     },
     answer: [
@@ -1023,7 +1023,7 @@ export const safetyTopics: Topic[] = [
     ],
     understand: {
       mr: "बँक, KYC, लॉटरी किंवा बिलाच्या नावाने OTP मागणं ही बहुतेक फसवणूक असते. तुम्ही विचारलंत — हे अगदी योग्य केलंत.",
-      en: "Calls asking for your OTP in the name of bank, KYC, lottery or bills are almost always scams. You were right to check.",
+      en: "Calls asking for your OTP in the name of your bank, KYC, a lottery or a bill are almost always scams. You were right to check.",
       hi: "बैंक, KYC, लॉटरी या बिल के नाम पर OTP माँगना ज़्यादातर धोखा होता है। आपने पूछा — बिल्कुल सही किया।",
     },
     answer: [
@@ -1191,7 +1191,7 @@ export const safetyTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "ऑनलाइन तक्रार करा", en: "Report online", hi: "ऑनलाइन शिकायत करें" }, href: "https://cybercrime.gov.in" },
-      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
+      { label: { mr: "महिला हेल्पलाइन 1091", en: "Women's Helpline 1091", hi: "महिला हेल्पलाइन 1091" }, href: "tel:1091" },
       { label: { mr: "112 ला फोन करा", en: "Call 112", hi: "112 पर कॉल करें" }, href: "tel:112" },
     ],
     girlNote: {

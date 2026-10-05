@@ -7,7 +7,7 @@ import { girlTopics } from "./girls";
 
 export type { AgeGroup, Intent, L, Lang, Topic, Action } from "./types";
 
-// "Everyday" questions (cooking, beauty, kids, outings) hand off to the Everyday page.
+// "Everyday Help" questions (cooking, beauty, kids, outings) hand off to the Everyday page.
 const everydayTopic: Topic = {
   id: "everyday",
   intent: "find",
@@ -62,7 +62,7 @@ export const adultCategories: Category[] = [
     icon: "shield",
     color: "from-kokum-500 to-kokum-600",
     title: { mr: "माझी सुरक्षितता", en: "My safety", hi: "मेरी सुरक्षा" },
-    subtitle: { mr: "आणीबाणी, छळ, प्रवास, सायबर", en: "Emergency, harassment, travel, cyber", hi: "आपातकाल, उत्पीड़न, यात्रा, साइबर" },
+    subtitle: { mr: "आणीबाणी, छळ, प्रवास, सायबर", en: "Emergencies, harassment, travel, online safety", hi: "आपातकाल, उत्पीड़न, यात्रा, साइबर" },
     groups: [
       { title: { mr: "आणीबाणी", en: "Emergency", hi: "आपातकाल" }, topics: ["immediate_danger", "following_me", "after_assault", "help_info_ready", "safety_plan"] },
       { title: { mr: "बाहेर आणि प्रवासात", en: "Outside & travel", hi: "बाहर और यात्रा में" }, topics: ["unsafe_travel", "public_harassment", "unsafe_transport", "night_carry", "solo_travel", "stalking_offline", "report_unsafe_place"] },
@@ -85,7 +85,7 @@ export const adultCategories: Category[] = [
     id: "career",
     icon: "study",
     color: "from-sea-500 to-sea-600",
-    title: { mr: "माझं शिक्षण / करिअर", en: "My education / career", hi: "मेरी पढ़ाई / करियर" },
+    title: { mr: "माझं शिक्षण / करिअर", en: "My education and career", hi: "मेरी पढ़ाई / करियर" },
     subtitle: { mr: "कोर्स, शिष्यवृत्ती, नोकरी, CV", en: "Courses, scholarships, jobs, CV", hi: "कोर्स, छात्रवृत्ति, नौकरी, CV" },
     groups: [
       { title: { mr: "शिक्षण", en: "Education", hi: "पढ़ाई" }, topics: ["after_10_12", "iti_courses", "scholarships", "return_to_education"] },
@@ -97,7 +97,7 @@ export const adultCategories: Category[] = [
     icon: "rights",
     color: "from-sea-700 to-sea-800",
     title: { mr: "माझे हक्क", en: "My rights", hi: "मेरे अधिकार" },
-    subtitle: { mr: "घरगुती हिंसा, कामाच्या ठिकाणी छळ, कायदा", en: "Domestic violence, workplace, the law", hi: "घरेलू हिंसा, कार्यस्थल, कानून" },
+    subtitle: { mr: "घरगुती हिंसा, कामाच्या ठिकाणी छळ, कायदा", en: "Domestic violence, workplace harassment, the law", hi: "घरेलू हिंसा, कार्यस्थल, कानून" },
     groups: [
       { title: { mr: "घर आणि नातेसंबंध", en: "Home & relationships", hi: "घर और रिश्ते" }, topics: ["husband_hits", "inlaws_threat", "coercive_control", "financial_control", "partner_forcing", "afraid_tell_family", "what_is_abuse", "document_abuse"] },
       { title: { mr: "छळ", en: "Harassment", hi: "उत्पीड़न" }, topics: ["workplace_posh", "known_abuser", "stalking_offline"] },
@@ -108,8 +108,8 @@ export const adultCategories: Category[] = [
     id: "income",
     icon: "income",
     color: "from-turmeric-400 to-turmeric-500",
-    title: { mr: "माझं उत्पन्न / व्यवसाय", en: "My income / business", hi: "मेरी कमाई / व्यवसाय" },
-    subtitle: { mr: "योजना, बचत गट, व्यवसाय", en: "Schemes, SHGs, business", hi: "योजनाएँ, SHG, व्यवसाय" },
+    title: { mr: "माझं उत्पन्न / व्यवसाय", en: "My income and business", hi: "मेरी कमाई / व्यवसाय" },
+    subtitle: { mr: "योजना, बचत गट, व्यवसाय", en: "Schemes, self-help groups, starting a business", hi: "योजनाएँ, SHG, व्यवसाय" },
     groups: [
       { title: { mr: "सरकारी योजना", en: "Government schemes", hi: "सरकारी योजनाएँ" }, topics: ["ladki_bahin", "schemes_overview", "scheme_apply"] },
       { title: { mr: "कमाई सुरू करा", en: "Start earning", hi: "कमाई शुरू करें" }, topics: ["income_finder", "start_business", "join_shg", "homestay", "homemade_products", "food_business", "sell_online", "digital_payments", "business_documents", "training_access"] },
@@ -119,8 +119,8 @@ export const adultCategories: Category[] = [
     id: "family",
     icon: "family",
     color: "from-leaf-500 to-leaf-600",
-    title: { mr: "माझं कुटुंब / मुलं", en: "My family / children", hi: "मेरा परिवार / बच्चे" },
-    subtitle: { mr: "मुलींची सुरक्षा, पालकत्व, एकट्या महिला", en: "Daughters' safety, parenting, single women", hi: "बेटियों की सुरक्षा, पालन-पोषण, अकेली महिलाएँ" },
+    title: { mr: "माझं कुटुंब / मुलं", en: "My family and children", hi: "मेरा परिवार / बच्चे" },
+    subtitle: { mr: "मुलींची सुरक्षा, पालकत्व, एकट्या महिला", en: "Girls' safety, parenting, single women", hi: "बेटियों की सुरक्षा, पालन-पोषण, अकेली महिलाएँ" },
     groups: [
       { title: { mr: "मुलं", en: "Children", hi: "बच्चे" }, topics: ["child_afraid_relative", "daughter_safety", "daughter_online_safety", "daughter_silent", "child_nutrition", "creche", "screen_time"] },
       { title: { mr: "आधार", en: "Support", hi: "सहारा" }, topics: ["single_mother", "elder_women"] },
@@ -130,7 +130,7 @@ export const adultCategories: Category[] = [
     id: "mind",
     icon: "mind",
     color: "from-sea-400 to-sea-500",
-    title: { mr: "माझं मन / Wellbeing", en: "My mind / Wellbeing", hi: "मेरा मन / Wellbeing" },
+    title: { mr: "माझं मन / Wellbeing", en: "My mind and wellbeing", hi: "मेरा मन / Wellbeing" },
     subtitle: { mr: "ताण, चिंता, एकटेपणा, counselling", en: "Stress, anxiety, loneliness, counselling", hi: "तनाव, चिंता, अकेलापन, counselling" },
     groups: [
       { title: { mr: "मला कसं वाटतंय", en: "How I feel", hi: "मुझे कैसा लग रहा है" }, topics: ["self_harm", "overwhelmed", "anxious", "stress", "lonely", "no_one_to_talk", "grieving", "family_pressure", "postpartum_struggle", "counsellor"] },
@@ -141,7 +141,7 @@ export const adultCategories: Category[] = [
     icon: "unsure",
     color: "from-ink-soft to-ink",
     title: { mr: "मला काय करावं कळत नाही", en: "I don't know what to do", hi: "मुझे समझ नहीं आ रहा क्या करूँ" },
-    subtitle: { mr: "तुमच्या शब्दांत सांगा", en: "Describe it in your words", hi: "अपने शब्दों में बताइए" },
+    subtitle: { mr: "तुमच्या शब्दांत सांगा", en: "Describe it in your own words", hi: "अपने शब्दों में बताइए" },
     groups: [],
   },
 ];

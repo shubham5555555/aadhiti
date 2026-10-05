@@ -3,8 +3,7 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-  Grid3x3,
-  MapPin,
+  Send,
   Mic,
   MicOff,
   Phone,
@@ -18,7 +17,6 @@ import Leaf from "@/components/Leaf";
 import Logo from "@/components/Logo";
 import { CallRings } from "@/components/PageArt";
 import {
-  callReplies,
   defaultCaller,
   fakeCallFillers,
   fakeCallScript,
@@ -56,9 +54,9 @@ const copy = {
     hi: "AI सुरक्षा कॉल",
   },
   safetyDesc: {
-    mr: "AADHI TI तुमच्याशी बोलते, प्रवासावर लक्ष ठेवते आणि गरज पडल्यास माणसांना कळवते.",
-    en: "AADHI TI talks to you, tracks your journey and can alert your contacts.",
-    hi: "AADHI TI आपसे बात करती है, सफ़र पर नज़र रखती है और ज़रूरत पर लोगों को सूचना देती है।",
+    mr: "मराठी, हिंदी किंवा इंग्रजीत AADHI TI शी बोला. AI मार्गदर्शन; लोकेशन ट्रॅकिंग किंवा आपत्कालीन मदत पाठवण्याची सुविधा नाही.",
+    en: "Speak with AADHI TI in Marathi, Hindi or English. AI guidance only; location tracking and emergency dispatch are not available.",
+    hi: "मराठी, हिंदी या अंग्रेज़ी में AADHI TI से बात करें। AI मार्गदर्शन; लोकेशन ट्रैकिंग या आपातकालीन सहायता भेजने की सुविधा नहीं है।",
   },
   fakeTitle: {
     mr: "Fake येणारा कॉल",
@@ -197,7 +195,7 @@ export default function CallPage() {
 }
 
 function CallBot() {
-  const { t, lang } = useLang();
+  const { t, lang, age } = useLang();
   const params = useSearchParams();
   const [mode, setMode] = useState<Mode>(
     params.get("mode") === "fake" ? "fake" : "safety",
@@ -212,6 +210,28 @@ function CallBot() {
   const [delay, setDelay] = useState(0);
   const [countdown, setCountdown] = useState(0);
   const [gender, setGender] = useState<VoiceGender>("female");
+  const [recording, setRecording] = useState(false);
+  const [thinking, setThinking] = useState(false);
+  const [callError, setCallError] = useState("");
+  const [draft, setDraft] = useState("");
+  const [emergency, setEmergency] = useState(false);
+  const recorder = useRef<MediaRecorder | null>(null);
+  const stream = useRef<MediaStream | null>(null);
+  const recordingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const request = useRef<AbortController | null>(null);
+  const busy = useRef(false);
+  const micPending = useRef(false);
+  const history = useRef<{role: "user" | "assistant"; text: string}[]>([]);
+  const stopMic = useCallback((discard = false) => {
+    if (recordingTimer.current) clearTimeout(recordingTimer.current);
+    if (recorder.current && recorder.current.state !== "inactive") {
+      if (discard) recorder.current.onstop = null;
+      recorder.current.stop();
+    }
+    stream.current?.getTracks().forEach(track => track.stop());
+    stream.current = null;
+    setRecording(false);
+  }, []);
   const genderRef = useRef(gender);
   genderRef.current = gender;
 
@@ -275,6 +295,7 @@ function CallBot() {
       if (!p) {
         p = fetch("/api/tts", {
           method: "POST",
+          signal: AbortSignal.timeout(20_000),
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text, lang, voice }),
         })
@@ -338,12 +359,13 @@ function CallBot() {
   }, []);
 
   const speak = useCallback(
-    async (text: L, pitch: number) => {
-      const lang = langRef.current;
+    async (text: L, pitch: number, spokenLang = langRef.current) => {
+      const activeSession = session.current;
+      const lang = spokenLang;
       const said = text[lang];
       if (!voiceOnRef.current) return wait(Math.max(1800, said.length * 55));
       const url = await fetchVoice(said, lang, genderRef.current);
-      if (!voiceOnRef.current) return;
+      if (!voiceOnRef.current || session.current !== activeSession) return;
       if (!url) return speakDevice(said, pitch); // ElevenLabs unavailable: fall back to the device voice
       const audio = audioRef.current ?? (audioRef.current = new Audio());
       audio.src = url;
@@ -399,6 +421,9 @@ function CallBot() {
       session.current++;
       stopAudio();
       stopRing();
+      stopMic(true);
+      request.current?.abort();
+      voiceCache.current.forEach(p => p.then(url => { if (url) URL.revokeObjectURL(url); }));
     },
     [stopRing],
   );
@@ -417,6 +442,7 @@ function CallBot() {
         setLines((l) => [...l, { id: lineId.current++, from: "bot", text }]);
         setSpeaking(true);
         await speak(text, pitch);
+        if (session.current !== s) return;
         setSpeaking(false);
         await wait(gap);
       }
@@ -460,7 +486,6 @@ function CallBot() {
       const s = session.current;
       setStage("connected");
       if (m === "safety") {
-        prefetch(callReplies.map((r) => said(r.reply, genderRef.current)));
         playLines(safetyCallScript, s, 1.1, 400);
       } else {
         playFake(s);
@@ -474,6 +499,9 @@ function CallBot() {
     stopAudio();
     setMode(m);
     setLines([]);
+    history.current = [];
+    setCallError("");
+    setEmergency(false);
     setSeconds(0);
     setMuted(false);
     if (m === "safety") {
@@ -506,6 +534,10 @@ function CallBot() {
 
   const endCall = () => {
     session.current++;
+    stopMic(true);
+    request.current?.abort();
+    busy.current = false;
+    setThinking(false);
     stopAudio();
     stopRing();
     setSpeaking(false);
@@ -516,15 +548,78 @@ function CallBot() {
     );
   };
 
-  const respond = async (r: (typeof callReplies)[number]) => {
-    if (speaking) return;
-    const s = session.current;
-    setLines((l) => [
-      ...l,
-      { id: lineId.current++, from: "user", text: r.option },
-    ]);
-    await wait(600);
-    playLines([r.reply], s, 1.1, 300);
+  const sendTurn = async (message?: string, audio?: Blob) => {
+    if (busy.current || stage !== "connected") return;
+    busy.current = true;
+    const current = session.current;
+    setThinking(true);
+    setCallError("");
+    const controller = new AbortController();
+    request.current = controller;
+    const timeout = setTimeout(() => controller.abort(), 55_000);
+    try {
+      const form = new FormData();
+      form.set("lang", lang);
+      form.set("age", age || "");
+      form.set("voice", genderRef.current);
+      form.set("history", JSON.stringify(history.current.slice(-6)));
+      if (audio) form.set("audio", audio, "turn.audio");
+      else form.set("message", message || "");
+      const response = await fetch("/api/call", {method:"POST", body:form, signal:controller.signal});
+      const result = await response.json();
+      if (current !== session.current) return;
+      if (!response.ok) throw new Error(result.error);
+      const asLine = (text: string): L => ({mr:text, hi:text, en:text});
+      setLines(previous => [...previous,
+        {id:lineId.current++, from:"user", text:asLine(result.message)},
+        {id:lineId.current++, from:"bot", text:asLine(result.reply)}]);
+      history.current = [...history.current, {role:"user",text:result.message}, {role:"assistant",text:result.reply}].slice(-6) as typeof history.current;
+      setEmergency(result.emergency);
+      setThinking(false);
+      setSpeaking(true);
+      // Speak complete sentences in chunks within the TTS endpoint's 500-character limit.
+      const chunks = result.reply.match(/.{1,450}(?:\s|$)|.{1,450}/g) || [result.reply];
+      for (const chunk of chunks) {
+        if (current !== session.current) break;
+        await speak(asLine(chunk), 1, result.lang);
+      }
+    } catch {
+      if (current === session.current) setCallError(t({en:"I couldn't hear or answer that. Please try again, or type below.", mr:"आवाज समजला नाही किंवा उत्तर मिळाले नाही. पुन्हा बोला किंवा खाली लिहा.", hi:"आवाज़ समझ नहीं आई या जवाब नहीं मिला। फिर बोलें या नीचे लिखें।"}));
+    } finally {
+      clearTimeout(timeout);
+      if (current === session.current) { busy.current = false; setThinking(false); setSpeaking(false); }
+    }
+  };
+
+  const toggleRecording = async () => {
+    if (recording) { stopMic(); return; }
+    if (busy.current || micPending.current || speaking || muted || stage !== "connected") return;
+    micPending.current = true;
+    const current = session.current;
+    setCallError("");
+    try {
+      if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") throw new Error("unsupported");
+      const media = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true, noiseSuppression:true, autoGainControl:true}});
+      if (current !== session.current) { media.getTracks().forEach(track => track.stop()); return; }
+      stream.current = media;
+      const mimeType = ["audio/webm;codecs=opus", "audio/mp4", "audio/webm"].find(type => MediaRecorder.isTypeSupported(type));
+      const rec = new MediaRecorder(media, mimeType ? {mimeType} : undefined);
+      recorder.current = rec;
+      const chunks: Blob[] = [];
+      rec.ondataavailable = event => { if (event.data.size) chunks.push(event.data); };
+      rec.onerror = () => { stopMic(true); setCallError(t({en:"Recording failed. Please type your reply.",mr:"रेकॉर्डिंग झाले नाही. उत्तर लिहा.",hi:"रिकॉर्डिंग नहीं हुई। जवाब लिखें।"})); };
+      rec.onstop = () => {
+        media.getTracks().forEach(track => track.stop());
+        setRecording(false);
+        if (current === session.current) void sendTurn(undefined, new Blob(chunks, {type:rec.mimeType}));
+      };
+      rec.start();
+      setRecording(true);
+      recordingTimer.current = setTimeout(() => stopMic(), 30_000);
+    } catch {
+      stopMic(true);
+      setCallError(t({en:"Allow microphone access to speak, or type your reply below.",mr:"बोलण्यासाठी मायक्रोफोनची परवानगी द्या किंवा खाली उत्तर लिहा.",hi:"बोलने के लिए माइक्रोफ़ोन की अनुमति दें या नीचे जवाब लिखें।"}));
+    } finally { micPending.current = false; }
   };
 
   const inCall =
@@ -778,12 +873,12 @@ function CallBot() {
                         <SmallAction
                           label={muted ? t(copy.unmute) : t(copy.mute)}
                           active={muted}
-                          onClick={() => setMuted(!muted)}
+                          onClick={() => { stopMic(true); setMuted(!muted); }}
                         >
                           {muted ? <MicOff size={22} /> : <Mic size={22} />}
                         </SmallAction>
-                        <SmallAction label={t(copy.keypad)}>
-                          <Grid3x3 size={22} />
+                        <SmallAction label={t({en:"Talk",mr:"बोला",hi:"बोलें"})} active={recording} onClick={mode === "safety" ? toggleRecording : undefined}>
+                          <Mic size={22} />
                         </SmallAction>
                         <SmallAction
                           label={t(copy.speaker)}
@@ -855,7 +950,7 @@ function CallBot() {
                 {stage === "connected"
                   ? speaking
                     ? `${name} ${t(gender === "male" ? copy.speakingM : copy.speaking)}`
-                    : t(copy.listening)
+                    : thinking ? t({en:"Thinking…",mr:"उत्तर तयार करत आहे…",hi:"जवाब तैयार हो रहा है…"}) : recording ? t(copy.listening) : t({en:"Tap the microphone to speak",mr:"बोलण्यासाठी मायक्रोफोन दाबा",hi:"बोलने के लिए माइक्रोफ़ोन दबाएँ"})
                   : t(copy.startToSee)}
               </p>
             </div>
@@ -896,24 +991,18 @@ function CallBot() {
 
             {stage === "connected" && (
               <div className="border-t border-kokum-100 p-4">
-                <p className="mb-2 text-xs font-semibold text-ink-soft">
-                  {t(copy.tapReply)}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {callReplies.map((r) => (
-                    <button
-                      key={r.option.en}
-                      onClick={() => respond(r)}
-                      disabled={speaking}
-                      className="soft-chip disabled:opacity-40"
-                    >
-                      {r.option.en === "Share my location" && (
-                        <MapPin size={13} />
-                      )}
-                      {t(r.option)}
-                    </button>
-                  ))}
-                </div>
+                <p className="mb-2 text-xs text-ink-soft">{t({en:"Tap to speak, then tap Send. Audio is sent to Gemini to answer you.",mr:"बोलण्यासाठी दाबा, मग पाठवा दाबा. उत्तरासाठी आवाज Gemini कडे पाठवला जातो.",hi:"बोलने के लिए दबाएँ, फिर भेजें दबाएँ। जवाब के लिए आवाज़ Gemini को भेजी जाती है।"})}</p>
+                <button className="soft-btn w-full" onClick={toggleRecording} disabled={thinking || speaking || muted}>
+                  {recording ? <Send size={18}/> : <Mic size={18}/>}
+                  {recording ? t({en:"Send voice reply",mr:"आवाज पाठवा",hi:"आवाज़ भेजें"}) : t({en:"Speak · up to 30 seconds",mr:"बोला · ३० सेकंदांपर्यंत",hi:"बोलें · ३० सेकंड तक"})}
+                </button>
+                {callError && <p role="alert" className="mt-2 text-sm text-red-700">{callError}</p>}
+                <form className="mt-3 flex gap-2" onSubmit={event => {event.preventDefault(); if (draft.trim() && !recording) {void sendTurn(draft.trim()); setDraft("");}}}>
+                  <input aria-label="Type a reply" className="soft-input min-w-0 flex-1" maxLength={800} value={draft} onChange={event => setDraft(event.target.value)} placeholder={t({en:"Or type a reply",mr:"किंवा उत्तर लिहा",hi:"या जवाब लिखें"})}/>
+                  <button aria-label="Send reply" className="soft-chip" disabled={thinking || speaking || recording || !draft.trim()}><Send size={18}/></button>
+                </form>
+                {emergency && <a href="tel:112" className="mt-2 block font-bold text-red-700">{t({en:"Call emergency help · 112",mr:"आपत्कालीन मदत · 112",hi:"आपातकालीन मदद · 112"})}</a>}
+
               </div>
             )}
           </div>
