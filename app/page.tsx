@@ -51,7 +51,7 @@ const copy = {
     en: "e.g. My husband keeps checking my phone",
     hi: "जैसे, मेरे पति हमेशा मेरा फ़ोन चेक करते हैं",
   },
-  askButton: { mr: "विचारा", en: "Ask", hi: "पूछें" },
+  askButton: { mr: "विचारा", en: "Ask AADHI TI", hi: "पूछें" },
   askNote: {
     mr: "नाव किंवा नंबर लागत नाही. उत्तरासाठी प्रश्न AI कडे पाठवला जातो — त्यात नाव, फोन नंबर लिहू नका.",
     en: "No name or number needed. Your question is sent to an AI to write the answer — don't include your name or phone number.",
@@ -60,7 +60,7 @@ const copy = {
   voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
   menuNote: {
     mr: "विषय निवडा, किंवा वर तुमच्या शब्दांत लिहा.",
-    en: "Pick a subject, or write in your own words above.",
+    en: "Pick a topic, or type your question in the box above.",
     hi: "विषय चुनें, या ऊपर अपने शब्दों में लिखें।",
   },
   othersAsk: {
@@ -75,7 +75,7 @@ const copy = {
   },
   howBody: {
     mr: "प्रत्येक उत्तर तीन भागांत येतं. आधी काय घडतंय ते समजून घेणं, मग काय करता येईल, आणि शेवटी पुढचं एक ठोस पाऊल. धोका असेल तर मदतीचा नंबर सगळ्यात आधी.",
-    en: "Every answer comes in three parts. First, what may be happening. Then, what you can do. Last, one clear next step. If you might be in danger, the helpline comes before anything else.",
+    en: "Every answer has three parts. First, what may be happening. Next, what you can do. Finally, one clear next step. If you may be in danger, the helpline number comes first.",
     hi: "हर जवाब तीन हिस्सों में आता है। पहले, क्या हो रहा हो सकता है। फिर, आप क्या कर सकती हैं। आख़िर में, एक साफ़ अगला कदम। खतरा हो तो मदद का नंबर सबसे पहले।",
   },
   example: {
@@ -86,17 +86,17 @@ const copy = {
   exampleSteps: [
     {
       mr: "हा ऑनलाइन छळ आहे, आणि तो गुन्हा आहे. यात तुमची चूक नाही.",
-      en: "This is online harassment, and it is a crime. It is not your fault.",
+      en: "This is online harassment, which is a crime. It is not your fault.",
       hi: "यह ऑनलाइन उत्पीड़न है, और यह अपराध है। इसमें आपकी गलती नहीं।",
     },
     {
       mr: "उत्तर देऊ नका. Screenshots ठेवा. Account ला Report आणि Block करा.",
-      en: "Don't reply. Keep screenshots. Report and block the account.",
+      en: "Do not reply. Save screenshots as evidence. Report and block the account.",
       hi: "जवाब न दें। Screenshots रखें। Account को Report और Block करें।",
     },
     {
       mr: "1930 वर किंवा cybercrime.gov.in वर तक्रार करा. प्रत्यक्ष धोका वाटत असेल तर 112.",
-      en: "Report on 1930 or cybercrime.gov.in. If you feel in physical danger, 112.",
+      en: "Report it by calling 1930 or at cybercrime.gov.in. If you feel you are in physical danger, call 112.",
       hi: "1930 या cybercrime.gov.in पर शिकायत करें। शारीरिक खतरा लगे तो 112।",
     },
   ] as L[],
@@ -107,12 +107,12 @@ const copy = {
   },
   girlsTitle: {
     mr: "मुलींसाठी वेगळी भाषा",
-    en: "Different words for girls",
+    en: "Information written for girls",
     hi: "लड़कियों के लिए अलग भाषा",
   },
   girlsBody: {
     mr: "10 ते 18 वयाच्या मुलींसाठी सोपी, घाबरवणारी नसलेली उत्तरं. काही चुकीचं घडत असेल तर विश्वासातल्या मोठ्या व्यक्तीकडे आणि 1098 कडे नेणारी.",
-    en: "Simple answers that don't frighten, for girls aged 10 to 18. If something is wrong, they lead to a trusted adult and to 1098.",
+    en: "Simple, non-frightening answers for girls aged 10 to 18. If something is wrong, they point to a trusted adult and to Childline 1098.",
     hi: "10 से 18 साल की लड़कियों के लिए सरल, न डराने वाले जवाब। कुछ गलत हो रहा हो तो भरोसेमंद बड़े और 1098 तक ले जाते हैं।",
   },
   girlsLink: {
@@ -122,20 +122,20 @@ const copy = {
   },
   womenTitle: {
     mr: "वयानुसार आरोग्य",
-    en: "Health that changes with age",
+    en: "Health at every age",
     hi: "उम्र के हिसाब से सेहत",
   },
   womenBody: {
     mr: "18, 30, 40 आणि 50 नंतर शरीराचे प्रश्न बदलतात. पाळी, PCOS, थायरॉईड, गर्भारपण, रजोनिवृत्ती, हाडांचं आरोग्य.",
-    en: "The body's questions change after 18, 30, 40 and 50. Periods, PCOS, thyroid, pregnancy, menopause, bone health.",
+    en: "Health questions change at 18, 30, 40 and 50. Topics include periods, PCOS, thyroid problems, pregnancy, menopause and bone health.",
     hi: "18, 30, 40 और 50 के बाद शरीर के सवाल बदलते हैं। पीरियड्स, PCOS, थायरॉइड, गर्भावस्था, मेनोपॉज़, हड्डियों की सेहत।",
   },
   womenLink: {
     mr: "आरोग्य विभाग उघडा",
-    en: "Open health",
+    en: "Open the health section",
     hi: "सेहत सेक्शन खोलें",
   },
-  alsoTitle: { mr: "आणखी", en: "Also here", hi: "और भी" },
+  alsoTitle: { mr: "आणखी", en: "More from AADHI TI", hi: "और भी" },
   coast: {
     mr: "प्रत्येक जणी सुरक्षित घरी पोहोचावी.",
     en: "Every woman should reach home safely.",
@@ -143,17 +143,17 @@ const copy = {
   },
   coastNote: {
     mr: "ST मधून उतरल्यापासून घराच्या दारापर्यंत, AADHI TI सोबत.",
-    en: "From the bus stop to her own front door, AADHI TI walks with her.",
+    en: "From the bus stop to her front door, AADHI TI is with her every step of the way.",
     hi: "बस से उतरने से लेकर घर के दरवाज़े तक, AADHI TI साथ।",
   },
   numbersTitle: {
     mr: "महत्त्वाचे नंबर",
-    en: "Numbers to keep",
+    en: "Important numbers",
     hi: "ज़रूरी नंबर",
   },
   numbersNote: {
     mr: "सगळे मोफत. आत्ताच फोनमध्ये save करून ठेवा.",
-    en: "All free. Save them in your phone now.",
+    en: "All are free. Save them on your phone now.",
     hi: "सभी मुफ़्त। अभी फ़ोन में save कर लें।",
   },
   sosTitle: {
@@ -162,19 +162,19 @@ const copy = {
     hi: "खतरा लग रहा है?",
   },
   sosBody: {
-    mr: "SOS दाबल्यावर 5 सेकंदांनी तुमच्या विश्वासातल्या माणसांना तुमचं ठिकाण कळवलं जातं. चुकून दाबलं तर रद्द करता येतं.",
-    en: "Press SOS and, after 5 seconds, your trusted people get your location. Pressed by mistake? You can cancel.",
-    hi: "SOS दबाने के 5 सेकंड बाद आपके भरोसेमंद लोगों को आपकी जगह भेजी जाती है। गलती से दबा? रद्द कर सकती हैं।",
+    mr: "SOS हे फक्त प्रात्यक्षिक आहे. तुमचं ठिकाण पाठवलं जात नाही किंवा कोणालाही सूचना दिली जात नाही. आणीबाणीत 112 वर कॉल करा.",
+    en: "SOS is a demonstration only. It does not send your location or alert anyone. In an emergency, call 112.",
+    hi: "SOS केवल एक डेमो है। आपकी लोकेशन नहीं भेजी जाती और किसी को सूचना नहीं दी जाती। आपातकाल में 112 पर कॉल करें.",
   },
 };
 
 const also: { href: string; title: L; body: L }[] = [
   {
     href: "/call",
-    title: { mr: "सोबत कॉल", en: "Stay-on-call", hi: "साथ वाली कॉल" },
+    title: { mr: "सोबत कॉल", en: "Stay on call", hi: "साथ वाली कॉल" },
     body: {
       mr: "रात्री घरी जाताना AADHI TI फोनवर सोबत राहते.",
-      en: "AADHI TI stays on the line while you walk home at night.",
+      en: "AADHI TI stays on the line with you while you walk home at night.",
       hi: "रात में घर जाते समय AADHI TI फ़ोन पर साथ रहती है।",
     },
   },
@@ -187,7 +187,7 @@ const also: { href: string; title: L; body: L }[] = [
     },
     body: {
       mr: "घरात असलेल्या साहित्यावरून पदार्थ आणि आठवड्याचा मेनू.",
-      en: "Dishes from what's in your kitchen, and a week's menu.",
+      en: "Recipe ideas from what you have at home, plus a weekly menu planner.",
       hi: "घर में रखी सामग्री से पकवान और हफ़्ते का मेनू।",
     },
   },
@@ -196,7 +196,7 @@ const also: { href: string; title: L; body: L }[] = [
     title: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
     body: {
       mr: "मुली, गरोदर आई, बाळ आणि आजीसाठी स्थानिक, परवडणारं पौष्टिक जेवण.",
-      en: "Local, affordable good food for girls, mothers-to-be, babies and grandmothers.",
+      en: "Local, affordable, nutritious food for girls, expectant mothers, babies and grandmothers.",
       hi: "लड़कियों, गर्भवती माँ, बच्चे और दादी के लिए स्थानीय, सस्ता पौष्टिक खाना।",
     },
   },
@@ -204,12 +204,12 @@ const also: { href: string; title: L; body: L }[] = [
     href: "/schemes",
     title: {
       mr: "योजना आणि कमाई",
-      en: "Schemes and earning",
+      en: "Schemes and income",
       hi: "योजनाएँ और कमाई",
     },
     body: {
       mr: "लाडकी बहीण, बचत गट, homestay. कोणता मार्ग तुमच्यासाठी?",
-      en: "Ladki Bahin, SHGs, homestays. Which fits you?",
+      en: "Ladki Bahin Yojana, self-help groups, homestays. Which is right for you?",
       hi: "लाडकी बहीण, स्वयं सहायता समूह, होमस्टे। आपके लिए कौन-सा?",
     },
   },
@@ -222,7 +222,7 @@ const also: { href: string; title: L; body: L }[] = [
     },
     body: {
       mr: "अंधारा रस्ता, बंद दिवे, निर्जन थांबा. नाव न सांगता.",
-      en: "A dark road, broken lights, a lonely stop. No name needed.",
+      en: "Report a dark road, broken streetlights or a deserted bus stop. No name needed.",
       hi: "अंधेरी सड़क, बंद बत्ती, सुनसान स्टॉप। नाम बताए बिना।",
     },
   },
@@ -236,7 +236,7 @@ const commonTabs: { id: string; label: L; topics: string[] }[] = [
   },
   {
     id: "security",
-    label: { mr: "आर्थिक सुरक्षा", en: "Security", hi: "आर्थिक सुरक्षा" },
+    label: { mr: "आर्थिक सुरक्षा", en: "Financial Security", hi: "आर्थिक सुरक्षा" },
     topics: [
       "ladki_bahin",
       "financial_control",
@@ -246,7 +246,7 @@ const commonTabs: { id: string; label: L; topics: string[] }[] = [
   },
   {
     id: "skill",
-    label: { mr: "कौशल्य", en: "Skill", hi: "कौशल" },
+    label: { mr: "कौशल्य", en: "Skills", hi: "कौशल" },
     topics: ["training_access", "job_skills", "start_business", "sell_online"],
   },
   {
