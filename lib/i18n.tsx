@@ -14,9 +14,9 @@ type Ctx = {
 const LangContext = createContext<Ctx | null>(null);
 
 export const LANGS: { id: Lang; label: string; short: string; speech: string }[] = [
-  { id: "mr", label: "मराठी", short: "मरा", speech: "mr-IN" },
+  { id: "mr", label: "मराठी", short: "मराठी", speech: "mr-IN" },
   { id: "en", label: "English", short: "EN", speech: "en-IN" },
-  { id: "hi", label: "हिंदी", short: "हिं", speech: "hi-IN" },
+  { id: "hi", label: "हिंदी", short: "हिंदी", speech: "hi-IN" },
 ];
 
 function read<T extends string>(key: string, allowed: readonly T[]): T | null {
