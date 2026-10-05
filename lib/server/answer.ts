@@ -181,7 +181,6 @@ export type AnswerInput = {
   history: ChatTurn[];
   profile?: unknown;
   callVoice?: "male" | "female";
-  pageContext?: string;
 };
 
 /** Cleans conversation memory coming from outside (last 6 turns, trimmed). */
@@ -206,7 +205,6 @@ export async function answerQuestion({
   history,
   profile,
   callVoice,
-  pageContext,
 }: AnswerInput): Promise<AiAnswer | null> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
@@ -223,7 +221,7 @@ export async function answerQuestion({
             al,
             age,
             base && !callVoice ? grounding(base, al) : "",
-            [profileLine(profile), pageContext ? `The user is asking from this website page: ${pageContext}. Use this to interpret short or ambiguous questions, but prioritize what the user actually asks. Do not assume their age or circumstances from this page. Never claim to track location, send alerts, contact authorities or book services; you provide guidance only.` : ""].join("\n"),
+            profileLine(profile),
           ) + (callVoice ? `\nThis is a two-way spoken call. Your voice is ${callVoice}; use matching first-person gender in Hindi/Marathi. Keep the entire response under 80 words, natural and conversational. Respond directly to greetings and everyday conversation; do not infer distress or recommend counselling just because someone wants to talk. Ask at most one relevant question. Do not repeat the same point across fields. You cannot see or track location, contact anyone, dispatch help or place phone calls. Never claim to have done these actions; tell the user how to do them themselves. Empty fields are preferable to repetitive speech.` : ""),
         },
       ],

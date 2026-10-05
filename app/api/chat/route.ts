@@ -1,7 +1,6 @@
 import { SAFETY_SCRIPTS, safetyRule } from "@/lib/safetyScripts";
 import { detectLang } from "@/lib/detectLang";
 // AI answers for the website chat. The engine lives in lib/server/answer.ts (shared with WhatsApp).
-import { journeyPages } from "@/lib/journeyPages";
 import type { AgeGroup, Lang } from "@/lib/kb";
 import { rateLimited } from "@/lib/server/rateLimit";
 import { AGES, MAX_CHARS, answerQuestion, cleanHistory } from "@/lib/server/answer";
@@ -9,7 +8,7 @@ import { AGES, MAX_CHARS, answerQuestion, cleanHistory } from "@/lib/server/answ
 export async function POST(req: Request) {
   if (rateLimited(req, "chat", 20)) return Response.json({ error: "Too many requests" }, { status: 429 });
 
-  let input: { message?: unknown; lang?: unknown; age?: unknown; history?: unknown; profile?: unknown; journey?: unknown };
+  let input: { message?: unknown; lang?: unknown; age?: unknown; history?: unknown; profile?: unknown };
   try {
     input = await req.json();
   } catch {
@@ -33,7 +32,6 @@ export async function POST(req: Request) {
   }
   if (!process.env.GEMINI_API_KEY) return Response.json({ error: "AI is not configured" }, { status: 503 });
 
-  const journey = journeyPages.find(j => j.slug === input.journey);
-  const out = await answerQuestion({ message, uiLang, age, history: cleanHistory(input.history), profile: input.profile, pageContext: journey ? `${journey.name.en}: ${journey.title.en}. ${journey.intro.en}` : undefined });
+  const out = await answerQuestion({ message, uiLang, age, history: cleanHistory(input.history), profile: input.profile });
   return out ? Response.json(out) : Response.json({ error: "AI unavailable" }, { status: 502 });
 }
