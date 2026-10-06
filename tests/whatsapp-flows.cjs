@@ -22,7 +22,8 @@ test('WhatsApp preferences, guided journeys, checklists, feedback and human acce
  assert.equal((await route.POST(new Request('https://example.test/api/wati/webhook',{method:'POST',body:'{}'}))).status,401);
  async function msg(text,extra={}){sent=[];const res=await route.POST(new Request('https://example.test/api/wati/webhook?token=test-secret',{method:'POST',body:JSON.stringify({eventType:'message',id:'id-'+(++serial),waId:'910000000000',type:'text',text,...extra})}));assert.equal(res.status,200);for(const job of jobs.splice(0))await job();return sent;}
  await msg('hi');assert.equal(sent[0].buttons.length,3);
- await msg('English');assert.equal(audio,1);assert.ok(sent.some(x=>x.buttons?.[0].id==='mode:text'));
+ await msg('English');assert.equal(audio,1);assert.ok(!sent.some(x=>x.buttons?.[0].id==='mode:text'));
+ await msg('voice settings');assert.ok(sent.some(x=>x.buttons?.[0].id==='mode:text'));
  await msg('Text');await msg('Where can I learn tailoring?');assert.ok(sent.some(x=>x.buttons?.[0].id==='feedback:yes'));
  await msg('Yes, helpful');assert.ok(sent.some(x=>typeof x==='string'&&x.includes('Thank you')));
  await msg('menu');assert.ok(sent[0].sections[0].rows.some(x=>x.id==='reminders'));

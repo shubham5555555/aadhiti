@@ -437,7 +437,7 @@ async function handle(msg: WatiMessage) {
       await welcome(lang);
       await save({lang});
       if(state.mode)await setJSON(`wati:preferences:${key}`,{mode:state.mode,lang},90*DAY);
-      return offer(modeMenu(lang),lang);
+      return offer(mainMenu(lang),lang);
     }
     if (id === "language") return offer(languageMenu(), lang);
     if (id === "helplines") {
