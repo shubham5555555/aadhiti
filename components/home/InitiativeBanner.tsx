@@ -8,7 +8,7 @@ import { initiativeBanner, leader } from "@/lib/leader";
 export default function InitiativeBanner() {
   const { t, lang } = useLang();
   return (
-    <section id="home-banner" aria-label="AADHI TI" className="-mx-4 overflow-hidden bg-[#fff4e8] sm:mx-0 sm:mt-6 sm:rounded-[2rem] sm:border sm:border-kokum-100">
+    <section id="home-banner" aria-label="AADHI TI" className="-mx-4 overflow-hidden bg-[#fff4e8] sm:mx-0 sm:rounded-[2rem] sm:border sm:border-kokum-100">
       <div className="grid items-center md:grid-cols-[1.55fr_1fr]">
         <div className="relative min-w-0">
           <Image src={`/brand/localized/home-hero-${lang}.webp`} alt={t({en:"AADHI TI: women across generations, together against a sunrise sky.",mr:"आधी ती: सूर्योदयाच्या पार्श्वभूमीवर सर्व पिढ्यांतील महिला एकत्र.",hi:"आधी ती: सूर्योदय की पृष्ठभूमि में हर पीढ़ी की महिलाएँ एक साथ।"})} width={1600} height={900} priority sizes="(min-width: 768px) 700px, 100vw" className="block h-auto w-full saturate-[.8]" />

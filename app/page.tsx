@@ -277,8 +277,10 @@ export default function Home() {
 
   return (
     <div className="space-y-10 pb-6 md:space-y-14">
-      <LeadershipPortraits />
-      <InitiativeBanner />
+      <div className="space-y-2">
+        <LeadershipPortraits />
+        <InitiativeBanner />
+      </div>
 
       <Dashboard />
 
