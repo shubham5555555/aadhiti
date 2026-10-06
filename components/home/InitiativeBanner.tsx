@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
+import { JOURNEYS } from "@/lib/journeys";
 import { initiativeBanner, leader } from "@/lib/leader";
 
 export default function InitiativeBanner() {
@@ -31,7 +32,12 @@ export default function InitiativeBanner() {
         <span className="text-xs text-kokum-600 md:hidden">{t({en:"Swipe to explore →",mr:"पाहण्यासाठी सरकवा →",hi:"देखने के लिए स्वाइप करें →"})}</span>
       </div>
       <div tabIndex={0} role="region" aria-label={t({en:"Nine forms of women's empowerment; scroll horizontally",mr:"महिला सक्षमीकरणाची नऊ रूपं; आडवे सरकवा",hi:"महिला सशक्तिकरण के नौ रूप; दाएँ-बाएँ स्क्रॉल करें"})} className="overflow-x-auto overscroll-x-contain focus-visible:outline-2 focus-visible:outline-kokum-700">
+        <div className="relative min-w-[900px]">
         <Image src={`/brand/localized/nav-durga-${lang}.webp`} alt={t({en:"Shailputri: girls and mothers; Brahmacharini: education; Chandraghanta: self-defence; Kushmanda: health; Skandamata: nurturing; Katyayani: justice; Kalaratri: safe spaces; Mahagauri: wellbeing; Siddhidatri: financial independence.",mr:"शैलपुत्री: बालिका आणि मातृशक्ती; ब्रह्मचारिणी: शिक्षण; चंद्रघंटा: स्वसंरक्षण; कुष्मांडा: आरोग्य; स्कंदमाता: संगोपन; कात्यायनी: न्याय; कालरात्री: सुरक्षित जागा; महागौरी: स्वतःसाठी वेळ; सिद्धिदात्री: आर्थिक स्वावलंबन.",hi:"शैलपुत्री: बालिका और मातृशक्ति; ब्रह्मचारिणी: शिक्षा; चंद्रघंटा: आत्मरक्षा; कुष्मांडा: स्वास्थ्य; स्कंदमाता: देखभाल; कात्यायनी: न्याय; कालरात्री: सुरक्षित स्थान; महागौरी: अपने लिए समय; सिद्धिदात्री: आर्थिक स्वतंत्रता।"})} width={1672} height={940} sizes="(min-width: 1152px) 1152px, 900px" className="block h-auto w-full min-w-[900px] opacity-90 md:min-w-0" />
+          <div className="absolute inset-0 grid grid-cols-9">
+            {JOURNEYS.map(j=><Link key={j.slug} href={`/journeys/${j.slug}`} aria-label={`${t(j.name)} — ${t(j.theme)}`} className="group relative flex items-end justify-center pb-3 transition-colors hover:bg-kokum-900/10 focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-kokum-700"><span className="rounded-full bg-white/95 px-2 py-1 text-[11px] font-semibold text-kokum-800 shadow-sm">{t({en:"View schemes →",mr:"योजना पाहा →",hi:"योजनाएँ देखें →"})}</span></Link>)}
+          </div>
+        </div>
       </div>
     </section>
   );
