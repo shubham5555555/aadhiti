@@ -32,8 +32,8 @@ export default function InitiativeBanner() {
 
       </div>
       <nav aria-label={t({en:"Explore the nine forms",mr:"नऊ रूपं पाहा",hi:"नौ रूप देखें"})} className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain">
-        {JOURNEYS.map(j=><Link key={j.slug} href={`/journeys/${j.slug}`} aria-label={`${t(j.name)} — ${t(j.theme)}`} className="group relative min-w-0 w-[32%] shrink-0 snap-start border-r border-white sm:w-[20%] lg:w-[11.111%] focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-kokum-700">
-          <Image src={`/brand/journeys/${j.slug}-${lang}.webp`} alt={`${t(j.name)} — ${t(j.theme)}`} width={200} height={940} sizes="(min-width: 1024px) 130px, (min-width: 640px) 20vw, 32vw" className="block aspect-[1/5] w-full bg-[#fff4e8] object-contain" />
+        {JOURNEYS.map(j=><Link key={j.slug} href={`/journeys/${j.slug}`} aria-label={`${t(j.name)} — ${t(j.theme)}`} className="group relative aspect-[1/5] min-w-0 w-[32%] shrink-0 snap-start overflow-hidden border-r border-white sm:w-[20%] lg:w-[11.111%] focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-kokum-700">
+          <Image src={`/brand/journeys/${j.slug}-${lang}.webp`} alt={`${t(j.name)} — ${t(j.theme)}`} fill sizes="(min-width: 1024px) 130px, (min-width: 640px) 20vw, 32vw" className="object-fill" />
           <span className="absolute inset-x-1 bottom-2 rounded-lg bg-white/95 px-1 py-2 text-center text-[11px] font-semibold text-kokum-800 shadow-sm">{t({en:"View schemes →",mr:"योजना पाहा →",hi:"योजनाएँ देखें →"})}</span>
         </Link>)}
       </nav>
