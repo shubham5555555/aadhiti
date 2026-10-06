@@ -46,12 +46,15 @@ export async function synthesize(
   // Female (default) or male voice. Falls back to the female voice if no male voice is set.
   const g =
     gender === "male" && process.env.ELEVENLABS_VOICE_MALE ? "male" : "female";
-  const voice =
-    g === "male"
-      ? process.env.ELEVENLABS_VOICE_MALE
-      : process.env.ELEVENLABS_VOICE_HI;
+  const voice = g === "male"
+    ? process.env.ELEVENLABS_VOICE_MALE
+    : lang === "mr"
+      ? process.env.ELEVENLABS_VOICE_ANIKA_MR || "dSEhEXLzhnZEytnJ2rRy"
+      : lang === "hi"
+        ? process.env.ELEVENLABS_VOICE_ANIKA_HI || "broqrJkktxd1CclKTudW"
+        : process.env.ELEVENLABS_VOICE_HI;
 
-  const cacheKey = `${g}:${lang}:${said}`;
+  const cacheKey = `${voice}:${lang}:${said}`;
   const hit = cache.get(cacheKey);
   if (hit) return hit;
 

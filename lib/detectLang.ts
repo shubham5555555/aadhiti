@@ -9,12 +9,11 @@ const ENGLISH = /\b(the|is|are|am|what|how|where|when|why|can|could|should|my|me
 /** Answer in the language she wrote in; romanised Marathi/Hindi follows her chosen app language. */
 export function detectLang(q: string, uiLang: Lang): Lang {
   if (/[ऀ-ॿ]/.test(q)) {
-    if (/ळ|ॲ|आहे|मला|माझ|तुम्ही|तुमच|काय|नाही|करू|झालं|झाली|होतं|पाहिजे|कसं|कसा|कशी|आम्ही|आपल्या|केलं|कोणी|कुठे|मिळेल|सांगा|हवं|नको|त्यांच|आमच|करायच|कधी|येतंय|चालेल/.test(q)) return "mr";
+    if (/ळ|ॲ|तुम्हाला|कागदपत्र|सांगू|आहे|मला|माझ|तुम्ही|तुमच|काय|नाही|करू|झालं|झाली|होतं|पाहिजे|कसं|कसा|कशी|आम्ही|आपल्या|केलं|कोणी|कुठे|मिळेल|सांगा|हवं|नको|त्यांच|आमच|करायच|कधी|येतंय|चालेल/.test(q)) return "mr";
     if (/है|हैं|हूँ|हूं|में|क्या|मुझे|मेरा|मेरी|नहीं|कैसे|कहाँ|कहां|रहा|रही|चाहिए|करें|मिलेगा|मिलेगी|यह|वह|किस|था|थी|गया|गई|बनाया|करना|होगा|सकती|सकता/.test(q)) return "hi";
     // No clear markers (e.g. a single word like "नमस्कार"): keep her chosen language.
     return uiLang === "en" ? "hi" : uiLang;
   }
-  if (uiLang === "en") return "en";
   const indian = q.match(ROMAN_INDIAN)?.length ?? 0;
   const english = q.match(ENGLISH)?.length ?? 0;
   // Mixed text ("mala loan kuthun milel") has a few English nouns but Indian grammar words.
@@ -22,4 +21,14 @@ export function detectLang(q: string, uiLang: Lang): Lang {
   const hindi = q.match(ROMAN_HINDI)?.length ?? 0;
   const marathi = q.match(ROMAN_MARATHI)?.length ?? 0;
   return hindi > marathi ? "hi" : marathi > hindi ? "mr" : uiLang;
+}
+
+/** Short replies keep the conversation language; explicit requests take precedence. */
+export function conversationLang(message: string, uiLang: Lang, history: {role: string; text: string}[]): Lang {
+  if (/\b(in|speak|reply|answer)\s+(in\s+)?english\b|इंग्रजीत|अंग्रेज़ी में|अंग्रेजी में/i.test(message)) return "en";
+  if (/\b(in|speak|reply|answer)\s+(in\s+)?marathi\b|मराठीत|मराठीमध्ये/i.test(message)) return "mr";
+  if (/\b(in|speak|reply|answer)\s+(in\s+)?hindi\b|हिंदी में|हिन्दी में/i.test(message)) return "hi";
+  const brief = /^(yes|no|ok|okay|thanks|thank you|sure|please|more|next|documents|fees|हो|होय|नाही|ठीक|हाँ|हां|नहीं|\d{1,3})[.!?। ]*$/i.test(message.trim());
+  const previous = [...history].reverse().find(turn => turn.role === "assistant");
+  return detectLang(message, brief && previous ? detectLang(previous.text, uiLang) : uiLang);
 }

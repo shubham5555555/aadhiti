@@ -162,9 +162,9 @@ const copy = {
     hi: "खतरा लग रहा है?",
   },
   sosBody: {
-    mr: "SOS हे फक्त प्रात्यक्षिक आहे. तुमचं ठिकाण पाठवलं जात नाही किंवा कोणालाही सूचना दिली जात नाही. आणीबाणीत 112 वर कॉल करा.",
-    en: "SOS is a demonstration only. It does not send your location or alert anyone. In an emergency, call 112.",
-    hi: "SOS केवल एक डेमो है। आपकी लोकेशन नहीं भेजी जाती और किसी को सूचना नहीं दी जाती। आपातकाल में 112 पर कॉल करें.",
+    mr: "SOS मधून तातडीच्या मदतीचे कॉल पर्याय उघडतात. तुमचं ठिकाण पाठवलं जात नाही किंवा कोणालाही सूचना दिली जात नाही. आणीबाणीत 112 वर कॉल करा.",
+    en: "SOS opens emergency calling options. It does not send your location or alert anyone. You need to place the call yourself.",
+    hi: "SOS से आपातकालीन कॉल के विकल्प खुलते हैं। आपकी लोकेशन नहीं भेजी जाती और किसी को सूचना नहीं दी जाती। आपातकाल में 112 पर कॉल करें.",
   },
 };
 

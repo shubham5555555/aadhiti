@@ -5,7 +5,7 @@ import { understand, type AgeGroup, type Lang, type Topic } from "@/lib/kb";
 import { SCHEMES } from "@/lib/schemes";
 import { helplines } from "@/lib/data";
 import type { AiAnswer, AiModule, ChatTurn } from "@/lib/ai";
-import { detectLang } from "@/lib/detectLang";
+import { conversationLang } from "@/lib/detectLang";
 import { hasAbuse } from "@/lib/server/langGuard";
 
 export const MAX_CHARS = 800;
@@ -39,7 +39,7 @@ const KNOWLEDGE = [
   "SCHEMES:",
   ...SCHEMES.map(
     (s) =>
-      `- ${s.name.en} [${s.status === "official" ? "confirmed" : "needs confirmation"}, checked ${s.lastChecked}]: ${s.what.en} Who: ${s.who.en.join("; ")}. Benefit: ${s.benefit.en}. Apply: ${s.apply.en.join("; ")}.`,
+      `- ID=${s.id}: ${s.name.en} [${s.status === "official" ? "confirmed" : "needs confirmation"}, checked ${s.lastChecked}]: ${s.what.en} Who: ${s.who.en.join("; ")}. Benefit: ${s.benefit.en}. Apply: ${s.apply.en.join("; ")}. Documents from registry: ${(s.docs ?? []).join("; ") || "Not specified; ask the official service"}.`,
   ),
   "OFFICES: Anganwadi sevika; Setu / Aaple Sarkar centre; Tahsil office Shrivardhan; One Stop Centre (Sakhi) via 181; free legal aid 15100.",
 ].join("\n");
@@ -112,6 +112,11 @@ Conversation and accuracy rules:
 - For immediate danger prioritize urgent action before optional details. Do not recommend confrontation, collecting evidence or continuing to chat if doing so increases danger. Do not pressure a survivor to report or leave immediately.
 - Do not diagnose, offer medication doses or replace professional care. Describe uncertainty clearly. Never dismiss concerning symptoms with reassurance.
 - Keep ordinary conversations ordinary: no emergency contacts or safety checks without a relevant concern. Offer 2 useful follow-up options. Each field must add something new; next_step can be empty when no action is needed.
+Before answering, identify what she wants, what the earlier conversation already established, and what essential fact is still missing. Do not expose this analysis.
+Follow-up rules: "yes" accepts your previous offer; provide it. A number may answer the age or class question you just asked. "documents" asks for documents for the same scheme, not a generic checklist. Never ask again for facts she already gave. When there are two plausible meanings ask one short choice question.
+For clarification=true, options must be possible replies to your question, not unrelated follow-up questions. Ask about only one fact, such as current class OR desired skill, never both at once.
+When asking a clarification, keep answer to one short useful sentence and put the single question in next_step. Do not give a long speculative list first. For ordinary information provide 2-3 concise points and one action.
+Set scheme_ids to the exact IDs of schemes whose supplied records you actually used; leave it empty otherwise. Never fabricate IDs or links. For documents, use only the listed registry documents; if not listed, say to confirm the checklist rather than inventing documents. Source links are added by the server. If discussing eligibility, payments, deadlines or documents, verify must say what to check with the official service; these records are not live checks.
 Keep the whole reply under 110 words.
 ${grounding ? "REVIEWED CONTENT to base your answer on (rephrase, keep the facts):\n" + grounding + "\n" : ""}KNOWLEDGE:
 ${KNOWLEDGE}`;
@@ -120,6 +125,7 @@ ${KNOWLEDGE}`;
 const schema = {
   type: "OBJECT",
   properties: {
+    clarification: { type: "BOOLEAN", description: "True only when essential context is missing. Give one brief supportive answer, one question in next_step, and up to 3 selectable answers in options." },
     intent: {
       type: "STRING",
       enum: ["LEARN", "CHECK", "FIND", "ACT", "CONNECT"],
@@ -140,6 +146,7 @@ const schema = {
       description: "Numbers from HELPLINES that fit, or empty",
     },
     module: { type: "STRING", enum: MODULES },
+    scheme_ids: { type: "ARRAY", items: { type: "STRING" }, description: "Exact scheme IDs used from KNOWLEDGE, maximum 2; otherwise empty" },
     source: {
       type: "STRING",
       description: "Official source used, or general guidance",
@@ -172,7 +179,7 @@ async function callGemini(body: unknown, key: string, model: string) {
   );
 }
 
-const clip = (v: unknown, n: number) => String(v ?? "").slice(0, n);
+const clip = (v: unknown, n: number) => typeof v === "string" ? v.trim().slice(0, n) : "";
 
 export type AnswerInput = {
   message: string;
@@ -209,9 +216,10 @@ export async function answerQuestion({
   const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
 
-  const al = detectLang(message, uiLang);
+  history = cleanHistory(history);
+  const al = conversationLang(message, uiLang, history);
   const local = understand(message, age);
-  const base = history.length === 0 && local.kind === "topic" ? local.topic : null;
+  const base = history.length === 0 && message.trim().split(/\s+/).length > 6 && local.kind === "topic" ? local.topic : null;
 
   const body = {
     systemInstruction: {
@@ -261,11 +269,14 @@ export async function answerQuestion({
     const d = JSON.parse(
       data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "",
     );
-    const answer = (Array.isArray(d.answer) ? d.answer : [])
+    let answer: string[] = (Array.isArray(d.answer) ? d.answer : [])
       .map((a: unknown) => clip(a, 300))
       .filter(Boolean)
       .slice(0, 5);
     if (!d.understand || answer.length === 0) throw new Error("incomplete");
+    answer = [...new Set<string>(answer)];
+    if (d.clarification === true && d.risk === "P3") answer = answer.filter(a => !/[?？]/.test(a)).slice(0, 1);
+    if (answer.length === 0) answer = [clip(d.understand, 300)];
     // Never send anything with abusive words; the caller falls back to reviewed content.
     const all = [
       d.verify,
@@ -288,7 +299,10 @@ export async function answerQuestion({
         ? "P1"
         : "P3";
 
+    const referenced = SCHEMES.filter(s => Array.isArray(d.scheme_ids) && d.scheme_ids.includes(s.id)).slice(0, 2);
+    const references = referenced.filter(s => /^https:\/\//.test(s.url)).map(s => ({title:s.name[al], url:s.url, checked:s.lastChecked, needsReview:s.status !== "official"}));
     return {
+      references,
       intent: ["LEARN", "CHECK", "FIND", "ACT", "CONNECT"].includes(d.intent)
         ? d.intent
         : "LEARN",
@@ -297,14 +311,11 @@ export async function answerQuestion({
       answer,
       safetyCheck: clip(d.safety_check, 200),
       nextStep: clip(d.next_step, 300),
-      options: (Array.isArray(d.options) ? d.options : [])
-        .map((o: unknown) => clip(o, 120))
-        .filter(Boolean)
-        .slice(0, 3),
+      options: [...new Set<string>((Array.isArray(d.options) ? d.options : []).map((o: unknown) => clip(o, 120)).filter(Boolean))].slice(0, 3),
       helplines: hl.slice(0, 4),
       module: MODULES.includes(d.module) ? d.module : "none",
       source: ({en: "AI guidance · not independently verified", mr: "AI मार्गदर्शन · स्वतंत्र पडताळणी केलेली नाही", hi: "AI मार्गदर्शन · स्वतंत्र पुष्टि नहीं हुई है"})[al],
-      verify: clip(d.verify, 200),
+      verify: clip(d.verify, 200) || (references.length ? ({en:"Confirm current eligibility and required documents with the official service before applying.",mr:"अर्ज करण्यापूर्वी सध्याची पात्रता आणि आवश्यक कागदपत्रं अधिकृत सेवेकडे तपासा.",hi:"आवेदन से पहले वर्तमान पात्रता और ज़रूरी दस्तावेज़ आधिकारिक सेवा से जाँचें।"})[al] : ""),
       lang: al,
       topicId: base?.id ?? null,
     };

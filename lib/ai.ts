@@ -17,6 +17,7 @@ export type AiAnswer = {
   helplines: number[];
   module: AiModule;
   source: string;
+  references?: { title: string; url: string; checked: string; needsReview: boolean }[];
   /** What to confirm and where, or "". */
   verify: string;
   /** Language the answer is written in. */

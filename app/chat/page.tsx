@@ -249,7 +249,7 @@ function Chat() {
         if (m.kind === "ai")
           return {
             role: "assistant",
-            text: [m.data.understand, ...m.data.answer, m.data.nextStep].join(
+            text: [m.data.understand, ...m.data.answer, m.data.safetyCheck, m.data.nextStep, ...m.data.options].join(
               " ",
             ),
           };
@@ -268,7 +268,7 @@ function Chat() {
         if (m.kind === "script") {
           const sc = SAFETY_SCRIPTS[m.scriptId]?.text[m.lang];
           return sc
-            ? { role: "assistant", text: [sc.ack, sc.n].join(" ") }
+            ? { role: "assistant", text: [sc.ack, sc.fu, sc.n].join(" ") }
             : null;
         }
         return null;
@@ -915,9 +915,9 @@ function RiskRow({
         : "AI";
   return (
     <p className="flex flex-wrap items-center gap-1.5 text-[11px] font-bold tracking-wide">
-      <span className={`rounded-full border px-2 py-0.5 ${tone}`}>{risk}</span>
+      <span className={`rounded-full border px-2 py-0.5 ${tone}`}>{risk === "P0" ? t3(lang,"तातडीची मदत","तत्काल मदद","Urgent help") : risk === "P1" ? t3(lang,"सुरक्षा मदत","सुरक्षा सहायता","Safety support") : risk === "P2" ? t3(lang,"आधार आणि मार्गदर्शन","सहयोग और मार्गदर्शन","Support and guidance") : t3(lang,"माहिती","जानकारी","Information")}</span>
       <span className="rounded-full border border-kokum-100 bg-white px-2 py-0.5 text-ink-soft">
-        {intent}
+        {t3(lang, "पुढचं पाऊल", "अगला कदम", "Next steps")}
       </span>
       <span className="rounded-full border border-kokum-100 bg-kokum-50 px-2 py-0.5 text-kokum-600">
         {engineLabel}
@@ -1223,6 +1223,10 @@ function AiCard({
             </div>
           )}
           <Contacts numbers={data.helplines} links={links} lang={lang} />
+          {!!data.references?.length && <div className="space-y-2 border-t border-kokum-100 pt-3">
+            <p className="text-xs font-bold text-kokum-700">{t3(lang, "अधिकृत संकेतस्थळावर तपासा", "आधिकारिक वेबसाइट पर जाँचें", "Check the official website")}</p>
+            {data.references.map(ref => <div key={ref.url} className="text-sm"><a href={ref.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-kokum-700 underline underline-offset-4">{ref.title} ↗</a><p className="text-xs text-ink-soft">{t3(lang, "माहितीसंचातील तपासणी तारीख", "संग्रह में जाँच की तारीख", "Registry review date")}: {ref.checked}{ref.needsReview ? t3(lang, " · पुन्हा पडताळणी आवश्यक", " · दोबारा पुष्टि ज़रूरी", " · needs rechecking") : ""}</p></div>)}
+          </div>}
           <FollowUps options={data.options} onAsk={onAsk} />
         </div>
         {topic?.sensitive && (
