@@ -8,3 +8,24 @@ function fixture(){
 test('OTP normalization, single use, session rotation and logout',async()=>{const {auth,jar}=fixture();assert.equal(auth.normalizePhone('98765 43210'),'919876543210');assert.throws(()=>auth.normalizePhone({phone:'123'}));let code;let result=await auth.startOtp('919876543210','test-ip',async(p,c)=>{code=c;return true;});assert.equal(result.status,200);assert.equal(await auth.verifyOtp(code,'test-ip'),true);const s=await auth.currentSession();assert.ok(s.customerId.startsWith('account:'));assert.equal(s.last4,'3210');assert.equal(await auth.verifyOtp(code,'test-ip'),false);await auth.signOut();assert.equal(await auth.currentSession(),null);assert.equal(jar.has('aadhi-session'),false);});
 test('Wrong code locks after five attempts; cooldown and expiry are enforced',async()=>{const {auth,docs}=fixture();let code;await auth.startOtp('919876543210','ip',async(p,c)=>{code=c;return true;});assert.equal((await auth.startOtp('919876543210','ip',async()=>true)).status,429);const wrong=code==='111111'?'222222':'111111';for(let i=0;i<5;i++)assert.equal(await auth.verifyOtp(wrong,'ip'),false);assert.equal(await auth.verifyOtp(code,'ip'),false);const f=fixture();await f.auth.startOtp('919876543211','ip2',async(p,c)=>{code=c;return true;});for(const d of f.docs.get('auth_challenges').values())d.expiresAt=new Date(0);assert.equal(await f.auth.verifyOtp(code,'ip2'),false);});
 test('Failed delivery never enables a challenge and unauthenticated APIs deny access',async()=>{const {auth,docs}=fixture();assert.equal((await auth.startOtp('919876543212','ip3',async()=>false)).status,503);assert.equal(docs.get('auth_challenges').size,0);assert.equal((await auth.requireAuth()).status,401);assert.equal(auth.sameOrigin(new Request('https://a.test/api',{headers:{origin:'https://b.test'}})),false);});
+
+test('Verified users persist after logout; failed OTP creates no user; repeat login updates one account',async()=>{
+ const {auth,docs}=fixture();let code;
+ await auth.startOtp('919876543210','directory-ip',async(p,c)=>{code=c;return true;});
+ assert.equal(docs.get('users').size,0);
+ const wrong=code==='111111'?'222222':'111111';
+ assert.equal(await auth.verifyOtp(wrong,'directory-ip'),false);
+ assert.equal(docs.get('users').size,0);
+ assert.equal(await auth.verifyOtp(code,'directory-ip'),true);
+ const first=[...docs.get('users').values()][0];
+ assert.equal(first.loginCount,1);assert.equal(first.phoneVerified,true);
+ assert.equal(first.last4,'3210');const createdAt=first.createdAt;
+ await auth.signOut();assert.equal(docs.get('users').size,1);
+ for(const [key,d] of docs.get('auth_limits'))if(key.startsWith('cooldown:'))d.expiresAt=new Date(0);
+ await auth.startOtp('919876543210','directory-ip',async(p,c)=>{code=c;return true;});
+ assert.equal(await auth.verifyOtp(code,'directory-ip'),true);
+ assert.equal(docs.get('users').size,1);
+ const user=[...docs.get('users').values()][0];assert.equal(user.loginCount,2);
+ assert.equal(user.createdAt,createdAt);assert.ok(user.lastLoginAt>=createdAt);
+ assert.equal('phone' in user,false);assert.equal('history' in user,false);
+});

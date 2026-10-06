@@ -36,3 +36,9 @@ Database administrators with permission can see saved content, including sensiti
 - Live acceptance: opt in with test data → confirm the document in Atlas → save a chat → disable history and save → confirm history removed → delete profile → confirm document absent. Repeat two browsers to check isolation. No real-customer data should be used for this check.
 
 Driver reference: https://www.mongodb.com/docs/drivers/node/current/connect/connection-options/connection-pools/
+
+## Verified user directory
+
+Every successful website OTP verification upserts one record in `aadhiti.users`, keyed by the same protected account identifier as `customers`. Fields: `_id`, `last4`, `phoneVerified`, `authMethod`, `createdAt`, `lastLoginAt`, `loginCount`. Repeat logins update the existing record. These records have no session TTL and remain after logout. Failed verification never creates a user. Full phone numbers, OTPs and chats are not included.
+
+In Atlas Data Explorer, open `aadhiti` → `users`, use filter `{}` and sort `{ "lastLoginAt": -1 }` to see all users who completed authentication since this feature was enabled. Optional profiles remain in `customers` with the same `_id`; profile/history consent is still separate. Earlier expired sessions cannot be reconstructed into a complete historical user list.
