@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { BookOpen, Home, Landmark, MessageCircleHeart, PhoneCall, UtensilsCrossed } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { nav } from "@/lib/ui";
-import SOSButton from "./SOSButton";
 
 const tabs = [
   { href: "/", label: nav.home, icon: Home },
@@ -16,17 +15,17 @@ const tabs = [
   { href: "/awareness", label: nav.knowledge, icon: BookOpen },
 ];
 
-// App-style tab bar for phones; the floating SOS sits just above it.
+// App-style tab bar with a floating AI call shortcut.
 export default function BottomNav() {
   const pathname = usePathname();
   const { t } = useLang();
 
   return (
     <>
-      {/* The chat page has its own SOS in its header, clear of the send button. */}
-      {pathname !== "/chat" && (
+      {/* Keep the floating shortcut clear of chat and call controls. */}
+      {!["/chat", "/call", "/call-aditi"].includes(pathname) && (
         <div className="fixed right-4 bottom-[5.25rem] z-40 sm:hidden">
-          <SOSButton compact />
+          <Link href="/call-aditi" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-kokum-700 px-4 text-sm font-bold text-white"><PhoneCall size={16}/>{t({en:"Call Aditi",mr:"अदितीला कॉल करा",hi:"अदिति को कॉल करें"})}</Link>
         </div>
       )}
       <nav className="fixed inset-x-0 bottom-0 z-40 rounded-t-3xl border-t border-kokum-100 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_30px_-18px_rgba(126,23,56,0.45)] backdrop-blur lg:hidden">

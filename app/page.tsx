@@ -20,7 +20,6 @@ import SOSButton from "@/components/SOSButton";
 import ScrollPan from "@/components/ScrollPan";
 import DangerBand from "@/components/home/DangerBand";
 import SafetySituations from "@/components/home/SafetySituations";
-import SafetyPlan from "@/components/home/SafetyPlan";
 import ThreePillars from "@/components/home/ThreePillars";
 import LeaderSection from "@/components/home/LeaderSection";
 import { leader } from "@/lib/leader";
@@ -60,22 +59,22 @@ const copy = {
   },
   voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
   menuNote: {
-    mr: "विषय निवडा, किंवा वर तुमच्या शब्दांत लिहा.",
+    mr: "एखादा विषय निवडा",
     en: "Pick a topic, or type your question in the box above.",
     hi: "विषय चुनें, या ऊपर अपने शब्दों में लिखें।",
   },
   othersAsk: {
-    mr: "इतर जणींनी विचारलेलं",
+    mr: "इतर महिलांनी विचारलेले प्रश्न",
     en: "What others have asked",
     hi: "दूसरों ने क्या पूछा",
   },
   howTitle: {
-    mr: "उत्तर कसं मिळतं",
+    mr: "उत्तर कसे मिळते?",
     en: "How an answer works",
     hi: "जवाब कैसे मिलता है",
   },
   howBody: {
-    mr: "प्रत्येक उत्तर तीन भागांत येतं. आधी काय घडतंय ते समजून घेणं, मग काय करता येईल, आणि शेवटी पुढचं एक ठोस पाऊल. धोका असेल तर मदतीचा नंबर सगळ्यात आधी.",
+    mr: "प्रत्येक उत्तर तीन भागांत येतं. आधी काय घडतंय ते समजून घेणं, मग काय करता येईल, आणि शेवटी पुढचं एक ठोस पाऊल. तुम्ही धोक्यात असाल, तर सर्वप्रथम हेल्पलाइनची माहिती दिली जाईल.",
     en: "Every answer has three parts. First, what may be happening. Next, what you can do. Finally, one clear next step. If you may be in danger, the helpline number comes first.",
     hi: "हर जवाब तीन हिस्सों में आता है। पहले, क्या हो रहा हो सकता है। फिर, आप क्या कर सकती हैं। आख़िर में, एक साफ़ अगला कदम। खतरा हो तो मदद का नंबर सबसे पहले।",
   },
@@ -96,7 +95,7 @@ const copy = {
       hi: "जवाब न दें। Screenshots रखें। Account को Report और Block करें।",
     },
     {
-      mr: "1930 वर किंवा cybercrime.gov.in वर तक्रार करा. प्रत्यक्ष धोका वाटत असेल तर 112.",
+      mr: "1930 वर किंवा cybercrime.gov.in वर तक्रार करा. तुम्हाला धोका वाटत असल्यास, ११२ वर कॉल करा.",
       en: "Report it by calling 1930 or at cybercrime.gov.in. If you feel you are in physical danger, call 112.",
       hi: "1930 या cybercrime.gov.in पर शिकायत करें। शारीरिक खतरा लगे तो 112।",
     },
@@ -107,12 +106,12 @@ const copy = {
     hi: "पूरा जवाब देखें",
   },
   girlsTitle: {
-    mr: "मुलींसाठी वेगळी भाषा",
+    mr: "मुलींसाठी शालीन भाषेत मार्गदर्शन",
     en: "Information written for girls",
     hi: "लड़कियों के लिए अलग भाषा",
   },
   girlsBody: {
-    mr: "10 ते 18 वयाच्या मुलींसाठी सोपी, घाबरवणारी नसलेली उत्तरं. काही चुकीचं घडत असेल तर विश्वासातल्या मोठ्या व्यक्तीकडे आणि 1098 कडे नेणारी.",
+    mr: "१० ते १८ वर्षांच्या मुलींसाठी सोप्या आणि भीती न निर्माण करणाऱ्या भाषेत माहिती. काही अडचण असल्यास, विश्वासू मोठ्या व्यक्तीशी बोलण्यास आणि १०९८ वर मदत घेण्यास मार्गदर्शन केले जाते.",
     en: "Simple, non-frightening answers for girls aged 10 to 18. If something is wrong, they point to a trusted adult and to Childline 1098.",
     hi: "10 से 18 साल की लड़कियों के लिए सरल, न डराने वाले जवाब। कुछ गलत हो रहा हो तो भरोसेमंद बड़े और 1098 तक ले जाते हैं।",
   },
@@ -122,12 +121,12 @@ const copy = {
     hi: "लड़कियों का सेक्शन खोलें",
   },
   womenTitle: {
-    mr: "वयानुसार आरोग्य",
+    mr: "वयानुसार बदलणारे महिलांचे आरोग्य",
     en: "Health at every age",
     hi: "उम्र के हिसाब से सेहत",
   },
   womenBody: {
-    mr: "18, 30, 40 आणि 50 नंतर शरीराचे प्रश्न बदलतात. पाळी, PCOS, थायरॉईड, गर्भारपण, रजोनिवृत्ती, हाडांचं आरोग्य.",
+    mr: "१८, ३०, ४० आणि ५० वर्षांनंतर आरोग्याशी संबंधित प्रश्न आणि गरजा बदलू शकतात — मासिक पाळी, PCOS, थायरॉईड, गर्भधारणा, रजोनिवृत्ती आणि हाडांचे आरोग्य.",
     en: "Health questions change at 18, 30, 40 and 50. Topics include periods, PCOS, thyroid problems, pregnancy, menopause and bone health.",
     hi: "18, 30, 40 और 50 के बाद शरीर के सवाल बदलते हैं। पीरियड्स, PCOS, थायरॉइड, गर्भावस्था, मेनोपॉज़, हड्डियों की सेहत।",
   },
@@ -136,24 +135,24 @@ const copy = {
     en: "Open the health section",
     hi: "सेहत सेक्शन खोलें",
   },
-  alsoTitle: { mr: "आणखी", en: "More from AADHI TI", hi: "और भी" },
+  alsoTitle: { mr: "‘आधी ती’कडून अजून काय", en: "More from AADHI TI", hi: "और भी" },
   coast: {
-    mr: "प्रत्येक जणी सुरक्षित घरी पोहोचावी.",
+    mr: "प्रत्येक स्त्री सुरक्षितपणे घरी पोहोचावी.",
     en: "Every woman should reach home safely.",
     hi: "हर महिला सुरक्षित घर पहुँचे।",
   },
   coastNote: {
-    mr: "ST मधून उतरल्यापासून घराच्या दारापर्यंत, AADHI TI सोबत.",
+    mr: "बस स्थानकापासून तिच्या घराच्या दारापर्यंत — ‘आधी ती’ प्रत्येक पावलावर तिच्यासोबत.",
     en: "From the bus stop to her front door, AADHI TI is with her every step of the way.",
     hi: "बस से उतरने से लेकर घर के दरवाज़े तक, AADHI TI साथ।",
   },
   numbersTitle: {
-    mr: "महत्त्वाचे नंबर",
+    mr: "महत्त्वाचे दूरध्वनी क्रमांक",
     en: "Important numbers",
     hi: "ज़रूरी नंबर",
   },
   numbersNote: {
-    mr: "सगळे मोफत. आत्ताच फोनमध्ये save करून ठेवा.",
+    mr: "सर्व सेवा मोफत आहेत. हे क्रमांक आत्ताच तुमच्या फोनमध्ये सेव्ह करा.",
     en: "All are free. Save them on your phone now.",
     hi: "सभी मुफ़्त। अभी फ़ोन में save कर लें।",
   },
@@ -163,7 +162,7 @@ const copy = {
     hi: "खतरा लग रहा है?",
   },
   sosBody: {
-    mr: "SOS मधून तातडीच्या मदतीचे कॉल पर्याय उघडतात. तुमचं ठिकाण पाठवलं जात नाही किंवा कोणालाही सूचना दिली जात नाही. आणीबाणीत 112 वर कॉल करा.",
+    mr: "SOS मुळे आपत्कालीन कॉलचे पर्याय उपलब्ध होतात. तुमचे लोकेशन आपोआप पाठवले जात नाही किंवा कोणालाही अलर्ट मिळत नाही. तुम्हाला स्वतः कॉल करावा लागेल.",
     en: "SOS opens emergency calling options. It does not send your location or alert anyone. You need to place the call yourself.",
     hi: "SOS से आपातकालीन कॉल के विकल्प खुलते हैं। आपकी लोकेशन नहीं भेजी जाती और किसी को सूचना नहीं दी जाती। आपातकाल में 112 पर कॉल करें.",
   },
@@ -172,9 +171,9 @@ const copy = {
 const also: { href: string; title: L; body: L }[] = [
   {
     href: "/call",
-    title: { mr: "सोबत कॉल", en: "Stay on call", hi: "साथ वाली कॉल" },
+    title: { mr: "फोनवर संपर्कात रहा", en: "Stay on call", hi: "साथ वाली कॉल" },
     body: {
-      mr: "रात्री घरी जाताना AADHI TI फोनवर सोबत राहते.",
+      mr: "रात्री घरी पोहचेपर्यंत ‘आधी ती’ तुमच्यासोबत फोनवर संपर्कात राहते.",
       en: "AADHI TI stays on the line with you while you walk home at night.",
       hi: "रात में घर जाते समय AADHI TI फ़ोन पर साथ रहती है।",
     },
@@ -182,12 +181,12 @@ const also: { href: string; title: L; body: L }[] = [
   {
     href: "/everyday",
     title: {
-      mr: "आज काय बनवू?",
+      mr: "आज काय मेन्यू बनवू?",
       en: "What to cook today?",
       hi: "आज क्या बनाऊँ?",
     },
     body: {
-      mr: "घरात असलेल्या साहित्यावरून पदार्थ आणि आठवड्याचा मेनू.",
+      mr: "घरी उपलब्ध असलेल्या पदार्थांपासून रेसिपीच्या कल्पना, तसेच साप्ताहिक मेनू प्लॅनर.",
       en: "Recipe ideas from what you have at home, plus a weekly menu planner.",
       hi: "घर में रखी सामग्री से पकवान और हफ़्ते का मेनू।",
     },
@@ -196,7 +195,7 @@ const also: { href: string; title: L; body: L }[] = [
     href: "/poshan",
     title: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
     body: {
-      mr: "मुली, गरोदर आई, बाळ आणि आजीसाठी स्थानिक, परवडणारं पौष्टिक जेवण.",
+      mr: "मुली, गर्भवती महिला, बाळं आणि आजींसाठी स्थानिक, परवडणारे व पौष्टिक आहाराची माहिती.",
       en: "Local, affordable, nutritious food for girls, expectant mothers, babies and grandmothers.",
       hi: "लड़कियों, गर्भवती माँ, बच्चे और दादी के लिए स्थानीय, सस्ता पौष्टिक खाना।",
     },
@@ -204,12 +203,12 @@ const also: { href: string; title: L; body: L }[] = [
   {
     href: "/schemes",
     title: {
-      mr: "योजना आणि कमाई",
+      mr: "योजना आणि उत्पन्न",
       en: "Schemes and income",
       hi: "योजनाएँ और कमाई",
     },
     body: {
-      mr: "लाडकी बहीण, बचत गट, homestay. कोणता मार्ग तुमच्यासाठी?",
+      mr: "लाडकी बहीण योजना, बचत गट आणि घरबसल्या उत्पन्नाच्या संधी. तुमच्यासाठी योग्य पर्याय कोणता?",
       en: "Ladki Bahin Yojana, self-help groups, homestays. Which is right for you?",
       hi: "लाडकी बहीण, स्वयं सहायता समूह, होमस्टे। आपके लिए कौन-सा?",
     },
@@ -217,12 +216,12 @@ const also: { href: string; title: L; body: L }[] = [
   {
     href: "/safe-shrivardhan",
     title: {
-      mr: "असुरक्षित जागा कळवा",
+      mr: "असुरक्षित ठिकाणाची माहिती द्या",
       en: "Report an unsafe spot",
       hi: "असुरक्षित जगह बताएँ",
     },
     body: {
-      mr: "अंधारा रस्ता, बंद दिवे, निर्जन थांबा. नाव न सांगता.",
+      mr: "अंधारा रस्ता, बंद पथदिवे किंवा निर्जन बसथांबा याबद्दल माहिती द्या. स्वतःचे नाव सांगण्याची गरज नाही.",
       en: "Report a dark road, broken streetlights or a deserted bus stop. No name needed.",
       hi: "अंधेरी सड़क, बंद बत्ती, सुनसान स्टॉप। नाम बताए बिना।",
     },
@@ -232,7 +231,7 @@ const also: { href: string; title: L; body: L }[] = [
 const commonTabs: { id: string; label: L; topics: string[] }[] = [
   {
     id: "safety",
-    label: { mr: "सुरक्षा", en: "Safety", hi: "सुरक्षा" },
+    label: { mr: "सुरक्षितता", en: "Safety", hi: "सुरक्षा" },
     topics: ["following_me", "photo_threat", "otp_scam", "unsafe_transport"],
   },
   {
@@ -282,13 +281,72 @@ export default function Home() {
         <InitiativeBanner />
       </div>
 
-      <Dashboard />
-
       <ThreePillars />
 
       <LeaderSection />
 
-      <DangerBand />
+      {/* Girls / women by age */}
+      <section className="grid gap-4 md:grid-cols-2">
+        <div className="soft-card-pink relative overflow-hidden p-6 sm:p-8">
+          <p
+            aria-hidden
+            className="mb-3 font-serif text-[4rem] leading-none text-turmeric-500 tabular-nums"
+          >
+            10–18
+          </p>
+          <h2 className="font-serif text-3xl font-normal text-kokum-700">
+            {t(copy.girlsTitle)}
+          </h2>
+          <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
+            {t(copy.girlsBody)}
+          </p>
+          <Link href="/chat?cat=g_growing" className="soft-btn mt-5">
+            {t(copy.girlsLink)} <ArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="soft-card p-6 sm:p-8">
+          <AgeRuler />
+          <h2 className="font-serif text-3xl font-normal text-kokum-700">
+            {t(copy.womenTitle)}
+          </h2>
+          <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
+            {t(copy.womenBody)}
+          </p>
+          <Link href="/chat?cat=health" className="soft-btn-outline mt-5">
+            {t(copy.womenLink)} <ArrowRight size={16} />
+          </Link>
+        </div>
+      </section>
+
+      {/* Also here */}
+      <section>
+        <h2 className={h2}>{t(copy.alsoTitle)}</h2>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {also.map((a) => {
+            const Icon = alsoIcons[a.href] ?? ArrowRight;
+            return (
+              <Link
+                key={a.href}
+                href={a.href}
+                className="soft-card group flex flex-col p-5 transition hover:border-kokum-300"
+              >
+                <span className="icon-circle">
+                  <Icon size={20} />
+                </span>
+                <span className="mt-3 font-display text-[17px] font-bold text-ink group-hover:text-kokum-700">
+                  {t(a.title)}
+                </span>
+                <span className="mt-1 block text-[14.5px] leading-relaxed text-ink-soft">
+                  {t(a.body)}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <Dashboard />
+
 
       {/* The eight subjects */}
       <section>
@@ -321,8 +379,6 @@ export default function Home() {
         </ol>
       </section>
 
-      <SafetySituations />
-      <SafetyPlan />
 
       {/* What others asked */}
       <section className="soft-card relative overflow-hidden p-5 sm:p-8">
@@ -415,39 +471,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Girls / women by age */}
-      <section className="grid gap-4 md:grid-cols-2">
-        <div className="soft-card-pink relative overflow-hidden p-6 sm:p-8">
-          <p
-            aria-hidden
-            className="mb-3 font-serif text-[4rem] leading-none text-turmeric-500 tabular-nums"
-          >
-            10–18
-          </p>
-          <h2 className="font-serif text-3xl font-normal text-kokum-700">
-            {t(copy.girlsTitle)}
-          </h2>
-          <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
-            {t(copy.girlsBody)}
-          </p>
-          <Link href="/chat?cat=g_growing" className="soft-btn mt-5">
-            {t(copy.girlsLink)} <ArrowRight size={16} />
-          </Link>
-        </div>
-        <div className="soft-card p-6 sm:p-8">
-          <AgeRuler />
-          <h2 className="font-serif text-3xl font-normal text-kokum-700">
-            {t(copy.womenTitle)}
-          </h2>
-          <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
-            {t(copy.womenBody)}
-          </p>
-          <Link href="/chat?cat=health" className="soft-btn-outline mt-5">
-            {t(copy.womenLink)} <ArrowRight size={16} />
-          </Link>
-        </div>
-      </section>
-
       {/* "The way home" mural: white Warli paint on kokum */}
       <figure className="-mx-4 overflow-hidden bg-kokum-700 text-sand-50 sm:mx-0 sm:rounded-[2rem]">
         {/* On phones the journey pans with the page scroll, from the bus stop to the front door. */}
@@ -462,35 +485,12 @@ export default function Home() {
         </figcaption>
       </figure>
 
-      {/* Also here */}
-      <section>
-        <h2 className={h2}>{t(copy.alsoTitle)}</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {also.map((a) => {
-            const Icon = alsoIcons[a.href] ?? ArrowRight;
-            return (
-              <Link
-                key={a.href}
-                href={a.href}
-                className="soft-card group flex flex-col p-5 transition hover:border-kokum-300"
-              >
-                <span className="icon-circle">
-                  <Icon size={20} />
-                </span>
-                <span className="mt-3 font-display text-[17px] font-bold text-ink group-hover:text-kokum-700">
-                  {t(a.title)}
-                </span>
-                <span className="mt-1 block text-[14.5px] leading-relaxed text-ink-soft">
-                  {t(a.body)}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      <DangerBand />
+
+      <SafetySituations />
 
       {/* Numbers */}
-      <section className="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-8">
+      <section id="emergency-contacts" className="grid gap-6 md:grid-cols-[1fr_2fr] md:gap-8">
         <div>
           <h2 className={h2}>{t(copy.numbersTitle)}</h2>
           <p className="mt-3 text-ink-soft">{t(copy.numbersNote)}</p>

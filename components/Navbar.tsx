@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
-import SOSButton from "./SOSButton";
 import BrandLogo from "./BrandLogo";
 import { LANGS, useLang } from "@/lib/i18n";
 import { nav } from "@/lib/ui";
@@ -44,7 +43,7 @@ export function LangSwitch({ className = "" }: { className?: string; tone?: "lig
 }
 
 const utility = {
-  emergency: { mr: "आणीबाणी", en: "Emergency", hi: "आपातकाल" },
+  emergency: { mr: "आपात्काल", en: "Emergency", hi: "आपातकाल" },
   women: { mr: "महिला हेल्पलाइन", en: "Women's Helpline", hi: "महिला हेल्पलाइन" },
 };
 
@@ -129,7 +128,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <LangSwitch />
             <div className="hidden sm:block">
-              <SOSButton compact />
+              <Link href="/call-aditi" className="inline-flex min-h-11 items-center rounded-full bg-kokum-700 px-4 text-sm font-bold text-white">{t({en:"Call Aditi",mr:"अदितीला कॉल करा",hi:"अदिति को कॉल करें"})}</Link>
             </div>
           </div>
         </div>

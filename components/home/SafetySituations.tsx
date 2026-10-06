@@ -30,7 +30,7 @@ const situations: Situation[] = [
     label: { mr: "रस्त्यावर", en: "On the road", hi: "सड़क पर" },
     tips: [
       {
-        mr: "उजेड आणि वर्दळ असलेला रस्ता निवडा. रात्री शॉर्टकट टाळा.",
+        mr: "उजेड आणि वर्दळ असलेला रस्ता निवडा. रात्री असुरक्षित शॉर्टकट टाळा.",
         en: "Choose a well-lit, busy road. Avoid shortcuts at night.",
         hi: "रोशनी और भीड़ वाला रास्ता लें। रात में शॉर्टकट से बचें।",
       },
@@ -76,7 +76,7 @@ const situations: Situation[] = [
         hi: "ड्राइवर के पीछे वाली सीट पर बैठें और खिड़की थोड़ी खुली रखें।",
       },
       {
-        mr: "रस्ता बदलला तर मोठ्याने विचारा. उत्तर पटलं नाही तर 112.",
+        mr: "रस्ता बदलला तर मोठ्याने विचारा. उत्तर पटलं नाही तर 112 वर कॉल करा.",
         en: "If the route changes, ask the driver loudly. If the answer doesn't seem right, call 112.",
         hi: "रास्ता बदले तो ज़ोर से पूछें। जवाब ठीक न लगे तो 112।",
       },
@@ -113,7 +113,7 @@ const situations: Situation[] = [
         hi: "धमकी मिले तो पैसे न दें। Screenshot लें और 1930 पर कॉल करें।",
       },
       {
-        mr: "Instagram private ठेवा. जिथे आहात तिथलं live location पोस्ट करू नका.",
+        mr: "सोशल मीडिया अकाऊंट private ठेवा. जिथे आहात तिथले live location पोस्ट करू नका.",
         en: "Keep your Instagram account private. Don't post your location while you are still there.",
         hi: "Instagram private रखें। जहाँ हैं, वहीं की live location पोस्ट न करें।",
       },
@@ -130,7 +130,7 @@ const situations: Situation[] = [
     label: { mr: "घरात", en: "At home", hi: "घर में" },
     tips: [
       {
-        mr: "मारहाण, धमक्या, पैशांवर नियंत्रण — हा सगळा घरगुती हिंसाचार आहे.",
+        mr: "मारहाण, धमक्या, मालमत्तेवर नियंत्रण — हा सगळा घरगुती हिंसाचार आहे.",
         en: "Hitting, threats and controlling your money are all domestic violence.",
         hi: "मारपीट, धमकी, पैसों पर रोक — यह सब घरेलू हिंसा है।",
       },
@@ -193,12 +193,12 @@ const situations: Situation[] = [
 
 const copy = {
   title: {
-    mr: "जिथे असाल, तिथली सुरक्षा",
+    mr: "जिथे कुठे असाल, तिथे सुरक्षित कसे रहाल?",
     en: "Safety, wherever you are",
     hi: "जहाँ हों, वहाँ की सुरक्षा",
   },
   body: {
-    mr: "छोट्या सवयी, ज्या मोठा फरक करतात. तुमची परिस्थिती निवडा.",
+    mr: "छोट्या सवयी मोठा फरक घडवतात. तुम्ही कुठे आहात ते निवडा.",
     en: "Small habits that make a real difference. Choose the place that matches your situation.",
     hi: "छोटी आदतें, जो बड़ा फ़र्क़ करती हैं। अपनी स्थिति चुनें।",
   },

@@ -3,14 +3,14 @@ import type { L } from "./kb/types";
 
 export const leader = {
   name: { mr: "आदिती सुनील तटकरे", en: "Aditi Sunil Tatkare", hi: "अदिति सुनील तटकरे" } as L,
-  shortName: { mr: "आदिती तटकरे", en: "Aditi Tatkare", hi: "अदिति तटकरे" } as L,
+  shortName: { mr: "मा. आदितीताई तटकरे", en: "Aditi Tatkare", hi: "अदिति तटकरे" } as L,
   photo: "/brand/aditi-tatkare-new.webp",
   roles: [
     { mr: "महिला व बालविकास मंत्री, महाराष्ट्र राज्य", en: "Minister of Women and Child Development, Maharashtra", hi: "महिला एवं बाल विकास मंत्री, महाराष्ट्र" },
     { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
   ] as L[],
   credit: {
-    mr: "आमदार आदिती तटकरे यांचा पुढाकार",
+    mr: "मंत्री आदिती तटकरे यांच्या पुढाकाराने",
     en: "An initiative by Aditi Tatkare",
     hi: "विधायक अदिति तटकरे की पहल",
   } as L,
@@ -20,7 +20,7 @@ export const leader = {
     hi: "अदिति तटकरे का जन्म 1988 में हुआ और वे रायगड ज़िले के कोलाड और रोहा में पली-बढ़ीं। उन्होंने मुंबई विश्वविद्यालय से राजनीति विज्ञान में MA किया। रायगड ज़िला परिषद की अध्यक्ष के रूप में शुरुआत कर वे 2019 में श्रीवर्धन की विधायक बनीं और 2023 से महिला एवं बाल विकास मंत्री हैं। 2024 में श्रीवर्धन ने उन्हें 72% वोटों से फिर चुना।",
   } as L,
   whyApp: {
-    mr: "AADHI TI हा श्रीवर्धनमधल्या प्रत्येक महिलेसाठी आणि मुलीसाठी त्यांचा पुढाकार आहे: सुरक्षा, आर्थिक सुरक्षा आणि कौशल्य याबद्दलचा प्रत्येक प्रश्न, तिच्या भाषेत, तिच्या फोनवर. आधी श्रीवर्धनमध्ये, मग संपूर्ण रायगडमध्ये.",
+    mr: "‘आधी ती’ हा श्रीवर्धनमधील प्रत्येक महिला आणि मुलीच्या सुरक्षितता, आर्थिक संरक्षण आणि कौशल्यासाठीचा उपक्रम आहे. \nतिच्या प्रत्येक प्रश्नाचे उत्तर तिच्याच भाषेत, तिच्याच मोबाईलवर.",
     en: "AADHI TI is her initiative for every woman and girl in Shrivardhan. It answers every question about safety, financial security and skills, in the user's own language, on her own phone. Shrivardhan first, then the whole of Raigad district.",
     hi: "AADHI TI श्रीवर्धन की हर महिला और लड़की के लिए उनकी पहल है: सुरक्षा, आर्थिक सुरक्षा और कौशल का हर सवाल, उसकी भाषा में, उसके फ़ोन पर। पहले श्रीवर्धन में, फिर पूरे रायगड में।",
   } as L,
@@ -106,10 +106,10 @@ export const journey: { year: string; text: L }[] = [
 // The "An initiative by" banner at the top of the home page.
 export const initiativeBanner = {
   by: { mr: "एक उपक्रम", en: "An initiative by", hi: "एक पहल" } as L,
-  name: { mr: "मा. मंत्री आदिती ताई तटकरे", en: "Hon'ble Minister Ms. Aditi Tai Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई तटकरे" } as L,
+  name: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Hon'ble Minister Ms. Aditi Tai Varda Sunil Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई वरदा सुनील तटकरे" } as L,
   lines: [
-    { mr: "कॅबिनेट मंत्री, महाराष्ट्र शासन", en: "Cabinet Minister, Women and Child Development, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
-    { mr: "महिला व बालविकास मंत्री", en: "", hi: "महिला एवं बाल विकास मंत्री" },
+    { mr: "मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य", en: "Cabinet Minister, Women and Child Development, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
+    { mr: "", en: "", hi: "महिला एवं बाल विकास मंत्री" },
     { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
   ] as L[],
 };

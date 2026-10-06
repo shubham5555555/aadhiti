@@ -9,12 +9,12 @@ const items: { id: string; text: L; hint: L }[] = [
   {
     id: "numbers",
     text: {
-      mr: "112 आणि 1091 फोनमध्ये save केले",
+      mr: "112 आणि 1091 माझ्या फोनमध्ये सेव्ह केले आहेत.",
       en: "112 and 1091 saved on my phone",
       hi: "112 और 1091 फ़ोन में save किए",
     },
     hint: {
-      mr: "Contacts मध्ये 'पोलीस' आणि 'महिला हेल्पलाइन' नावाने.",
+      mr: "Contacts मध्ये ‘पोलीस’ आणि ‘महिला हेल्पलाइन’ या नावाने सेव्ह केले आहेत.",
       en: "Save them in Contacts as \"Police\" and \"Women's Helpline\".",
       hi: "Contacts में 'पुलिस' और 'महिला हेल्पलाइन' नाम से।",
     },
@@ -22,12 +22,12 @@ const items: { id: string; text: L; hint: L }[] = [
   {
     id: "sos",
     text: {
-      mr: "फोनमधलं Emergency SOS सुरू केलं",
+      mr: "माझ्या फोनमध्ये Emergency SOS सुरू केले आहे.",
       en: "Emergency SOS switched on",
       hi: "फ़ोन में Emergency SOS चालू किया",
     },
     hint: {
-      mr: "बहुतेक Android फोनमध्ये power बटण 5 वेळा दाबल्यावर SOS जातो. Settings → Safety & emergency मध्ये पाहा.",
+      mr: "बहुतेक Android फोनमध्ये Power बटण ५ वेळा दाबल्यास SOS पाठवले जाते. Settings → Safety & emergency मध्ये तपासा.",
       en: "On many Android phones, pressing the power button 5 times sends an SOS. The steps vary by phone, so check Settings → Safety & emergency.",
       hi: "ज़्यादातर Android फ़ोन में power बटन 5 बार दबाने पर SOS जाता है। Settings → Safety & emergency देखें।",
     },
@@ -35,12 +35,12 @@ const items: { id: string; text: L; hint: L }[] = [
   {
     id: "trusted",
     text: {
-      mr: "दोन विश्वासू व्यक्ती ठरवल्या",
+      mr: "दोन विश्वासू व्यक्ती निवडल्या आहेत.",
       en: "Two trusted people chosen",
       hi: "दो भरोसेमंद लोग तय किए",
     },
     hint: {
-      mr: "ज्यांना रात्रीसुद्धा फोन करता येईल आणि ज्यांच्याशी live location शेअर करता येईल.",
+      mr: "ज्यांना रात्री फोन करू शकता आणि ज्यांच्यासोबत Live Location शेअर करू शकता.",
       en: "People you can call at night and share your live location with.",
       hi: "जिन्हें रात में भी फ़ोन कर सकें और live location शेयर कर सकें।",
     },
@@ -48,12 +48,12 @@ const items: { id: string; text: L; hint: L }[] = [
   {
     id: "codeword",
     text: {
-      mr: "घरच्यांसोबत एक code word ठरवला",
+      mr: "कुटुंबासोबत एक सांकेतिक शब्द ठरवला आहे.",
       en: "A code word agreed with family",
       hi: "घरवालों के साथ एक code word तय किया",
     },
     hint: {
-      mr: "फोनवर हा शब्द म्हटला की समजायचं — मला लगेच मदत हवी आहे.",
+      mr: "फोनवर तो शब्द बोलणे म्हणजे — मला आत्ता मदतीची गरज आहे.",
       en: "Saying it on a phone call means \"I need help now.\"",
       hi: "फ़ोन पर यह शब्द बोलें तो समझें — मुझे तुरंत मदद चाहिए।",
     },
@@ -61,12 +61,12 @@ const items: { id: string; text: L; hint: L }[] = [
   {
     id: "battery",
     text: {
-      mr: "बाहेर जाताना फोन 30% पेक्षा जास्त चार्ज",
+      mr: "बाहेर पडताना माझ्या फोनची बॅटरी ३०% पेक्षा जास्त आहे.",
       en: "Phone charged above 30% when I go out",
       hi: "बाहर जाते समय फ़ोन 30% से ज़्यादा चार्ज",
     },
     hint: {
-      mr: "लांबच्या प्रवासाला छोटी power bank सोबत.",
+      mr: "लांबच्या प्रवासासाठी छोटा Power Bank सोबत ठेवा.",
       en: "Carry a small power bank for long journeys.",
       hi: "लंबे सफ़र में छोटा power bank साथ।",
     },
@@ -74,12 +74,12 @@ const items: { id: string; text: L; hint: L }[] = [
   {
     id: "bag",
     text: {
-      mr: "पर्समध्ये ओळखपत्र, थोडे पैसे आणि एक नंबर कागदावर",
+      mr: "माझ्या बॅगेत ओळखपत्र, थोडे रोख पैसे आणि एक संपर्क क्रमांक कागदावर आहे.",
       en: "ID, some cash and one phone number on paper in my bag",
       hi: "पर्स में पहचान पत्र, थोड़े पैसे और एक नंबर काग़ज़ पर",
     },
     hint: {
-      mr: "फोन बंद पडला तरी कोणाला तरी कॉल करता यावा म्हणून.",
+      mr: "फोन बंद पडला तर तुम्ही कोणाला तरी कॉल करू शकाल.",
       en: "So you can still call someone from another phone if yours stops working.",
       hi: "ताकि फ़ोन बंद हो जाए तब भी किसी को कॉल कर सकें।",
     },
@@ -93,7 +93,7 @@ const copy = {
     hi: "मेरी सुरक्षा योजना",
   },
   body: {
-    mr: "धोका येण्याआधी दहा मिनिटं. जे झालंय त्यावर खूण करा. हे फक्त तुमच्या फोनमध्ये साठवलं जातं.",
+    mr: "काही घडण्यापूर्वी दहा मिनिटे सुरक्षिततेची तयारी करा. तुम्ही केलेल्या गोष्टींना ✓ करा. ही माहिती फक्त तुमच्या फोनवर सेव्ह होते.",
     en: "Ten minutes of preparation before anything happens. Tick what you have already done. This is saved only on this device.",
     hi: "कुछ होने से पहले दस मिनट। जो हो गया उस पर निशान लगाएँ। यह सिर्फ़ आपके फ़ोन में सेव होता है।",
   },

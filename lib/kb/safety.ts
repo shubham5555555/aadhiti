@@ -519,7 +519,7 @@ export const safetyTopics: Topic[] = [
     intent: "act",
     emergency: true,
     title: {
-      mr: "रिक्षा/कॅब/ST मध्ये असुरक्षित",
+      mr: "रिक्षा, कॅब किंवा बसमध्ये असुरक्षित वाटत आहे.",
       en: "Feeling unsafe in an auto, cab or bus",
       hi: "ऑटो/कैब/बस में असुरक्षित",
     },
@@ -542,7 +542,7 @@ export const safetyTopics: Topic[] = [
       "बस में डर",
     ],
     understand: {
-      mr: "रिक्षा, कॅब किंवा बस चुकीच्या रस्त्याने जात असेल किंवा कोणी विचित्र वागत असेल तर तुमची भीती योग्य आहे.",
+      mr: "वाहन चुकीच्या मार्गाने जात असेल किंवा एखादी व्यक्ती विचित्र वागत असेल, तर तुम्हाला अस्वस्थ वाटणे स्वाभाविक आहे.",
       en: "If a vehicle takes the wrong route or someone behaves strangely, your concern is valid.",
       hi: "अगर गाड़ी गलत रास्ते जाए या कोई अजीब बर्ताव करे, तो आपकी चिंता सही है।",
     },
@@ -999,7 +999,7 @@ export const safetyTopics: Topic[] = [
     id: "otp_scam",
     intent: "check",
     title: {
-      mr: "कोणी OTP मागतंय",
+      mr: "कोणी माझा OTP मागत आहे.",
       en: "Someone asking for my OTP",
       hi: "कोई OTP माँग रहा है",
     },
@@ -1022,7 +1022,7 @@ export const safetyTopics: Topic[] = [
       "gas connection kyc",
     ],
     understand: {
-      mr: "बँक, KYC, लॉटरी किंवा बिलाच्या नावाने OTP मागणं ही बहुतेक फसवणूक असते. तुम्ही विचारलंत — हे अगदी योग्य केलंत.",
+      mr: "बँक, KYC, लॉटरी किंवा बिलांच्या नावाने OTP मागणारे कॉल फसवणुकीचे असू शकतात.",
       en: "Calls asking for your OTP in the name of your bank, KYC, a lottery or a bill are almost always scams. You were right to check.",
       hi: "बैंक, KYC, लॉटरी या बिल के नाम पर OTP माँगना ज़्यादातर धोखा होता है। आपने पूछा — बिल्कुल सही किया।",
     },

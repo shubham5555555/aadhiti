@@ -10,7 +10,7 @@ export const brand = {
     hi: "महिलाओं के लिए जानकारी और सहायता सहायक",
   } as L,
   promise: {
-    mr: "तिच्या प्रश्नापासून तिच्या पुढच्या पावलापर्यंत.",
+    mr: "पाऊल तिच्या सक्षमीकरणासाठी, \nआधी तिला घडविण्यासाठी...",
     en: "From her questions to her next step.",
     hi: "उसके सवाल से उसके अगले कदम तक।",
   } as L,
@@ -18,12 +18,12 @@ export const brand = {
 
 export const nav = {
   home: { mr: "मुख्यपृष्ठ", en: "Home", hi: "होम" },
-  ask: { mr: "AADHI TI ला विचारा", en: "Ask AADHI TI", hi: "AADHI TI से पूछें" },
+  ask: { mr: "‘आधी ती’ला विचारा", en: "Ask AADHI TI", hi: "AADHI TI से पूछें" },
   call: { mr: "कॉल", en: "Call", hi: "कॉल" },
-  everyday: { mr: "रोजचं", en: "Everyday Help", hi: "रोज़मर्रा" },
+  everyday: { mr: "दैनिक गोष्टी", en: "Everyday Help", hi: "रोज़मर्रा" },
   poshan: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   schemes: { mr: "योजना", en: "Schemes", hi: "योजनाएँ" },
-  knowledge: { mr: "माहिती", en: "Information", hi: "जानकारी" },
+  knowledge: { mr: "अधिक माहिती", en: "Information", hi: "जानकारी" },
   quickExit: { mr: "लगेच बाहेर", en: "Quick Exit", hi: "तुरंत बाहर" },
 } satisfies Record<string, L>;
 
@@ -36,7 +36,7 @@ export const ageLabels: Record<AgeGroup, L> = {
 };
 
 export const intentLabels: Record<Intent, L> = {
-  learn: { mr: "माहिती", en: "Learn", hi: "जानकारी" },
+  learn: { mr: "अधिक माहिती", en: "Learn", hi: "जानकारी" },
   check: { mr: "तपासणी", en: "Check", hi: "जाँच" },
   find: { mr: "शोधा", en: "Find", hi: "खोजें" },
   act: { mr: "काय करावं", en: "Act", hi: "क्या करें" },

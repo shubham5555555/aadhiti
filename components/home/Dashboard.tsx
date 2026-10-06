@@ -30,9 +30,9 @@ const copy = {
     en: "You are not alone",
     hi: "आप अकेली नहीं हैं",
   },
-  sos: { mr: "आणीबाणी", en: "Emergency", hi: "आपातकाल" },
+  sos: { mr: "आपात्काल", en: "Emergency", hi: "आपातकाल" },
   aiCall: { mr: "AI सुरक्षा कॉल", en: "AI Safety Call", hi: "AI सुरक्षा कॉल" },
-  talkNow: { mr: "आत्ता बोला", en: "Talk now", hi: "अभी बात करें" },
+  talkNow: { mr: "आत्ताच बोला", en: "Talk now", hi: "अभी बात करें" },
   askPh: {
     mr: "तुमचा प्रश्न लिहा…",
     en: "Type your question…",
@@ -46,7 +46,7 @@ const copy = {
   },
   voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
   knowTitle: {
-    mr: "जाणून घ्या.\nभीती कमी.",
+    mr: "जाणून घ्या, सजग राहा, निर्भय व्हा.",
     en: "Know more.\nFear less.",
     hi: "जानिए ज़्यादा.\nडर कम.",
   },
@@ -59,7 +59,7 @@ const copy = {
   },
   locating: { mr: "शोधत आहे…", en: "Locating…", hi: "ढूँढ रहे हैं…" },
   trusted: {
-    mr: "विश्वासाची माणसं",
+    mr: "आपात्कालीन संपर्क",
     en: "Trusted contacts",
     hi: "भरोसेमंद लोग",
   },
@@ -83,12 +83,12 @@ const shortcuts: { href: string; label: L; Icon: typeof Landmark }[] = [
   },
   {
     href: "/awareness",
-    label: { mr: "माहिती", en: "Information", hi: "जानकारी" },
+    label: { mr: "अधिक माहिती", en: "Information", hi: "जानकारी" },
     Icon: BookOpen,
   },
   {
     href: "/everyday",
-    label: { mr: "रोजचं", en: "Everyday Help", hi: "रोज़मर्रा" },
+    label: { mr: "दैनिक गोष्टी", en: "Everyday Help", hi: "रोज़मर्रा" },
     Icon: UtensilsCrossed,
   },
   {
@@ -154,10 +154,10 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* SOS + AI safety call */}
+        {/* Live AI conversation and existing call tools */}
         <div className="grid grid-cols-2 gap-3">
           <a
-            href="tel:112"
+            href="/call-aditi"
             className="relative flex items-center gap-3 overflow-hidden rounded-3xl bg-kokum-700 p-4 text-white shadow-[0_14px_30px_-14px_rgba(126,23,56,0.9)] transition active:scale-[0.98] sm:p-5"
           >
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/15">
@@ -165,13 +165,10 @@ export default function Dashboard() {
             </span>
             <span className="min-w-0">
               <span className="block text-xl leading-none font-extrabold">
-                SOS
+                {t({en:"Call Aditi",mr:"अदितीला कॉल करा",hi:"अदिति को कॉल करें"})}
               </span>
               <span className="mt-1 block truncate text-[13px] text-white/85">
-                {t(copy.sos)}
-              </span>
-              <span className="block font-serif text-2xl leading-none">
-                112
+                {t({en:"AI conversation",mr:"एआय संवाद",hi:"एआई बातचीत"})}
               </span>
             </span>
           </a>
@@ -291,7 +288,7 @@ export default function Dashboard() {
                 {locating ? t(copy.locating) : t(copy.share)}
               </span>
             </button>
-            <Link href="/#safety-plan" className={tile}>
+            <Link href="/#emergency-contacts" className={tile}>
               <span className="icon-circle h-10 w-10">
                 <UsersRound size={19} />
               </span>

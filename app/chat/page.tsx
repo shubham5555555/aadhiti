@@ -1144,7 +1144,7 @@ const moduleLink: Record<
     label: ["मनाचं आरोग्य", "मन की सेहत", "Wellbeing"],
   },
   safety: {
-    href: "/#safety-plan",
+    href: "/safety-plan",
     label: ["सुरक्षा योजना", "सुरक्षा योजना", "Safety plan"],
   },
 };
@@ -1318,7 +1318,7 @@ function ScriptCard({
     ...(script.plan
       ? [
           {
-            href: "/#safety-plan",
+            href: "/safety-plan",
             label: t3(al, "सुरक्षा योजना", "सुरक्षा योजना", "Safety plan"),
           },
         ]

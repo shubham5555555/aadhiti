@@ -1,8 +1,10 @@
 "use client";
 import AuthGate from "@/components/AuthGate";
+import AditiConversation from "@/components/AditiConversation";
+import Link from "next/link";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Send,
   Mic,
@@ -190,12 +192,24 @@ const copy = {
 export default function CallPage() {
   return (
     <Suspense>
-      <AuthGate><CallBot /></AuthGate>
+      <AuthGate><CallExperience /></AuthGate>
     </Suspense>
   );
 }
 
+function CallExperience(){
+ const params=useSearchParams();const {t}=useLang();const fake=params.get('mode')==='fake';
+ return <div className="mx-auto w-full max-w-5xl px-2 py-4 sm:px-4 sm:py-6">
+ <nav aria-label={t({en:'Call type',mr:'कॉलचा प्रकार',hi:'कॉल का प्रकार'})} className="mb-5 flex flex-wrap justify-center gap-2">
+ <Link href="/call" aria-current={!fake?'page':undefined} className={!fake?'soft-btn':'soft-btn-outline'}>{t({en:'Call Aditi',mr:'अदितीला कॉल करा',hi:'अदिति को कॉल करें'})}</Link>
+ <Link href="/call?mode=fake" aria-current={fake?'page':undefined} className={fake?'soft-btn':'soft-btn-outline'}>{t({en:'Fake call',mr:'बनावट कॉल',hi:'नकली कॉल'})}</Link>
+ </nav>
+ {fake?<CallBot/>:<div className="mx-auto max-w-xl"><AditiConversation/></div>}
+ </div>;
+}
+
 function CallBot() {
+  const router = useRouter();
   const { t, lang, age } = useLang();
   const params = useSearchParams();
   const [mode, setMode] = useState<Mode>(
@@ -496,6 +510,7 @@ function CallBot() {
   );
 
   const startCall = (m: Mode) => {
+    if(m === "safety"){router.push("/call");return;}
     session.current++;
     stopAudio();
     setMode(m);
@@ -505,12 +520,7 @@ function CallBot() {
     setEmergency(false);
     setSeconds(0);
     setMuted(false);
-    if (m === "safety") {
-      prefetch(safetyCallScript.map((l) => said(l, genderRef.current)));
-      setStage("dialing");
-      const s = session.current;
-      setTimeout(() => session.current === s && connect("safety"), 2200);
-    } else if (delay > 0) {
+    if (delay > 0) {
       prefetchFake();
       setCountdown(delay);
       setStage("scheduled");
@@ -632,6 +642,7 @@ function CallBot() {
 
   const pickMode = (m: Mode) => {
     if (inCall) return;
+    if(m === "safety"){router.push("/call");return;}
     setMode(m);
     setStage("select");
     setLines([]);
@@ -641,9 +652,9 @@ function CallBot() {
   const name = mode === "safety" ? "AADHI TI" : caller || "Unknown";
 
   return (
-    <div className="pb-6">
+    <div className="min-w-0 pb-6">
       {/* Opening */}
-      <section className="relative mt-6 grid gap-8 overflow-hidden rounded-3xl border border-kokum-100 bg-gradient-to-br from-kokum-50 via-sand-50 to-white p-6 text-center shadow-[0_10px_30px_-18px_rgba(126,23,56,0.35)] sm:p-10 md:grid-cols-[1.25fr_1fr] md:items-center md:text-left">
+      <section className="relative mt-3 grid gap-4 overflow-hidden rounded-3xl border border-kokum-100 bg-gradient-to-br from-kokum-50 via-sand-50 to-white p-6 text-center shadow-[0_10px_30px_-18px_rgba(126,23,56,0.35)] sm:p-7 md:grid-cols-[1.25fr_1fr] md:items-center md:text-left">
         <Leaf className="absolute -top-4 -right-6 h-44 w-auto text-kokum-200" />
         <Leaf className="absolute -bottom-10 -left-8 h-40 w-auto -scale-x-100 text-kokum-100 md:hidden" />
         <div className="relative">
@@ -651,11 +662,11 @@ function CallBot() {
             <span className="h-2 w-2 rounded-full bg-leaf-500" />
             {t(copy.eyebrow)}
           </p>
-          <h1 className="mx-auto mt-4 max-w-md font-serif text-[2.6rem] leading-[1.05] font-normal text-kokum-700 sm:text-[4rem] md:mx-0 md:max-w-none">
-            {t(copy.title)}
+          <h1 className="mx-auto mt-4 max-w-md font-serif text-3xl leading-tight font-normal text-kokum-700 sm:text-4xl md:mx-0 md:max-w-none">
+            {mode === "fake" ? t(copy.fakeTitle) : t(copy.title)}
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft md:mx-0">
-            {t(copy.body)}
+          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-ink-soft md:mx-0">
+            {mode === "fake" ? t(copy.fakeDesc) : t(copy.body)}
           </p>
         </div>
         <figure className="relative hidden w-full md:block md:max-w-[15rem] md:justify-self-end">
@@ -663,9 +674,9 @@ function CallBot() {
         </figure>
       </section>
 
-      <div className="grid items-start gap-8 py-8 lg:grid-cols-[1fr_340px_1fr] lg:gap-6">
+      <div className="grid min-w-0 items-start gap-5 py-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-6">
         {/* Mode picker */}
-        <div className="space-y-4">
+        <div className={`min-w-0 space-y-4 ${inCall ? "order-2 md:order-1" : "order-1"}`}>
           <ol className="space-y-3">
             <ModeRow
               n={1}
@@ -689,6 +700,7 @@ function CallBot() {
                 {t(copy.callerName)}
                 <input
                   value={caller}
+                  maxLength={60}
                   onChange={(e) => setCallerName(e.target.value)}
                   disabled={inCall}
                   className="soft-input mt-2 w-full font-medium text-ink disabled:opacity-60"
@@ -698,13 +710,13 @@ function CallBot() {
                 <p className="text-sm font-bold text-kokum-700">
                   {t(copy.ringAfter)}
                 </p>
-                <div className="mt-2 flex gap-1 rounded-full bg-kokum-50 p-1">
+                <div className="mt-2 flex flex-wrap gap-1 rounded-full bg-kokum-50 p-1">
                   {[0, 5, 10, 30].map((d) => (
                     <button
                       key={d}
                       onClick={() => setDelay(d)}
                       disabled={inCall}
-                      className={`flex-1 rounded-full py-2 text-sm font-bold transition disabled:opacity-60 ${
+                      className={`min-h-11 min-w-0 flex-1 rounded-full py-2 text-sm font-bold transition disabled:opacity-60 ${
                         delay === d
                           ? "bg-kokum-700 text-white shadow-[0_6px_14px_-8px_rgba(126,23,56,0.8)]"
                           : "text-ink hover:bg-white hover:text-kokum-700"
@@ -718,7 +730,7 @@ function CallBot() {
             </div>
           )}
 
-          <div className="soft-card flex items-center justify-between gap-4 px-5 py-3.5">
+          <div className="soft-card flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
             <p className="text-[15px] font-bold text-ink">{t(copy.voice)}</p>
             <div
               role="radiogroup"
@@ -732,7 +744,7 @@ function CallBot() {
                   aria-checked={gender === g}
                   onClick={() => chooseGender(g)}
                   disabled={inCall}
-                  className={`rounded-full px-4 py-1.5 text-sm font-bold transition disabled:opacity-60 ${gender === g ? "bg-kokum-700 text-white shadow-[0_6px_14px_-8px_rgba(126,23,56,0.8)]" : "text-ink hover:bg-white hover:text-kokum-700"}`}
+                  className={`min-h-11 rounded-full px-4 py-2 text-sm font-bold transition disabled:opacity-60 ${gender === g ? "bg-kokum-700 text-white shadow-[0_6px_14px_-8px_rgba(126,23,56,0.8)]" : "text-ink hover:bg-white hover:text-kokum-700"}`}
                 >
                   {t(copy[g])}
                 </button>
@@ -765,10 +777,10 @@ function CallBot() {
         </div>
 
         {/* Phone */}
-        <div className="mx-auto w-full max-w-[340px]">
+        <div className={`mx-auto w-full min-w-0 max-w-[380px] ${inCall ? "order-1 md:order-2" : "order-2"}`}>
           <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-white bg-gradient-to-b from-kokum-600 via-kokum-700 to-kokum-900 text-white shadow-[0_24px_50px_-24px_rgba(126,23,56,0.7)] ring-1 ring-kokum-100">
             <div className="absolute top-2 left-1/2 h-5 w-24 -translate-x-1/2 rounded-full bg-kokum-900/70" />
-            <div className="flex h-[580px] flex-col items-center px-5 pt-14 pb-9">
+            <div className="flex min-h-[460px] flex-col items-center px-4 pt-12 pb-6 sm:min-h-[540px] sm:px-5 sm:pb-8">
               {stage === "select" || stage === "ended" ? (
                 <div className="flex flex-1 flex-col items-center justify-center text-center">
                   <Avatar mode={mode} ringing={false} />
@@ -829,7 +841,7 @@ function CallBot() {
                     mode={mode}
                     ringing={stage === "incoming" || stage === "dialing"}
                   />
-                  <p className="mt-6 font-display text-2xl font-bold">{name}</p>
+                  <p className="mt-6 w-full break-words text-center font-display text-2xl font-bold">{name}</p>
                   <p className="mt-1 text-sm text-kokum-100 tabular-nums">
                     {stage === "dialing" && t(copy.connecting)}
                     {stage === "incoming" && t(copy.incoming)}
@@ -907,7 +919,7 @@ function CallBot() {
 
         {/* Transcript + replies (safety call) or how-to (fake call, which is one-sided) */}
         {mode === "fake" ? (
-          <div className="soft-card flex flex-col overflow-hidden lg:h-[580px]">
+          <div className="soft-card order-3 flex min-w-0 flex-col overflow-hidden md:col-span-2">
             <div className="border-b border-kokum-100 px-5 py-4">
               <h2 className="font-serif text-2xl font-normal text-kokum-700">
                 {t(copy.fakeGuideTitle)}

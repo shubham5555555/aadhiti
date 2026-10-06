@@ -7,32 +7,32 @@ import { useLang } from "@/lib/i18n";
 
 const copy = {
   title: {
-    mr: "आत्ता धोका वाटतोय?",
+    mr: "आत्ता काही धोका वाटतोय का?",
     en: "Feel unsafe right now?",
     hi: "अभी खतरा लग रहा है?",
   },
   sub: {
-    mr: "थांबू नका. गर्दीच्या, उजेडाच्या ठिकाणी जा — दुकान, मेडिकल, ST stand. मग यापैकी एक करा.",
+    mr: "वाट पाहू नका. गर्दीच्या आणि सुरक्षित, उजेडाच्या ठिकाणी जा, जसे की दुकान, मेडिकल किंवा एसटी स्थानक. त्यानंतर खालीलपैकी एक कृती करा.",
     en: "Don't wait. Move to a busy, well-lit place, such as a shop, a chemist or a bus stand. Then do one of the following.",
     hi: "रुकिए मत। भीड़ वाली, रोशनी वाली जगह जाइए — दुकान, मेडिकल, बस स्टैंड। फिर इनमें से एक कीजिए।",
   },
   callTitle: { mr: "112 ला कॉल करा", en: "Call 112", hi: "112 पर कॉल करें" },
   callBody: {
-    mr: "पोलीस, ॲम्ब्युलन्स, अग्निशमन. 24 तास, मोफत.",
+    mr: "पोलीस, रुग्णवाहिका आणि अग्निशमन सेवा — २४ तास, मोफत.",
     en: "Police, ambulance and fire services. Available 24 hours, free of charge.",
     hi: "पुलिस, एम्बुलेंस, फ़ायर। 24 घंटे, मुफ़्त।",
   },
   locTitle: {
-    mr: "तुमचं ठिकाण पाठवा",
+    mr: "आपले लोकेशन पाठवा",
     en: "Send your location",
     hi: "अपनी जगह भेजें",
   },
   locBody: {
-    mr: "विश्वासातल्या व्यक्तीला WhatsApp वर तुमचं अचूक ठिकाण, नकाशाच्या लिंकसह.",
+    mr: "तुमचे अचूक लोकेशन मॅप लिंकद्वारे WhatsApp वर विश्वासू व्यक्तीसोबत शेअर करा.",
     en: "Share your exact location as a map link with someone you trust on WhatsApp.",
     hi: "भरोसेमंद व्यक्ति को WhatsApp पर आपकी सही जगह, नक्शे के लिंक के साथ।",
   },
-  locButton: { mr: "ठिकाण पाठवा", en: "Send location", hi: "जगह भेजें" },
+  locButton: { mr: "लोकेशन पाठवा", en: "Send location", hi: "जगह भेजें" },
   locating: {
     mr: "ठिकाण शोधत आहे…",
     en: "Finding you…",
@@ -48,13 +48,13 @@ const copy = {
     en: "I need help. I am here:",
     hi: "मुझे मदद चाहिए। मैं यहाँ हूँ:",
   },
-  fakeTitle: { mr: "Fake call", en: "Fake call", hi: "Fake call" },
+  fakeTitle: { mr: "बनावट कॉल", en: "Fake call", hi: "Fake call" },
   fakeBody: {
-    mr: "कोणाला टाळायचं असेल तर 'आईचा' फोन वाजवा आणि निघा.",
+    mr: "एखाद्या व्यक्तीपासून दूर जायचे असल्यास, ‘आई’ला तुम्हाला फोन करायला सांगा आणि तिथून निघा.",
     en: "Need to get away from someone? Get a fake call from “Mom” and leave.",
     hi: "किसी से बचना हो तो 'माँ' का फ़ोन बजाइए और निकलिए।",
   },
-  fakeButton: { mr: "आत्ता वाजवा", en: "Ring now", hi: "अभी बजाएँ" },
+  fakeButton: { mr: "आत्ताच कॉल करा", en: "Ring now", hi: "अभी बजाएँ" },
 };
 
 type LocState = "idle" | "locating" | "denied";

@@ -62,9 +62,9 @@ export const adultCategories: Category[] = [
     icon: "shield",
     color: "from-kokum-500 to-kokum-600",
     title: { mr: "माझी सुरक्षितता", en: "My safety", hi: "मेरी सुरक्षा" },
-    subtitle: { mr: "आणीबाणी, छळ, प्रवास, सायबर", en: "Emergencies, harassment, travel, online safety", hi: "आपातकाल, उत्पीड़न, यात्रा, साइबर" },
+    subtitle: { mr: "आपत्कालीन मदत, छळ, प्रवास, सायबर सुरक्षितता", en: "Emergencies, harassment, travel, online safety", hi: "आपातकाल, उत्पीड़न, यात्रा, साइबर" },
     groups: [
-      { title: { mr: "आणीबाणी", en: "Emergency", hi: "आपातकाल" }, topics: ["immediate_danger", "following_me", "after_assault", "help_info_ready", "safety_plan"] },
+      { title: { mr: "आपात्काल", en: "Emergency", hi: "आपातकाल" }, topics: ["immediate_danger", "following_me", "after_assault", "help_info_ready", "safety_plan"] },
       { title: { mr: "बाहेर आणि प्रवासात", en: "Outside & travel", hi: "बाहर और यात्रा में" }, topics: ["unsafe_travel", "public_harassment", "unsafe_transport", "night_carry", "solo_travel", "stalking_offline", "report_unsafe_place"] },
       { title: { mr: "ऑनलाइन / सायबर", en: "Online / cyber", hi: "ऑनलाइन / साइबर" }, topics: ["photo_threat", "instagram_threat", "fake_profile", "hacked_account", "otp_scam", "money_to_scammer", "online_stalking", "secure_whatsapp", "evidence_screenshot"] },
     ],
@@ -120,7 +120,7 @@ export const adultCategories: Category[] = [
     icon: "family",
     color: "from-leaf-500 to-leaf-600",
     title: { mr: "माझं कुटुंब / मुलं", en: "My family and children", hi: "मेरा परिवार / बच्चे" },
-    subtitle: { mr: "मुलींची सुरक्षा, पालकत्व, एकट्या महिला", en: "Girls' safety, parenting, single women", hi: "बेटियों की सुरक्षा, पालन-पोषण, अकेली महिलाएँ" },
+    subtitle: { mr: "मुलींची सुरक्षितता, मुलांचे संगोपन, एकल महिला", en: "Girls' safety, parenting, single women", hi: "बेटियों की सुरक्षा, पालन-पोषण, अकेली महिलाएँ" },
     groups: [
       { title: { mr: "मुलं", en: "Children", hi: "बच्चे" }, topics: ["child_afraid_relative", "daughter_safety", "daughter_online_safety", "daughter_silent", "child_nutrition", "creche", "screen_time"] },
       { title: { mr: "आधार", en: "Support", hi: "सहारा" }, topics: ["single_mother", "elder_women"] },
@@ -141,7 +141,7 @@ export const adultCategories: Category[] = [
     icon: "unsure",
     color: "from-ink-soft to-ink",
     title: { mr: "मला काय करावं कळत नाही", en: "I don't know what to do", hi: "मुझे समझ नहीं आ रहा क्या करूँ" },
-    subtitle: { mr: "तुमच्या शब्दांत सांगा", en: "Describe it in your own words", hi: "अपने शब्दों में बताइए" },
+    subtitle: { mr: "तुमच्या शब्दांत तुमची समस्या सांगा", en: "Describe it in your own words", hi: "अपने शब्दों में बताइए" },
     groups: [],
   },
 ];
