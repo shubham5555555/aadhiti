@@ -11,3 +11,6 @@ Prompt set:
 - English logo: preserve female profile and red/gold fabric; AADHI above TI, transparent background, no glow or rectangular backdrop.
 
 The shared language context selects each file directly, including header/footer logos. Generated logo includes an alpha channel. Static PWA icons retain the original brand for consistent installed-app identity.
+
+## Journey landscape banners
+Nine 1600×900 WebP banners in `public/brand/journeys/*-landscape.webp`, generated using the built-in image tool with nav-durga.png as reference. Prompt: expand each matching panel into a single complete 16:9 warm cinematic Maharashtra scene, natural proportions, no labels, no collage. Subjects: mother and daughter; student; police officer/self-defence; exercise; mother and toddler/Anganwadi; lawyer; safe street at dusk; peaceful personal time; textile entrepreneur. Page headings remain translated HTML. Homepage panels share a 1:5 frame with contain sizing to avoid stretching or clipping embedded captions.

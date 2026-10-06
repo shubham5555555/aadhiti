@@ -1,6 +1,7 @@
 "use client";
 import {useState} from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {useLang} from '@/lib/i18n';
 import {JOURNEYS,AGE_BANDS,SCHEME_AGES,type AgeBand} from '@/lib/journeys';
 import {SCHEMES} from '@/lib/schemes';
@@ -13,10 +14,13 @@ export default function JourneyPage({slug}:{slug:string}){
  const q=t({en:`Please help me find schemes for ${journey.theme.en}${age==='all'?'':', age group '+AGE_BANDS.find(a=>a.id===age)!.label.en}. Ask me one eligibility question at a time.`,mr:`${journey.theme.mr} यासाठी योजना समजावून सांगा.${age==='all'?'':' वयोगट: '+AGE_BANDS.find(a=>a.id===age)!.label.mr} पात्रतेबद्दल एकावेळी एक प्रश्न विचारा.`,hi:`${journey.theme.hi} के लिए योजनाएँ समझाएँ।${age==='all'?'':' आयु वर्ग: '+AGE_BANDS.find(a=>a.id===age)!.label.hi} पात्रता के बारे में एक बार में एक सवाल पूछें।`});
  return <div className="mx-auto max-w-4xl pb-10">
  <Link href="/#home-banner" className="text-sm text-kokum-700">← {t({en:'All nine forms',mr:'सर्व नऊ रूपं',hi:'सभी नौ रूप'})}</Link>
- <header className="mt-5 rounded-3xl bg-kokum-50 p-6 sm:p-9">
+ <header className="mt-5 overflow-hidden rounded-3xl bg-kokum-50">
+ <Image src={`/brand/journeys/${slug}-landscape.webp`} alt={`${t(journey.name)} — ${t(journey.theme)}`} width={1600} height={900} priority sizes="(min-width: 1024px) 896px, 100vw" className="block aspect-video h-auto w-full object-cover" />
+ <div className="min-w-0 p-5 sm:p-8">
  <p className="text-sm text-kokum-600">{t(journey.name)}</p>
  <h1 className="mt-2 font-display text-3xl font-bold text-kokum-900 sm:text-4xl">{t(journey.theme)}</h1>
  <p className="mt-4 max-w-2xl leading-relaxed">{t({en:'Explore schemes and support programmes by age group. These are suggestions to explore, not confirmation of eligibility or approval. Pregnancy, income, residence and other conditions may also apply.',mr:'वयोगटानुसार योजना आणि सहाय्य कार्यक्रम पाहा. ही माहिती मार्गदर्शनासाठी आहे; पात्रता किंवा मंजुरीची खात्री नाही. गर्भधारणा, उत्पन्न, रहिवास आणि इतर अटीही लागू होऊ शकतात.',hi:'आयु वर्ग के अनुसार योजनाएँ और सहायता कार्यक्रम देखें। यह मार्गदर्शन है, पात्रता या मंज़ूरी की पुष्टि नहीं। गर्भावस्था, आय, निवास और अन्य शर्तें भी लागू हो सकती हैं।'})}</p>
+ </div>
  </header>
  <fieldset className="my-6"><legend className="mb-3 font-semibold">{t({en:'Age of the person who needs support',mr:'मदत हवी असलेल्या व्यक्तीचा वयोगट',hi:'जिसे सहायता चाहिए उसका आयु वर्ग'})}</legend>
  <div className="flex flex-wrap gap-2">{[{id:'all',label:{en:'All ages',mr:'सर्व वयोगट',hi:'सभी आयु वर्ग'}},...AGE_BANDS].map(a=><button key={a.id} aria-pressed={age===a.id} onClick={()=>setAge(a.id as AgeBand|'all')} className={`min-h-11 rounded-full border px-4 py-2 text-sm ${age===a.id?'border-kokum-700 bg-kokum-700 text-white':'border-kokum-100 bg-white text-kokum-800'}`}>{t(a.label)}</button>)}</div></fieldset>
