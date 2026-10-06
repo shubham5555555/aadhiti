@@ -21,7 +21,8 @@ async function redis<T = unknown>(
     cache: "no-store",
   });
   if (!res.ok) throw new Error(`store ${res.status}`);
-  const data = (await res.json()) as { result?: T };
+  const data = (await res.json()) as { result?: T; error?: string };
+  if (data.error) throw new Error("Storage command failed");
   return data.result ?? null;
 }
 
@@ -107,12 +108,12 @@ export async function withLock<T>(
   const lockKey = `lock:${key}`;
   const me = `${Date.now()}-${Math.random()}`;
   const deadline = Date.now() + 50_000;
-  // If Redis is unreachable, carry on without the lock rather than drop her message.
+  // Fail closed if Redis cannot provide exclusivity; never overwrite a concurrent chat.
   let locked = false;
   try {
     while (
       !(locked =
-        (await redis(["SET", lockKey, me, "PX", 60_000, "NX"])) === "OK") &&
+        (await redis(["SET", lockKey, me, "PX", 180_000, "NX"])) === "OK") &&
       Date.now() < deadline
     ) {
       await new Promise((r) => setTimeout(r, 400));
@@ -120,6 +121,7 @@ export async function withLock<T>(
   } catch {
     locked = false;
   }
+  if (!locked) throw new Error("Conversation busy; lock unavailable");
   try {
     return await fn();
   } finally {
@@ -130,4 +132,20 @@ export async function withLock<T>(
       } catch {}
     }
   }
+}
+
+/** Durable sorted queue for scheduled jobs. No memory fallback for reminders. */
+export async function enqueue(key: string, id: string, due: number) {
+  if (!hasRedis) throw new Error("Persistent storage required");
+  await redis(["ZADD", key, due, id]);
+}
+export async function dueJobs(key: string, now: number): Promise<string[]> {
+  if (!hasRedis) return [];
+  return (await redis<string[]>(["ZRANGEBYSCORE", key, "-inf", now, "LIMIT", 0, 25])) ?? [];
+}
+export async function dequeue(key: string, id: string) {
+  if (hasRedis) await redis(["ZREM", key, id]);
+}
+export async function removeKey(key: string) {
+  if (hasRedis) await redis(["DEL", key]); else mem.delete(key);
 }

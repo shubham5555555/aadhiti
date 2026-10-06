@@ -29,9 +29,10 @@ async function request(
       method,
       headers: authHeaders(),
       body,
+      signal: AbortSignal.timeout(15000),
       cache: "no-store",
     });
-    if (res.ok) return true;
+    if (res.ok) { const data=await res.json().catch(()=>null); return data?.result !== false; }
     if (res.status !== 429 && res.status < 500) {
       console.error(
         "WATI request failed",
@@ -111,7 +112,10 @@ export async function getMedia(
     if (res.ok) {
       const type = res.headers.get("content-type") ?? "audio/ogg";
       if (type.includes("json")) continue; // an error envelope, not the file
-      return { data: await res.arrayBuffer(), type };
+      if(!/^audio\//.test(type)||Number(res.headers.get("content-length"))>4*1024*1024)return null;
+      const data=await res.arrayBuffer();
+      if(data.byteLength>4*1024*1024)return null;
+      return { data, type };
     }
   }
   console.error("WATI media download failed");
@@ -187,4 +191,16 @@ export async function sendFileUrl(
     file_url: fileUrl,
     caption: caption?.slice(0, 1000) || null,
   });
+}
+
+/** Approved template only; deliberately no retry after an ambiguous send outcome. */
+export async function sendReminderTemplate(phone:string, event:import('./waReminders').ReminderEvent, lang:import('@/lib/kb').Lang, id:string) {
+ const res=await fetch(`${BASE}/api/ext/v3/messageTemplates/send`,{
+  method:'POST',headers:authHeaders(),signal:AbortSignal.timeout(15000),
+  body:JSON.stringify({template_name:event.template[lang],broadcast_name:`aadhi-reminder-${id.slice(0,20)}`,channel:process.env.WATI_CHANNEL||null,
+   recipients:[{phone_number:phone,local_message_id:id,custom_params:[{name:'event',value:event.title[lang]},{name:'when',value:new Date(event.eventAt).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})},{name:'source',value:event.sourceUrl}]}]})
+ });
+ if(!res.ok)return false;
+ const body=await res.json().catch(()=>null);
+ return body?.result!==false;
 }

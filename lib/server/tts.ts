@@ -6,7 +6,7 @@ export const TTS_MAX_CHARS = 500;
 export type VoiceGender = "female" | "male";
 
 export const ttsConfigured = () =>
-  Boolean(process.env.ELEVENLABS_API_KEY && process.env.ELEVENLABS_VOICE_HI);
+  Boolean(process.env.ELEVENLABS_API_KEY);
 
 // Call scripts repeat a lot, so keep recent audio in memory instead of paying for it again.
 const cache = new Map<string, ArrayBuffer>();
@@ -39,7 +39,7 @@ export async function synthesize(
   gender: VoiceGender = "female",
 ): Promise<ArrayBuffer | null> {
   const key = process.env.ELEVENLABS_API_KEY;
-  if (!key || !process.env.ELEVENLABS_VOICE_HI) return null;
+  if (!key) return null;
   const said = text.trim().slice(0, TTS_MAX_CHARS);
   if (!said) return null;
 
@@ -48,11 +48,7 @@ export async function synthesize(
     gender === "male" && process.env.ELEVENLABS_VOICE_MALE ? "male" : "female";
   const voice = g === "male"
     ? process.env.ELEVENLABS_VOICE_MALE
-    : lang === "mr"
-      ? process.env.ELEVENLABS_VOICE_ANIKA_MR || "dSEhEXLzhnZEytnJ2rRy"
-      : lang === "hi"
-        ? process.env.ELEVENLABS_VOICE_ANIKA_HI || "broqrJkktxd1CclKTudW"
-        : process.env.ELEVENLABS_VOICE_HI;
+    : process.env.ELEVENLABS_VOICE_DEFAULT || "2K3jPCTBDyFFo3BVyBpG";
 
   const cacheKey = `${voice}:${lang}:${said}`;
   const hit = cache.get(cacheKey);

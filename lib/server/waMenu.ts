@@ -50,7 +50,7 @@ export function offeredOf(menu: Menu): Offered {
     menu.kind === "buttons"
       ? menu.buttons
       : menu.sections.flatMap((s) => s.rows);
-  return { ids: opts.map((o) => o.id), titles: opts.map((o) => o.title) };
+  return { ids: opts.map((o) => o.id), titles: opts.map((o) => o.title.slice(0, menu.kind === "buttons" ? 20 : 24)) };
 }
 
 /** Plain numbered text, used if WhatsApp interactive messages can't be sent. */
@@ -61,7 +61,7 @@ export function menuAsText(menu: Menu, lang: Lang): string {
       : menu.sections.flatMap((s) => s.rows);
   const lines = opts.map(
     (o, i) =>
-      `${i + 1}. ${o.title}${"description" in o && o.description ? ` — ${o.description}` : ""}`,
+      `${i + 1}. ${o.title.slice(0, menu.kind === "buttons" ? 20 : 24)}${"description" in o && o.description ? ` — ${o.description}` : ""}`,
   );
   return [
     menu.kind === "list" && menu.header ? `*${menu.header}*` : "",
@@ -228,7 +228,7 @@ export function mainMenu(lang: Lang): ListMenu {
     sections: [
       {
         title: t3(lang, "विषय", "विषय", "Topics"),
-        rows: MAIN.map((m) => ({
+        rows: [...MAIN.filter(m => ["cat:safety","schemes","cat:skills","person","language"].includes(m.id)), {id:"voice", title:["उत्तराचा प्रकार","जवाब का तरीका","Reply preference"] as [string,string,string],desc:["मजकूर, आवाज किंवा दोन्ही","लिखित, आवाज़ या दोनों","Text, audio or both"] as [string,string,string]}, {id:"reminders",title:["स्मरणपत्रं","रिमाइंडर","Reminders"] as [string,string,string],desc:["तुमच्या संमतीनेच","केवल आपकी सहमति से","Only with your consent"] as [string,string,string]}].map((m) => ({
           id: m.id,
           title: cut(pick(lang, m.title), 24),
           description: cut(pick(lang, m.desc), 72),
@@ -242,6 +242,7 @@ export function mainMenu(lang: Lang): ListMenu {
 
 const CATEGORY_TOPICS: Record<string, () => string[]> = {
   safety: () => topicsOf(["safety"]),
+  g_digital: () => topicsOf(["g_digital"]),
   health: () => topicsOf(["health"]),
   skills: () =>
     topicsOf(["career", "income"]).filter(

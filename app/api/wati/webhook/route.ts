@@ -6,7 +6,7 @@
 import { after } from "next/server";
 import { createHash, timingSafeEqual } from "node:crypto";
 import type { ChatTurn } from "@/lib/ai";
-import { detectLang } from "@/lib/detectLang";
+import { conversationLang, detectLang } from "@/lib/detectLang";
 import { understand, type Lang } from "@/lib/kb";
 import { safetyRule } from "@/lib/safetyScripts";
 import { answerQuestion } from "@/lib/server/answer";
@@ -66,7 +66,11 @@ import {
   welcomeMessage,
 } from "@/lib/server/whatsappText";
 
-export const maxDuration = 60;
+import { modeMenu, guidedMenu, feedbackMenu, recordMetric, say, type ReplyMode } from "@/lib/server/waExperience";
+import { handleFeatureChoice } from "@/lib/server/waFeatureChoices";
+import { stopReminders } from "@/lib/server/waReminders";
+import { supportAvailable } from "@/lib/server/waSupport";
+export const maxDuration = 120;
 
 type WatiMessage = {
   id?: string;
@@ -76,6 +80,7 @@ type WatiMessage = {
   text?: string | null;
   type?: string;
   owner?: boolean;
+  operatorEmail?: string;
   eventType?: string;
   listReply?: { title?: string } | null;
   buttonReply?: { text?: string } | null;
@@ -83,6 +88,10 @@ type WatiMessage = {
 };
 
 type UserState = {
+  mode?: ReplyMode;
+  lastTopic?: string;
+  feedbackPending?: boolean;
+  handoffStatus?: "pending" | "accepted";
   lang: Lang | null;
   history: ChatTurn[];
   offered?: Offered | null;
@@ -148,7 +157,20 @@ export async function POST(req: Request) {
     return ok("ignored"); // malformed: acknowledge so WATI doesn't retry it
   }
 
-  // Only messages from women writing in; never our own replies (owner: true).
+  // Explicit staff acceptance, never inferred from assignment or a bot message.
+  if (msg.eventType === "sessionMessageSent_v2" && msg.owner === true && msg.waId && msg.text?.trim() === "#accept") {
+    const staff=(process.env.WATI_SUPPORT_OPERATOR_EMAILS??"").split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);
+    if(staff.includes((msg.operatorEmail??"").toLowerCase())) after(()=>withLock(`wati:user:${userKey(msg.waId!)}`,async()=>{
+      const key=`wati:user:${userKey(msg.waId!)}`;
+      const state=await getJSON<UserState>(key);
+      if(state?.handoffStatus!=="pending")return;
+      await setJSON(key,{...state,handoffStatus:"accepted",humanUntil:Date.now()+DAY*1000},DAY);
+      const l=state.lang??"mr";
+      await sendText(msg.conversationId||msg.waId!,say(l,"A support person has accepted your request and is handling this chat. Type menu to return to the bot.","सहाय्यक व्यक्तीने तुमची विनंती स्वीकारली आहे आणि हा संवाद हाताळत आहे. बॉटसाठी menu लिहा.","सहायक ने आपका अनुरोध स्वीकार कर लिया है और यह चैट संभाल रहा है। बॉट के लिए menu लिखें।"));
+    }));
+    return ok("staff acknowledgement");
+  }
+  // Only incoming customer messages; never our own replies (owner: true).
   if (msg.eventType !== "message" || msg.owner === true || !msg.waId)
     return ok("ignored");
 
@@ -211,12 +233,19 @@ async function handle(msg: WatiMessage) {
   const key = userKey(waId);
   const saved = await getJSON<UserState>(`wati:user:${key}`).catch(() => null);
   const state: UserState = {
+    mode: saved?.mode,
+    lastTopic: saved?.lastTopic,
+    feedbackPending: saved?.feedbackPending,
+    handoffStatus: saved?.handoffStatus,
     lang: saved?.lang ?? null,
     history: saved?.history ?? [],
     offered: saved?.offered ?? null,
     finder: saved?.finder ?? null,
     humanUntil: saved?.humanUntil ?? 0,
   };
+  const prefs = await getJSON<{mode:ReplyMode;lang:Lang}>(`wati:preferences:${key}`);
+  state.mode = prefs?.mode ?? state.mode;
+  state.lang = state.lang ?? prefs?.lang ?? null;
   const uiLang: Lang = state.lang ?? "mr";
   const save = (patch: Partial<UserState>) => {
     Object.assign(state, patch);
@@ -234,20 +263,24 @@ async function handle(msg: WatiMessage) {
     await save({ ...patch, offered: offeredOf(menu) });
   };
 
-  // Per-number limit protects the AI budget; tell her once, then stay quiet for the hour.
-  const count = await bump(`wati:rate:${key}`, 60 * 60).catch(() => 0);
-  if (count > MAX_PER_HOUR) {
-    if (count === MAX_PER_HOUR + 1)
-      await sendText(target, slowDownMessage(uiLang));
-    return;
-  }
+  // A brief spoken introduction after language selection; honour text-only preferences.
+  const welcome = async (lang: Lang) => {
+    await sendText(target, welcomeMessage(lang));
+    if (state.mode === "text") return;
+    const introduction = say(lang,
+      "Welcome to Aadhi Ti. I am your AI assistant. I can help with safety information, schemes and skills. Type your question or send a voice note. What would you like help with today?",
+      "आधी ती मध्ये तुमचं स्वागत आहे. मी तुमची एआय सहाय्यक आहे. सुरक्षितता, योजना आणि कौशल्यांविषयी माहिती देण्यासाठी मी मदत करू शकते. तुमचा प्रश्न लिहा किंवा व्हॉइस मेसेज पाठवा. आज तुम्हाला कशासाठी मदत हवी आहे?",
+      "आधी ती में आपका स्वागत है। मैं आपकी एआई सहायक हूँ। मैं सुरक्षा, योजनाओं और कौशल की जानकारी देने में मदद कर सकती हूँ। अपना सवाल लिखें या वॉइस मैसेज भेजें। आज आपको किस बारे में मदद चाहिए?");
+    const audio = await synthesize(introduction, lang, "female").catch(() => null);
+    if (audio) await sendFile(target, audio, "aadhi-ti-welcome.mp3", "audio/mpeg").catch(() => false);
+  };
 
   // ---- what did she say? (typed, tapped, or a voice note) ----
   const isVoice = msg.type === "voice" || msg.type === "audio";
   let text: string;
   if (isVoice) {
     const media = await getMedia([msg.id, msg.whatsappMessageId]);
-    const heard = media ? await transcribe(media.data, media.type) : null;
+    const heard = media ? await transcribe(media.data, media.type).catch(()=>null) : null;
     if (!heard) {
       await sendText(target, voiceUnclearMessage(uiLang));
       return;
@@ -272,21 +305,32 @@ async function handle(msg: WatiMessage) {
 
   // Replies to a voice note start with what we heard, and are also sent back as a voice note.
   const reply = async (body: string, speak: string[], lang: Lang) => {
-    await sendText(
+    const mode = state.mode ?? (isVoice ? "both" : "text");
+    if(mode !== "audio") await sendText(
       target,
       isVoice ? `${heardLine(lang, text)}\n\n${body}` : body,
     );
-    if (isVoice) {
-      const audio = await synthesize(spokenText(speak), lang, "female");
-      if (audio) await sendFile(target, audio, "aadhi-ti.mp3", "audio/mpeg");
+    if (mode !== "text") {
+      const audio = await synthesize(spokenText(speak), lang, "female").catch(()=>null);
+      const sent = audio ? await sendFile(target, audio, "aadhi-ti.mp3", "audio/mpeg").catch(()=>false) : false;
+      if(!sent && mode === "audio") await sendText(target,body);
     }
   };
+
+  if (/^(stop|unsubscribe|थांबा|बंद|रोकें)$/i.test(text)) {
+    await stopReminders(key);
+    await sendText(target,say(uiLang,"Pending reminders cancelled. You can still ask for help.","प्रलंबित स्मरणपत्रं रद्द केली. तुम्ही मदत मागू शकता.","लंबित रिमाइंडर रद्द हुए। आप मदद माँग सकती हैं।"));
+    return save({offered:null});
+  }
+  if (/^(voice settings|audio settings)$/i.test(text)) return offer(modeMenu(uiLang),uiLang);
+  if (/^(reminders|स्मरणपत्रं|रिमाइंडर)$/i.test(text)) return handleChoice("reminders");
 
   // 1. Danger first, always (even while a person is handling the chat): approved scripts, never AI.
   const rule = safetyRule(text);
   if (rule) {
-    const lang = state.lang ?? detectLang(text, uiLang);
+    const lang = conversationLang(text, uiLang, state.history);
     const script = scriptMessage(rule, lang);
+    if(state.mode === "audio") await sendText(target,script);
     await reply(script, [script.split("\n\n").slice(0, 3).join(" ")], lang);
     await save({
       lang,
@@ -297,11 +341,22 @@ async function handle(msg: WatiMessage) {
     return;
   }
 
+  // Per-number limit protects the AI budget; tell her once, then stay quiet for the hour.
+  const count = await bump(`wati:rate:${key}`, 60 * 60).catch(() => 0);
+  if (count > MAX_PER_HOUR) {
+    if (count === MAX_PER_HOUR + 1)
+      await sendText(target, slowDownMessage(uiLang));
+    return;
+  }
+
+  const preferenceChoice=chosen(text,state.offered);
+  if(preferenceChoice?.startsWith("mode:"))return handleChoice(preferenceChoice);
+
   // 2. A person from the team is handling this chat: stay quiet unless she asks for the bot again.
   if (state.humanUntil && state.humanUntil > Date.now()) {
     if (MENU_WORDS.test(text)) {
       await sendText(target, handoffResumedMessage(uiLang));
-      await save({ humanUntil: 0 });
+      await save({ humanUntil: 0, handoffStatus: undefined });
       return offer(mainMenu(uiLang), uiLang);
     }
     return;
@@ -326,12 +381,12 @@ async function handle(msg: WatiMessage) {
   const local = understand(text, null);
   if (local.kind === "greeting" || GREETING.test(text)) {
     if (!state.lang) return offer(languageMenu(), uiLang);
-    await sendText(target, welcomeMessage(state.lang));
+    await welcome(state.lang);
     return offer(mainMenu(state.lang), state.lang);
   }
 
   // 6. Her own question: AI grounded in reviewed content, with memory; reviewed answer if AI fails.
-  const lang = detectLang(text, uiLang);
+  let lang = conversationLang(text, uiLang, state.history);
   let body: string;
   let speak: string[];
   let summary: string;
@@ -342,35 +397,47 @@ async function handle(msg: WatiMessage) {
     history: state.history,
   });
   if (ai) {
+    lang = ai.lang;
     body = aiMessage(ai);
     speak = [ai.understand, ...ai.answer, ai.nextStep];
     summary = speak.join(" ");
   } else if (local.kind === "topic") {
+    await recordMetric("unanswered",local.topic.id,"ai-unavailable");
     body = topicMessage(local.topic, lang);
     speak = [local.topic.understand[lang], local.topic.next[lang]];
     summary = local.topic.understand[lang];
   } else {
+    await recordMetric("unanswered","unmatched","ai-unavailable");
     body = hasAbuse(text) ? calmMessage(lang) : unknownMessage(lang);
     speak = [body];
     summary = "Asked her to say more";
   }
   await reply(`${body}\n\n${menuHint(lang)}`, speak, lang);
 
+  if(state.mode === "audio" && ai?.references?.length)await sendText(target,ai.references.map(r=>`${r.title}\n${r.url}`).join("\n\n"));
   const firstTime = !state.lang;
   await save({
     lang,
+    lastTopic: ai?.topicId ?? (local.kind === "topic" ? local.topic.id : "general"),
+    feedbackPending: true,
     offered: null,
     finder: null,
     history: remember(state.history, text, summary),
   });
   // First message was a real question: answer it, then offer the language choice once.
   if (firstTime) await offer(languageMenu(), lang);
+  else if(ai?.risk === "P3") await offer(feedbackMenu(lang),lang);
 
   async function handleChoice(id: string) {
     const lang = id.startsWith("lang:") ? (id.slice(5) as Lang) : uiLang;
+    if(await handleFeatureChoice(id,{lang,key,waId,target,state,save,offer:(menu)=>offer(menu,lang)}))return;
+    const guided=guidedMenu(id,lang);
+    if(guided)return offer(guided,lang);
     if (id.startsWith("lang:")) {
-      await sendText(target, welcomeMessage(lang));
-      return offer(mainMenu(lang), lang, { lang });
+      await welcome(lang);
+      await save({lang});
+      if(state.mode)await setJSON(`wati:preferences:${key}`,{mode:state.mode,lang},90*DAY);
+      return offer(modeMenu(lang),lang);
     }
     if (id === "language") return offer(languageMenu(), lang);
     if (id === "helplines") {
@@ -402,6 +469,7 @@ async function handle(msg: WatiMessage) {
         );
         return save({ offered: null });
       }
+      await sendText(target,await supportAvailable()?say(lang,"The support desk reports staff available now. Acceptance is not yet confirmed.","सहाय्य कक्षाने कर्मचारी उपलब्ध असल्याचं कळवलं आहे. विनंती अजून स्वीकारलेली नाही.","सहायता डेस्क ने कर्मचारी उपलब्ध होने की सूचना दी है। अनुरोध अभी स्वीकार नहीं हुआ।"):say(lang,"Live availability is unconfirmed. You may request a person, but there may be a wait.","आत्ताची उपलब्धता निश्चित नाही. विनंती करता येईल, पण वाट पाहावी लागू शकते.","अभी उपलब्धता की पुष्टि नहीं है। अनुरोध कर सकती हैं, लेकिन इंतज़ार हो सकता है।"));
       return offer(handoffConsentMenu(lang), lang);
     }
     if (id === "handoff:yes") {
@@ -412,6 +480,7 @@ async function handle(msg: WatiMessage) {
       );
       return save({
         offered: null,
+        handoffStatus: done ? "pending" : undefined,
         humanUntil: done ? Date.now() + HANDOFF_HOURS * 3600 * 1000 : 0,
       });
     }
@@ -462,8 +531,9 @@ async function handle(msg: WatiMessage) {
     if (id.startsWith("scheme:")) {
       const msgText = schemeMessage(id.slice(7), lang);
       if (msgText) {
-        await sendText(target, `${msgText}\n\n${menuHint(lang)}`);
-        return save({ offered: null });
+        await reply(`${msgText}\n\n${menuHint(lang)}`,[msgText],lang);
+        await save({history:remember(state.history,text,msgText)});
+        return offer({kind:"buttons",body:say(lang,"What would help next?","पुढे काय हवं?","आगे क्या चाहिए?"),buttons:[{id:`docs:${id.slice(7)}`,title:say(lang,"Document checklist","कागदपत्रांची यादी","दस्तावेज़ सूची")},{id:"finder",title:say(lang,"Check eligibility","पात्रता तपासा","पात्रता जाँचें")},{id:"menu",title:say(lang,"Main menu","मुख्य मेनू","मुख्य मेनू")}]},lang);
       }
     }
     return offer(mainMenu(lang), lang);

@@ -62,6 +62,7 @@ export function aiMessage(a: AiAnswer): string {
       ? `*${t3(lang, "पुढचं पाऊल", "अगला कदम", "Next step")}:* ${a.nextStep}`
       : "",
     contacts(a.helplines, lang),
+    ...(a.references ?? []).map(r => `${r.title}\n${r.url}\n${r.checked}`),
     followUps(a.options, lang),
     `_${t3(lang, "स्रोत", "स्रोत", "Source")}: ${a.source}${a.verify ? ` · ${a.verify}` : ""}_\n_${
       a.topicId
@@ -147,12 +148,7 @@ export function slowDownMessage(lang: Lang): string {
 // ---------- talk to a person ----------
 
 export function handoffDoneMessage(lang: Lang): string {
-  return t3(
-    lang,
-    "जोडलं आहे. आमच्या टीममधली व्यक्ती लवकरच इथे उत्तर देईल. तोपर्यंत तुम्ही काय झालं ते लिहून ठेवू शकता.\n\nपरत आधी ती शी बोलायचं असेल तर *menu* लिहा. धोका असेल तर आत्ता *112*.",
-    "जोड़ दिया है। हमारी टीम का व्यक्ति जल्द ही यहाँ जवाब देगा। तब तक आप क्या हुआ, लिखकर रख सकती हैं।\n\nफिर से आधी ती से बात करनी हो तो *menu* लिखें। खतरा हो तो अभी *112*।",
-    "Done. A person from our team will reply here soon. Meanwhile, you can write down what happened.\n\nTo talk to AADHI TI again, type *menu*. In danger? Call *112* now.",
-  );
+ return t3(lang,"विनंती सहाय्यक टीमकडे पाठवली आहे. अजून कोणत्याही व्यक्तीने स्वीकारलेली नाही. बॉट थांबेल; परत येण्यासाठी menu लिहा. तातडीचा धोका असल्यास 112.","अनुरोध सहायता टीम को भेजा है। अभी किसी व्यक्ति ने स्वीकार नहीं किया है। बॉट रुकेगा; लौटने के लिए menu लिखें। तत्काल खतरे में 112।","Your request was routed to the support team. No person has accepted it yet. The bot will pause; type menu to return. For immediate danger call 112.");
 }
 
 export function handoffUnavailableMessage(lang: Lang): string {
