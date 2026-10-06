@@ -6,12 +6,12 @@ import { useLang } from "@/lib/i18n";
 import { initiativeBanner, leader } from "@/lib/leader";
 
 export default function InitiativeBanner() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <section id="home-banner" aria-label="AADHI TI" className="-mx-4 overflow-hidden bg-[#fff4e8] sm:mx-0 sm:mt-6 sm:rounded-[2rem] sm:border sm:border-kokum-100">
       <div className="grid items-center md:grid-cols-[1.55fr_1fr]">
         <div className="relative min-w-0">
-          <Image src="/brand/home-hero.png" alt={t({en:"AADHI TI: women across generations, together against a sunrise sky.",mr:"आधी ती: सूर्योदयाच्या पार्श्वभूमीवर सर्व पिढ्यांतील महिला एकत्र.",hi:"आधी ती: सूर्योदय की पृष्ठभूमि में हर पीढ़ी की महिलाएँ एक साथ।"})} width={1600} height={900} priority sizes="(min-width: 768px) 700px, 100vw" className="block h-auto w-full saturate-[.8]" />
+          <Image src={`/brand/localized/home-hero-${lang}.webp`} alt={t({en:"AADHI TI: women across generations, together against a sunrise sky.",mr:"आधी ती: सूर्योदयाच्या पार्श्वभूमीवर सर्व पिढ्यांतील महिला एकत्र.",hi:"आधी ती: सूर्योदय की पृष्ठभूमि में हर पीढ़ी की महिलाएँ एक साथ।"})} width={1600} height={900} priority sizes="(min-width: 768px) 700px, 100vw" className="block h-auto w-full saturate-[.8]" />
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#fff4e8]/10" />
           <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-12 bg-gradient-to-l from-[#fff4e8] to-transparent md:block" />
         </div>
@@ -31,7 +31,7 @@ export default function InitiativeBanner() {
         <span className="text-xs text-kokum-600 md:hidden">{t({en:"Swipe to explore →",mr:"पाहण्यासाठी सरकवा →",hi:"देखने के लिए स्वाइप करें →"})}</span>
       </div>
       <div tabIndex={0} role="region" aria-label={t({en:"Nine forms of women's empowerment; scroll horizontally",mr:"महिला सक्षमीकरणाची नऊ रूपं; आडवे सरकवा",hi:"महिला सशक्तिकरण के नौ रूप; दाएँ-बाएँ स्क्रॉल करें"})} className="overflow-x-auto overscroll-x-contain focus-visible:outline-2 focus-visible:outline-kokum-700">
-        <Image src="/brand/nav-durga.png" alt={t({en:"Shailputri: girls and mothers; Brahmacharini: education; Chandraghanta: self-defence; Kushmanda: health; Skandamata: nurturing; Katyayani: justice; Kalaratri: safe spaces; Mahagauri: wellbeing; Siddhidatri: financial independence.",mr:"शैलपुत्री: बालिका आणि मातृशक्ती; ब्रह्मचारिणी: शिक्षण; चंद्रघंटा: स्वसंरक्षण; कुष्मांडा: आरोग्य; स्कंदमाता: संगोपन; कात्यायनी: न्याय; कालरात्री: सुरक्षित जागा; महागौरी: स्वतःसाठी वेळ; सिद्धिदात्री: आर्थिक स्वावलंबन.",hi:"शैलपुत्री: बालिका और मातृशक्ति; ब्रह्मचारिणी: शिक्षा; चंद्रघंटा: आत्मरक्षा; कुष्मांडा: स्वास्थ्य; स्कंदमाता: देखभाल; कात्यायनी: न्याय; कालरात्री: सुरक्षित स्थान; महागौरी: अपने लिए समय; सिद्धिदात्री: आर्थिक स्वतंत्रता।"})} width={1672} height={940} sizes="(min-width: 1152px) 1152px, 900px" className="block h-auto w-full min-w-[900px] opacity-90 md:min-w-0" />
+        <Image src={`/brand/localized/nav-durga-${lang}.webp`} alt={t({en:"Shailputri: girls and mothers; Brahmacharini: education; Chandraghanta: self-defence; Kushmanda: health; Skandamata: nurturing; Katyayani: justice; Kalaratri: safe spaces; Mahagauri: wellbeing; Siddhidatri: financial independence.",mr:"शैलपुत्री: बालिका आणि मातृशक्ती; ब्रह्मचारिणी: शिक्षण; चंद्रघंटा: स्वसंरक्षण; कुष्मांडा: आरोग्य; स्कंदमाता: संगोपन; कात्यायनी: न्याय; कालरात्री: सुरक्षित जागा; महागौरी: स्वतःसाठी वेळ; सिद्धिदात्री: आर्थिक स्वावलंबन.",hi:"शैलपुत्री: बालिका और मातृशक्ति; ब्रह्मचारिणी: शिक्षा; चंद्रघंटा: आत्मरक्षा; कुष्मांडा: स्वास्थ्य; स्कंदमाता: देखभाल; कात्यायनी: न्याय; कालरात्री: सुरक्षित स्थान; महागौरी: अपने लिए समय; सिद्धिदात्री: आर्थिक स्वतंत्रता।"})} width={1672} height={940} sizes="(min-width: 1152px) 1152px, 900px" className="block h-auto w-full min-w-[900px] opacity-90 md:min-w-0" />
       </div>
     </section>
   );

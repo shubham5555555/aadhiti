@@ -99,7 +99,7 @@ const shortcuts: { href: string; label: L; Icon: typeof Landmark }[] = [
 ];
 
 export default function Dashboard() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const router = useRouter();
   const { profile } = useProfile();
   const [q, setQ] = useState("");
@@ -244,7 +244,7 @@ export default function Dashboard() {
           className="relative block h-44 overflow-hidden rounded-3xl lg:h-72"
         >
           <Image
-            src="/brand/hero.webp"
+            src={`/brand/localized/hero-${lang}.webp`}
             alt=""
             fill
             sizes="100vw"
