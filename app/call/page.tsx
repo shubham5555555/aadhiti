@@ -201,7 +201,7 @@ function CallExperience(){
  const params=useSearchParams();const {t}=useLang();const fake=params.get('mode')==='fake';
  return <div className="mx-auto w-full max-w-5xl px-2 py-4 sm:px-4 sm:py-6">
  <nav aria-label={t({en:'Call type',mr:'कॉलचा प्रकार',hi:'कॉल का प्रकार'})} className="mb-5 flex flex-wrap justify-center gap-2">
- <Link href="/call" aria-current={!fake?'page':undefined} className={!fake?'soft-btn':'soft-btn-outline'}>{t({en:'Call Aditi',mr:'अदितीला कॉल करा',hi:'अदिति को कॉल करें'})}</Link>
+ <Link href="/call" aria-current={!fake?'page':undefined} className={!fake?'soft-btn':'soft-btn-outline'}>{t({en:'Call AADHI TI',mr:'आधी तीला कॉल करा',hi:'आधी ती को कॉल करें'})}</Link>
  <Link href="/call?mode=fake" aria-current={fake?'page':undefined} className={fake?'soft-btn':'soft-btn-outline'}>{t({en:'Fake call',mr:'बनावट कॉल',hi:'नकली कॉल'})}</Link>
  </nav>
  {fake?<CallBot/>:<div className="mx-auto max-w-xl"><AditiConversation/></div>}

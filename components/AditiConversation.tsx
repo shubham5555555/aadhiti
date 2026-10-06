@@ -24,7 +24,7 @@ function CallAditi(){
  useEffect(()=>{if(!active)return;setSeconds(0);const began=Date.now();const timer=setInterval(()=>setSeconds(Math.floor((Date.now()-began)/1000)),1000);return()=>clearInterval(timer);},[active]);
  const connecting=busy||conversation.status==='connecting';
  const muted=conversation.isMuted;
- const status=active?(muted?t({en:'Microphone muted',mr:'मायक्रोफोन बंद आहे',hi:'माइक्रोफोन बंद है'}):conversation.isSpeaking?t({en:'Aditi is speaking',mr:'अदिती बोलत आहे',hi:'अदिति बोल रही है'}):t({en:'Listening to you',mr:'तुमचे ऐकत आहे',hi:'आपकी बात सुन रही है'})):connecting?t({en:'Connecting…',mr:'जोडत आहे…',hi:'जोड़ रहे हैं…'}):t({en:'Ready when you are',mr:'तुमच्याशी बोलायला तयार',hi:'आपसे बात करने के लिए तैयार'});
+ const status=active?(muted?t({en:'Microphone muted',mr:'मायक्रोफोन बंद आहे',hi:'माइक्रोफोन बंद है'}):conversation.isSpeaking?t({en:'AADHI TI is speaking',mr:'आधी ती बोलत आहे',hi:'आधी ती बोल रही है'}):t({en:'Listening to you',mr:'तुमचे ऐकत आहे',hi:'आपकी बात सुन रही है'})):connecting?t({en:'Connecting…',mr:'जोडत आहे…',hi:'जोड़ रहे हैं…'}):t({en:'Ready when you are',mr:'तुमच्याशी बोलायला तयार',hi:'आपसे बात करने के लिए तैयार'});
  return <section className="relative isolate flex min-h-[620px] flex-col overflow-hidden rounded-[2rem] bg-kokum-900 px-5 py-7 text-center text-white shadow-xl sm:px-10 sm:py-9">
  <div aria-hidden="true" className="pointer-events-none absolute -top-24 left-1/2 -z-10 size-96 -translate-x-1/2 rounded-full bg-kokum-500/20 blur-3xl"/>
  <div className="flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-kokum-200"><AudioLines size={15}/>{t({en:'AADHI TI · AI VOICE CALL',mr:'आधी ती · एआय व्हॉइस कॉल',hi:'आधी ती · एआई वॉइस कॉल'})}</div>
@@ -32,7 +32,7 @@ function CallAditi(){
  {active&&<span aria-hidden="true" className="absolute -inset-3 rounded-full border border-white/20 motion-safe:animate-pulse"/>}
  <span aria-hidden="true" className="font-serif text-5xl text-pink-100">आ</span>
  </div>
- <h1 className="mt-6 font-display text-3xl font-bold sm:text-4xl">{t({en:'Call Aditi',mr:'अदितीला कॉल करा',hi:'अदिति को कॉल करें'})}</h1>
+ <h1 className="mt-6 font-display text-3xl font-bold sm:text-4xl">{t({en:'Call AADHI TI',mr:'आधी तीला कॉल करा',hi:'आधी ती को कॉल करें'})}</h1>
  <p className="mt-2 text-sm text-kokum-200">{t({en:'Your AADHI TI AI assistant',mr:'तुमची आधी ती एआय सहाय्यक',hi:'आपकी आधी ती एआई सहायिका'})}</p>
  <p className="mt-5 font-mono text-2xl tabular-nums text-white/90">{active?`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`:'— : —'}</p>
  <p role="status" className="mt-2 min-h-6 text-sm text-pink-100">{status}</p>

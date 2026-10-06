@@ -25,7 +25,7 @@ export default function BottomNav() {
       {/* Keep the floating shortcut clear of chat and call controls. */}
       {!["/chat", "/call", "/call-aditi"].includes(pathname) && (
         <div className="fixed right-4 bottom-[5.25rem] z-40 sm:hidden">
-          <Link href="/call-aditi" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-kokum-700 px-4 text-sm font-bold text-white"><PhoneCall size={16}/>{t({en:"Call Aditi",mr:"अदितीला कॉल करा",hi:"अदिति को कॉल करें"})}</Link>
+          <Link href="/call-aditi" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-kokum-700 px-4 text-sm font-bold text-white"><PhoneCall size={16}/>{t({en:"Call AADHI TI",mr:"आधी तीला कॉल करा",hi:"आधी ती को कॉल करें"})}</Link>
         </div>
       )}
       <nav className="fixed inset-x-0 bottom-0 z-40 rounded-t-3xl border-t border-kokum-100 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_30px_-18px_rgba(126,23,56,0.45)] backdrop-blur lg:hidden">

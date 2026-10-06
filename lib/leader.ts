@@ -106,7 +106,7 @@ export const journey: { year: string; text: L }[] = [
 // The "An initiative by" banner at the top of the home page.
 export const initiativeBanner = {
   by: { mr: "एक उपक्रम", en: "An initiative by", hi: "एक पहल" } as L,
-  name: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Hon'ble Minister Ms. Aditi Tai Varda Sunil Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई वरदा सुनील तटकरे" } as L,
+  name: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Hon'ble Minister Ms. Aditi Varda Sunil Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई वरदा सुनील तटकरे" } as L,
   lines: [
     { mr: "मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य", en: "Cabinet Minister, Women and Child Development, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
     { mr: "", en: "", hi: "महिला एवं बाल विकास मंत्री" },
