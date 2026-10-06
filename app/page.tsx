@@ -14,6 +14,7 @@ import {
 import CategoryIcon from "@/components/CategoryIcon";
 import Leaf from "@/components/Leaf";
 import Dashboard from "@/components/home/Dashboard";
+import LeadershipPortraits from "@/components/home/LeadershipPortraits";
 import InitiativeBanner from "@/components/home/InitiativeBanner";
 import SOSButton from "@/components/SOSButton";
 import ScrollPan from "@/components/ScrollPan";
@@ -276,6 +277,7 @@ export default function Home() {
 
   return (
     <div className="space-y-10 pb-6 md:space-y-14">
+      <LeadershipPortraits />
       <InitiativeBanner />
 
       <Dashboard />
