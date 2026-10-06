@@ -1,0 +1,662 @@
+{
+  "shailputri": {
+    "name": "Shailputri",
+    "theme": "Support for girls and mothers",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "lekladki": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Lek Ladki Yojana",
+        "description": "Financial support is provided in stages from a girl’s birth until she turns 18.",
+        "details": [
+          "Who can apply",
+          "Families with one or two girls born on or after 1 April 2023",
+          "Families with a yellow or orange ration card",
+          "Families with an annual income of up to ₹1 lakh",
+          "Maharashtra residents with a bank account in the state",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "sukanya": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Sukanya Samriddhi Yojana",
+        "description": "A savings account for a girl child.",
+        "details": [
+          "Who can open an account",
+          "The account can be opened any time from the girl’s birth until she turns 10.",
+          "One account can be opened for each girl, with a maximum of two accounts per family.",
+          "The interest rate may change every quarter. Please check the current rate with your bank."
+        ]
+      },
+      "icds": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Anganwadi Services (ICDS)",
+        "description": "Anganwadi centres offer six services: supplementary nutrition, preschool education, nutrition and health education, vaccination, health check-ups, and referrals. Vaccinations, check-ups, and referrals are provided through the health department, including ASHA and ANM workers.",
+        "details": [
+          "Who can receive these services?",
+          "Pregnant women and breastfeeding mothers",
+          "Children under 6 years old",
+          "Supplementary nutrition is available only to people registered at an Anganwadi centre."
+        ]
+      },
+      "pmmvy": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Pradhan Mantri Matru Vandana Yojana (PMMVY 2.0)",
+        "description": "Maternity support for pregnant and breastfeeding women.",
+        "details": [
+          "Who may be eligible",
+          "Applicants must meet at least one of these conditions:",
+          "Family income below ₹8 lakh",
+          "BPL or NFSA ration card",
+          "Belong to a Scheduled Caste (SC) or Scheduled Tribe (ST)",
+          "Have a disability of 40% or more",
+          "Be registered with e-Shram or MGNREGA",
+          "Be a woman farmer under PM-KISAN",
+          "Be covered under PM-JAY",
+          "Applicants must be between 18 years and 7 months and 55 years old. Register within 270 days of the child’s birth.",
+          "The scheme was approved under Mission Shakti through FY 2025–26. Its continuation after that period needs confirmation.",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "jssk": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Janani Shishu Suraksha Karyakram (JSSK)",
+        "description": "Free care at government health facilities for pregnant women, mothers for up to 42 days after delivery, and sick babies under 1 year old.",
+        "details": [
+          "Who can receive care?",
+          "All pregnant women and mothers up to 42 days after delivery at government health facilities",
+          "Sick babies under 1 year old can receive free treatment, medicines, tests, and transport.",
+          "There are no restrictions based on income, caste, or number of children."
+        ]
+      }
+    }
+  },
+  "brahmacharini": {
+    "name": "Brahmacharini",
+    "theme": "Education and learning",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as income, place of residence, or pregnancy, may also apply.",
+    "schemes": {
+      "lekladki": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Lek Ladki Yojana",
+        "description": "Financial support is provided in stages from a girl’s birth until she turns 18.",
+        "details": [
+          "Who can apply?",
+          "Families with one or two girls born on or after 1 April 2023",
+          "Families with a yellow or orange ration card",
+          "Families with an annual income of up to ₹1 lakh",
+          "Families who live in Maharashtra and have a bank account in the state",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "sukanya": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Sukanya Samriddhi Yojana",
+        "description": "A savings account for a girl child.",
+        "details": [
+          "Who can open an account?",
+          "The account can be opened any time from the girl’s birth until she turns 10.",
+          "One account can be opened for each girl, with a maximum of two accounts per family.",
+          "The interest rate may change every quarter. Please check the current rate with your bank."
+        ]
+      },
+      "pmposhan": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PM POSHAN (Pradhan Mantri Poshan Shakti Nirman)",
+        "description": "Provides one hot, cooked meal each school day to children in government and government-aided schools.",
+        "details": [
+          "Who can receive a meal?",
+          "Children in Classes 1 to 8 at government or government-aided schools",
+          "Children in Balvatika or pre-primary classes at eligible primary schools",
+          "The approved period ended on 31 March 2026. The scheme was extended until 30 September 2026 or until new approval is granted, whichever comes first. Ask the school for the latest information.",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "freeedu": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Free Professional Education for Girls (Fee Reimbursement)",
+        "description": "Tuition and exam fees are fully reimbursed for eligible professional courses.",
+        "details": [
+          "Who may be eligible?",
+          "Girls from EWS, SEBC, or OBC categories, and orphan girls",
+          "Families with an annual income of up to ₹8 lakh",
+          "Girls admitted to eligible institutions through CAP"
+        ]
+      },
+      "pmkvy": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PMKVY 4.0",
+        "description": "Short courses and certificates to help people build on their existing skills.",
+        "details": [
+          "Who can participate?",
+          "People aged 15 to 59",
+          "The scheme was approved through FY 2025–26. The next phase has not yet been confirmed.",
+          "Please check with the department to confirm whether the scheme is currently available and what rules apply."
+        ]
+      }
+    }
+  },
+  "chandraghanta": {
+    "name": "Chandraghanta",
+    "theme": "Courage and self-defence",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "child-marriage": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Child Marriage-Free Maharashtra",
+        "description": "It is illegal to marry a girl under 18. People who arrange, conduct, or broker a child marriage may also face legal action.",
+        "details": [
+          "Who can report it?",
+          "Anyone can report a child marriage. Their identity will be kept confidential.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "adishakti": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Adishakti Abhiyan",
+        "description": "A rural campaign that supports women and families by working to reduce malnutrition, maternal and infant deaths, child marriage, and gender-based violence. It also encourages more women to take part in local government.",
+        "details": [
+          "Who it is for",
+          "Women and families in rural villages",
+          "Current availability and rules need confirmation with the department."
+        ]
+      }
+    }
+  },
+  "kushmanda": {
+    "name": "Kushmanda",
+    "theme": "Health and energy",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "icds": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Anganwadi Services (ICDS)",
+        "description": "Anganwadi centres offer six services: supplementary nutrition, preschool education, nutrition and health education, vaccination, health check-ups, and referrals. Vaccinations, check-ups, and referrals are provided through the health department by ASHA and ANM workers.",
+        "details": [
+          "Who can receive these services?",
+          "Pregnant women and breastfeeding mothers",
+          "Children under 6 years old",
+          "Only people registered at an Anganwadi centre can receive supplementary nutrition."
+        ]
+      },
+      "jssk": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Janani Shishu Suraksha Karyakram (JSSK)",
+        "description": "Free care at government health facilities for pregnant women, during delivery and for up to 42 days after delivery, and for sick babies under 1 year old.",
+        "details": [
+          "Who can receive care?",
+          "All pregnant women and mothers up to 42 days after delivery at government health facilities",
+          "Sick babies under 1 year old can receive free treatment, medicines, tests, and transport",
+          "There are no restrictions based on income, caste, or number of children"
+        ]
+      },
+      "uip": {
+        "registry": null,
+        "name": "Universal Immunisation Programme (UIP)",
+        "description": "Free vaccines for children and pregnant women through government health services.",
+        "details": [
+          "Who it is for",
+          "Young children (different vaccines are given at different ages)",
+          "Children aged 10 and 16 (Td vaccine)",
+          "Pregnant women"
+        ]
+      },
+      "amb": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Anemia Mukt Bharat Abhiyaan (AMB)",
+        "description": "This programme helps prevent and treat anaemia through iron and folic acid (IFA) tablets or syrup, testing, treatment, deworming, and advice about locally available iron-rich foods.",
+        "details": [
+          "Who can benefit?",
+          "Children aged 6 months to 9 years",
+          "Adolescent girls and boys aged 10 to 19",
+          "Pregnant women and breastfeeding mothers",
+          "Women aged 20 to 49",
+          "Babies with low birth weight, from birth to 6 months",
+          "New guidelines were issued in June 2026 and cover seven beneficiary groups and seven interventions. Ask your local health centre which services are available."
+        ]
+      },
+      "pmposhan": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PM POSHAN (Pradhan Mantri Poshan Shakti Nirman)",
+        "description": "Provides one hot, cooked meal each school day to children in government and government-aided schools.",
+        "details": [
+          "Who can receive a meal?",
+          "Children in Classes 1 to 8 at government or government-aided schools",
+          "Children in Balvatika or pre-primary classes at eligible primary schools",
+          "The approved period ended on 31 March 2026. It was extended until 30 September 2026 or until new approval is granted, whichever comes first. Ask the school for the latest information.",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "pmmvy": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Pradhan Mantri Matru Vandana Yojana (PMMVY 2.0)",
+        "description": "Maternity support for pregnant and breastfeeding women.",
+        "details": [
+          "Who may be eligible?",
+          "Applicants must meet at least one of these conditions:",
+          "Family income below ₹8 lakh",
+          "BPL or NFSA ration card",
+          "Belong to an SC or ST community",
+          "Have a disability of 40% or more",
+          "Be registered with e-Shram or MGNREGA",
+          "Be a woman farmer covered by PM-KISAN",
+          "Be covered by PM-JAY",
+          "Applicants must be aged 18 years and 7 months to 55 years. Register within 270 days of the child’s birth.",
+          "The scheme was approved under Mission Shakti through FY 2025–26. Its continuation after this period needs confirmation.",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      }
+    }
+  },
+  "skandamata": {
+    "name": "Skandamata",
+    "theme": "Nurturing and care",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "pmmvy": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Pradhan Mantri Matru Vandana Yojana (PMMVY 2.0)",
+        "description": "Maternity support for pregnant and breastfeeding women.",
+        "details": [
+          "Who may be eligible?",
+          "Applicants must meet at least one of these conditions:",
+          "Family income below ₹8 lakh",
+          "BPL or NFSA ration card",
+          "Belong to an SC or ST community",
+          "Have a disability of 40% or more",
+          "Be registered with e-Shram or MGNREGA",
+          "Be a woman farmer covered by PM-KISAN",
+          "Be covered by PM-JAY",
+          "Applicants must be aged 18 years and 7 months to 55 years. Register within 270 days of the child’s birth.",
+          "The scheme was approved under Mission Shakti through FY 2025–26. Its continuation after this period needs confirmation."
+        ]
+      },
+      "jssk": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Janani Shishu Suraksha Karyakram (JSSK)",
+        "description": "Free care at government health facilities for pregnant women, during delivery and for up to 42 days after delivery, and for sick babies under 1 year old.",
+        "details": [
+          "Who can receive care?",
+          "All pregnant women and mothers up to 42 days after delivery at government health facilities",
+          "Sick babies under 1 year old can receive free treatment, medicines, tests, and transport",
+          "There are no restrictions based on income, caste, or number of children"
+        ]
+      },
+      "icds": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Anganwadi Services (ICDS)",
+        "description": "Anganwadi centres offer six services: supplementary nutrition, preschool education, nutrition and health education, vaccination, health check-ups, and referrals. Vaccinations, check-ups, and referrals are provided through the health department by ASHA and ANM workers.",
+        "details": [
+          "Who can receive these services?",
+          "Pregnant women and breastfeeding mothers",
+          "Children under 6 years old",
+          "Only people registered at an Anganwadi centre can receive supplementary nutrition."
+        ]
+      },
+      "uip": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Universal Immunisation Programme (UIP)",
+        "description": "Free vaccines for children and pregnant women through government health services.",
+        "details": [
+          "Who can receive vaccines?",
+          "Young children (the vaccines they receive depend on their age)",
+          "Children aged 10 and 16 (they receive the Td vaccine)",
+          "Pregnant women"
+        ]
+      },
+      "lekladki": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Lek Ladki Yojana",
+        "description": "Financial support is provided in stages from a girl’s birth until she turns 18.",
+        "details": [
+          "Who can apply?",
+          "Families with one or two girls born on or after 1 April 2023",
+          "Families with a yellow or orange ration card",
+          "Families with an annual income of up to ₹1 lakh",
+          "Families who live in Maharashtra and have a bank account in the state",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      }
+    }
+  },
+  "katyayani": {
+    "name": "Katyayani",
+    "theme": "Justice and rights",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "child-marriage": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Child Marriage-Free Maharashtra",
+        "description": "It is illegal to marry a girl under 18. People who arrange, conduct, or broker a child marriage may also face legal action.",
+        "details": [
+          "Who can report it?",
+          "Anyone can report a child marriage. Their identity will be kept confidential.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "adishakti": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Adishakti Abhiyan",
+        "description": "A rural campaign that supports women and families by working to reduce malnutrition, maternal and infant deaths, child marriage, and gender-based violence. It also encourages more women to take part in local government.",
+        "details": [
+          "Who it is for",
+          "Women and families in rural villages",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "single-women": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Single Women Policy (Maharashtra)",
+        "description": "Maharashtra is preparing what is described as India’s first dedicated policy for widowed, divorced, separated, and unmarried women. A drafting committee was formed in May 2026, and the policy is still being prepared.",
+        "details": [
+          "Who it may support",
+          "Widowed, divorced, separated, or unmarried women",
+          "The policy has not yet been announced. Do not pay anyone claiming to register you or provide benefits under this policy.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "sgnay": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Sanjay Gandhi Niradhar Anudan Yojana",
+        "description": "Monthly financial support for widowed, abandoned, or divorced women, destitute people, people with disabilities or terminal illnesses, and orphans.",
+        "details": [
+          "Who may be eligible?",
+          "People under 65 years old",
+          "People in one of these groups: widowed, divorced, or abandoned women; destitute people; people with disabilities or terminal illnesses; orphans",
+          "Annual income of up to ₹21,000 (or ₹50,000 for people with disabilities)"
+        ]
+      }
+    }
+  },
+  "kalaratri": {
+    "name": "Kalaratri",
+    "theme": "Protection and safe spaces",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "child-marriage": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Child Marriage-Free Maharashtra",
+        "description": "It is illegal to marry a girl under 18. People who arrange, conduct, or broker a child marriage may also face legal action.",
+        "details": [
+          "Who can report it?",
+          "Anyone can report a child marriage. Their identity will be kept confidential.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "adishakti": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Adishakti Abhiyan",
+        "description": "A rural campaign that supports women and families by working to reduce malnutrition, maternal and infant deaths, child marriage, and gender-based violence. It also encourages more women to take part in local government.",
+        "details": [
+          "Who it is for",
+          "Women and families in rural villages",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "single-women": {
+        "registry": "Programme / policy guidance · Registry checked: 10 September 2026",
+        "name": "Single Women Policy (Maharashtra)",
+        "description": "This is planned as India’s first dedicated policy for widowed, divorced, separated, and unmarried women. A drafting committee was formed in May 2026, and the policy is still being prepared.",
+        "details": [
+          "Who it is for",
+          "Widowed, divorced, separated, or unmarried women",
+          "The policy has not yet been announced. Be cautious of anyone asking for money in its name.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      }
+    }
+  },
+  "mahagauri": {
+    "name": "Mahagauri",
+    "theme": "Renewal and wellbeing",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "amb": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Anemia Mukt Bharat Abhiyaan (AMB)",
+        "description": "This programme helps prevent and treat anaemia. It provides iron and folic acid (IFA) tablets or syrup, testing, treatment, deworming, and advice on locally available iron-rich foods.",
+        "details": [
+          "Who it is for",
+          "Children aged 6 months to 9 years",
+          "Adolescent girls and boys aged 10 to 19",
+          "Pregnant women and breastfeeding mothers",
+          "Women aged 20 to 49",
+          "Babies with low birth weight, from birth to 6 months",
+          "New guidelines were issued in June 2026 and cover seven beneficiary groups and seven interventions. Ask at your local health centre what is available."
+        ]
+      },
+      "icds": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Anganwadi Services (ICDS)",
+        "description": "Anganwadi centres offer six services: supplementary nutrition, preschool education, nutrition and health education, vaccination, health check-ups, and referrals. Vaccinations, check-ups, and referrals are provided through the health department by ASHA and ANM workers.",
+        "details": [
+          "Who it is for",
+          "Pregnant women and breastfeeding mothers",
+          "Children under 6 years old",
+          "Only people registered at an Anganwadi centre can receive supplementary nutrition."
+        ]
+      },
+      "pmmvy": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Pradhan Mantri Matru Vandana Yojana (PMMVY 2.0)",
+        "description": "Maternity support for pregnant and breastfeeding women.",
+        "details": [
+          "Who may be eligible?",
+          "Applicants must meet at least one of these conditions:",
+          "Family income below ₹8 lakh",
+          "BPL or NFSA ration card",
+          "Belong to an SC or ST community",
+          "Have a disability of 40% or more",
+          "Be registered with e-Shram or MGNREGA",
+          "Be a woman farmer covered by PM-KISAN",
+          "Be covered by PM-JAY",
+          "Applicants must be aged 18 years and 7 months to 55 years. Register within 270 days of the child’s birth.",
+          "The scheme was approved under Mission Shakti through FY 2025–26. Its continuation after this period needs confirmation."
+        ]
+      },
+      "sgnay": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Sanjay Gandhi Niradhar Anudan Yojana",
+        "description": "Monthly financial support for widowed, abandoned, or divorced women, destitute people, people with disabilities or terminal illnesses, and orphans.",
+        "details": [
+          "Who may be eligible?",
+          "People under 65 years old",
+          "People in one of these groups: widowed, divorced, or abandoned women; destitute people; people with disabilities or terminal illnesses; orphans",
+          "Annual income of up to ₹21,000 (or ₹50,000 for people with disabilities)"
+        ]
+      },
+      "shravanbal": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Shravanbal Seva Rajya Nivruttivetan Yojana",
+        "description": "Monthly pension for people aged 65 or older who need financial support.",
+        "details": [
+          "Who may be eligible?",
+          "People aged 65 or older",
+          "People with an annual income below ₹21,000"
+        ]
+      }
+    }
+  },
+  "siddhidatri": {
+    "name": "Siddhidatri",
+    "theme": "Financial independence and opportunity",
+    "intro": "Explore schemes and support programmes by age group. These suggestions can help you find possible support, but they do not guarantee eligibility or approval. Other conditions, such as pregnancy, income, or place of residence, may also apply.",
+    "schemes": {
+      "sukanya": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Sukanya Samriddhi Yojana",
+        "description": "A savings account for a girl child.",
+        "details": [
+          "Who can open an account?",
+          "The account can be opened any time from the girl’s birth until she turns 10.",
+          "One account can be opened for each girl, with a maximum of two accounts per family.",
+          "The interest rate may change every quarter. Check the current rate with your bank."
+        ]
+      },
+      "lekladki": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Lek Ladki Yojana",
+        "description": "Financial support is provided in stages from a girl’s birth until she turns 18.",
+        "details": [
+          "Who can apply?",
+          "Families with one or two girls born on or after 1 April 2023",
+          "Families with a yellow or orange ration card",
+          "Families with an annual income of up to ₹1 lakh",
+          "Families who live in Maharashtra and have a bank account in the state",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "pmkvy": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PMKVY 4.0",
+        "description": "Short courses and certificates to help people build on their existing skills.",
+        "details": [
+          "Who can participate?",
+          "People aged 15 to 59",
+          "The scheme was approved through FY 2025–26. The next phase needs confirmation.",
+          "Please confirm the scheme’s current availability and requirements with the department."
+        ]
+      },
+      "freeedu": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Free Professional Education for Girls (Fee Reimbursement)",
+        "description": "Tuition and exam fees are fully reimbursed for eligible professional courses.",
+        "details": [
+          "Who may be eligible?",
+          "Girls in the EWS, SEBC, or OBC categories, and orphan girls",
+          "Families with an annual income of up to ₹8 lakh",
+          "Girls admitted to eligible institutions through CAP"
+        ]
+      },
+      "ladki-bahin": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Mukhyamantri Majhi Ladki Bahin Yojana",
+        "description": "Provides monthly financial support to women.",
+        "details": [
+          "Who may be eligible?",
+          "Women aged 21 to 65 who live in Maharashtra",
+          "Families with an annual income of up to ₹2.5 lakh",
+          "Married, widowed, divorced, abandoned, or destitute women, or one unmarried woman per family",
+          "Women with an Aadhaar-linked bank account",
+          "A government resolution dated 18 September 2025 makes yearly e-KYC mandatory. About 92 lakh names were removed by July 2026 following e-KYC checks and verification."
+        ]
+      },
+      "mavim": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "MAVIM Self-Help Groups",
+        "description": "Women’s self-help groups (SHGs) can provide savings, loans, training, livelihood opportunities, and access to markets.",
+        "details": [
+          "Who can join?",
+          "Women aged 18 or older"
+        ]
+      },
+      "umed": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "UMED (Maharashtra State Rural Livelihoods Mission)",
+        "description": "Provides funding, loans, and training to rural self-help groups (SHGs), including support through the Lakhpati Didi initiative.",
+        "details": [
+          "Who it is for",
+          "Rural women who are SHG members"
+        ]
+      },
+      "mudra": {
+        "registry": null,
+        "name": "PM Mudra Yojana",
+        "description": "Loans for micro-enterprises.",
+        "details": [
+          "Who it is for",
+          "People running income-generating micro-enterprises in manufacturing, trade, services, or agriculture-related activities"
+        ]
+      },
+      "pmegp": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PMEGP",
+        "description": "Offers a subsidy on bank loans to help set up new micro-enterprises.",
+        "details": [
+          "Who may be eligible?",
+          "People aged 18 or older",
+          "Applicants must have passed Class 8 to apply for manufacturing projects costing more than ₹10 lakh or service projects costing more than ₹5 lakh.",
+          "The scheme supports new businesses only, with one beneficiary per family.",
+          "The scheme was approved through FY 2025–26. Its continuation needs confirmation.",
+          "Please check with the department to confirm the scheme’s current availability and requirements."
+        ]
+      },
+      "standup": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Stand-Up India",
+        "description": "Loans for first-time businesses started by women and SC/ST entrepreneurs.",
+        "details": [
+          "Who may be eligible?",
+          "Women entrepreneurs aged 18 or older",
+          "Applicants starting their first business",
+          "Women must own at least 51% of a business applying as a firm",
+          "Applicants must not have defaulted on a bank loan and must contribute at least 10% of the project cost themselves"
+        ]
+      },
+      "vishwakarma": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PM Vishwakarma",
+        "description": "Support for artisans in 18 trades, including tailoring.",
+        "details": [
+          "Who may be eligible?",
+          "People aged 18 or older who work in one of the 18 trades",
+          "Only one person per family can apply. No one in the family can be a government employee.",
+          "The target of 30 lakh registrations was reached in September 2026. Check whether registrations are still open.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "pmfme": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "PMFME",
+        "description": "Support for micro food-processing businesses and self-help groups (SHGs).",
+        "details": [
+          "Who it is for",
+          "SHG members applying through UMED in rural areas, or owners of micro food-processing businesses",
+          "The scheme has been temporarily extended until 30 September 2026. Further approval is pending.",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "aai": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "“Aai” Women-Centric Tourism Policy",
+        "description": "Women-owned tourism businesses may receive an interest refund on their loans.",
+        "details": [
+          "Who it is for",
+          "Women from Maharashtra who own and run a tourism business",
+          "Eligible businesses may include homestays, agri-tourism businesses, restaurants, tour operators, and guide services."
+        ]
+      },
+      "ahilya": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Punyashlok Ahilyadevi Holkar Mahila Startup Yojana",
+        "description": "Grants for women-led startups.",
+        "details": [
+          "Who it is for",
+          "Startups recognised by DPIIT and registered in Maharashtra",
+          "At least 51% women-owned and operating for more than one year",
+          "Annual revenue between ₹10 lakh and ₹1 crore",
+          "Current availability and rules need confirmation with the department."
+        ]
+      },
+      "eshram": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "e-Shram Registration",
+        "description": "Provides an ID (UAN) to unorganised workers to help connect them with schemes.",
+        "details": [
+          "Who it is for",
+          "Unorganised workers aged 16 to 59 who are not covered by EPFO or ESIC"
+        ]
+      },
+      "shravanbal": {
+        "registry": "Scheme · Registry checked: 29 September 2026",
+        "name": "Shravanbal Seva Rajya Nivruttivetan Yojana",
+        "description": "Monthly pension for people aged 65 or older who need financial support.",
+        "details": [
+          "Who may be eligible?",
+          "People aged 65 or older",
+          "People with an annual income below ₹21,000"
+        ]
+      }
+    }
+  }
+}
