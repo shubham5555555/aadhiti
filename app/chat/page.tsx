@@ -1,4 +1,6 @@
 "use client";
+import AuthGate from "@/components/AuthGate";
+import { saveConversation } from "@/lib/saveConversation";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -70,7 +72,7 @@ type BotPayload = DistOmit<Extract<Msg, { from: "bot" }>>;
 export default function ChatPage() {
   return (
     <Suspense>
-      <Chat />
+      <AuthGate><Chat /></AuthGate>
     </Suspense>
   );
 }
@@ -81,6 +83,8 @@ function Chat() {
   const params = useSearchParams();
   // Basic information first (age, taluka, home, how she wants answers). A message about danger never waits for it.
   const { profile, save: saveProfile, ready } = useProfile();
+  const [storageFailed, setStorageFailed] = useState(false);
+  useEffect(() => { const fail = () => setStorageFailed(true); window.addEventListener("aadhi-save-failed", fail); return () => window.removeEventListener("aadhi-save-failed", fail); }, []);
   const [editingProfile, setEditingProfile] = useState(false);
   const [bypass, setBypass] = useState(false);
   const pendingQ = useRef<string | null>(null);
@@ -205,6 +209,7 @@ function Chat() {
     setTyping(true);
     const msg = bot(reply);
     setMessages((m) => [...m, msg]);
+    void saveConversation(historyFor([user(userText), msg]));
     if (reply.kind === "script" && profileRef.current.answerMode !== "text") setAutoSpeakId(msg.id);
     setTyping(false);
   };
@@ -260,6 +265,7 @@ function Chat() {
                 role: "assistant",
                 text: [
                   tp.understand[langRef.current],
+                  ...tp.answer.map(a=>a[langRef.current]),
                   tp.next[langRef.current],
                 ].join(" "),
               }
@@ -268,7 +274,7 @@ function Chat() {
         if (m.kind === "script") {
           const sc = SAFETY_SCRIPTS[m.scriptId]?.text[m.lang];
           return sc
-            ? { role: "assistant", text: [sc.ack, sc.fu, sc.n].join(" ") }
+            ? { role: "assistant", text: [sc.ack, ...sc.a, sc.fu, sc.n].join(" ") }
             : null;
         }
         return null;
@@ -315,6 +321,7 @@ function Chat() {
         signal: ctrl.signal,
       });
       window.clearTimeout(timer);
+      if (res.status === 401) window.dispatchEvent(new Event("aadhi-auth-required"));
       if (res.ok) {
         const data = (await res.json()) as AiAnswer;
         const related =
@@ -341,6 +348,7 @@ function Chat() {
     }
     const msg = bot(reply);
     setMessages((m) => [...m, msg]);
+    void saveConversation(historyFor([user(text), msg]));
     if (reply.kind === "ai" && profileRef.current.answerMode !== "text")
       setAutoSpeakId(msg.id);
     setTyping(false);
@@ -365,6 +373,7 @@ function Chat() {
   return (
     <div className="grid gap-8 sm:py-6 lg:grid-cols-[1fr_280px]">
       <section className="-mx-4 flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col overflow-hidden bg-sand-100 sm:mx-0 sm:h-[calc(100dvh-12rem)] sm:rounded-3xl sm:border sm:border-kokum-100 sm:shadow-[0_18px_40px_-28px_rgba(126,23,56,0.45)] lg:h-[calc(100dvh-9.5rem)]">
+        <div className="flex justify-between gap-2 px-4 pt-3 text-xs"><Link href="/my-data" className="text-kokum-700 underline">{t({en:"Saved data & consent",mr:"जतन केलेली माहिती आणि संमती",hi:"सहेजी जानकारी और सहमति"})}</Link>{storageFailed&&<span role="status">{t({en:"A reply could not be saved. Chat still works.",mr:"एक उत्तर जतन झाले नाही. चॅट सुरू आहे.",hi:"एक जवाब सहेजा नहीं गया। चैट चल रही है।"})}</span>}</div>
         {/* Slim toolbar — the site header above already carries the logo and name. */}
         <div className="m-2 flex items-center justify-between gap-2 rounded-full border border-kokum-100 bg-white py-1 pr-1.5 pl-3.5 shadow-[0_8px_20px_-16px_rgba(126,23,56,0.45)] sm:m-3 sm:pr-2 sm:pl-5">
           <p className="flex min-w-0 items-center gap-2 overflow-hidden text-[13px] whitespace-nowrap text-ink-soft sm:text-sm">

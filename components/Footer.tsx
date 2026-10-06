@@ -27,6 +27,7 @@ export default function Footer() {
   const { t } = useLang();
   return (
     <footer className="relative mt-16 overflow-hidden rounded-t-[2rem] bg-kokum-900 text-kokum-100">
+      <div className="px-5 pt-5 text-center"><Link href="/my-data" className="text-sm underline underline-offset-4">{t({en:"My saved data & privacy",mr:"माझी माहिती आणि गोपनीयता",hi:"मेरी जानकारी और गोपनीयता"})}</Link></div>
       <WarliRow count={40} className="pointer-events-none absolute top-6 left-0 h-8 w-auto max-w-none text-kokum-700" />
       <div className="relative mx-auto grid max-w-6xl gap-8 px-4 pt-20 pb-10 md:grid-cols-[1fr_auto]">
         <div className="max-w-xl">

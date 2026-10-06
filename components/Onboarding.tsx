@@ -45,9 +45,9 @@ const copy = {
   },
   namePh: { mr: "उदा. सुनीता", en: "e.g. Sunita", hi: "जैसे सुनीता" },
   nameNote: {
-    mr: "नाव फक्त या फोनवर राहतं. कुठेही पाठवलं जात नाही.",
-    en: "Your name stays on this phone. It is never sent anywhere.",
-    hi: "नाम सिर्फ़ इस फ़ोन पर रहता है। कहीं भेजा नहीं जाता।",
+    mr: "नाव या फोनवर राहतं; माझी माहिती विभागात संमती दिल्यासच डेटाबेसमध्ये साठवतं.",
+    en: "Your name stays on this phone unless you choose to save it in My saved data.",
+    hi: "नाम इस फ़ोन पर रहता है; मेरी जानकारी में सहमति देने पर ही डेटाबेस में सहेजा जाता है।",
   },
   s2: { mr: "तुमचं घर", en: "Your home", hi: "आपका घर" },
   s2Note: {

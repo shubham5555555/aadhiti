@@ -1,3 +1,4 @@
+import { requireAuth } from "@/lib/server/auth";
 // Text-to-speech for the call bot. The engine lives in lib/server/tts.ts (shared with WhatsApp).
 import type { Lang } from "@/lib/kb";
 import { rateLimited } from "@/lib/server/rateLimit";
@@ -6,6 +7,7 @@ import { TTS_MAX_CHARS, synthesize, ttsConfigured } from "@/lib/server/tts";
 const LANGS = new Set(["mr", "hi", "en"]);
 
 export async function POST(req: Request) {
+  const denied = await requireAuth(); if (denied) return denied;
   if (!ttsConfigured()) return Response.json({ error: "Voice is not configured" }, { status: 503 });
   if (rateLimited(req, "tts", 40)) return Response.json({ error: "Too many requests" }, { status: 429 });
 

@@ -1,3 +1,4 @@
+import { requireAuth } from "@/lib/server/auth";
 import { SAFETY_SCRIPTS, safetyRule } from "@/lib/safetyScripts";
 import { detectLang } from "@/lib/detectLang";
 // AI answers for the website chat. The engine lives in lib/server/answer.ts (shared with WhatsApp).
@@ -30,6 +31,7 @@ export async function POST(req: Request) {
       helplines: script.hl, module: "safety", source: "AADHI TI safety guidance",
       verify: "", lang, topicId: null });
   }
+  const denied = await requireAuth(); if (denied) return denied;
   if (!process.env.GEMINI_API_KEY) return Response.json({ error: "AI is not configured" }, { status: 503 });
 
   const out = await answerQuestion({ message, uiLang, age, history: cleanHistory(input.history), profile: input.profile });

@@ -1,4 +1,5 @@
 "use client";
+import AuthGate from "@/components/AuthGate";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -189,7 +190,7 @@ const copy = {
 export default function CallPage() {
   return (
     <Suspense>
-      <CallBot />
+      <AuthGate><CallBot /></AuthGate>
     </Suspense>
   );
 }
@@ -566,6 +567,7 @@ function CallBot() {
       if (audio) form.set("audio", audio, "turn.audio");
       else form.set("message", message || "");
       const response = await fetch("/api/call", {method:"POST", body:form, signal:controller.signal});
+      if(response.status===401)window.dispatchEvent(new Event("aadhi-auth-required"));
       const result = await response.json();
       if (current !== session.current) return;
       if (!response.ok) throw new Error(result.error);

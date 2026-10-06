@@ -1,6 +1,6 @@
 "use client";
 // Basic information she gives before her first question (as in the AADHI TI prototype's onboarding).
-// Kept only on this phone. Her name never leaves the phone; the rest helps the AI fit its answers.
+// Stored locally by default. Optional server storage is managed separately on /my-data.
 import { useCallback, useEffect, useState } from "react";
 import type { AgeGroup, L } from "./kb/types";
 
