@@ -64,7 +64,7 @@ export const healthTopics: Topic[] = [
     ],
     understand: {
       mr: "पाळी कधी लवकर, कधी उशिरा येणं अनेक बायकांना होतं. ताण, वजन, थायरॉईड किंवा PCOS अशी कारणं असू शकतात.",
-      en: "Periods coming early or late happen to many women. Stress, weight changes, thyroid or PCOS can be reasons.",
+      en: "Periods that come earlier or later than expected happen to many women. Stress, weight changes, thyroid or PCOS can be reasons.",
       hi: "माहवारी कभी जल्दी, कभी देर से आना बहुत महिलाओं को होता है। तनाव, वज़न, थायरॉइड या PCOS कारण हो सकते हैं।",
     },
     answer: [
@@ -204,7 +204,7 @@ export const healthTopics: Topic[] = [
     ],
     understand: {
       mr: "सारखा थकवा, चेहरा फिका पडणं, थोडं चाललं तरी धाप — ही रक्त कमी असल्याची लक्षणं असू शकतात. आपल्याकडे बायकांमध्ये हे खूप दिसतं.",
-      en: "Constant tiredness, pale skin, breathlessness on small effort can be signs of anaemia. It is very common among women here.",
+      en: "Constant tiredness, pale skin and breathlessness after small efforts can be signs of anaemia. It is very common among women here.",
       hi: "हमेशा थकान, चेहरा पीला, थोड़ा चलने पर साँस फूलना — खून की कमी के संकेत हो सकते हैं। महिलाओं में यह बहुत आम है।",
     },
     answer: [
@@ -254,7 +254,7 @@ export const healthTopics: Topic[] = [
     ],
     understand: {
       mr: "PCOS हा हार्मोन्सशी संबंधित सामान्य त्रास आहे. यात पाळी अनियमित होणं, वजन वाढणं, मुरूम किंवा चेहऱ्यावर केस येणं दिसू शकतं.",
-      en: "PCOS is a common hormone condition. It can cause irregular periods, weight gain, acne or extra facial hair.",
+      en: "PCOS (polycystic ovary syndrome) is a common hormonal condition. It can cause irregular periods, weight gain, acne or extra facial hair.",
       hi: "PCOS हार्मोन से जुड़ी आम समस्या है। इसमें माहवारी अनियमित, वज़न बढ़ना, मुँहासे या चेहरे पर बाल हो सकते हैं।",
     },
     answer: [
@@ -547,7 +547,7 @@ export const healthTopics: Topic[] = [
     ],
     understand: {
       mr: "गरोदरपणातील काही लक्षणं धोक्याची असतात आणि लगेच उपचार हवेत. थांबू नका — आत्ताच मदत बोलवा.",
-      en: "Some pregnancy signs are dangerous and need care right away. Don't wait — get help now.",
+      en: "Some pregnancy symptoms are dangerous and need medical care right away. Don't wait — get help now.",
       hi: "गर्भावस्था के कुछ संकेत ख़तरनाक होते हैं और तुरंत इलाज चाहिए। रुकें नहीं — अभी मदद बुलाएँ।",
     },
     answer: [

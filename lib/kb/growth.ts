@@ -213,7 +213,7 @@ export const careerTopics: Topic[] = [
     ],
     understand: {
       mr: "योग्य कौशल्य शिकलं तर नोकरी मिळायची शक्यता खूप वाढते. छोट्या कोर्सनेही सुरुवात होते.",
-      en: "The right skill greatly improves your chances of a job. Even a short course is a good start.",
+      en: "The right skills greatly improve your chances of getting a job. Even a short course is a good start.",
       hi: "सही हुनर सीखने से नौकरी मिलने के मौके बहुत बढ़ते हैं. छोटे कोर्स से भी शुरुआत होती है.",
     },
     answer: [
@@ -440,7 +440,7 @@ export const incomeTopics: Topic[] = [
     ages: ADULT,
     understand: {
       mr: "स्वतःचा व्यवसाय छोट्यापासून सुरू करता येतो. पायरी-पायरीने गेलं की सोपं होतं.",
-      en: "You can start your own business small. Going step by step makes it easier.",
+      en: "You can start your own business on a small scale. Going step by step makes it easier.",
       hi: "अपना व्यवसाय छोटे से शुरू कर सकती हैं. कदम-कदम चलने से आसान होता है.",
     },
     answer: [
@@ -711,7 +711,7 @@ export const incomeTopics: Topic[] = [
     ages: ADULT,
     understand: {
       mr: "मोबाईलवरून तुमचा माल गावाबाहेरही विकता येतो. सुरुवात WhatsApp पासून करा.",
-      en: "Your mobile can help you sell beyond your village. Start with WhatsApp.",
+      en: "Your mobile phone can help you sell to customers beyond your village. Start with WhatsApp.",
       hi: "मोबाइल से आप गाँव के बाहर भी बेच सकती हैं. शुरुआत WhatsApp से करें.",
     },
     answer: [
@@ -802,7 +802,7 @@ export const incomeTopics: Topic[] = [
     ages: ADULT,
     understand: {
       mr: "व्यवसाय किंवा कौशल्यासाठी अनेक ठिकाणी मोफत किंवा कमी खर्चात प्रशिक्षण मिळतं.",
-      en: "Free or low-cost training for skills and business is available in many places.",
+      en: "Free or low-cost skills and business training is available in many places.",
       hi: "हुनर और व्यवसाय के लिए कई जगह मुफ़्त या कम खर्च में प्रशिक्षण मिलता है.",
     },
     answer: [
@@ -838,7 +838,7 @@ export const incomeTopics: Topic[] = [
   {
     id: "ladki_bahin",
     intent: "learn",
-    title: { mr: "माझी लाडकी बहीण योजना", en: "Majhi Ladki Bahin Yojana", hi: "माझी लाडकी बहीण योजना" },
+    title: { mr: "माझी लाडकी बहीण योजना", en: "Mukhyamantri Majhi Ladki Bahin Yojana", hi: "माझी लाडकी बहीण योजना" },
     keywords: [
       "ladki bahin", "लाडकी बहीण", "लाडकी बहिण", "majhi ladki bahin", "ladki behna", "लाडली बहना",
       "1500 rupaye", "1500 रुपये", "ladki bahin paise nahi aaye", "लाडकी बहीण पैसे आले नाहीत",
@@ -848,7 +848,7 @@ export const incomeTopics: Topic[] = [
     ages: ADULT,
     understand: {
       mr: "मुख्यमंत्री माझी लाडकी बहीण योजना ही महाराष्ट्रातील महिलांना दर महिन्याला आर्थिक मदत देणारी योजना आहे.",
-      en: "Mukhyamantri Majhi Ladki Bahin Yojana gives monthly financial support to women in Maharashtra.",
+      en: "Mukhyamantri Majhi Ladki Bahin Yojana provides monthly financial support to women in Maharashtra.",
       hi: "मुख्यमंत्री माझी लाडकी बहीण योजना महाराष्ट्र की महिलाओं को हर महीने आर्थिक मदद देती है.",
     },
     answer: [

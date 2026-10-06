@@ -141,7 +141,7 @@ export const rightsTopics: Topic[] = [
   {
     id: "financial_control",
     intent: "check",
-    title: { mr: "पैशावर पूर्ण नियंत्रण", en: "Controlled financially", hi: "पैसों पर पूरा नियंत्रण" },
+    title: { mr: "पैशावर पूर्ण नियंत्रण", en: "Being controlled financially", hi: "पैसों पर पूरा नियंत्रण" },
     keywords: [
       "financial abuse",
       "economic abuse",
@@ -162,7 +162,7 @@ export const rightsTopics: Topic[] = [
     ],
     understand: {
       mr: "तुमचे पैसे काढून घेणे, खर्चाला काहीच न देणे किंवा नोकरी करू न देणे — हा आर्थिक छळ आहे, आणि तोही छळच आहे.",
-      en: "Taking your money, giving nothing for basic needs, or stopping you from working is economic abuse — and it is abuse.",
+      en: "Taking your money, giving you nothing for basic needs, or stopping you from working is economic abuse.",
       hi: "आपके पैसे छीनना, ज़रूरत के लिए कुछ न देना या काम करने से रोकना आर्थिक शोषण है — और यह भी हिंसा है।",
     },
     answer: [
@@ -964,7 +964,7 @@ export const rightsTopics: Topic[] = [
   {
     id: "maintenance",
     intent: "learn",
-    title: { mr: "पोटगी (खर्च) हक्क", en: "Maintenance rights", hi: "भरण-पोषण का हक" },
+    title: { mr: "पोटगी (खर्च) हक्क", en: "Right to maintenance", hi: "भरण-पोषण का हक" },
     keywords: [
       "maintenance",
       "alimony",
@@ -984,7 +984,7 @@ export const rightsTopics: Topic[] = [
     ],
     understand: {
       mr: "नवरा तुमचा किंवा मुलांचा खर्च देत नसेल तर पोटगी मागण्याचा तुम्हाला कायदेशीर हक्क आहे.",
-      en: "If your husband does not support you or the children, you have a legal right to claim maintenance.",
+      en: "If your husband does not support you or your children, you have a legal right to claim maintenance.",
       hi: "अगर पति आपका या बच्चों का खर्च नहीं देता, तो भरण-पोषण मांगने का आपका कानूनी हक है।",
     },
     answer: [
@@ -1084,7 +1084,7 @@ export const rightsTopics: Topic[] = [
   {
     id: "property_rights",
     intent: "learn",
-    title: { mr: "मालमत्तेत मुलीचा हक्क", en: "Property & inheritance rights", hi: "संपत्ति में बेटी का हक" },
+    title: { mr: "मालमत्तेत मुलीचा हक्क", en: "Property and inheritance rights", hi: "संपत्ति में बेटी का हक" },
     keywords: [
       "property rights",
       "inheritance",

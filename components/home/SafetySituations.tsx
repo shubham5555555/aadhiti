@@ -67,7 +67,7 @@ const situations: Situation[] = [
     tips: [
       {
         mr: "बसण्याआधी गाडीच्या नंबरचा फोटो घरच्यांना पाठवा.",
-        en: "Before you get in, send a photo of the number plate home.",
+        en: "Before you get in, send a photo of the number plate to someone at home.",
         hi: "बैठने से पहले गाड़ी के नंबर की फ़ोटो घर भेजें।",
       },
       {
@@ -77,12 +77,12 @@ const situations: Situation[] = [
       },
       {
         mr: "रस्ता बदलला तर मोठ्याने विचारा. उत्तर पटलं नाही तर 112.",
-        en: "If the route changes, ask loudly. If the answer feels wrong, 112.",
+        en: "If the route changes, ask the driver loudly. If the answer doesn't seem right, call 112.",
         hi: "रास्ता बदले तो ज़ोर से पूछें। जवाब ठीक न लगे तो 112।",
       },
       {
         mr: "ST मध्ये महिलांसाठी राखीव जागा तुमचा हक्क आहे. कंडक्टरला सांगा.",
-        en: "Seats reserved for women on ST buses are your right. Tell the conductor.",
+        en: "You have a right to the seats reserved for women on ST buses. Tell the conductor if someone is sitting there.",
         hi: "बस में महिलाओं की आरक्षित सीट आपका हक़ है। कंडक्टर से कहें।",
       },
     ],
@@ -104,17 +104,17 @@ const situations: Situation[] = [
       },
       {
         mr: "अनोळखी नंबरवरचा व्हिडिओ कॉल उचलू नका.",
-        en: "Don't pick up video calls from unknown numbers.",
+        en: "Don't answer video calls from unknown numbers.",
         hi: "अनजान नंबर का वीडियो कॉल न उठाएँ।",
       },
       {
         mr: "धमकी आली तर पैसे देऊ नका. Screenshot घ्या आणि 1930 ला कॉल करा.",
-        en: "If someone threatens you, don't pay. Take screenshots and call 1930.",
+        en: "If someone threatens you, don't pay them. Take screenshots and call 1930.",
         hi: "धमकी मिले तो पैसे न दें। Screenshot लें और 1930 पर कॉल करें।",
       },
       {
         mr: "Instagram private ठेवा. जिथे आहात तिथलं live location पोस्ट करू नका.",
-        en: "Keep Instagram private. Don't post where you are while you're there.",
+        en: "Keep your Instagram account private. Don't post your location while you are still there.",
         hi: "Instagram private रखें। जहाँ हैं, वहीं की live location पोस्ट न करें।",
       },
     ],
@@ -131,12 +131,12 @@ const situations: Situation[] = [
     tips: [
       {
         mr: "मारहाण, धमक्या, पैशांवर नियंत्रण — हा सगळा घरगुती हिंसाचार आहे.",
-        en: "Hitting, threats, control over money — all of it is domestic violence.",
+        en: "Hitting, threats and controlling your money are all domestic violence.",
         hi: "मारपीट, धमकी, पैसों पर रोक — यह सब घरेलू हिंसा है।",
       },
       {
         mr: "ओळखपत्र, थोडे पैसे आणि फोन एका पिशवीत तयार ठेवा.",
-        en: "Keep ID papers, some money and a phone ready in one bag.",
+        en: "Keep your ID documents, some money and a phone ready in one bag.",
         hi: "पहचान पत्र, थोड़े पैसे और फ़ोन एक थैले में तैयार रखें।",
       },
       {
@@ -146,7 +146,7 @@ const situations: Situation[] = [
       },
       {
         mr: "181 वर One Stop Centre कडून निवारा, कायदेशीर आणि वैद्यकीय मदत मिळते.",
-        en: "181 connects you to a One Stop Centre for shelter, legal and medical help.",
+        en: "Call 181 to be connected to a One Stop Centre for shelter, legal and medical help.",
         hi: "181 पर One Stop Centre से आश्रय, कानूनी और चिकित्सा मदद मिलती है।",
       },
     ],
@@ -168,7 +168,7 @@ const situations: Situation[] = [
       },
       {
         mr: "नकोसे मेसेज, स्पर्श, टोमणे — तारीख आणि वेळेसह लिहून ठेवा.",
-        en: "Unwanted messages, touching, remarks — write them down with date and time.",
+        en: "Write down any unwanted messages, touching or remarks, with the date and time.",
         hi: "अनचाहे मैसेज, छूना, ताने — तारीख़ और समय के साथ लिख लें।",
       },
       {
