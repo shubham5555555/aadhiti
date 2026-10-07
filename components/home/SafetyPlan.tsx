@@ -10,78 +10,78 @@ const items: { id: string; text: L; hint: L }[] = [
     id: "numbers",
     text: {
       mr: "112 आणि 1091 माझ्या फोनमध्ये सेव्ह केले आहेत.",
-      en: "112 and 1091 saved on my phone",
-      hi: "112 और 1091 फ़ोन में save किए",
+      en: "I have saved 112 and 1091 on my phone.",
+      hi: "मैंने अपने फ़ोन में 112 और 1091 सेव कर लिए हैं।",
     },
     hint: {
       mr: "Contacts मध्ये ‘पोलीस’ आणि ‘महिला हेल्पलाइन’ या नावाने सेव्ह केले आहेत.",
-      en: "Save them in Contacts as \"Police\" and \"Women's Helpline\".",
-      hi: "Contacts में 'पुलिस' और 'महिला हेल्पलाइन' नाम से।",
+      en: "Saved in Contacts as “Police” and “Women’s Helpline”.",
+      hi: "संपर्कों में ‘पुलिस’ और ‘महिला हेल्पलाइन’ के नाम से सेव किए हैं।",
     },
   },
   {
     id: "sos",
     text: {
       mr: "माझ्या फोनमध्ये Emergency SOS सुरू केले आहे.",
-      en: "Emergency SOS switched on",
-      hi: "फ़ोन में Emergency SOS चालू किया",
+      en: "I have enabled Emergency SOS on my phone.",
+      hi: "मैंने अपने फ़ोन में Emergency SOS चालू कर लिया है।",
     },
     hint: {
       mr: "बहुतेक Android फोनमध्ये Power बटण ५ वेळा दाबल्यास SOS पाठवले जाते. Settings → Safety & emergency मध्ये तपासा.",
-      en: "On many Android phones, pressing the power button 5 times sends an SOS. The steps vary by phone, so check Settings → Safety & emergency.",
-      hi: "ज़्यादातर Android फ़ोन में power बटन 5 बार दबाने पर SOS जाता है। Settings → Safety & emergency देखें।",
+      en: "On many Android phones, pressing the Power button five times activates SOS. Check your phone’s settings under Settings → Safety & emergency.",
+      hi: "कई Android फ़ोन में Power बटन ५ बार दबाने पर SOS सक्रिय होता है। Settings → Safety & emergency में अपने फ़ोन की सेटिंग जाँचें।",
     },
   },
   {
     id: "trusted",
     text: {
       mr: "दोन विश्वासू व्यक्ती निवडल्या आहेत.",
-      en: "Two trusted people chosen",
-      hi: "दो भरोसेमंद लोग तय किए",
+      en: "I have chosen two people I trust.",
+      hi: "मैंने दो भरोसेमंद व्यक्ति चुन लिए हैं।",
     },
     hint: {
       mr: "ज्यांना रात्री फोन करू शकता आणि ज्यांच्यासोबत Live Location शेअर करू शकता.",
       en: "People you can call at night and share your live location with.",
-      hi: "जिन्हें रात में भी फ़ोन कर सकें और live location शेयर कर सकें।",
+      hi: "जिन्हें रात में भी कॉल कर सकें और जिनके साथ लाइव लोकेशन साझा कर सकें।",
     },
   },
   {
     id: "codeword",
     text: {
       mr: "कुटुंबासोबत एक सांकेतिक शब्द ठरवला आहे.",
-      en: "A code word agreed with family",
-      hi: "घरवालों के साथ एक code word तय किया",
+      en: "I have agreed on a code word with my family.",
+      hi: "मैंने परिवार के साथ एक सांकेतिक शब्द तय कर लिया है।",
     },
     hint: {
       mr: "फोनवर तो शब्द बोलणे म्हणजे — मला आत्ता मदतीची गरज आहे.",
-      en: "Saying it on a phone call means \"I need help now.\"",
-      hi: "फ़ोन पर यह शब्द बोलें तो समझें — मुझे तुरंत मदद चाहिए।",
+      en: "Saying it on the phone means: I need help right now.",
+      hi: "फ़ोन पर वह शब्द कहने का मतलब है — मुझे अभी मदद चाहिए।",
     },
   },
   {
     id: "battery",
     text: {
       mr: "बाहेर पडताना माझ्या फोनची बॅटरी ३०% पेक्षा जास्त आहे.",
-      en: "Phone charged above 30% when I go out",
-      hi: "बाहर जाते समय फ़ोन 30% से ज़्यादा चार्ज",
+      en: "My phone has more than 30% battery when I leave home.",
+      hi: "बाहर निकलते समय मेरे फ़ोन की बैटरी ३०% से ज़्यादा है।",
     },
     hint: {
       mr: "लांबच्या प्रवासासाठी छोटा Power Bank सोबत ठेवा.",
-      en: "Carry a small power bank for long journeys.",
-      hi: "लंबे सफ़र में छोटा power bank साथ।",
+      en: "Carry a small power bank on long journeys.",
+      hi: "लंबी यात्रा के लिए छोटा पावर बैंक साथ रखें।",
     },
   },
   {
     id: "bag",
     text: {
       mr: "माझ्या बॅगेत ओळखपत्र, थोडे रोख पैसे आणि एक संपर्क क्रमांक कागदावर आहे.",
-      en: "ID, some cash and one phone number on paper in my bag",
-      hi: "पर्स में पहचान पत्र, थोड़े पैसे और एक नंबर काग़ज़ पर",
+      en: "I have ID, some cash and a contact number on paper in my bag.",
+      hi: "मेरे बैग में पहचान पत्र, थोड़े नकद पैसे और कागज़ पर एक संपर्क नंबर है।",
     },
     hint: {
       mr: "फोन बंद पडला तर तुम्ही कोणाला तरी कॉल करू शकाल.",
-      en: "So you can still call someone from another phone if yours stops working.",
-      hi: "ताकि फ़ोन बंद हो जाए तब भी किसी को कॉल कर सकें।",
+      en: "So you can still call someone if your phone stops working.",
+      hi: "फ़ोन बंद हो जाए तो भी आप किसी को कॉल कर सकें।",
     },
   },
 ];
@@ -94,8 +94,8 @@ const copy = {
   },
   body: {
     mr: "काही घडण्यापूर्वी दहा मिनिटे सुरक्षिततेची तयारी करा. तुम्ही केलेल्या गोष्टींना ✓ करा. ही माहिती फक्त तुमच्या फोनवर सेव्ह होते.",
-    en: "Ten minutes of preparation before anything happens. Tick what you have already done. This is saved only on this device.",
-    hi: "कुछ होने से पहले दस मिनट। जो हो गया उस पर निशान लगाएँ। यह सिर्फ़ आपके फ़ोन में सेव होता है।",
+    en: "Take ten minutes to prepare for your safety before something happens. Tick the things you have done. This information is saved only on your phone.",
+    hi: "कुछ होने से पहले सुरक्षा की तैयारी के लिए दस मिनट निकालें। जो काम कर लिए हैं, उन पर ✓ लगाएँ। यह जानकारी सिर्फ़ आपके फ़ोन पर सेव होती है।",
   },
   ready: { mr: "तयार", en: "done", hi: "तैयार" },
   done: {

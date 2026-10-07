@@ -28,9 +28,9 @@ const copy = {
   },
   title: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   body: {
-    mr: "तिच्या आयुष्याच्या प्रत्येक टप्प्यासाठी चांगलं अन्न — स्थानिक, परवडणाऱ्या पदार्थांतून.",
-    en: "Good food for every stage of her life — from local, affordable ingredients.",
-    hi: "उसकी ज़िंदगी के हर पड़ाव के लिए अच्छा खाना — स्थानीय, सस्ती चीज़ों से।",
+    mr: "तिच्या आयुष्याच्या प्रत्येक टप्प्यासाठी सकस आहार — स्थानिक आणि परवडणाऱ्या पदार्थांपासून.",
+    en: "Nutritious food for every stage of her life — using local, affordable ingredients.",
+    hi: "जीवन के हर पड़ाव के लिए पौष्टिक आहार — स्थानीय और किफ़ायती सामग्री से।",
   },
   plate: {
     grains: { mr: "धान्य", en: "Grains", hi: "अनाज" },
@@ -40,9 +40,9 @@ const copy = {
     curd: { mr: "दही", en: "Curd", hi: "दही" },
   },
   plateCaption: {
-    mr: "रोजचं ताट: सगळ्या प्रकारचं थोडं थोडं.",
-    en: "The everyday plate: a little of everything.",
-    hi: "रोज़ की थाली: हर तरह का थोड़ा-थोड़ा।",
+    mr: "रोजच्या ताटात — प्रत्येक गोष्टीचा थोडा थोडा समावेश असावा.",
+    en: "A little of every food group in your daily plate.",
+    hi: "रोज़ की थाली में — हर तरह के भोजन का थोड़ा-थोड़ा समावेश हो।",
   },
   todayTip: { mr: "आजची टीप", en: "Today's tip", hi: "आज की टिप" },
   forWhom: { mr: "कोणासाठी?", en: "For whom?", hi: "किसके लिए?" },

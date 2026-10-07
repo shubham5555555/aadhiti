@@ -27,24 +27,24 @@ export const pillars: {
     title: { mr: "सुरक्षितता", en: "Safety", hi: "सुरक्षा" },
     line: {
       mr: "रस्त्यावर, घरी किंवा फोनवर —\nगरज पडण्यापूर्वी सुरक्षिततेसाठी काय करायचे हे जाणून घ्या.",
-      en: "On the road, at home and on your phone. Know what to do before you need it.",
-      hi: "सड़क पर, घर में और फ़ोन पर। खतरा लगे तो क्या करना है, यह पहले से पता हो।",
+      en: "On the street, at home or on your phone — know what to do to stay safe before you need it.",
+      hi: "सड़क पर, घर में या फ़ोन पर — ज़रूरत पड़ने से पहले जानें कि सुरक्षित रहने के लिए क्या करना है।",
     },
     links: [
       {
         href: "/call",
         label: {
           mr: "घरी पोहोचेपर्यंत सोबत देणारा कॉल",
-          en: "A call that walks you home",
-          hi: "घर जाते समय साथ वाली कॉल",
+          en: "A call to keep you company until you reach home",
+          hi: "घर पहुँचने तक साथ देने वाला कॉल",
         },
       },
       {
         href: "/call?mode=fake",
         label: {
           mr: "धोक्यातून बाहेर पडण्यासाठी बनावट कॉल",
-          en: "A fake call to get away",
-          hi: "निकलने के लिए fake call",
+          en: "A fake call to help you leave an unsafe situation",
+          hi: "खतरे से निकलने के लिए बनावटी कॉल",
         },
       },
       {
@@ -59,8 +59,8 @@ export const pillars: {
         href: "/safe-shrivardhan",
         label: {
           mr: "असुरक्षित ठिकाणाची माहिती द्या",
-          en: "Report an unsafe spot",
-          hi: "असुरक्षित जगह बताएँ",
+          en: "Report an unsafe place",
+          hi: "असुरक्षित जगह की जानकारी दें",
         },
       },
     ],
@@ -68,8 +68,8 @@ export const pillars: {
       href: "/chat?cat=safety",
       label: {
         mr: "सुरक्षिततेबद्दल जाणून घ्या",
-        en: "Ask about safety",
-        hi: "सुरक्षा के बारे में पूछें",
+        en: "Learn about safety",
+        hi: "सुरक्षा के बारे में जानें",
       },
     },
   },
@@ -79,16 +79,16 @@ export const pillars: {
     title: { mr: "आर्थिक सुरक्षा", en: "Financial Security", hi: "आर्थिक सुरक्षा" },
     line: {
       mr: "तुमचे पैसे, तुमचे कागदपत्र आणि तुमचे कायदेशीर हक्क, तेही कोणावरही अवलंबून न राहता.",
-      en: "Your own money, your own documents and the rights the law gives you. Without depending on anyone.",
-      hi: "अपना पैसा, अपने कागज़ात और कानून से मिलने वाले अधिकार। किसी पर निर्भर हुए बिना।",
+      en: "Your money, your documents and your legal rights — without depending on anyone else.",
+      hi: "आपके पैसे, आपके दस्तावेज़ और आपके कानूनी अधिकार — किसी पर निर्भर हुए बिना।",
     },
     links: [
       {
         href: "/schemes#scheme-finder",
         label: {
           mr: "माझ्यासाठी योग्य योजना कोणत्या?",
-          en: "Which schemes apply to me?",
-          hi: "मुझ पर कौन-सी योजनाएँ लागू?",
+          en: "Which schemes are right for me?",
+          hi: "मेरे लिए कौन-सी योजनाएँ सही हैं?",
         },
       },
       {
@@ -111,8 +111,8 @@ export const pillars: {
         href: "/chat?topic=property_rights",
         label: {
           mr: "मालमत्तेतील तुमचा हक्क जाणून घ्या",
-          en: "Your right to property",
-          hi: "संपत्ति में हक़",
+          en: "Know your rights to property",
+          hi: "संपत्ति में अपना अधिकार जानें",
         },
       },
       {
@@ -126,7 +126,7 @@ export const pillars: {
     ],
     cta: {
       href: "/chat?cat=income",
-      label: { mr: "योजनांची माहिती घ्या", en: "Ask about financial security", hi: "योजनाएँ देखें" },
+      label: { mr: "योजनांची माहिती घ्या", en: "Explore schemes", hi: "योजनाओं की जानकारी लें" },
     },
   },
   {
@@ -135,16 +135,16 @@ export const pillars: {
     title: { mr: "कौशल्य", en: "Skills", hi: "कौशल" },
     line: {
       mr: "शिकण्यासाठी कधीच उशीर होत नाही. प्रशिक्षण, नोकरी किंवा स्वतःचा व्यवसाय —  स्वतःच्या पायावर उभं राहण्यासाठी.",
-      en: "Learning never stops. Training, a job or a business of your own, to stand on your own feet.",
-      hi: "सीखना कभी नहीं रुकता। ट्रेनिंग, नौकरी या अपना व्यवसाय, अपने पैरों पर खड़े होने के लिए।",
+      en: "It is never too late to learn. Training, a job or your own business — to stand on your own feet.",
+      hi: "सीखने में कभी देर नहीं होती। प्रशिक्षण, नौकरी या अपना व्यवसाय — अपने पैरों पर खड़े होने के लिए।",
     },
     links: [
       {
         href: "/schemes#income-finder",
         label: {
           mr: "तुमच्या कौशल्यातून कमवा",
-          en: "Earn from my skills",
-          hi: "मेरे हुनर से कमाई",
+          en: "Earn through your skills",
+          hi: "अपने कौशल से कमाएँ",
         },
       },
       {
@@ -167,16 +167,16 @@ export const pillars: {
         href: "/chat?topic=digital_payments",
         label: {
           mr: "UPI, ऑनलाइन खरेदी-विक्री",
-          en: "UPI and selling online",
-          hi: "UPI और ऑनलाइन बिक्री",
+          en: "UPI, buying and selling online",
+          hi: "UPI, ऑनलाइन खरीद-बिक्री",
         },
       },
       {
         href: "/chat?topic=return_to_education",
         label: {
           mr: "पुन्हा शिक्षणास सुरूवात करूया",
-          en: "Return to education",
-          hi: "पढ़ाई फिर से शुरू करें",
+          en: "Start studying again",
+          hi: "फिर से पढ़ाई शुरू करें",
         },
       },
     ],

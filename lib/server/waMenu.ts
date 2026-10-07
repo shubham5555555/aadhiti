@@ -1,6 +1,7 @@
 // WhatsApp menus for the AADHI TI bot: language choice, main menu, topic lists, schemes and helplines.
 // Everything a menu opens is reviewed content (knowledge base, schemes registry, helpline list) — no AI.
 // WhatsApp limits: 3 buttons (20 chars each), list rows ≤ 10 (title 24, description 72 chars).
+import { leaderNames } from "@/lib/leader";
 import { helplines } from "@/lib/data";
 import {
   adultCategories,
@@ -87,7 +88,7 @@ export function languageMenu(): ButtonsMenu {
       "नमस्कार! *आधी ती (AADHI TI)* मध्ये स्वागत. तुमची भाषा निवडा.\n" +
       "नमस्ते! आपकी भाषा चुनें।\n" +
       "Hello! Please choose your language.\n\n" +
-      "_मा. मंत्री आदिती ताई तटकरे यांचा उपक्रम · An initiative of Hon'ble Minister Aditi Tai Tatkare_\n\n" +
+      `_${leaderNames.full.mr} यांचा उपक्रम · An initiative of ${leaderNames.full.en}_\n\n` +
       "_धोका असेल तर आत्ता 112 · Emergency: 112_",
     buttons: [
       { id: "lang:mr", title: "मराठी" },

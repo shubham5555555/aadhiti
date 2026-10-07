@@ -19,13 +19,13 @@ const copy = {
   of: { mr: "पैकी", en: "of", hi: "में से" },
   intro: {
     mr: "सुरुवात करण्यापूर्वी तुमच्याबद्दल थोडी माहिती द्या, जेणेकरून तुम्हाला तुमचे वय, परिसर आणि परिस्थितीनुसार योग्य उत्तरे मिळतील. यासाठी फक्त एक मिनिट लागेल.",
-    en: "A little about you before we start, so answers fit your age, your area and your home. It takes a minute.",
-    hi: "शुरू करने से पहले थोड़ी जानकारी, ताकि जवाब आपकी उम्र, इलाके और घर के हिसाब से हों। एक मिनट लगेगा।",
+    en: "Before you begin, share a little about yourself so answers can fit your age, area and circumstances. This takes just a minute.",
+    hi: "शुरू करने से पहले अपने बारे में थोड़ी जानकारी दें, ताकि आपकी उम्र, इलाके और परिस्थिति के अनुसार सही जवाब मिल सकें। इसमें सिर्फ़ एक मिनट लगेगा।",
   },
   s1: {
     mr: "तुमच्याबद्दल थोडी माहिती",
     en: "A little about you",
-    hi: "आपके बारे में थोड़ा",
+    hi: "आपके बारे में थोड़ी जानकारी",
   },
   age: { mr: "तुमचा वयोगट", en: "Your age group", hi: "आपका आयु वर्ग" },
   ageNote: {
@@ -40,36 +40,36 @@ const copy = {
   },
   name: {
     mr: "नाव (पर्यायी)",
-    en: "Your name (optional)",
-    hi: "नाम (चाहें तो)",
+    en: "Name (optional)",
+    hi: "नाम (वैकल्पिक)",
   },
   namePh: { mr: "उदा. सुनीता", en: "e.g. Sunita", hi: "जैसे सुनीता" },
   nameNote: {
     mr: "नाव तुमच्या फोनवरच राहते; तुमची माहिती तुम्ही संमती दिल्यावरचं डेटाबेसमध्ये साठवले जाते.",
-    en: "Your name stays on this phone unless you choose to save it in My saved data.",
-    hi: "नाम इस फ़ोन पर रहता है; मेरी जानकारी में सहमति देने पर ही डेटाबेस में सहेजा जाता है।",
+    en: "Your name stays on your phone; your information is saved in the database only with your consent.",
+    hi: "नाम आपके फ़ोन पर ही रहता है; आपकी सहमति मिलने पर ही आपकी जानकारी डेटाबेस में सेव होती है।",
   },
   s2Note: {
     mr: "या माहितीच्या आधारे तुमच्यासाठी योग्य योजना, आरोग्य आणि पोषणविषयक माहिती निवडण्यास मदत होते.",
-    en: "This helps pick schemes, health and nutrition advice for you.",
-    hi: "इससे योजनाएँ, सेहत और पोषण की जानकारी आपके लिए चुनी जाती है।",
+    en: "This information helps select suitable schemes, health and nutrition information for you.",
+    hi: "इस जानकारी से आपके लिए उपयुक्त योजनाएँ, सेहत और पोषण संबंधी जानकारी चुनने में मदद मिलती है।",
   },
   now: { mr: "मी सध्या", en: "Right now I am", hi: "मैं अभी" },
   month: { mr: "कितवा महिना?", en: "Which month?", hi: "कौन-सा महीना?" },
   kids: {
     mr: "मुलं (असतील तर)",
-    en: "Children at home (if any)",
-    hi: "घर में बच्चे (अगर हैं)",
+    en: "Children (if any)",
+    hi: "बच्चे (यदि हैं)",
   },
   s3: {
     mr: "तुम्हाला उत्तरे कसे हवे आहे?",
-    en: "How should answers come?",
-    hi: "जवाब कैसे चाहिए?",
+    en: "How would you like your answers?",
+    hi: "आप जवाब कैसे चाहती हैं?",
   },
   remember: {
     mr: "माझं संभाषण या फोनवर लक्षात ठेवा (तुम्ही हे नंतर बंद करू शकता)",
-    en: "Remember my conversations on this phone (you can turn this off later)",
-    hi: "मेरी बातचीत इस फ़ोन पर याद रखें (बाद में बंद कर सकती हैं)",
+    en: "Remember my conversation on this phone (you can turn this off later)",
+    hi: "मेरी बातचीत इस फ़ोन पर याद रखें (इसे आप बाद में बंद कर सकती हैं)",
   },
   rememberNote: {
     mr: "फोन दुसरं कोणी वापरत असेल तर हे बंद ठेवा.",
@@ -87,8 +87,8 @@ const copy = {
   save: { mr: "जतन करा", en: "Save", hi: "सेव करें" },
   skip: {
     mr: "आत्तासाठी वगळा, थेट विचारा",
-    en: "Skip for now, just ask",
-    hi: "अभी नहीं, सीधे पूछें",
+    en: "Skip for now, ask directly",
+    hi: "अभी छोड़ें, सीधे पूछें",
   },
   needAge: {
     mr: "पुढे जाण्यासाठी वयोगट निवडा.",
@@ -200,7 +200,7 @@ export default function Onboarding({
     <div className="mx-auto max-w-xl animate-fade-up">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm font-bold text-kokum-600">
-          {lang === "mr" ? ["३ पैकी १ ली पायरी", "३ पैकी २ री पायरी", "३ पैकी ३ री पायरी"][step] : `${t(copy.step)} ${step + 1} ${t(copy.of)} 3`}
+          {lang === "mr" ? ["३ पैकी १ ली पायरी", "३ पैकी २ री पायरी", "३ पैकी ३ री पायरी"][step] : lang === "hi" ? ["३ में से पहला चरण", "३ में से दूसरा चरण", "३ में से तीसरा चरण"][step] : `${t(copy.step)} ${step + 1} ${t(copy.of)} 3`}
         </p>
         <div className="flex gap-1.5" aria-hidden>
           {[0, 1, 2].map((i) => (

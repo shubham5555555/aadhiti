@@ -11,20 +11,20 @@ export const brand = {
   } as L,
   promise: {
     mr: "पाऊल तिच्या सक्षमीकरणासाठी, \nआधी तिला घडविण्यासाठी...",
-    en: "From her questions to her next step.",
-    hi: "उसके सवाल से उसके अगले कदम तक।",
+    en: "A step towards her empowerment, helping her grow first…",
+    hi: "एक कदम उसके सशक्तीकरण की ओर, पहले उसे सशक्त बनाने के लिए...",
   } as L,
 };
 
 export const nav = {
   home: { mr: "मुख्यपृष्ठ", en: "Home", hi: "होम" },
-  ask: { mr: "‘आधी ती’ला विचारा", en: "Ask AADHI TI", hi: "AADHI TI से पूछें" },
+  ask: { mr: "‘आधी ती’ला विचारा", en: "Ask AADHI TI", hi: "‘आधी ती’ से पूछें" },
   call: { mr: "कॉल", en: "Call", hi: "कॉल" },
-  everyday: { mr: "दैनिक गोष्टी", en: "Everyday Help", hi: "रोज़मर्रा" },
+  everyday: { mr: "दैनिक गोष्टी", en: "Everyday help", hi: "रोज़मर्रा की बातें" },
   poshan: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   schemes: { mr: "योजना", en: "Schemes", hi: "योजनाएँ" },
-  knowledge: { mr: "अधिक माहिती", en: "Information", hi: "जानकारी" },
-  quickExit: { mr: "त्वरित बाहेर पडा", en: "Quick Exit", hi: "तुरंत बाहर" },
+  knowledge: { mr: "अधिक माहिती", en: "More information", hi: "अधिक जानकारी" },
+  quickExit: { mr: "त्वरित बाहेर पडा", en: "Quick Exit", hi: "तुरंत बाहर निकलें" },
 } satisfies Record<string, L>;
 
 export const ageLabels: Record<AgeGroup, L> = {
@@ -36,7 +36,7 @@ export const ageLabels: Record<AgeGroup, L> = {
 };
 
 export const intentLabels: Record<Intent, L> = {
-  learn: { mr: "अधिक माहिती", en: "Learn", hi: "जानकारी" },
+  learn: { mr: "अधिक माहिती", en: "More information", hi: "अधिक जानकारी" },
   check: { mr: "तपासणी", en: "Check", hi: "जाँच" },
   find: { mr: "शोधा", en: "Find", hi: "खोजें" },
   act: { mr: "काय करावं", en: "Act", hi: "क्या करें" },
@@ -77,14 +77,14 @@ export const chat = {
   },
   greeting: {
     mr: "नमस्कार! मी ‘आधी ती’ . सुरक्षितता, आरोग्य, हक्क, शिक्षण, उत्पन्न, कुटुंब — यांविषयी काहीही विचारा. नाव, फोन नंबर किंवा पत्ता लिहू नका. उत्तरासाठी प्रश्न AI सेवेकडे पाठवला जातो.",
-    en: "Hello! I'm AADHI TI. Ask me anything — safety, health, rights, education, income, family. Questions are sent to an AI service. Please leave out your name, phone number and address.",
-    hi: "नमस्ते! मैं AADHI TI हूँ। सुरक्षा, स्वास्थ्य, अधिकार, पढ़ाई, कमाई, परिवार — कुछ भी पूछिए। नाम, फोन नंबर या पता न लिखें। जवाब के लिए सवाल AI सेवा को भेजा जाता है।",
+    en: "Hello! I’m AADHI TI. Ask about safety, health, rights, education, income or family. Do not include your name, phone number or address. Your question is sent to an AI service for an answer.",
+    hi: "नमस्ते! मैं ‘आधी ती’ हूँ। सुरक्षा, सेहत, अधिकार, शिक्षा, आय, परिवार — इन विषयों पर कुछ भी पूछें। अपना नाम, फ़ोन नंबर या पता न लिखें। जवाब के लिए सवाल AI सेवा को भेजा जाता है।",
   },
   voiceSoon: { mr: "आवाजात विचारा (लवकरच)", en: "Ask by voice (coming soon)", hi: "आवाज़ में पूछें (जल्द)" },
   privacy: {
     mr: "वैयक्तिक माहिती देणे आवश्यक नाही. तुम्ही टाइप केलेले प्रश्न उत्तर देण्यासाठी AI सेवा (Google Gemini) कडे पाठवले जातात. कृपया तुमचे नाव, फोन नंबर किंवा पत्ता यात समाविष्ट करू नका. जर कोणी तुमच्यावर नजर ठेवत असेल, तर वरच्या बाजूला असलेल्या ‘त्वरित बाहेर पडा’ वर टॅप करा.",
-    en: "No personal details needed. Questions you type are sent to an AI service (Google Gemini) to write the answer. Please don't include your name, phone number or address. If someone is watching, tap 'Quick Exit' at the top.",
-    hi: "आपके लिखे सवाल जवाब के लिए AI सेवा (Google Gemini) को भेजे जाते हैं। उसमें नाम, फ़ोन नंबर या पता न लिखें। कोई देख रहा हो तो ऊपर 'तुरंत बाहर' दबाएँ।",
+    en: "Personal details are not required. Questions you type are sent to an AI service (Google Gemini) to answer them. Please do not include your name, phone number or address. If someone is watching you, tap “Quick Exit” at the top.",
+    hi: "व्यक्तिगत जानकारी देना ज़रूरी नहीं है। आपके टाइप किए सवाल जवाब देने के लिए AI सेवा (Google Gemini) को भेजे जाते हैं। कृपया इनमें अपना नाम, फ़ोन नंबर या पता शामिल न करें। अगर कोई आप पर नज़र रख रहा हो, तो ऊपर ‘तुरंत बाहर निकलें’ पर टैप करें।",
   },
   aiNote: {
     mr: "हे उत्तर AI ने लिहिलं आहे. महत्त्वाच्या गोष्टी अधिकृत ठिकाणी किंवा हेल्पलाइनवर खात्री करून घ्या.",

@@ -32,7 +32,7 @@ const situations: Situation[] = [
       {
         mr: "उजेड आणि वर्दळ असलेला रस्ता निवडा. रात्री असुरक्षित शॉर्टकट टाळा.",
         en: "Choose a well-lit, busy road. Avoid shortcuts at night.",
-        hi: "रोशनी और भीड़ वाला रास्ता लें। रात में शॉर्टकट से बचें।",
+        hi: "रोशनी और भीड़ वाला रास्ता चुनें। रात में असुरक्षित शॉर्टकट से बचें।",
       },
       {
         mr: "एक कान मोकळा ठेवा. फोनमध्ये मान घालून चालू नका.",
@@ -78,7 +78,7 @@ const situations: Situation[] = [
       {
         mr: "रस्ता बदलला तर मोठ्याने विचारा. उत्तर पटलं नाही तर 112 वर कॉल करा.",
         en: "If the route changes, ask the driver loudly. If the answer doesn't seem right, call 112.",
-        hi: "रास्ता बदले तो ज़ोर से पूछें। जवाब ठीक न लगे तो 112।",
+        hi: "रास्ता बदले तो ज़ोर से पूछें। जवाब पर भरोसा न हो तो 112 पर कॉल करें।",
       },
       {
         mr: "ST मध्ये महिलांसाठी राखीव जागा तुमचा हक्क आहे. कंडक्टरला सांगा.",
@@ -114,8 +114,8 @@ const situations: Situation[] = [
       },
       {
         mr: "सोशल मीडिया अकाऊंट private ठेवा. जिथे आहात तिथले live location पोस्ट करू नका.",
-        en: "Keep your Instagram account private. Don't post your location while you are still there.",
-        hi: "Instagram private रखें। जहाँ हैं, वहीं की live location पोस्ट न करें।",
+        en: "Keep social media accounts private. Do not post your live location.",
+        hi: "सोशल मीडिया अकाउंट निजी रखें। जहाँ हैं, वहाँ की लाइव लोकेशन पोस्ट न करें।",
       },
     ],
     topic: "photo_threat",
@@ -131,8 +131,8 @@ const situations: Situation[] = [
     tips: [
       {
         mr: "मारहाण, धमक्या, मालमत्तेवर नियंत्रण — हा सगळा घरगुती हिंसाचार आहे.",
-        en: "Hitting, threats and controlling your money are all domestic violence.",
-        hi: "मारपीट, धमकी, पैसों पर रोक — यह सब घरेलू हिंसा है।",
+        en: "Violence, threats and control over property are all forms of domestic abuse.",
+        hi: "मारपीट, धमकियाँ, संपत्ति पर नियंत्रण — ये सभी घरेलू हिंसा के रूप हैं।",
       },
       {
         mr: "ओळखपत्र, थोडे पैसे आणि फोन एका पिशवीत तयार ठेवा.",
@@ -194,13 +194,13 @@ const situations: Situation[] = [
 const copy = {
   title: {
     mr: "जिथे कुठे असाल, तिथे सुरक्षित कसे रहाल?",
-    en: "Safety, wherever you are",
-    hi: "जहाँ हों, वहाँ की सुरक्षा",
+    en: "How can you stay safe wherever you are?",
+    hi: "जहाँ भी हों, सुरक्षित कैसे रहें?",
   },
   body: {
     mr: "छोट्या सवयी मोठा फरक घडवतात. तुम्ही कुठे आहात ते निवडा.",
-    en: "Small habits that make a real difference. Choose the place that matches your situation.",
-    hi: "छोटी आदतें, जो बड़ा फ़र्क़ करती हैं। अपनी स्थिति चुनें।",
+    en: "Small habits make a big difference. Choose where you are.",
+    hi: "छोटी आदतें बड़ा बदलाव लाती हैं। चुनें कि आप कहाँ हैं।",
   },
 };
 

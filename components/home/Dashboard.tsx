@@ -47,8 +47,8 @@ const copy = {
   voice: { mr: "आवाजात विचारा", en: "Ask by voice", hi: "आवाज़ में पूछें" },
   knowTitle: {
     mr: "जाणून घ्या, सजग राहा, निर्भय व्हा.",
-    en: "Know more.\nFear less.",
-    hi: "जानिए ज़्यादा.\nडर कम.",
+    en: "Be informed. Stay aware. Feel confident.",
+    hi: "जानें, सजग रहें, निडर बनें।",
   },
   quickHelp: { mr: "झटपट मदत", en: "Quick help", hi: "तुरंत मदद" },
   police: { mr: "जवळचं पोलीस ठाणे", en: "Nearest police station", hi: "नज़दीकी पुलिस" },
@@ -60,8 +60,8 @@ const copy = {
   locating: { mr: "शोधत आहे…", en: "Locating…", hi: "ढूँढ रहे हैं…" },
   trusted: {
     mr: "आपात्कालीन संपर्क",
-    en: "Trusted contacts",
-    hi: "भरोसेमंद लोग",
+    en: "Emergency contacts",
+    hi: "आपातकालीन संपर्क",
   },
   message: {
     mr: "मला मदत हवी आहे. मी इथे आहे:",
@@ -83,12 +83,12 @@ const shortcuts: { href: string; label: L; Icon: typeof Landmark }[] = [
   },
   {
     href: "/awareness",
-    label: { mr: "अधिक माहिती", en: "Information", hi: "जानकारी" },
+    label: { mr: "अधिक माहिती", en: "More information", hi: "अधिक जानकारी" },
     Icon: BookOpen,
   },
   {
     href: "/everyday",
-    label: { mr: "दैनिक गोष्टी", en: "Everyday Help", hi: "रोज़मर्रा" },
+    label: { mr: "दैनिक गोष्टी", en: "Everyday help", hi: "रोज़मर्रा की बातें" },
     Icon: UtensilsCrossed,
   },
   {
@@ -165,7 +165,7 @@ export default function Dashboard() {
             </span>
             <span className="min-w-0">
               <span className="block text-xl leading-none font-extrabold">
-                {t({en:"Call AADHI TI",mr:"‘आधी ती’ला कॉल करा",hi:"आधी ती को कॉल करें"})}
+                {t({en:"Call AADHI TI",mr:"‘आधी ती’ला कॉल करा",hi:"‘आधी ती’ को कॉल करें"})}
               </span>
               <span className="mt-1 block truncate text-[13px] text-white/85">
                 {t({en:"AI conversation",mr:"एआय संवाद",hi:"एआई बातचीत"})}

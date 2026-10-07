@@ -28,7 +28,7 @@ export const JOURNEYS = [
  {slug:'kushmanda',name:l('कुष्मांडा','कुष्मांडा','Kushmanda'),theme:l('आरोग्य आणि ऊर्जा','स्वास्थ्य और ऊर्जा','Health and energy'),schemes:['icds','jssk','uip','amb','pmposhan','pmmvy']},
  {slug:'skandamata',name:l('स्कंदमाता','स्कंदमाता','Skandamata'),theme:l('संगोपन आणि काळजी','पालन-पोषण और देखभाल','Nurturing and care'),schemes:['pmmvy','jssk','icds','uip','lekladki']},
  {slug:'katyayani',name:l('कात्यायनी','कात्यायनी','Katyayani'),theme:l('न्याय आणि हक्क','न्याय और अधिकार','Justice and rights'),schemes:['child-marriage','adishakti','single-women','sgnay']},
- {slug:'kalaratri',name:l('कालरात्री','कालरात्री','Kalaratri'),theme:l('संरक्षण आणि सुरक्षित जागा','सुरक्षा और सुरक्षित स्थान','Protection and safe spaces'),schemes:['child-marriage','adishakti','single-women']},
- {slug:'mahagauri',name:l('महागौरी','महागौरी','Mahagauri'),theme:l('नवचेतना आणि स्वतःसाठी वेळ','नई ऊर्जा और अपने लिए समय','Renewal and wellbeing'),schemes:['amb','icds','pmmvy','sgnay','shravanbal','single-women']},
+ {slug:'kalaratri',name:l('कालरात्री','कालरात्रि','Kalaratri'),theme:l('संरक्षण आणि सुरक्षित समाज','सुरक्षा और सुरक्षित समाज','Protection and a safe society'),schemes:['child-marriage','adishakti','single-women']},
+ {slug:'mahagauri',name:l('महागौरी','महागौरी','Mahagauri'),theme:l('नवचेतना आणि स्वतःसाठी वेळ','नई चेतना और स्वयं के लिए समय','Renewal and time for yourself'),schemes:['amb','icds','pmmvy','sgnay','shravanbal','single-women']},
  {slug:'siddhidatri',name:l('सिद्धिदात्री','सिद्धिदात्री','Siddhidatri'),theme:l('आर्थिक स्वावलंबन आणि संधी','आर्थिक स्वतंत्रता और अवसर','Financial independence and opportunity'),schemes:['sukanya','lekladki','pmkvy','freeedu','ladki-bahin','mavim','umed','mudra','pmegp','standup','vishwakarma','pmfme','aai','ahilya','eshram','shravanbal']},
 ];

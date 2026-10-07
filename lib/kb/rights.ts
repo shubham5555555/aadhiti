@@ -193,7 +193,7 @@ export const rightsTopics: Topic[] = [
       hi: "क्या आप सरकारी योजनाएं देखना चाहेंगी, या 181 से बात करना?",
     },
     actions: [
-      { label: { mr: "योजनांची माहिती घ्या", en: "Ask about financial security", hi: "योजनाएं देखें" }, href: "/schemes" },
+      { label: { mr: "योजनांची माहिती घ्या", en: "Explore schemes", hi: "योजनाओं की जानकारी लें" }, href: "/schemes" },
       { label: { mr: "181 महिला मदत", en: "Call 181", hi: "181 पर कॉल करें" }, href: "tel:181" },
     ],
     sensitive: "legal",
@@ -446,7 +446,7 @@ export const rightsTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "181 महिला मदत", en: "Call 181", hi: "181 पर कॉल करें" }, href: "tel:181" },
-      { label: { mr: "अधिक माहिती", en: "Learn more", hi: "और जानकारी" }, href: "/awareness" },
+      { label: { mr: "अधिक माहिती", en: "More information", hi: "अधिक जानकारी" }, href: "/awareness" },
     ],
   },
   {
@@ -1016,7 +1016,7 @@ export const rightsTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "15100 मोफत कायदा मदत", en: "Call 15100 Legal Aid", hi: "15100 मुफ्त कानूनी मदद" }, href: "tel:15100" },
-      { label: { mr: "योजनांची माहिती घ्या", en: "Ask about financial security", hi: "योजनाएं देखें" }, href: "/schemes" },
+      { label: { mr: "योजनांची माहिती घ्या", en: "Explore schemes", hi: "योजनाओं की जानकारी लें" }, href: "/schemes" },
     ],
     sensitive: "legal",
   },
@@ -1696,7 +1696,7 @@ export const mindTopics: Topic[] = [
     },
     actions: [
       { label: { mr: "14416 मनाशी बोला", en: "Call Tele-MANAS 14416", hi: "14416 Tele-MANAS" }, href: "tel:14416" },
-      { label: { mr: "योजनांची माहिती घ्या", en: "Ask about financial security", hi: "योजनाएं देखें" }, href: "/schemes" },
+      { label: { mr: "योजनांची माहिती घ्या", en: "Explore schemes", hi: "योजनाओं की जानकारी लें" }, href: "/schemes" },
     ],
   },
   {

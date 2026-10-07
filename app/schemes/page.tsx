@@ -68,7 +68,7 @@ type Status = SchemeStatus;
 
 const statusLabel: Record<Status, L> = {
   official: { mr: "अधिकृत माहिती (2026) — बदलू शकते", en: "Official info (2026) — may change", hi: "आधिकारिक जानकारी (2026) — बदल सकती है" },
-  recheck: { mr: "पुन्हा तपासणे बाकी", en: "Needs re-check", hi: "दोबारा जाँच बाकी" },
+  recheck: { mr: "पुन्हा पडताळणी आवश्यक", en: "Reverification needed", hi: "दोबारा सत्यापन ज़रूरी" },
   general: { mr: "सर्वसाधारण मार्गदर्शन", en: "General guidance", hi: "सामान्य मार्गदर्शन" },
 };
 
@@ -199,18 +199,18 @@ const copy = {
     en: "A month, straight into her bank account. Majhi Ladki Bahin, if eligible.",
     hi: "हर महीने, सीधे बैंक खाते में। माझी लाडकी बहीण योजना, पात्रता के अनुसार।",
   },
-  eyebrow: { mr: "सरकारी योजना आणि महिलांसाठी सेवा", en: "Government schemes & women's services", hi: "सरकारी योजनाएँ और महिलाओं के लिए सेवाएँ" },
+  eyebrow: { mr: "शासकीय योजना आणि महिलांसाठीच्या सेवा", en: "Government schemes and services for women", hi: "सरकारी योजनाएँ और महिलाओं के लिए सेवाएँ" },
   title: { mr: "तुमच्या हक्काच्या योजना", en: "Schemes that are yours by right", hi: "आपके हक़ की योजनाएँ" },
   body: {
-    mr: "पात्रता आणि प्रक्रिया बदलू शकते. म्हणून प्रत्येक माहितीवर स्पष्ट लिहिलं आहे — अधिकृत माहिती की सर्वसाधारण मार्गदर्शन.",
-    en: "Eligibility and processes can change. So every card clearly says whether it's official information or general guidance.",
-    hi: "पात्रता और प्रक्रिया बदल सकती है। इसलिए हर कार्ड पर साफ़ लिखा है — आधिकारिक जानकारी या सामान्य मार्गदर्शन।",
+    mr: "पात्रता आणि प्रक्रिया बदलू शकतात. त्यामुळे प्रत्येक योजनेसोबत ही माहिती अधिकृत आहे की सर्वसाधारण मार्गदर्शन, हे स्पष्टपणे दिले आहे",
+    en: "Eligibility and procedures can change. Each scheme clearly states whether the information is official or general guidance.",
+    hi: "पात्रता और प्रक्रिया बदल सकती हैं। इसलिए हर योजना के साथ स्पष्ट बताया गया है कि जानकारी आधिकारिक है या सामान्य मार्गदर्शन।",
   },
   what: { mr: "काय आहे", en: "What it is", hi: "क्या है" },
   who: { mr: "कोणासाठी", en: "Who it's for", hi: "किसके लिए" },
   benefit: { mr: "लाभ", en: "Benefit", hi: "लाभ" },
   how: { mr: "कसं / कुठे", en: "How / where", hi: "कैसे / कहाँ" },
-  ask: { mr: "AADHI TI ला विचारा", en: "Ask AADHI TI", hi: "AADHI TI से पूछें" },
+  ask: { mr: "‘आधी ती’ला विचारा", en: "Ask AADHI TI", hi: "‘आधी ती’ से पूछें" },
   warn: {
     mr: "कोणतीही सरकारी योजना मिळवण्यासाठी एजंटला पैसे देऊ नका. OTP किंवा बँक PIN कोणालाही सांगू नका.",
     en: "Never pay an agent to get a government scheme. Never share your OTP or bank PIN with anyone.",
@@ -235,17 +235,17 @@ const copy = {
   source: { mr: "स्रोत", en: "Source", hi: "स्रोत" },
   needsTitle: { mr: "मला कोणती मदत मिळू शकते?", en: "What help can I get?", hi: "मुझे कौन-सी मदद मिल सकती है?" },
   needsBody: {
-    mr: "तुम्हाला लागू असेल ते निवडा. खालची योजनांची यादी त्यानुसार बदलेल.",
-    en: "Choose what applies to you. The list of schemes below will change to match.",
-    hi: "जो आप पर लागू हो, चुनें। नीचे की योजनाओं की सूची उसी के हिसाब से बदलेगी।",
+    mr: "तुमच्याशी संबंधित पर्याय निवडा. त्यानुसार खालील योजनांची यादी बदलेल.",
+    en: "Choose the options that apply to you. The scheme list below will update accordingly.",
+    hi: "अपने से जुड़े विकल्प चुनें। नीचे योजनाओं की सूची उसी के अनुसार बदलेगी।",
   },
   needsShowing: { mr: "योजना जुळल्या", en: "matching schemes", hi: "योजनाएँ मिलीं" },
   needsClear: { mr: "सर्व योजना दाखवा", en: "Show all schemes", hi: "सभी योजनाएँ दिखाएँ" },
-  schemeFinderTitle: { mr: "योजना शोधक", en: "Scheme Finder", hi: "योजना खोजक" },
+  schemeFinderTitle: { mr: "योजना शोधा", en: "Find schemes", hi: "योजनाएँ खोजें" },
   schemeFinderBody: {
-    mr: "काही प्रश्नांची उत्तरं द्या. ठरलेल्या नियमांवरून कोणत्या योजना तुम्हाला लागू होऊ शकतात ते दिसेल.",
-    en: "Answer a few questions. Fixed rules show which schemes may apply to you.",
-    hi: "कुछ सवालों के जवाब दें। तय नियमों से दिखेगा कि कौन-सी योजनाएँ आप पर लागू हो सकती हैं।",
+    mr: "खालील प्रश्नांची उत्तरे द्या. ठरवलेल्या निकषांनुसार तुमच्यासाठी लागू होणाऱ्या योजना शोधल्या जातील.",
+    en: "Answer the questions below. Schemes that may apply to you will be found using the stated criteria.",
+    hi: "नीचे दिए सवालों के जवाब दें। तय मानदंडों के अनुसार आपके लिए लागू हो सकने वाली योजनाएँ खोजी जाएँगी।",
   },
   fAge: { mr: "वय", en: "Age", hi: "उम्र" },
   fIncome: { mr: "कुटुंबाचं वर्षाचं उत्पन्न", en: "Family income per year", hi: "परिवार की सालाना आमदनी" },

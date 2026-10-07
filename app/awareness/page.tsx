@@ -12,16 +12,16 @@ import { adultCategories, allTopics, categoryGroups, girlCategories, type Catego
 
 const copy = {
   figureCaption: {
-    mr: "विषय, मराठी, हिंदी आणि English मध्ये. प्रत्येकाचं उत्तर तीन भागांत.",
-    en: "topics, in Marathi, Hindi and English. Every one answered in three parts.",
-    hi: "विषय, मराठी, हिंदी और English में। हर एक का जवाब तीन हिस्सों में।",
+    mr: "विषय - मराठी, हिंदी आणि English मध्ये. प्रत्येक प्रश्नाचं उत्तर तीन भागांत.",
+    en: "topics in Marathi, Hindi and English. Every answer has three parts.",
+    hi: "विषय — मराठी, हिंदी और अंग्रेज़ी में। हर सवाल का जवाब तीन हिस्सों में।",
   },
   eyebrow: { mr: "AADHI TI माहिती", en: "AADHI TI Knowledge", hi: "AADHI TI जानकारी" },
-  title: { mr: "जास्त जाणून घ्या. कमी घाबरा.", en: "Know more. Fear less.", hi: "ज़्यादा जानें। कम डरें।" },
+  title: { mr: "जाणून घ्या, सजग राहा, निर्भय व्हा.", en: "Be informed. Stay aware. Feel confident.", hi: "जानें, सजग रहें, निडर बनें।" },
   body: {
-    mr: "प्रत्येक विषय — समजून घेणं, उत्तर आणि पुढचं पाऊल. कोणताही विषय दाबा, AADHI TI लगेच समजावेल.",
-    en: "Every topic — understand, answer, next step. Tap any topic and AADHI TI will explain it right away.",
-    hi: "हर विषय — समझना, जवाब और अगला कदम। कोई भी विषय दबाइए, AADHI TI तुरंत समझाएगी।",
+    mr: "कोणताही विषय — समजून घ्या, उत्तर मिळवा आणि पुढचं पाऊल जाणून घ्या. काहीही विचारा, ‘आधी ती’ लगेच समजावून सांगेल.",
+    en: "Choose any topic — understand it, get an answer and learn the next step. Ask anything and AADHI TI will explain.",
+    hi: "कोई भी विषय — समझें, जवाब पाएँ और अगला कदम जानें। कुछ भी पूछें, ‘आधी ती’ सरल भाषा में समझाएगी।",
   },
   search: { mr: "विषय शोधा… उदा. पाळी, PCOS, OTP, लाडकी बहीण", en: "Search topics… e.g. periods, PCOS, OTP, Ladki Bahin", hi: "विषय खोजें… जैसे पीरियड्स, PCOS, OTP, लाडकी बहीण" },
   results: { mr: "शोध निकाल", en: "Search results", hi: "खोज परिणाम" },

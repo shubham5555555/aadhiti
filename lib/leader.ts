@@ -1,28 +1,32 @@
 // The public figure behind AADHI TI. Public, factual information only (roles, background, initiatives).
 import type { L } from "./kb/types";
 
+// Canonical hero name used for every mention across the app and bot.
+export const leaderNames = {
+  full: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Hon’ble Aditi Varda Sunil Tatkare", hi: "माननीय आदिती वरदा सुनील तटकरे" } as L,
+};
+
 export const leader = {
-  name: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Aditi Sunil Tatkare", hi: "अदिति सुनील तटकरे" } as L,
-  shortName: { mr: "मा. आदितीताई तटकरे", en: "Aditi Tatkare", hi: "अदिति तटकरे" } as L,
+  name: leaderNames.full,
   photo: "/brand/aditi-tatkare-new.webp",
   roles: [
     { mr: "मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य", en: "Minister of Women and Child Development, Maharashtra", hi: "महिला एवं बाल विकास मंत्री, महाराष्ट्र" },
     { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
   ] as L[],
   credit: {
-    mr: "मंत्री आदिती तटकरे यांच्या पुढाकाराने",
-    en: "An initiative by Aditi Tatkare",
-    hi: "विधायक अदिति तटकरे की पहल",
+    mr: `${leaderNames.full.mr} यांच्या पुढाकाराने`,
+    en: `An initiative by ${leaderNames.full.en}`,
+    hi: `${leaderNames.full.hi} की पहल पर`,
   } as L,
   bio: {
-    mr: "आदिती तटकरे यांचा जन्म 1988 मध्ये झाला आणि त्या रायगड जिल्ह्यातल्या कोलाड आणि रोह्यात लहानाच्या मोठ्या झाल्या. त्यांनी मुंबई विद्यापीठातून राज्यशास्त्रात MA केलं. रायगड जिल्हा परिषदेच्या अध्यक्ष म्हणून काम सुरू करून त्या 2019 मध्ये श्रीवर्धनच्या आमदार झाल्या आणि 2023 पासून महिला व बालविकास मंत्री आहेत. 2024 मध्ये श्रीवर्धनने त्यांना 72% मतांनी पुन्हा निवडून दिलं.",
-    en: "Aditi Tatkare was born in 1988 and grew up in Kolad and Roha in Raigad district. She holds an MA in Political Science from the University of Mumbai. She began as President of the Raigad Zilla Parishad, became MLA for Shrivardhan in 2019, and has been Minister for Women & Child Development since 2023. In 2024 Shrivardhan re-elected her with 72% of the vote.",
-    hi: "अदिति तटकरे का जन्म 1988 में हुआ और वे रायगड ज़िले के कोलाड और रोहा में पली-बढ़ीं। उन्होंने मुंबई विश्वविद्यालय से राजनीति विज्ञान में MA किया। रायगड ज़िला परिषद की अध्यक्ष के रूप में शुरुआत कर वे 2019 में श्रीवर्धन की विधायक बनीं और 2023 से महिला एवं बाल विकास मंत्री हैं। 2024 में श्रीवर्धन ने उन्हें 72% वोटों से फिर चुना।",
+    mr: `${leaderNames.full.mr} यांचा जन्म 1988 मध्ये झाला आणि त्या रायगड जिल्ह्यातल्या कोलाड आणि रोह्यात लहानाच्या मोठ्या झाल्या. त्यांनी मुंबई विद्यापीठातून राज्यशास्त्रात MA केलं. रायगड जिल्हा परिषदेच्या अध्यक्ष म्हणून काम सुरू करून त्या 2019 मध्ये श्रीवर्धनच्या आमदार झाल्या आणि 2023 पासून महिला व बालविकास मंत्री आहेत. 2024 मध्ये श्रीवर्धनने त्यांना 72% मतांनी पुन्हा निवडून दिलं.`,
+    en: `${leaderNames.full.en} was born in 1988 and grew up in Kolad and Roha in Raigad district. She holds an MA in Political Science from the University of Mumbai. She began as President of the Raigad Zilla Parishad, became MLA for Shrivardhan in 2019, and has been Minister for Women & Child Development since 2023. In 2024 Shrivardhan re-elected her with 72% of the vote.`,
+    hi: `${leaderNames.full.hi} का जन्म 1988 में हुआ और वे रायगड ज़िले के कोलाड और रोहा में पली-बढ़ीं। उन्होंने मुंबई विश्वविद्यालय से राजनीति विज्ञान में MA किया। रायगड ज़िला परिषद की अध्यक्ष के रूप में शुरुआत कर वे 2019 में श्रीवर्धन की विधायक बनीं और 2023 से महिला एवं बाल विकास मंत्री हैं। 2024 में श्रीवर्धन ने उन्हें 72% वोटों से फिर चुना।`,
   } as L,
   whyApp: {
     mr: "‘आधी ती’ हा श्रीवर्धनमधील प्रत्येक महिला आणि मुलीच्या सुरक्षितता, आर्थिक संरक्षण आणि कौशल्यासाठीचा उपक्रम आहे. \nतिच्या प्रत्येक प्रश्नाचे उत्तर तिच्याच भाषेत, तिच्याच मोबाईलवर.",
-    en: "AADHI TI is her initiative for every woman and girl in Shrivardhan. It answers every question about safety, financial security and skills, in the user's own language, on her own phone. Shrivardhan first, then the whole of Raigad district.",
-    hi: "AADHI TI श्रीवर्धन की हर महिला और लड़की के लिए उनकी पहल है: सुरक्षा, आर्थिक सुरक्षा और कौशल का हर सवाल, उसकी भाषा में, उसके फ़ोन पर। पहले श्रीवर्धन में, फिर पूरे रायगड में।",
+    en: "AADHI TI is an initiative for the safety, financial security and skills of every woman and girl in Shrivardhan. Answers to her questions, in her own language, on her own phone.",
+    hi: "‘आधी ती’ श्रीवर्धन की हर महिला और लड़की की सुरक्षा, आर्थिक संरक्षण और कौशल के लिए एक पहल है। हर सवाल का जवाब, उसी की भाषा में, उसी के मोबाइल पर।",
   } as L,
 };
 
@@ -106,10 +110,7 @@ export const journey: { year: string; text: L }[] = [
 // The "An initiative by" banner at the top of the home page.
 export const initiativeBanner = {
   by: { mr: "एक उपक्रम", en: "An initiative by", hi: "एक पहल" } as L,
-  name: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Hon'ble Minister Ms. Aditi Varda Sunil Tatkare", hi: "माननीय मंत्री सुश्री अदिति ताई वरदा सुनील तटकरे" } as L,
-  lines: [
-    { mr: "मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य", en: "Cabinet Minister, Women and Child Development, Government of Maharashtra", hi: "कैबिनेट मंत्री, महाराष्ट्र सरकार" },
-    { mr: "", en: "", hi: "महिला एवं बाल विकास मंत्री" },
-    { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
-  ] as L[],
+  name: leaderNames.full,
+  lines: leader.roles,
+
 };

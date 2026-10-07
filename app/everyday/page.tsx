@@ -48,9 +48,9 @@ const copy = {
     hi: "AADHI TI — रोज़मर्रा",
   },
   title: {
-    mr: "आज काय बनवू?",
+    mr: "आज काय मेन्यू बनवू?",
     en: "What should I cook today?",
-    hi: "आज क्या बनाऊँ?",
+    hi: "आज खाने में क्या बनाएँ?",
   },
   body: {
     mr: "स्वयंपाक, self-care, मुलं आणि फिरणं — रोजच्या छोट्या प्रश्नांसाठी झटपट मदत.",
@@ -60,7 +60,7 @@ const copy = {
   tabs: {
     cook: { mr: "स्वयंपाक", en: "Cooking", hi: "खाना" },
     care: { mr: "Self-care", en: "Self-care", hi: "Self-care" },
-    kids: { mr: "मुलं", en: "Kids", hi: "बच्चे" },
+    kids: { mr: "मुलं", en: "Children", hi: "बच्चे" },
     outings: { mr: "फिरायला", en: "Outings", hi: "घूमना" },
   } satisfies Record<Tab, L>,
   kitchen: {

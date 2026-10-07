@@ -10,8 +10,8 @@ import WarliRow from "./Warli";
 
 const disclaimer = {
   mr: "‘आधी ती’ माहिती आणि योग्य सेवांबद्दल मार्गदर्शन देते. ती डॉक्टर, वकील, समुपदेशक किंवा पोलिसांची जागा घेत नाही. आपत्कालीन परिस्थितीत ११२ वर कॉल करा.",
-  en: "AADHI TI provides information and referrals. It does not replace a doctor, lawyer, counsellor, or the police. In an emergency, call 112.",
-  hi: "AADHI TI जानकारी देती है और सही मदद तक पहुँचाती है। यह डॉक्टर, वकील, counsellor या पुलिस की जगह नहीं लेती। आपातकाल में 112 पर कॉल करें।",
+  en: "AADHI TI provides information and guidance about suitable services. It does not replace a doctor, lawyer, counsellor or the police. In an emergency, call 112.",
+  hi: "‘आधी ती’ जानकारी और उपयुक्त सेवाओं के बारे में मार्गदर्शन देती है। यह डॉक्टर, वकील, परामर्शदाता या पुलिस का विकल्प नहीं है। आपातकाल में 112 पर कॉल करें।",
 };
 
 const pillarsLine = { mr: "सुरक्षितता · आर्थिक सुरक्षा · कौशल्य", en: "Safety · Financial Security · Skills", hi: "सुरक्षा · आर्थिक सुरक्षा · कौशल" };
@@ -19,8 +19,8 @@ const pillarsLine = { mr: "सुरक्षितता · आर्थिक 
 // Honest framing, as on the onboarding prototype.
 const prototype = {
   mr: "Brahmastra.ai यांनी विकसित केलेला हा प्रोटोटाइप आहे. हे महाराष्ट्र शासनाचे अधिकृत ॲप्लिकेशन नाही.",
-  en: "Prototype built by Brahmaastra.ai. This is not an official app of the Government of Maharashtra.",
-  hi: "Brahmaastra.ai द्वारा बनाया गया प्रोटोटाइप। यह महाराष्ट्र सरकार का आधिकारिक ऐप नहीं है।",
+  en: "A prototype developed by Brahmastra.ai. This is not an official application of the Government of Maharashtra.",
+  hi: "यह Brahmastra.ai द्वारा विकसित प्रोटोटाइप है। यह महाराष्ट्र सरकार का आधिकारिक ऐप नहीं है।",
 };
 
 export default function Footer() {
@@ -48,7 +48,7 @@ export default function Footer() {
           <Link href="/everyday" className="flex min-h-11 items-center break-words hover:text-white">{t(nav.everyday)}</Link>
           <Link href="/poshan" className="flex min-h-11 items-center break-words hover:text-white">{t(nav.poshan)}</Link>
           <Link href="/schemes" className="flex min-h-11 items-center break-words hover:text-white">{t(nav.schemes)}</Link>
-          <Link href="/safe-shrivardhan" className="flex min-h-11 items-center break-words hover:text-white">{t({mr:"सुरक्षित श्रीवर्धन",en:"Safe Shrivardhan",hi:"Safe Shrivardhan"})}</Link>
+          <Link href="/safe-shrivardhan" className="flex min-h-11 items-center break-words hover:text-white">{t({mr:"सुरक्षित श्रीवर्धन",en:"Safe Shrivardhan",hi:"सुरक्षित श्रीवर्धन"})}</Link>
           <a href="tel:112" className="flex min-h-11 w-fit items-center gap-1.5 rounded-full bg-red-600 px-4 py-1.5 font-bold text-white hover:bg-red-700">
             <PhoneCall size={14} /> 112
           </a>

@@ -8,31 +8,31 @@ import { useLang } from "@/lib/i18n";
 const copy = {
   title: {
     mr: "आत्ता काही धोका वाटतोय का?",
-    en: "Feel unsafe right now?",
-    hi: "अभी खतरा लग रहा है?",
+    en: "Do you feel in danger right now?",
+    hi: "क्या अभी कोई खतरा महसूस हो रहा है?",
   },
   sub: {
     mr: "वाट पाहू नका. गर्दीच्या आणि सुरक्षित, उजेडाच्या ठिकाणी जा, जसे की दुकान, मेडिकल किंवा एसटी स्थानक. त्यानंतर खालीलपैकी एक कृती करा.",
-    en: "Don't wait. Move to a busy, well-lit place, such as a shop, a chemist or a bus stand. Then do one of the following.",
-    hi: "रुकिए मत। भीड़ वाली, रोशनी वाली जगह जाइए — दुकान, मेडिकल, बस स्टैंड। फिर इनमें से एक कीजिए।",
+    en: "Do not wait. Go to a busy, safe, well-lit place, such as a shop, pharmacy or bus station. Then take one of the steps below.",
+    hi: "इंतज़ार न करें। भीड़भाड़ वाली, सुरक्षित और रोशनी वाली जगह जाएँ, जैसे दुकान, मेडिकल स्टोर या बस अड्डा। फिर नीचे दिए विकल्पों में से कोई कदम उठाएँ।",
   },
   callTitle: { mr: "112 ला कॉल करा", en: "Call 112", hi: "112 पर कॉल करें" },
   callBody: {
     mr: "पोलीस, रुग्णवाहिका आणि अग्निशमन सेवा — २४ तास, मोफत.",
-    en: "Police, ambulance and fire services. Available 24 hours, free of charge.",
-    hi: "पुलिस, एम्बुलेंस, फ़ायर। 24 घंटे, मुफ़्त।",
+    en: "Police, ambulance and fire services — free, 24 hours a day.",
+    hi: "पुलिस, एम्बुलेंस और दमकल सेवा — २४ घंटे, मुफ़्त।",
   },
   locTitle: {
     mr: "आपले लोकेशन पाठवा",
     en: "Send your location",
-    hi: "अपनी जगह भेजें",
+    hi: "अपनी लोकेशन भेजें",
   },
   locBody: {
     mr: "तुमचे अचूक लोकेशन मॅप लिंकद्वारे WhatsApp वर विश्वासू व्यक्तीसोबत शेअर करा.",
-    en: "Share your exact location as a map link with someone you trust on WhatsApp.",
-    hi: "भरोसेमंद व्यक्ति को WhatsApp पर आपकी सही जगह, नक्शे के लिंक के साथ।",
+    en: "Share your exact location with someone you trust on WhatsApp using a map link.",
+    hi: "अपनी सटीक लोकेशन की मैप लिंक WhatsApp पर किसी भरोसेमंद व्यक्ति के साथ साझा करें।",
   },
-  locButton: { mr: "लोकेशन पाठवा", en: "Send location", hi: "जगह भेजें" },
+  locButton: { mr: "लोकेशन पाठवा", en: "Send location", hi: "लोकेशन भेजें" },
   locating: {
     mr: "ठिकाण शोधत आहे…",
     en: "Finding you…",
@@ -48,13 +48,13 @@ const copy = {
     en: "I need help. I am here:",
     hi: "मुझे मदद चाहिए। मैं यहाँ हूँ:",
   },
-  fakeTitle: { mr: "बनावट कॉल", en: "Fake call", hi: "Fake call" },
+  fakeTitle: { mr: "बनावट कॉल", en: "Fake call", hi: "बनावटी कॉल" },
   fakeBody: {
     mr: "एखाद्या व्यक्तीपासून दूर जायचे असल्यास, ‘आई’ला तुम्हाला फोन करायला सांगा आणि तिथून निघा.",
-    en: "Need to get away from someone? Get a fake call from “Mom” and leave.",
-    hi: "किसी से बचना हो तो 'माँ' का फ़ोन बजाइए और निकलिए।",
+    en: "To get away from someone, ring a fake call from “Maa” and leave.",
+    hi: "किसी व्यक्ति से दूर जाने के लिए ‘माँ’ का बनावटी कॉल बजाएँ और वहाँ से निकलें।",
   },
-  fakeButton: { mr: "आत्ताच कॉल करा", en: "Ring now", hi: "अभी बजाएँ" },
+  fakeButton: { mr: "आत्ताच कॉल करा", en: "Call now", hi: "अभी कॉल करें" },
 };
 
 type LocState = "idle" | "locating" | "denied";

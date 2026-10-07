@@ -69,19 +69,19 @@ export const NEEDS: Need[] = [
   },
   {
     id: "nutrition",
-    label: { mr: "पोषणासाठी मदत हवी", en: "I need nutrition support", hi: "पोषण के लिए मदद चाहिए" },
+    label: { mr: "पोषणविषयक मदत हवी आहे", en: "I need nutrition support", hi: "पोषण संबंधी मदद चाहिए" },
   },
   {
     id: "money",
-    label: { mr: "पैशांची मदत हवी", en: "I need money support", hi: "पैसों की मदद चाहिए" },
+    label: { mr: "आर्थिक मदत हवी आहे", en: "I need financial help", hi: "आर्थिक मदद चाहिए" },
   },
   {
     id: "daughter",
-    label: { mr: "मला मुलगी आहे", en: "I have a daughter", hi: "मेरी बेटी है" },
+    label: { mr: "माझी मुलगी आहे", en: "I have a daughter", hi: "मेरी बेटी है" },
   },
   {
     id: "earning",
-    label: { mr: "कमाई सुरू करायची", en: "I want to start earning", hi: "कमाई शुरू करनी है" },
+    label: { mr: "कमाई सुरू करायची आहे", en: "I want to start earning", hi: "कमाई शुरू करनी है" },
   },
   {
     id: "single_woman",

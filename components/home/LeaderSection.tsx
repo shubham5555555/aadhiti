@@ -10,7 +10,7 @@ const copy = {
   more: {
     mr: "त्यांच्या कार्याची अधिक माहिती",
     en: "More about her work",
-    hi: "उनके काम के बारे में और",
+    hi: "उनके कार्य की अधिक जानकारी",
   },
   alsoBy: {
     mr: "त्यांचे इतर उपक्रम",
@@ -20,7 +20,7 @@ const copy = {
 };
 
 export default function LeaderSection() {
-  const { t, lang } = useLang();
+  const { t } = useLang();
   const others = initiatives.filter((i) => i.id !== "aadhi-ti").slice(0, 4);
   return (
     <section
@@ -37,29 +37,10 @@ export default function LeaderSection() {
           className="aspect-square w-3/5 max-w-[17rem] rounded-full border-4 border-white/20 object-cover shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)] md:w-full"
         />
         <div>
-          {lang === "mr" ? <>
-            <p className="text-sm leading-relaxed text-white/85">मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य</p>
-            <p className="mt-1 text-sm leading-relaxed text-white/85">आमदार, श्रीवर्धन विधानसभा मतदारसंघ</p>
-            <h2 id="leader-title" className="mt-3 font-serif text-3xl leading-tight sm:text-5xl">मा. आदितीताई तटकरे</h2>
-            <p className="mt-2 text-sm text-turmeric-300">यांच्या पुढाकाराने</p>
-          </> : <>
-          <p className="text-sm font-semibold tracking-wide text-turmeric-300">
-            {t(leader.credit)}
-          </p>
-          <h2
-            id="leader-title"
-            className="mt-2 font-serif text-[2.4rem] leading-[1.05] font-normal sm:text-5xl"
-          >
-            {t(leader.shortName)}
-          </h2>
-          <ul className="mt-3 flex flex-wrap gap-2 text-[13px] font-semibold">
-            {leader.roles.map((r) => (
-              <li key={r.en} className="rounded-full bg-white/15 px-3 py-1">
-                {t(r)}
-              </li>
-            ))}
-          </ul>
-          </>}
+          <p className="text-sm leading-relaxed text-white/85">{t(leader.roles[0])}</p>
+          <p className="mt-1 text-sm leading-relaxed text-white/85">{t(leader.roles[1])}</p>
+          <h2 id="leader-title" className="mt-3 font-serif text-3xl leading-tight sm:text-5xl">{t(leader.name)}</h2>
+          <p className="mt-2 text-sm text-turmeric-300">{t({ mr: "यांच्या पुढाकाराने", hi: "की पहल पर", en: "An initiative by" })}</p>
           <p className="mt-5 max-w-2xl text-[17px] leading-relaxed">
             {t(leader.whyApp)}
           </p>

@@ -1,4 +1,5 @@
 'use client';
+import { leaderNames } from '@/lib/leader';
 import { useEffect, useRef, useState } from 'react';
 import { ConversationProvider, useConversation } from '@elevenlabs/react';
 import { Phone, PhoneOff, Mic, MicOff, AudioLines } from 'lucide-react';
@@ -32,9 +33,9 @@ function CallAditi(){
  {active&&<span aria-hidden="true" className="absolute -inset-3 rounded-full border border-white/20 motion-safe:animate-pulse"/>}
  <span aria-hidden="true" className="font-serif text-2xl text-pink-100">आधी ती</span>
  </div>
- <h1 className="mt-6 font-display text-3xl font-bold sm:text-4xl">{t({en:'Call AADHI TI',mr:'‘आधी ती’ला कॉल करा',hi:'आधी ती को कॉल करें'})}</h1>
+ <h1 className="mt-6 font-display text-3xl font-bold sm:text-4xl">{t({en:'Call AADHI TI',mr:'‘आधी ती’ला कॉल करा',hi:'‘आधी ती’ को कॉल करें'})}</h1>
  <p className="mt-2 text-sm text-kokum-200">{t({en:'Your AADHI TI AI assistant',mr:'तुमची आधी ती एआय सहाय्यक',hi:'आपकी आधी ती एआई सहायिका'})}</p>
- <p className="mt-3 text-sm leading-relaxed text-kokum-200">{t({mr: "‘आधी ती’शी मराठी, हिंदी किंवा इंग्रजीमध्ये बोला. हे फक्त AI द्वारे  मार्गदर्शन आहे; लोकेशन ट्रॅकिंग किंवा आपत्कालीन मदत पाठवण्याची सुविधा उपलब्ध नाही.",en: "Speak with AADHI TI in Marathi, Hindi or English. AI guidance only; location tracking and emergency dispatch are not available.",hi: "मराठी, हिंदी या अंग्रेज़ी में AADHI TI से बात करें। AI मार्गदर्शन; लोकेशन ट्रैकिंग या आपातकालीन सहायता भेजने की सुविधा नहीं है।",})}</p>
+ <p className="mt-3 text-sm leading-relaxed text-kokum-200">{t({mr: "‘आधी ती’शी मराठी, हिंदी किंवा इंग्रजीमध्ये बोला. हे फक्त AI द्वारे  मार्गदर्शन आहे; लोकेशन ट्रॅकिंग किंवा आपत्कालीन मदत पाठवण्याची सुविधा उपलब्ध नाही.",en: "Speak with AADHI TI in Marathi, Hindi or English. This is AI guidance only; location tracking and emergency dispatch are not available.",hi: "‘आधी ती’ से मराठी, हिंदी या अंग्रेज़ी में बात करें। यह केवल AI मार्गदर्शन है; लोकेशन ट्रैक करने या आपातकालीन मदद भेजने की सुविधा उपलब्ध नहीं है।",})}</p>
  <p className="mt-5 font-mono text-2xl tabular-nums text-white/90">{active?`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`:'— : —'}</p>
  <p role="status" className="mt-2 min-h-6 text-sm text-pink-100">{status}</p>
  {error&&<p role="alert" className="mt-4 rounded-xl bg-white/10 p-3 text-sm text-pink-100">{error}</p>}
@@ -43,7 +44,7 @@ function CallAditi(){
  <div className="flex flex-col items-center gap-3"><button onClick={active?()=>void conversation.endSession():start} disabled={!active&&(connecting||conversation.status!=='disconnected')} aria-label={t({en:active?'End call':'Start call',mr:active?'कॉल बंद करा':'कॉल सुरू करा',hi:active?'कॉल बंद करें':'कॉल शुरू करें'})} className={`grid size-16 place-items-center rounded-full shadow-lg transition active:scale-95 disabled:opacity-50 ${active?'bg-red-600 hover:bg-red-500':'bg-emerald-600 hover:bg-emerald-500'}`}>{active?<PhoneOff size={27}/>:<Phone size={27}/>}</button><span className="text-xs text-kokum-100">{t({en:active?'End call':'Start call',mr:active?'कॉल बंद करा':'कॉल सुरू करा',hi:active?'कॉल बंद करें':'कॉल शुरू करें'})}</span></div>
  </div>
  <div className="border-t border-white/10 pt-4">
- <p className="text-xs leading-relaxed text-kokum-200">{t({en:'An AI conversation, not a call to Aditi Tatkare.',mr:'हा एआय संवाद आहे, अदिती तटकरे यांना कॉल नाही.',hi:'यह एआई बातचीत है, अदिति तटकरे को कॉल नहीं।'})}</p>
+ <p className="text-xs leading-relaxed text-kokum-200">{t({en:`An AI conversation, not a call to ${leaderNames.full.en}.`,mr:`हा एआय संवाद आहे, ${leaderNames.full.mr} यांना कॉल नाही.`,hi:`यह एआई बातचीत है, ${leaderNames.full.hi} को कॉल नहीं।`})}</p>
  <p className="mt-3 text-xs leading-relaxed text-kokum-200">{t({en:'Starting the call shares your microphone audio with ElevenLabs to respond. Audio recording is off; transcripts may remain with the provider for one day. End the call at any time.',mr:'कॉल सुरू केल्यावर उत्तर देण्यासाठी तुमचा आवाज ElevenLabs कडे जातो. आवाजाचे रेकॉर्डिंग बंद आहे; संभाषणाचा मजकूर सेवेकडे एक दिवस राहू शकतो. कॉल कधीही बंद करता येतो.',hi:'कॉल शुरू करने पर जवाब देने के लिए आपकी आवाज़ ElevenLabs को भेजी जाती है। आवाज़ की रिकॉर्डिंग बंद है; बातचीत का लिखित रूप सेवा के पास एक दिन रह सकता है। कॉल कभी भी बंद कर सकते हैं।'})}</p>
 
  <a href="tel:112" className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-white underline underline-offset-4">{t({en:'Emergency? Call 112',mr:'आणीबाणी? 112 वर कॉल करा',hi:'आपातकाल? 112 पर कॉल करें'})}</a>
