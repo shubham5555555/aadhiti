@@ -5,7 +5,7 @@ export type Helpline = { number: string; name: L; desc: L };
 export const helplines: Helpline[] = [
   {
     number: "112",
-    name: { mr: "आपात्काल", en: "Emergency", hi: "आपातकाल" },
+    name: { mr: "आपत्कालीन सेवा", en: "Emergency", hi: "आपातकाल" },
     desc: { mr: "पोलीस, अग्निशमन आणि रुग्णवाहिका सेवा — २४ तास उपलब्ध", en: "Police, fire and ambulance services, available 24 hours", hi: "पुलिस, फ़ायर, एम्बुलेंस — 24x7" },
   },
   {

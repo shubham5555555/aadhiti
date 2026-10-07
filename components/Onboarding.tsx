@@ -18,12 +18,12 @@ const copy = {
   step: { mr: "पायरी", en: "Step", hi: "चरण" },
   of: { mr: "पैकी", en: "of", hi: "में से" },
   intro: {
-    mr: "सुरू करण्याआधी थोडी माहिती. यामुळे उत्तरं तुमच्या वयाला, गावाला आणि घराला साजेशी येतात. एक मिनिट लागेल.",
+    mr: "सुरुवात करण्यापूर्वी तुमच्याबद्दल थोडी माहिती द्या, जेणेकरून तुम्हाला तुमचे वय, परिसर आणि परिस्थितीनुसार योग्य उत्तरे मिळतील. यासाठी फक्त एक मिनिट लागेल.",
     en: "A little about you before we start, so answers fit your age, your area and your home. It takes a minute.",
     hi: "शुरू करने से पहले थोड़ी जानकारी, ताकि जवाब आपकी उम्र, इलाके और घर के हिसाब से हों। एक मिनट लगेगा।",
   },
   s1: {
-    mr: "तुमच्याबद्दल थोडं",
+    mr: "तुमच्याबद्दल थोडी माहिती",
     en: "A little about you",
     hi: "आपके बारे में थोड़ा",
   },
@@ -39,36 +39,35 @@ const copy = {
     hi: "आपका तालुका (रायगड ज़िला)",
   },
   name: {
-    mr: "नाव (हवं असेल तर)",
+    mr: "नाव (पर्यायी)",
     en: "Your name (optional)",
     hi: "नाम (चाहें तो)",
   },
   namePh: { mr: "उदा. सुनीता", en: "e.g. Sunita", hi: "जैसे सुनीता" },
   nameNote: {
-    mr: "नाव या फोनवर राहतं; माझी माहिती विभागात संमती दिल्यासच डेटाबेसमध्ये साठवतं.",
+    mr: "नाव तुमच्या फोनवरच राहते; तुमची माहिती तुम्ही संमती दिल्यावरचं डेटाबेसमध्ये साठवले जाते.",
     en: "Your name stays on this phone unless you choose to save it in My saved data.",
     hi: "नाम इस फ़ोन पर रहता है; मेरी जानकारी में सहमति देने पर ही डेटाबेस में सहेजा जाता है।",
   },
-  s2: { mr: "तुमचं घर", en: "Your home", hi: "आपका घर" },
   s2Note: {
-    mr: "यावरून योजना, आरोग्य आणि पोषणाची माहिती तुमच्यासाठी निवडली जाते.",
+    mr: "या माहितीच्या आधारे तुमच्यासाठी योग्य योजना, आरोग्य आणि पोषणविषयक माहिती निवडण्यास मदत होते.",
     en: "This helps pick schemes, health and nutrition advice for you.",
     hi: "इससे योजनाएँ, सेहत और पोषण की जानकारी आपके लिए चुनी जाती है।",
   },
   now: { mr: "मी सध्या", en: "Right now I am", hi: "मैं अभी" },
   month: { mr: "कितवा महिना?", en: "Which month?", hi: "कौन-सा महीना?" },
   kids: {
-    mr: "घरातली मुलं (असतील तर)",
+    mr: "मुलं (असतील तर)",
     en: "Children at home (if any)",
     hi: "घर में बच्चे (अगर हैं)",
   },
   s3: {
-    mr: "उत्तर कसं हवं?",
+    mr: "तुम्हाला उत्तरे कसे हवे आहे?",
     en: "How should answers come?",
     hi: "जवाब कैसे चाहिए?",
   },
   remember: {
-    mr: "माझं संभाषण या फोनवर लक्षात ठेवा (नंतर बंद करता येईल)",
+    mr: "माझं संभाषण या फोनवर लक्षात ठेवा (तुम्ही हे नंतर बंद करू शकता)",
     en: "Remember my conversations on this phone (you can turn this off later)",
     hi: "मेरी बातचीत इस फ़ोन पर याद रखें (बाद में बंद कर सकती हैं)",
   },
@@ -87,7 +86,7 @@ const copy = {
   start: { mr: "सुरू करा", en: "Start", hi: "शुरू करें" },
   save: { mr: "जतन करा", en: "Save", hi: "सेव करें" },
   skip: {
-    mr: "आत्ता नको, थेट विचारा",
+    mr: "आत्तासाठी वगळा, थेट विचारा",
     en: "Skip for now, just ask",
     hi: "अभी नहीं, सीधे पूछें",
   },
@@ -161,7 +160,7 @@ export default function Onboarding({
   editing?: boolean;
   onDone: (p: Profile) => void;
 }) {
-  const { t, setAge } = useLang();
+  const { t, lang, setAge } = useLang();
   const [p, setP] = useState<Profile>(initial);
   const [step, setStep] = useState(0);
   const [tried, setTried] = useState(false);
@@ -201,7 +200,7 @@ export default function Onboarding({
     <div className="mx-auto max-w-xl animate-fade-up">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm font-bold text-kokum-600">
-          {t(copy.step)} {step + 1} {t(copy.of)} 3
+          {lang === "mr" ? ["३ पैकी १ ली पायरी", "३ पैकी २ री पायरी", "३ पैकी ३ री पायरी"][step] : `${t(copy.step)} ${step + 1} ${t(copy.of)} 3`}
         </p>
         <div className="flex gap-1.5" aria-hidden>
           {[0, 1, 2].map((i) => (
@@ -285,9 +284,6 @@ export default function Onboarding({
         {step === 1 && (
           <div className="space-y-6">
             <div>
-              <h2 className="font-serif text-[1.9rem] leading-tight text-kokum-600">
-                {t(copy.s2)}
-              </h2>
               <p className="mt-1 text-[15px] text-ink-soft">{t(copy.s2Note)}</p>
             </div>
             {!girl && (

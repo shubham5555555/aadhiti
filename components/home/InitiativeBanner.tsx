@@ -29,7 +29,7 @@ export default function InitiativeBanner() {
         </div>
       </div>
       <div className="flex items-center justify-between gap-3 border-t border-kokum-100 px-5 py-3 text-kokum-800">
-        <p className="font-display text-sm font-bold">{t({en:"Nine forms. Many possibilities.",mr:"नऊ रूपं. अनेक शक्यता.",hi:"नौ रूप। अनेक संभावनाएँ।"})}</p>
+        <p className="font-display text-sm font-bold">{t({en:"Nine forms. Many possibilities.",mr:"९ टप्पे तिच्या आयुष्याचे, ९ पाऊले तिला सक्षम करण्याचे",hi:"नौ रूप। अनेक संभावनाएँ।"})}</p>
 
       </div>
       <ScrollPan>

@@ -2,11 +2,11 @@
 import type { L } from "./kb/types";
 
 export const leader = {
-  name: { mr: "आदिती सुनील तटकरे", en: "Aditi Sunil Tatkare", hi: "अदिति सुनील तटकरे" } as L,
+  name: { mr: "मा. आदिती वरदा सुनील तटकरे", en: "Aditi Sunil Tatkare", hi: "अदिति सुनील तटकरे" } as L,
   shortName: { mr: "मा. आदितीताई तटकरे", en: "Aditi Tatkare", hi: "अदिति तटकरे" } as L,
   photo: "/brand/aditi-tatkare-new.webp",
   roles: [
-    { mr: "महिला व बालविकास मंत्री, महाराष्ट्र राज्य", en: "Minister of Women and Child Development, Maharashtra", hi: "महिला एवं बाल विकास मंत्री, महाराष्ट्र" },
+    { mr: "मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य", en: "Minister of Women and Child Development, Maharashtra", hi: "महिला एवं बाल विकास मंत्री, महाराष्ट्र" },
     { mr: "आमदार, श्रीवर्धन विधानसभा मतदारसंघ", en: "MLA, Shrivardhan Assembly Constituency", hi: "विधायक, श्रीवर्धन विधानसभा क्षेत्र" },
   ] as L[],
   credit: {

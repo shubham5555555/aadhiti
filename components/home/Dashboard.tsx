@@ -165,7 +165,7 @@ export default function Dashboard() {
             </span>
             <span className="min-w-0">
               <span className="block text-xl leading-none font-extrabold">
-                {t({en:"Call AADHI TI",mr:"आधी तीला कॉल करा",hi:"आधी ती को कॉल करें"})}
+                {t({en:"Call AADHI TI",mr:"‘आधी ती’ला कॉल करा",hi:"आधी ती को कॉल करें"})}
               </span>
               <span className="mt-1 block truncate text-[13px] text-white/85">
                 {t({en:"AI conversation",mr:"एआय संवाद",hi:"एआई बातचीत"})}

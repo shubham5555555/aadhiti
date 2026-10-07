@@ -128,7 +128,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <LangSwitch />
             <div className="hidden sm:block">
-              <Link href="/call-aditi" className="inline-flex min-h-11 items-center rounded-full bg-kokum-700 px-4 text-sm font-bold text-white">{t({en:"Call AADHI TI",mr:"आधी तीला कॉल करा",hi:"आधी ती को कॉल करें"})}</Link>
+              <Link href="/call-aditi" className="inline-flex min-h-11 items-center rounded-full bg-kokum-700 px-4 text-sm font-bold text-white">{t({en:"Call AADHI TI",mr:"‘आधी ती’ला कॉल करा",hi:"आधी ती को कॉल करें"})}</Link>
             </div>
           </div>
         </div>

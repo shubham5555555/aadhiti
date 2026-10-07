@@ -30,10 +30,11 @@ function CallAditi(){
  <div className="flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-kokum-200"><AudioLines size={15}/>{t({en:'AADHI TI · AI VOICE CALL',mr:'आधी ती · एआय व्हॉइस कॉल',hi:'आधी ती · एआई वॉइस कॉल'})}</div>
  <div className="relative mx-auto mt-9 grid size-28 place-items-center rounded-full border border-white/20 bg-white/10 shadow-[0_0_0_12px_#ffffff05] sm:size-32">
  {active&&<span aria-hidden="true" className="absolute -inset-3 rounded-full border border-white/20 motion-safe:animate-pulse"/>}
- <span aria-hidden="true" className="font-serif text-5xl text-pink-100">आ</span>
+ <span aria-hidden="true" className="font-serif text-2xl text-pink-100">आधी ती</span>
  </div>
- <h1 className="mt-6 font-display text-3xl font-bold sm:text-4xl">{t({en:'Call AADHI TI',mr:'आधी तीला कॉल करा',hi:'आधी ती को कॉल करें'})}</h1>
+ <h1 className="mt-6 font-display text-3xl font-bold sm:text-4xl">{t({en:'Call AADHI TI',mr:'‘आधी ती’ला कॉल करा',hi:'आधी ती को कॉल करें'})}</h1>
  <p className="mt-2 text-sm text-kokum-200">{t({en:'Your AADHI TI AI assistant',mr:'तुमची आधी ती एआय सहाय्यक',hi:'आपकी आधी ती एआई सहायिका'})}</p>
+ <p className="mt-3 text-sm leading-relaxed text-kokum-200">{t({mr: "‘आधी ती’शी मराठी, हिंदी किंवा इंग्रजीमध्ये बोला. हे फक्त AI द्वारे  मार्गदर्शन आहे; लोकेशन ट्रॅकिंग किंवा आपत्कालीन मदत पाठवण्याची सुविधा उपलब्ध नाही.",en: "Speak with AADHI TI in Marathi, Hindi or English. AI guidance only; location tracking and emergency dispatch are not available.",hi: "मराठी, हिंदी या अंग्रेज़ी में AADHI TI से बात करें। AI मार्गदर्शन; लोकेशन ट्रैकिंग या आपातकालीन सहायता भेजने की सुविधा नहीं है।",})}</p>
  <p className="mt-5 font-mono text-2xl tabular-nums text-white/90">{active?`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`:'— : —'}</p>
  <p role="status" className="mt-2 min-h-6 text-sm text-pink-100">{status}</p>
  {error&&<p role="alert" className="mt-4 rounded-xl bg-white/10 p-3 text-sm text-pink-100">{error}</p>}

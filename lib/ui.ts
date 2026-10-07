@@ -24,7 +24,7 @@ export const nav = {
   poshan: { mr: "पोषण", en: "Nutrition", hi: "पोषण" },
   schemes: { mr: "योजना", en: "Schemes", hi: "योजनाएँ" },
   knowledge: { mr: "अधिक माहिती", en: "Information", hi: "जानकारी" },
-  quickExit: { mr: "लगेच बाहेर", en: "Quick Exit", hi: "तुरंत बाहर" },
+  quickExit: { mr: "त्वरित बाहेर पडा", en: "Quick Exit", hi: "तुरंत बाहर" },
 } satisfies Record<string, L>;
 
 export const ageLabels: Record<AgeGroup, L> = {
@@ -76,13 +76,13 @@ export const chat = {
     hi: "मुझे ठीक से समझ नहीं आया, पर मैं आपके साथ हूँ। थोड़ा और बताएँगी — क्या हो रहा है, कौन है, कब से? या नीचे कोई विषय चुनें। खतरा हो तो तुरंत 112।",
   },
   greeting: {
-    mr: "नमस्कार! मी AADHI TI. सुरक्षितता, आरोग्य, हक्क, शिक्षण, उत्पन्न, कुटुंब — काहीही विचारा. नाव, फोन नंबर किंवा पत्ता लिहू नका. उत्तरासाठी प्रश्न AI सेवेकडे पाठवला जातो.",
+    mr: "नमस्कार! मी ‘आधी ती’ . सुरक्षितता, आरोग्य, हक्क, शिक्षण, उत्पन्न, कुटुंब — यांविषयी काहीही विचारा. नाव, फोन नंबर किंवा पत्ता लिहू नका. उत्तरासाठी प्रश्न AI सेवेकडे पाठवला जातो.",
     en: "Hello! I'm AADHI TI. Ask me anything — safety, health, rights, education, income, family. Questions are sent to an AI service. Please leave out your name, phone number and address.",
     hi: "नमस्ते! मैं AADHI TI हूँ। सुरक्षा, स्वास्थ्य, अधिकार, पढ़ाई, कमाई, परिवार — कुछ भी पूछिए। नाम, फोन नंबर या पता न लिखें। जवाब के लिए सवाल AI सेवा को भेजा जाता है।",
   },
   voiceSoon: { mr: "आवाजात विचारा (लवकरच)", en: "Ask by voice (coming soon)", hi: "आवाज़ में पूछें (जल्द)" },
   privacy: {
-    mr: "तुम्ही स्वतः लिहिलेले प्रश्न उत्तरासाठी AI सेवेकडे (Google Gemini) पाठवले जातात. त्यात नाव, फोन नंबर किंवा पत्ता लिहू नका. कोणी पाहत असेल तर वर 'लगेच बाहेर' दाबा.",
+    mr: "वैयक्तिक माहिती देणे आवश्यक नाही. तुम्ही टाइप केलेले प्रश्न उत्तर देण्यासाठी AI सेवा (Google Gemini) कडे पाठवले जातात. कृपया तुमचे नाव, फोन नंबर किंवा पत्ता यात समाविष्ट करू नका. जर कोणी तुमच्यावर नजर ठेवत असेल, तर वरच्या बाजूला असलेल्या ‘त्वरित बाहेर पडा’ वर टॅप करा.",
     en: "No personal details needed. Questions you type are sent to an AI service (Google Gemini) to write the answer. Please don't include your name, phone number or address. If someone is watching, tap 'Quick Exit' at the top.",
     hi: "आपके लिखे सवाल जवाब के लिए AI सेवा (Google Gemini) को भेजे जाते हैं। उसमें नाम, फ़ोन नंबर या पता न लिखें। कोई देख रहा हो तो ऊपर 'तुरंत बाहर' दबाएँ।",
   },

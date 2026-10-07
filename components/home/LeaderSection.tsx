@@ -38,7 +38,7 @@ export default function LeaderSection() {
         />
         <div>
           {lang === "mr" ? <>
-            <p className="text-sm leading-relaxed text-white/85">मंत्री, महिला व बालविकास, महाराष्ट्र राज्य</p>
+            <p className="text-sm leading-relaxed text-white/85">मंत्री, महिला व बाल विकास, महाराष्ट्र राज्य</p>
             <p className="mt-1 text-sm leading-relaxed text-white/85">आमदार, श्रीवर्धन विधानसभा मतदारसंघ</p>
             <h2 id="leader-title" className="mt-3 font-serif text-3xl leading-tight sm:text-5xl">मा. आदितीताई तटकरे</h2>
             <p className="mt-2 text-sm text-turmeric-300">यांच्या पुढाकाराने</p>

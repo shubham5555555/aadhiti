@@ -57,17 +57,22 @@ const copy = {
     hi: "AI सुरक्षा कॉल",
   },
   safetyDesc: {
-    mr: "मराठी, हिंदी किंवा इंग्रजीत AADHI TI शी बोला. AI मार्गदर्शन; लोकेशन ट्रॅकिंग किंवा आपत्कालीन मदत पाठवण्याची सुविधा नाही.",
+    mr: "‘आधी ती’शी मराठी, हिंदी किंवा इंग्रजीमध्ये बोला. हे फक्त AI द्वारे  मार्गदर्शन आहे; लोकेशन ट्रॅकिंग किंवा आपत्कालीन मदत पाठवण्याची सुविधा उपलब्ध नाही.",
     en: "Speak with AADHI TI in Marathi, Hindi or English. AI guidance only; location tracking and emergency dispatch are not available.",
     hi: "मराठी, हिंदी या अंग्रेज़ी में AADHI TI से बात करें। AI मार्गदर्शन; लोकेशन ट्रैकिंग या आपातकालीन सहायता भेजने की सुविधा नहीं है।",
   },
   fakeTitle: {
-    mr: "Fake येणारा कॉल",
+    mr: "फेक इनकमिंग कॉल",
     en: "Fake Incoming Call",
     hi: "Fake आने वाली कॉल",
   },
+  fakeHeaderDesc: {
+    mr: "‘कुटुंबातील व्यक्ती’कडून आलेला खरा वाटणारा कॉल — तिथून निघण्यासाठी एक कारण.",
+    en: "A realistic call from 'family' — an excuse to leave.",
+    hi: "'घरवालों' की असली जैसी कॉल — वहाँ से निकलने का बहाना।",
+  },
   fakeDesc: {
-    mr: "'घरच्यांचा' खरा वाटणारा कॉल — तिथून निघण्यासाठी कारण.",
+    mr: "‘कुटुंबातील व्यक्ती’कडून आलेला खरा वाटणारा कॉल — निघण्यासाठी एक कारण.",
     en: "A realistic call from 'family' — an excuse to leave.",
     hi: "'घरवालों' की असली जैसी कॉल — वहाँ से निकलने का बहाना।",
   },
@@ -112,12 +117,12 @@ const copy = {
     hi: "कॉल चालू है · जवाब देती रहें",
   },
   realDanger: {
-    mr: "खरा धोका असेल तर fake call नको. लगेच 112.",
+    mr: "खरा धोका असेल तर fake call नको. लगेच 112 वर कॉल करा.",
     en: "If you're in real danger, skip the fake call. Call 112.",
     hi: "असली ख़तरा हो तो fake call नहीं। तुरंत 112।",
   },
   ringAfter: {
-    mr: "किती वेळाने वाजेल",
+    mr: "किती वेळाने कॉल वाजावा?",
     en: "Ring after",
     hi: "कितनी देर बाद बजे",
   },
@@ -201,7 +206,7 @@ function CallExperience(){
  const params=useSearchParams();const {t}=useLang();const fake=params.get('mode')==='fake';
  return <div className="mx-auto w-full max-w-5xl px-2 py-4 sm:px-4 sm:py-6">
  <nav aria-label={t({en:'Call type',mr:'कॉलचा प्रकार',hi:'कॉल का प्रकार'})} className="mb-5 flex flex-wrap justify-center gap-2">
- <Link href="/call" aria-current={!fake?'page':undefined} className={!fake?'soft-btn':'soft-btn-outline'}>{t({en:'Call AADHI TI',mr:'आधी तीला कॉल करा',hi:'आधी ती को कॉल करें'})}</Link>
+ <Link href="/call" aria-current={!fake?'page':undefined} className={!fake?'soft-btn':'soft-btn-outline'}>{t({en:'Call AADHI TI',mr:'‘आधी ती’ला कॉल करा',hi:'आधी ती को कॉल करें'})}</Link>
  <Link href="/call?mode=fake" aria-current={fake?'page':undefined} className={fake?'soft-btn':'soft-btn-outline'}>{t({en:'Fake call',mr:'बनावट कॉल',hi:'नकली कॉल'})}</Link>
  </nav>
  {fake?<CallBot/>:<div className="mx-auto max-w-xl"><AditiConversation/></div>}
@@ -666,7 +671,7 @@ function CallBot() {
             {mode === "fake" ? t(copy.fakeTitle) : t(copy.title)}
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-ink-soft md:mx-0">
-            {mode === "fake" ? t(copy.fakeDesc) : t(copy.body)}
+            {mode === "fake" ? t(copy.fakeHeaderDesc) : t(copy.body)}
           </p>
         </div>
         <figure className="relative hidden w-full md:block md:max-w-[15rem] md:justify-self-end">
