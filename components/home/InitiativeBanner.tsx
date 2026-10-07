@@ -35,7 +35,7 @@ export default function InitiativeBanner() {
       <ScrollPan>
       <nav aria-label={t({en:"Explore the nine forms",mr:"नऊ रूपं पाहा",hi:"नौ रूप देखें"})} className="grid w-[198%] grid-cols-9 sm:w-[150%] lg:w-full">
         {JOURNEYS.map(j=><Link key={j.slug} href={`/journeys/${j.slug}`} aria-label={`${t(j.name)} — ${t(j.theme)}`} className="group relative aspect-[1/5] min-w-0 w-full overflow-hidden border-r border-white focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-kokum-700">
-          <Image src={`/brand/journeys/${j.slug}-${lang}.webp`} alt={`${t(j.name)} — ${t(j.theme)}`} fill sizes="(min-width: 1024px) 130px, (min-width: 640px) 17vw, 22vw" className="object-fill" />
+          <Image src={`/brand/journeys/${j.slug}-${lang === "mr" ? "mr-v2" : lang}.webp`} alt={`${t(j.name)} — ${t(j.theme)}`} fill sizes="(min-width: 1024px) 130px, (min-width: 640px) 17vw, 22vw" className="object-fill" />
           <span className="absolute inset-x-1 bottom-2 hidden lg:block rounded-lg bg-white/95 px-1 py-2 text-center text-[11px] font-semibold text-kokum-800 shadow-sm">{t({en:"View schemes →",mr:"योजना पाहा →",hi:"योजनाएँ देखें →"})}</span>
         </Link>)}
       </nav>
