@@ -35,7 +35,8 @@ export default function JourneyPage({slug}:{slug:string}){
  {revision.registry&&<p className="text-xs text-kokum-700">{revision.registry}</p>}
  <h2 className="mt-2 text-xl font-bold text-kokum-900">{revision.name}</h2>
  <p className="mt-3 leading-relaxed">{revision.description}</p>
- <div className="mt-4 space-y-2">{revision.details.map((line,i)=>line.startsWith('Who ')?<h3 key={i} className="pt-2 font-semibold">{line}</h3>:<p key={i} className="leading-relaxed">{line}</p>)}</div>
+ <h3 className="mt-4 font-semibold">{revision.details[0]}</h3>
+ <ul className="mt-2 list-disc space-y-2 pl-5 leading-relaxed">{revision.details.slice(1).map((line,i)=><li key={i}>{line}</li>)}</ul>
  </>:<>
  <p className="text-xs text-kokum-700">{s.status==='general'?t({en:'Programme / policy guidance',mr:'कार्यक्रम / धोरण मार्गदर्शन',hi:'कार्यक्रम / नीति मार्गदर्शन'}):t({en:'Scheme',mr:'योजना',hi:'योजना'})} · {t({en:'Registry checked',mr:'नोंदी तपासल्या',hi:'रिकॉर्ड की जाँच'})}: {s.lastChecked}</p>
  <h2 className="mt-2 text-xl font-bold text-kokum-900">{t(s.name)}</h2><p className="mt-3 leading-relaxed">{t(s.what)}</p>
