@@ -18,13 +18,14 @@ const pillarsLine = { mr: "सुरक्षितता · आर्थिक 
 
 // Honest framing, as on the onboarding prototype.
 const prototype = {
-  mr: "Brahmastra.ai यांनी विकसित केलेला हा प्रोटोटाइप आहे. हे महाराष्ट्र शासनाचे अधिकृत ॲप्लिकेशन नाही.",
-  en: "A prototype developed by Brahmastra.ai. This is not an official application of the Government of Maharashtra.",
-  hi: "यह Brahmastra.ai द्वारा विकसित प्रोटोटाइप है। यह महाराष्ट्र सरकार का आधिकारिक ऐप नहीं है।",
+  mr: "Brahmaastra.ai यांनी विकसित केलेला हा प्रोटोटाइप आहे. हे महाराष्ट्र शासनाचे अधिकृत ॲप्लिकेशन नाही.",
+  en: "A prototype developed by Brahmaastra.ai. This is not an official application of the Government of Maharashtra.",
+  hi: "यह Brahmaastra.ai द्वारा विकसित प्रोटोटाइप है। यह महाराष्ट्र सरकार का आधिकारिक ऐप नहीं है।",
 };
 
 export default function Footer() {
   const { t } = useLang();
+  const [creditBefore, creditAfter] = t(prototype).split("Brahmaastra.ai");
   return (
     <footer className="relative mt-16 overflow-hidden rounded-t-[2rem] bg-kokum-900 text-kokum-100">
       <div aria-hidden="true" className="h-10 overflow-hidden px-4 pt-3 text-kokum-700">
@@ -41,7 +42,9 @@ export default function Footer() {
           <Link href="/aditi-tatkare" className="mt-4 block text-sm font-bold text-sand-50 underline decoration-white/30 underline-offset-4 hover:decoration-white">
             {t(leader.credit)}
           </Link>
-          <p className="mt-2 text-sm text-kokum-200">{t(prototype)}</p>
+          <p className="mt-2 text-sm leading-relaxed text-kokum-200">
+            {creditBefore}<a href="https://brahmaastra.ai/" target="_blank" rel="noopener noreferrer" className="font-semibold text-sand-50 underline decoration-white/40 underline-offset-4 hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Brahmaastra.ai</a>{creditAfter}
+          </p>
         </div>
         <div className="grid min-w-0 grid-cols-2 content-start gap-x-4 gap-y-2 text-sm font-semibold sm:grid-cols-3 md:grid-cols-1">
           <Link href="/chat" className="flex min-h-11 items-center break-words hover:text-white">{t(nav.ask)}</Link>
